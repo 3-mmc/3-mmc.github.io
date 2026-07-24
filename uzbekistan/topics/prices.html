@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prices &amp; money · Uzbekistan Data Atlas</title>
+<meta name="description" content="Uzbek consumer prices by basket, the 2024 disinflation that never arrived, the exchange rate and credit.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html" aria-current="page">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main">
+  <p class="eyebrow">Topic</p>
+  <h1>Prices &amp; money</h1>
+  <p class="lede">Uzbek headline inflation has sat near 10% for years, which sounds like
+  stability. In 2024 it was the opposite: every comparable economy in the region
+  disinflated sharply that year and Uzbekistan did not. Food prices fell hard enough to
+  cancel out an energy shock in the same basket — so the aggregate stayed still while its
+  components moved violently in opposite directions.</p>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The disinflation that did not happen</h2>
+      <p>Headline consumer price inflation, 2023 against 2024, for Uzbekistan and its
+      regional peers.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Every peer fell. Uzbekistan did not.</h3>
+        <p class="sub">Each line is one country, from its 2023 rate to its 2024 rate.</p>
+        <div id="cpi-peers"></div>
+        <p class="note">World Bank WDI headline inflation. This is a benchmark, not an
+        identified comparison — but against a regional counterfactual of roughly −5
+        percentage points, "headline stable" is not a benign result.</p>
+      </div>
+      <div class="card">
+        <h3>Uzbek inflation, long run</h3>
+        <div id="inflation-long"></div>
+        <p class="note">The 2017 spike is currency unification — a roughly 170% devaluation
+        when the official and street exchange rates were merged.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>What is inside the basket</h2>
+      <p>Monthly consumer price indices by component. The dashed line marks the
+      1 May 2024 energy tariff reform.</p>
+    </div>
+    <div class="card">
+      <h3>Consumer prices by basket, 2015 = 100</h3>
+      <p class="sub">Toggle components on and off. Food and general prices move together
+      until 2024, then separate.</p>
+      <div class="controls" id="cpi-picker"></div>
+      <div id="cpi-monthly"></div>
+      <p class="note">FAO monthly series. Services inflation ran at about +28% year-on-year
+      after the tariff while food inflation collapsed to roughly 2.5% — the headline stayed
+      flat because the two cancelled.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The soum</h2>
+      <p>A managed crawl since the 2017 float, at roughly 6% a year.</p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Soum per US dollar</h3>
+        <div id="fx"></div>
+      </div>
+      <div class="card">
+        <h3>Money, credit and trade</h3>
+        <div class="controls">
+          <label for="money-ind">Indicator</label>
+          <select id="money-ind"></select>
+        </div>
+        <div id="money-chart"></div>
+        <p class="note">The 2017 liberalisation shows up in all of these: credit went from
+        10% to 30% of GDP, trade from 39% to 62%.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Income</h2>
+      <p>GDP per capita in current dollars and in constant purchasing-power terms — the
+      two tell noticeably different stories about the 2017 devaluation.</p>
+    </div>
+    <div class="card">
+      <h3>GDP per capita</h3>
+      <div id="gdp-pc"></div>
+      <p class="note">Indexed to their own first year so both fit one axis. The dollar
+      series falls in 2017 because the currency was devalued; the PPP series does not,
+      because real output did not fall.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Findings from the price data</h2></div>
+    <div class="topic-list">
+      <a class="topic-card" href="../findings/eaten-disinflation.html">
+        <h3>The eaten disinflation</h3>
+        <p>The tariff shock absorbed a global disinflation every regional peer enjoyed.</p>
+        <span class="count">Identified</span>
+      </a>
+      <a class="topic-card" href="../findings/frozen-bill.html">
+        <h3>The frozen bill</h3>
+        <p>The median electricity payment sat at exactly 50,000 soum for three years, then jumped 60%.</p>
+        <span class="count">Identified</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/prices.js"></script>
+</body>
+</html>

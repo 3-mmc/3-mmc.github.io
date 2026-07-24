@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>People &amp; work · Uzbekistan Data Atlas</title>
+<meta name="description" content="Uzbek employment composition, real wages, migration and remittances, the regional health system and education.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html" aria-current="page">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main">
+  <p class="eyebrow">Topic</p>
+  <h1>People &amp; work</h1>
+  <p class="lede">Uzbekistan has around 37 million people, a young population, and one of
+  the most remittance-dependent economies in the world — between 13% and 18% of households
+  have a member working abroad, and about four in five of them are in Russia. This page
+  covers what people do for work, what they are paid, who leaves, and what the health and
+  education systems look like region by region.</p>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Where people work</h2>
+      <p>Employment composition by sector, as a share of everyone employed.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Employment by sector</h3>
+        <div id="emp-share"></div>
+      </div>
+      <div class="card">
+        <h3>Public-sector share</h3>
+        <div id="public-share"></div>
+        <p class="note">stat.uz labour statistics. The public share is a useful check on
+        stories about state retrenchment — it has moved far less than the reform rhetoric
+        would suggest.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Real wages</h2>
+      <p>The sector wage bill, deflated to 2017 soum. Nominal incomes grew about 20% a
+      year through the reform period; this is what survives inflation.</p>
+    </div>
+    <div class="card">
+      <h3>Real wage bill by sector, 2017 prices</h3>
+      <div class="controls">
+        <label class="check"><input type="checkbox" id="wage-index"> Index first year = 100</label>
+      </div>
+      <div id="wages"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Migration</h2>
+      <p>From the household panel: the share with someone abroad, the share considering
+      it, and the share with someone recently returned.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Households and migration, by survey round</h3>
+        <div id="migration"></div>
+        <p class="note">The dashed line is the 1 May 2024 tariff. Note what does
+        <em>not</em> happen at February 2022: the destination mix barely moved after the
+        invasion of Ukraine.</p>
+      </div>
+      <div class="card">
+        <h3>Remittances</h3>
+        <div id="remittances"></div>
+        <p class="note">Around 14% of GDP — the third most remittance-dependent economy in
+        the world by this measure.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The health system, region by region</h2>
+      <p>Regional health series from stat.uz. The wide spread between regions is the
+      recurring feature.</p>
+    </div>
+    <div class="card">
+      <h3>Regional health indicators</h3>
+      <div class="controls">
+        <label for="health-metric">Metric</label>
+        <select id="health-metric"></select>
+        <label class="check"><input type="checkbox" id="health-index"> Index first year = 100</label>
+      </div>
+      <div id="health"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Population, poverty and connection</h2>
+      <p>The national-level series behind everything above.</p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>National indicators</h3>
+        <div class="controls">
+          <label for="people-wdi">Indicator</label>
+          <select id="people-wdi"></select>
+        </div>
+        <div id="people-wdi-chart"></div>
+      </div>
+      <div class="card">
+        <h3>Women in tertiary education</h3>
+        <p class="sub">Gender parity index for tertiary enrolment: above 1.0 means more
+        women enrolled than men.</p>
+        <div id="tertiary-gpi"></div>
+        <p class="note">One of the fastest reversals in the data — from 0.70 in 2011 to
+        above parity by 2024. Attainment in the working-age population is still male-skewed,
+        because that takes a generation to follow enrolment.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Findings about households</h2></div>
+    <div class="topic-list">
+      <a class="topic-card" href="../findings/compensation-16.html">
+        <h3>Compensation reached 16 households</h3>
+        <p>The income-targeted transfer could not find losers defined by grid access.</p>
+        <span class="count">Identified</span>
+      </a>
+      <a class="topic-card" href="../findings/college-reversal.html">
+        <h3>The compulsory-college reversal</h3>
+        <p>A state removing compulsory schooling years — and the sharpest cohort cliff in the data.</p>
+        <span class="count">Banked</span>
+      </a>
+      <a class="topic-card" href="../findings/background.html">
+        <h3>Background findings</h3>
+        <p>Widening regional inequality, the 2017 re-wiring, and an expectations paradox in the attitude data.</p>
+        <span class="count">Descriptive</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/people.js"></script>
+</body>
+</html>

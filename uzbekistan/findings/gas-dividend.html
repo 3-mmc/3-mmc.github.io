@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The end of the gas dividend · Uzbekistan Data Atlas</title>
+<meta name="description" content="The rent that paid for cheap gas evaporated exactly as households were asked to pay more — this is the &quot;why now.&quot;">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body data-finding="gasDividend">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow"><a href="./" style="text-decoration:none;color:inherit">Findings</a> · History</p>
+  <div class="finding-head">
+    <h1>The end of the gas dividend</h1>
+    <p class="oneline">The rent that paid for cheap gas evaporated exactly as households were asked to pay more — this is the "why now."</p>
+    <p style="margin:14px 0 0"><span class="status" data-status="descriptive">descriptive</span>
+      <span style="font-size:13px;color:var(--ink-muted);margin-left:8px">Real in the data, but not causally identified.</span></p>
+  </div>
+
+  <figure class="card" style="margin:26px 0 0">
+    <div id="finding-chart"></div>
+  </figure>
+
+  <div class="prose" style="margin-top:26px"><p><strong>What we found</strong></p>
+<ul>
+<li>Gas production collapsed <strong>−37%</strong> (65,958 mln m³ in 2010 → 41,524 in 2024), consumption ~flat (~47,000).</li>
+<li>The net balance <strong>flipped from +13,164 (2010 export surplus) to net importer in 2023 (−850), widening to −5,534 in 2024</strong> (the reform year) — while Uzbekistan still contractually exported to China (BRI Line C).</li>
+<li>Gas rents fell from 19.8% of GDP (2008) to single digits; fuel exports from 24.9% of merchandise exports (2018) to ~5%.</li>
+<li>Russian gas imports began Oct 2023 → reliability recovery winter 2023/24.</li>
+</ul>
+<p>The 2022/23 outage winter and the 2024 tariff are two faces of the same resource collapse.</p>
+<p><strong>Behind it:</strong> <code>exploration/outputs/uzb_gas_balance.csv</code> (stat.uz national gas balance); <code>exploration/profile_statuz.py</code>. CADGAT/BP series to 2020 shows the same trajectory at slightly different levels.</p></div>
+
+  <aside class="caveats">
+    <h3>What this cannot carry</h3>
+    <ul>
+<li>One country, one time series — motivation, not a causal estimate. The gas-flip → fiscal-pressure → reform chain is a narrative, not an identified claim.</li>
+</ul>
+  </aside>
+
+  <div class="pager"><a href="soviet-gas-paradox.html"><span class="lbl">Previous</span>The Soviet gas paradox</a><a href="cotton-monopsony.html" style="text-align:right"><span class="lbl">Next</span>The cotton monopsony and subsidy bunching</a></div>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/finding.js"></script>
+</body>
+</html>

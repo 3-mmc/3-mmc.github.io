@@ -1,0 +1,31 @@
+# This repository is PUBLIC (published at 3-mmc.github.io).
+# Everything below stays local. Think before removing a line.
+
+# Source data. Licensed microdata — the L2CU household panel and MICS6 are not
+# redistributable, and the rest is large enough to be a nuisance in git.
+/datasets/
+
+# Unpublished research. _leads/ holds work in progress, including the
+# gold-sterilisation paper that is deliberately not on the site.
+/_leads/
+
+# The research vault: raw notes, data documentation, code notes. The findings
+# pages are generated FROM these into uzbekistan/findings/ — the notes
+# themselves do not need publishing.
+/03 Findings/
+/05 Data/
+/06 Code/
+
+# Analysis and exploration code, and its outputs.
+/analysis/
+/exploration/
+
+# Superseded 2.4 MB single-file build. Kept on disk for reference only.
+/dashboard/Uzbekistan_Dashboard.html
+
+# Junk
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+node_modules/

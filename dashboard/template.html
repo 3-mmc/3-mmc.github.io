@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uzbekistan Data Atlas</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#20262e; --paper:#f4f5f2; --card:#ffffff; --line:#e2e4de;
+  --teal:#0e7490; --teal-deep:#155e70; --amber:#b45309; --indigo:#3b4a6b;
+  --muted:#68717c; --good:#166534; --bad:#991b1b;
+  --display:"Archivo",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --narrow:"Archivo Narrow","Archivo",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);background:var(--paper);color:var(--ink);
+     font-size:15px;line-height:1.45;font-variant-numeric:tabular-nums}
+header{background:var(--ink);color:#eef0ea;padding:18px 28px 12px;display:flex;
+       flex-wrap:wrap;gap:12px 30px;align-items:baseline;justify-content:space-between}
+header h1{margin:0;font-family:var(--display);font-size:21px;font-weight:700;letter-spacing:.3px}
+header h1 .thin{color:#8fb6c2;font-weight:500}
+header .inv{font-family:var(--narrow);font-size:12.5px;color:#a9b2ab;letter-spacing:.5px;text-transform:uppercase}
+header .inv b{color:#d3dcd4;font-weight:600}
+nav{position:sticky;top:0;z-index:50;background:var(--ink);padding:0 20px;display:flex;flex-wrap:wrap;
+    border-bottom:3px solid var(--teal)}
+nav button{background:none;border:none;color:#b9c1ba;padding:10px 15px;font-size:13.5px;cursor:pointer;
+           border-bottom:3px solid transparent;margin-bottom:-3px;font-weight:600;
+           font-family:var(--narrow);letter-spacing:.6px;text-transform:uppercase}
+nav button:hover{color:#fff}
+nav button.active{color:#fff;border-bottom-color:var(--teal)}
+nav button:focus-visible{outline:2px solid #fff;outline-offset:-2px}
+main{max-width:1400px;margin:0 auto;padding:20px 24px 60px}
+section.tab{display:none}
+section.tab.active{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px 16px;margin-bottom:16px}
+.card h3{margin:0 0 8px;font-size:16px;font-family:var(--display);font-weight:600}
+.eyebrow{font-family:var(--narrow);font-size:11px;font-weight:600;letter-spacing:1.2px;
+         text-transform:uppercase;color:var(--teal);margin:0 0 3px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1000px){.grid2{grid-template-columns:1fr}}
+.maprow{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1fr);gap:16px}
+@media(max-width:1100px){.maprow{grid-template-columns:1fr}}
+.statrow{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:6px 0 14px}
+@media(max-width:1100px){.statrow{grid-template-columns:repeat(3,1fr)}}
+.stat{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--amber);
+      border-radius:8px;padding:10px 13px}
+.stat .v{font-size:20px;font-weight:700;color:var(--amber);font-family:var(--display)}
+.stat .k{font-size:12.5px;color:var(--muted);margin-top:2px}
+details.act{border-left:4px solid var(--indigo);padding:8px 14px;background:var(--card);
+            border:1px solid var(--line);border-radius:8px;margin-bottom:8px}
+details.act summary{cursor:pointer;font-weight:600;color:var(--indigo);font-size:14px}
+details.act p{margin:8px 0 4px;font-size:13.5px}
+.note{font-size:12.5px;color:var(--muted);margin-top:6px}
+.controls{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-bottom:10px}
+.controls label{font-size:12px;color:var(--muted);font-family:var(--narrow);
+                text-transform:uppercase;letter-spacing:.8px;font-weight:600}
+select,input[type=text]{font:inherit;font-size:13.5px;padding:6px 9px;border:1px solid var(--line);
+     border-radius:6px;background:#fff;color:var(--ink);max-width:430px}
+select:focus-visible,input:focus-visible{outline:2px solid var(--teal)}
+.toggle{font-size:13px;color:var(--ink);display:flex;align-items:center;gap:5px;cursor:pointer}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{background:#fff;border:none;padding:6px 12px;font-size:12.5px;cursor:pointer;color:var(--muted);
+            font-family:var(--narrow);text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+.seg button.on{background:var(--teal);color:#fff}
+.seg button:disabled{opacity:.35;cursor:not-allowed}
+table.data{border-collapse:collapse;width:100%;font-size:13px;background:#fff}
+table.data th{background:#eef0ea;text-align:left;padding:7px 9px;border:1px solid var(--line);
+              font-family:var(--narrow);letter-spacing:.4px}
+table.data td{padding:6px 9px;border:1px solid var(--line)}
+table.data tr:nth-child(even) td{background:#f8f9f6}
+.tablewrap{max-height:520px;overflow:auto;border:1px solid var(--line);border-radius:8px}
+.chart{width:100%;min-height:430px}
+.chart.tall{min-height:600px}
+.chart.mid{min-height:500px}
+.wb-wrap{display:grid;grid-template-columns:360px 1fr;gap:16px}
+@media(max-width:1000px){.wb-wrap{grid-template-columns:1fr}}
+.wb-list{max-height:640px;overflow:auto;border:1px solid var(--line);border-radius:8px;background:#fff}
+.wb-list div{padding:7px 10px;border-bottom:1px solid #eef0ea;cursor:pointer;font-size:13px}
+.wb-list div:hover{background:#eef4f5}
+.wb-list div.sel{background:#e4f0f3;border-left:3px solid var(--teal)}
+.wb-list .yrs{color:var(--muted);font-size:11.5px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.chip{background:#e4f0f3;border:1px solid #bcd8e0;border-radius:14px;padding:3px 11px;font-size:12.5px;cursor:pointer}
+.chip:hover{background:#cfe4ea}
+.chip span{color:var(--bad);font-weight:700;margin-left:6px}
+.pill{display:inline-block;background:#e6e9e3;border-radius:10px;font-size:11px;padding:1px 8px;
+      margin-left:6px;color:var(--teal-deep);font-family:var(--narrow);letter-spacing:.5px}
+.small{font-size:12.5px;color:var(--muted)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--indigo)}
+a{color:var(--teal)}
+.loadwarn{background:#fef3c7;border:1px solid #fcd34d;padding:10px 14px;border-radius:8px;margin-bottom:14px;display:none}
+@media (prefers-reduced-motion: no-preference){
+  section.tab.active{animation:fade .18s ease-out}
+  @keyframes fade{from{opacity:.4}to{opacity:1}}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>UZBEKISTAN <span class="thin">DATA ATLAS</span></h1>
+  <div class="inv" id="inventory"></div>
+</header>
+<nav id="nav">
+  <button data-tab="map" class="active">Map</button>
+  <button data-tab="cross">Correlate</button>
+  <button data-tab="wb">World Bank</button>
+  <button data-tab="regional">Regions</button>
+  <button data-tab="climate">Climate</button>
+  <button data-tab="macro">Economy &amp; society</button>
+  <button data-tab="about">About the research</button>
+</nav>
+<main>
+<div class="loadwarn" id="plotlyWarn">Plotly failed to load from the CDN — charts need an internet
+connection the first time this file is opened. Tables and text still work.</div>
+
+<!-- ============================ MAP ============================ -->
+<section class="tab active" id="tab-map">
+  <div class="card">
+    <p class="eyebrow">stat.uz · WFP · Meta · combined</p>
+    <h3>Map explorer — put any regional series on the map</h3>
+    <div class="controls">
+      <label>Layer</label><select id="mapLayer" style="max-width:380px"></select>
+      <label>Year</label><select id="mapYear"></select>
+      <span class="seg" id="mapRes">
+        <button data-lvl="adm1" class="on">14 regions</button>
+        <button data-lvl="adm2">199 districts</button>
+      </span>
+      <label class="toggle"><input type="checkbox" id="mapPts"> overlay wealth cells (Meta RWI)</label>
+    </div>
+    <div class="maprow">
+      <div id="mapChart" class="chart tall"></div>
+      <div>
+        <div id="mapRank" class="chart tall"></div>
+      </div>
+    </div>
+    <div class="note" id="mapNote">Choropleth: selected layer. Overlay dots: 21,382 Meta Relative
+    Wealth Index cells (red = poorer, green = wealthier), independent of the layer — use them to eyeball
+    how fine-grained wealth sits inside any coarser regional pattern. Only wealth and climate exist at
+    district level; stat.uz series are published for the 14 regions, so switch resolution to see
+    what each source can and cannot resolve.</div>
+  </div>
+</section>
+
+<!-- ============================ CROSS ============================ -->
+<section class="tab" id="tab-cross">
+  <div class="card">
+    <p class="eyebrow">any source × any source</p>
+    <h3>Correlate — plot any two regional series against each other</h3>
+    <div class="controls">
+      <label>X</label><select id="crossX" style="max-width:340px"></select>
+      <label>Y</label><select id="crossY" style="max-width:340px"></select>
+      <span class="seg" id="crossRes">
+        <button data-lvl="adm1" class="on">regions</button>
+        <button data-lvl="adm2">districts</button>
+      </span>
+      <label>Years</label><select id="crossYears"></select>
+      <label class="toggle"><input type="checkbox" id="crossLog"> log X</label>
+    </div>
+    <div id="crossChart" class="chart mid"></div>
+    <div class="note">Each point is one region-year (or district-year). The dashed line is an OLS fit;
+    r and N update with your selection. Wealth (RWI) is a single 2021 snapshot, so it pairs with
+    whichever years you pick on the other axis. District resolution is available when both series
+    exist at district level (wealth × climate). Correlations here are descriptive — no controls,
+    no fixed effects.</div>
+  </div>
+</section>
+
+<!-- ============================ WB EXPLORER ============================ -->
+<section class="tab" id="tab-wb">
+  <div class="card">
+    <p class="eyebrow">World Bank — WDI</p>
+    <h3>National indicators <span class="pill" id="wbCount"></span></h3>
+    <div class="small">Search the WDI series for Uzbekistan, click to add/remove (up to 6). Compare levels,
+    index them to a common base, or plot any two selected indicators against each other across years.</div>
+  </div>
+  <div class="wb-wrap">
+    <div>
+      <div class="controls">
+        <input type="text" id="wbSearch" placeholder="Search indicators… e.g. energy, gas, poverty">
+        <select id="wbTopic"><option value="">All topics</option></select>
+      </div>
+      <div class="wb-list" id="wbList"></div>
+    </div>
+    <div class="card">
+      <div class="chips" id="wbChips"></div>
+      <div class="controls">
+        <label class="toggle"><input type="radio" name="wbMode" value="lines" checked> Time series</label>
+        <label class="toggle"><input type="radio" name="wbMode" value="scatter"> X–Y scatter</label>
+        <label class="toggle" id="wbNormWrap"><input type="checkbox" id="wbNorm"> Index first year = 100</label>
+        <label class="toggle" id="wbLogWrap"><input type="checkbox" id="wbLog"> Log scale</label>
+        <span id="wbXYctl" style="display:none">
+          <label>X</label><select id="wbX"></select>
+          <label>Y</label><select id="wbY"></select>
+        </span>
+      </div>
+      <div id="wbChart" class="chart tall"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ REGIONAL ============================ -->
+<section class="tab" id="tab-regional">
+  <div class="card">
+    <p class="eyebrow">stat.uz</p>
+    <h3>Regional panel — 14 regions over time</h3>
+    <div class="controls">
+      <label>Indicator</label><select id="regInd" style="max-width:560px"></select>
+      <label class="toggle"><input type="checkbox" id="regNorm"> Index first year = 100</label>
+    </div>
+    <div id="regChart" class="chart tall"></div>
+    <div class="note">Long regional panel assembled from stat.uz topic downloads. Click legend entries
+    to hide regions; double-click to isolate one.</div>
+  </div>
+</section>
+
+<!-- ============================ CLIMATE ============================ -->
+<section class="tab" id="tab-climate">
+  <div class="grid2">
+    <div class="card">
+      <p class="eyebrow">WFP seasonal explorer</p>
+      <h3>Growing-season climate by region</h3>
+      <div class="controls">
+        <label class="toggle"><input type="radio" name="climMetric" value="rain" checked> Rainfall (Mar–Aug total, mm)</label>
+        <label class="toggle"><input type="radio" name="climMetric" value="ndvi"> NDVI (Apr–Sep mean)</label>
+      </div>
+      <div id="climChart" class="chart"></div>
+      <div class="note">Dekadal satellite series aggregated to admin-1 growing seasons. The same data
+      exists for 199 districts — see the Map tab at district resolution.</div>
+    </div>
+    <div class="card">
+      <p class="eyebrow">WFP · rainfall × greenness</p>
+      <h3>Rainfall → greenness (region-years)</h3>
+      <div id="climScatter" class="chart"></div>
+      <div class="note">Each point is a region-year: growing-season rainfall vs mean NDVI.
+      Hover for region and year.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ MACRO ============================ -->
+<section class="tab" id="tab-macro">
+  <div class="grid2">
+    <div class="card"><p class="eyebrow">stat.uz energy balance · Energy Institute 1985+</p><h3>Natural gas — production, consumption, net balance</h3><div id="mGas" class="chart"></div>
+      <div class="note">Dotted lines: Energy Institute via OWID (dashboard-extension data), converted at 1 bcm ≈ 10.55 TWh. Solid lines and bars: stat.uz balance, 2010+.</div></div>
+    <div class="card"><p class="eyebrow">Ember / Energy Institute via OWID</p><h3>Electricity generation by source</h3><div id="mElec" class="chart"></div>
+      <div class="note">Dashboard-extension data (datasets/dashboard_extension/), not part of the dissertation datasets.</div></div>
+    <div class="card"><p class="eyebrow">Maddison Project 2023 via OWID</p><h3>GDP per capita since 1973 (2011 int'l $)</h3><div id="mMaddison" class="chart"></div>
+      <div class="note">Long-run series spanning the late-Soviet period, independence collapse and recovery. Dashboard-extension data.</div></div>
+    <div class="card"><p class="eyebrow">FAO monthly</p><h3>Consumer prices (2015 = 100)</h3><div id="mCpi" class="chart"></div>
+      <div class="note">Dashed line: 1 May 2024 energy-tariff reform.</div></div>
+    <div class="card"><p class="eyebrow">stat.uz labour</p><h3>Real wage bill by sector (2017 prices)</h3><div id="mWages" class="chart"></div></div>
+    <div class="card"><p class="eyebrow">stat.uz labour</p><h3>Employment composition (% of employed)</h3><div id="mEmp" class="chart"></div></div>
+    <div class="card"><p class="eyebrow">UN Comtrade</p><h3>Gold — share of tracked exports</h3><div id="mGold" class="chart"></div></div>
+    <div class="card"><p class="eyebrow">stat.uz labour</p><h3>Public-sector employment share</h3><div id="mPub" class="chart"></div></div>
+    <div class="card"><p class="eyebrow">L2CU panel</p><h3>Migration across survey rounds</h3><div id="mMig" class="chart"></div>
+      <div class="note">Share of households with a member abroad / considering migration / returned.</div></div>
+    <div class="card"><p class="eyebrow">FAO annual</p><h3>Producer prices (USD/tonne)</h3>
+      <div class="controls"><label>Item</label><select id="ppItem"></select></div>
+      <div id="mPP" class="chart" style="min-height:380px"></div></div>
+  </div>
+  <div class="card"><p class="eyebrow">stat.uz health</p><h3>Regional health system</h3>
+    <div class="controls"><label>Metric</label><select id="hMetric"></select></div>
+    <div id="mHealth" class="chart"></div></div>
+</section>
+
+<!-- ============================ ABOUT ============================ -->
+<section class="tab" id="tab-about">
+  <div class="card">
+    <p class="eyebrow">DV410 dissertation · LSE</p>
+    <h3>The research behind this atlas</h3>
+    <p style="font-size:14px;max-width:960px">These datasets were assembled for a dissertation on the
+    <b>1 May 2024 household energy-tariff reform</b> — "From Shortage to Price": the state converted a
+    physical winter energy crisis (2022/23 outages) into a financial one (2024/25 winter bills), and
+    annual averages, headline CPI and income-targeted compensation are all blind to the conversion.
+    The short version is below; the atlas itself is source-agnostic — explore freely.</p>
+  </div>
+  <div class="statrow">
+    <div class="stat"><div class="v">+70%</div><div class="k">energy bills post-reform (β=0.55***, all households)</div></div>
+    <div class="stat"><div class="v">6.2→8.0%</div><div class="k">winter energy share of cash income, grid households</div></div>
+    <div class="stat"><div class="v">+1.9pp**</div><div class="k">winter utility distress (post × grid × winter)</div></div>
+    <div class="stat"><div class="v">≈ 0</div><div class="k">demand elasticity — revenue, not conservation</div></div>
+    <div class="stat"><div class="v">16</div><div class="k">households reached by compensation</div></div>
+    <div class="stat"><div class="v">1,862</div><div class="k">L2CU households, 82 rounds, 2018–2025</div></div>
+  </div>
+  <div class="card">
+    <h3>The argument in five acts</h3>
+    <details class="act"><summary>Act 0 — The subsidy of shortage</summary><p>The Soviet-built grid delivered
+    gas as a cheap implicit transfer to the connected (median bills frozen in nominal terms 2021–23). But the
+    rent financing it collapsed (production −37%, net importer 2023) and the system began rationing by outage:
+    winter 2022/23 — 20.8 hrs of electricity/day, gas and heat disruptions. A low price for energy you couldn't
+    get (Kornai).</p></details>
+    <details class="act"><summary>Act 1 — Imports fix the quantity</summary><p>Russian gas imports (Oct 2023)
+    restored winter reliability a season <i>before</i> the tariff: winter 2023/24 was already near-normal.</p></details>
+    <details class="act"><summary>Act 2 — The tariff reprices the fix</summary><p>1 May 2024: cost-recovery
+    tariffs pass the import bill to the grid-connected. Bills +70% generally; grid winter bills double; winter
+    energy share 6.2→8.0%; winter distress +3pp. Rationing by outage became rationing by bill.</p></details>
+    <details class="act"><summary>Act 3 — Three masks</summary><p>The repricing is invisible in aggregates:
+    (i) seasonal aggregation (annual shares flat), (ii) cross-sectional aggregation (the non-grid half never had
+    the subsidy), (iii) macro aggregation (food disinflation absorbed the services shock — UZB CPI flat at ~10%
+    while every peer disinflated ~5pp).</p></details>
+    <details class="act"><summary>Act 4 — The recomposition</summary><p>The fiscal space moved to the
+    production side — per-hectare transfers, export promotion, cluster credits — whose gains are visible,
+    untargeted and partly captured (cotton monopsony; subsidy bunching). Compensation through the consumer
+    channel reached ~16 households.</p></details>
+    <details class="act"><summary>Verdict</summary><p>In principle the reform swapped a deadweight loss
+    (shortage) for a transfer (bills). In practice: incidence ran on Soviet-era infrastructure access, not
+    income; the losers' compensation channel failed; the proceeds were recomposed into captured production
+    subsidies; and conservation — the stated goal — didn't happen. The orthodoxy evaluates the <i>removal</i>;
+    the welfare and political economy live in the <i>redeployment</i>.</p></details>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <p class="eyebrow">L2CU · T1</p>
+      <h3>The winter burden — energy share of cash income</h3>
+      <div id="ovBurden" class="chart" style="min-height:360px"></div>
+    </div>
+    <div class="card">
+      <p class="eyebrow">L2CU · T6</p>
+      <h3>Event study — grid × three-month windows</h3>
+      <div class="controls"><label>Outcome</label><select id="esOutcome"></select></div>
+      <div id="esChart" class="chart" style="min-height:360px"></div>
+      <div class="note">95% CIs; omitted window Feb–Apr 2024 (◦); round FE, SE clustered by household.</div>
+    </div>
+  </div>
+  <div class="card">
+    <p class="eyebrow">dissertation/RESULTS.md</p>
+    <h3>Canonical tables</h3>
+    <div class="small">Sample: 1,862 households with baseline grid status; rounds 1–82 (Sep 2018–Jun 2025);
+    grid share 0.54. Estimator: household FE + calendar-month FE (round FE in T6), SE clustered by household.
+    Stars: * p&lt;0.10, ** p&lt;0.05, *** p&lt;0.01 (from |t|).</div>
+    <div class="controls" style="margin-top:10px">
+      <label>Table</label><select id="tblSelect"></select>
+    </div>
+    <div class="tablewrap"><table class="data" id="tblOut"></table></div>
+  </div>
+</section>
+</main>
+
+<script>const DATA=/*__DASHBOARD_DATA__*/null;</script>
+<script>
+"use strict";
+if(!window.Plotly){document.getElementById('plotlyWarn').style.display='block';}
+
+const PAL=['#b45309','#0e7490','#166534','#7c3aed','#be123c','#1d4ed8','#a16207','#0f766e',
+           '#9d174d','#4d7c0f','#6d28d9','#b91c1c','#0369a1','#78350f'];
+const FONT={family:'-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif',size:12.5,color:'#20262e'};
+const REFORM='2024-05-01';
+const GEO_AXES={lataxis:{range:[36.8,46.2]},lonaxis:{range:[55.5,74]},showcountries:true,
+  countrycolor:'#c5c9c1',landcolor:'#eceee8',showland:true,bgcolor:'rgba(0,0,0,0)',
+  scope:'asia',resolution:50};
+
+function lay(o){return Object.assign({font:FONT,paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'#fff',
+  margin:{l:60,r:20,t:30,b:45},hovermode:'closest',
+  legend:{orientation:'h',y:-0.18}},o||{},
+  {xaxis:Object.assign({gridcolor:'#eee'},(o&&o.xaxis)||{}),yaxis:Object.assign({gridcolor:'#eee'},(o&&o.yaxis)||{})});}
+function plot(id,traces,layout,cfg){if(!window.Plotly)return;
+  Plotly.newPlot(id,traces,layout,Object.assign({responsive:true,displaylogo:false},cfg||{}));}
+function stars(t){const a=Math.abs(t);return a>=2.576?'***':a>=1.96?'**':a>=1.645?'*':'';}
+function fmt(v){if(v===null||v===undefined||v==='')return'';
+  if(typeof v!=='number')return v;
+  if(Number.isInteger(v)&&Math.abs(v)>=1000)return v.toLocaleString('en-GB');
+  if(Math.abs(v)>=1000)return Math.round(v).toLocaleString('en-GB');
+  if(Number.isInteger(v))return String(v);
+  return v.toPrecision(4).replace(/\.?0+$/,'');}
+function reformLine(){return {type:'line',x0:REFORM,x1:REFORM,yref:'paper',y0:0,y1:1,
+  line:{color:'#b45309',width:1.5,dash:'dash'}};}
+
+/* masthead inventory */
+document.getElementById('inventory').innerHTML=
+  '<b>'+Object.keys(DATA.wb.series).length.toLocaleString()+'</b> WB series · '+
+  '<b>'+Object.keys(DATA.regional).length+'</b> regional series · '+
+  '<b>'+DATA.geo.adm2.features.length+'</b> districts · '+
+  '<b>'+DATA.rwi.w.length.toLocaleString()+'</b> wealth cells · built '+DATA.meta.built;
+
+/* ---------------- unified regional catalog ---------------- */
+function regName(ind){const p=ind.split('::');let n=(p[1]||p[0]).replace(/_\d+$/,'').replace(/_/g,' ');
+  return n.charAt(0).toUpperCase()+n.slice(1);}
+const PNAME={};DATA.geo.adm2.features.forEach(f=>PNAME[f.properties.pcode]=f.properties.name+' ('+f.properties.region.replace(/_/g,' ')+')');
+const RWI1={},RWI2={};
+Object.entries(DATA.rwiAgg.adm1).forEach(([k,v])=>RWI1[k]=[[0,v.mean]]);
+Object.entries(DATA.rwiAgg.adm2).forEach(([k,v])=>RWI2[k]=[[0,v.mean]]);
+const CAT=[];   // {id,label,group,adm1:{key:[[y,v]..]},adm2:null|{...},static}
+CAT.push({id:'rwi',label:'Relative Wealth Index (mean, 2021 snapshot)',group:'Wealth — Meta RWI',
+          adm1:RWI1,adm2:RWI2,static:true});
+CAT.push({id:'clim:rain',label:'Growing-season rainfall (Mar–Aug total, mm)',group:'Climate — WFP',
+          adm1:DATA.climate.rain,adm2:DATA.climDistrict.rain});
+CAT.push({id:'clim:ndvi',label:'Growing-season NDVI (Apr–Sep mean)',group:'Climate — WFP',
+          adm1:DATA.climate.ndvi,adm2:DATA.climDistrict.ndvi});
+Object.keys(DATA.macro.health).forEach(k=>CAT.push({id:'h:'+k,
+  label:'Health: '+k.replace(/_/g,' '),group:'Health — stat.uz',adm1:DATA.macro.health[k],adm2:null}));
+Object.keys(DATA.regional).sort().forEach(ind=>CAT.push({id:'sz:'+ind,label:regName(ind),
+  group:'stat.uz — '+ind.split('::')[0],adm1:DATA.regional[ind],adm2:null}));
+const CATIX={};CAT.forEach(c=>CATIX[c.id]=c);
+function catFill(sel,filter){sel.innerHTML='';const groups={};
+  CAT.filter(filter||(()=>true)).forEach(c=>(groups[c.group]=groups[c.group]||[]).push(c));
+  Object.keys(groups).forEach(g=>{const og=document.createElement('optgroup');og.label=g;
+    groups[g].forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.label;og.appendChild(o);});
+    sel.appendChild(og);});}
+function seriesYears(s,lvl){if(s.static)return[];const ys=new Set();
+  Object.values(s[lvl]).forEach(pts=>pts.forEach(p=>ys.add(p[0])));return[...ys].sort((a,b)=>a-b);}
+function valAt(s,lvl,key,year){const pts=s[lvl][key];if(!pts)return null;
+  if(s.static)return pts[0][1];
+  const hit=pts.find(p=>p[0]===year);return hit?hit[1]:null;}
+
+/* ---------------- tabs (lazy render) ---------------- */
+const rendered={};
+const renderers={map:renderMap,cross:renderCross,wb:renderWB,regional:renderRegional,
+                 climate:renderClimate,macro:renderMacro,about:renderAbout};
+document.getElementById('nav').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('section.tab').forEach(s=>s.classList.toggle('active',s.id==='tab-'+b.dataset.tab));
+  activate(b.dataset.tab);
+});
+function activate(tab){if(!rendered[tab]){rendered[tab]=true;renderers[tab]();}
+  else if(window.Plotly){document.querySelectorAll('#tab-'+tab+' .chart').forEach(d=>{if(d.data)Plotly.Plots.resize(d);});}}
+
+/* ---------------- MAP ---------------- */
+let mapLvl='adm1';
+function segWire(id,cb){document.getElementById(id).addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b||b.disabled)return;
+  document.querySelectorAll('#'+id+' button').forEach(x=>x.classList.toggle('on',x===b));
+  cb(b.dataset.lvl);});}
+function renderMap(){
+  catFill(document.getElementById('mapLayer'));
+  document.getElementById('mapLayer').value='rwi';
+  document.getElementById('mapLayer').onchange=()=>{mapResEnable();mapYears();mapDraw();};
+  document.getElementById('mapYear').onchange=mapDraw;
+  document.getElementById('mapPts').onchange=mapDraw;
+  segWire('mapRes',lvl=>{mapLvl=lvl;mapYears();mapDraw();});
+  mapResEnable();mapYears();mapDraw();
+}
+function mapResEnable(){
+  const s=CATIX[document.getElementById('mapLayer').value];
+  const b2=document.querySelector('#mapRes button[data-lvl=adm2]');
+  b2.disabled=!s.adm2;
+  if(!s.adm2&&mapLvl==='adm2'){mapLvl='adm1';
+    document.querySelectorAll('#mapRes button').forEach(x=>x.classList.toggle('on',x.dataset.lvl==='adm1'));}
+}
+function mapYears(){
+  const s=CATIX[document.getElementById('mapLayer').value];
+  const ysel=document.getElementById('mapYear');const prev=+ysel.value;
+  ysel.innerHTML='';
+  if(s.static){const o=document.createElement('option');o.value='';o.textContent='2021 (snapshot)';
+    ysel.appendChild(o);ysel.disabled=true;return;}
+  ysel.disabled=false;
+  const years=seriesYears(s,mapLvl);
+  years.forEach(y=>{const o=document.createElement('option');o.value=y;o.textContent=y;ysel.appendChild(o);});
+  ysel.value=years.includes(prev)?prev:years[years.length-1];
+}
+function mapDraw(){
+  const s=CATIX[document.getElementById('mapLayer').value];
+  const year=+document.getElementById('mapYear').value||null;
+  const lvl=mapLvl,fk=lvl==='adm1'?'region':'pcode';
+  const locs=[],z=[],txt=[];
+  DATA.geo[lvl].features.forEach(f=>{const key=f.properties[fk];
+    const v=valAt(s,lvl,key,year);
+    if(v===null||v===undefined)return;
+    locs.push(key);z.push(v);
+    txt.push((lvl==='adm1'?key.replace(/_/g,' '):PNAME[key])+'<br>'+fmt(v)+
+             (s.id==='rwi'?' ('+DATA.rwiAgg[lvl][key].n+' cells)':''));});
+  const traces=[{type:'choropleth',geojson:DATA.geo[lvl],featureidkey:'properties.'+fk,
+    locations:locs,z,text:txt,hovertemplate:'%{text}<extra></extra>',
+    colorscale:s.id==='rwi'?'RdYlGn':'Viridis',marker:{line:{color:'#fff',width:.7}},
+    colorbar:{thickness:14,len:.8,title:{text:'',side:'right'}}}];
+  if(document.getElementById('mapPts').checked){
+    traces.push({type:'scattergeo',lat:DATA.rwi.lat,lon:DATA.rwi.lon,mode:'markers',
+      marker:{size:2.4,color:DATA.rwi.w,colorscale:'RdYlGn',cmin:-1.2,cmax:1.2,opacity:.55},
+      hoverinfo:'skip',name:'RWI cells'});}
+  plot('mapChart',traces,Object.assign(lay({margin:{l:0,r:0,t:8,b:0},showlegend:false}),
+    {geo:GEO_AXES}),{scrollZoom:true});
+  // ranking
+  const pairs=locs.map((k,i)=>[lvl==='adm1'?k.replace(/_/g,' '):(PNAME[k]||k),z[i]]).sort((a,b)=>a[1]-b[1]);
+  const show=pairs.length>40?pairs.slice(-40):pairs;
+  plot('mapRank',[{y:show.map(p=>p[0]),x:show.map(p=>p[1]),type:'bar',orientation:'h',
+    marker:{color:show.map(p=>p[1]),colorscale:s.id==='rwi'?'RdYlGn':'Viridis',showscale:false}}],
+    lay({margin:{l:190,r:10,t:8,b:40},yaxis:{tickfont:{size:10}},
+         xaxis:{title:(s.label.length>50?s.label.slice(0,48)+'…':s.label)+(year?' · '+year:'')},
+         title:pairs.length>40?{text:'top 40 of '+pairs.length,font:{size:11},x:.98,xanchor:'right'}:undefined}));
+}
+
+/* ---------------- CROSS ---------------- */
+let crossLvl='adm1';
+function renderCross(){
+  const cx=document.getElementById('crossX'),cy=document.getElementById('crossY');
+  catFill(cx);catFill(cy);
+  cx.value='rwi';cy.value='clim:ndvi';
+  cx.onchange=()=>{crossResEnable();crossYearsFill();crossDraw();};
+  cy.onchange=cx.onchange;
+  document.getElementById('crossYears').onchange=crossDraw;
+  document.getElementById('crossLog').onchange=crossDraw;
+  segWire('crossRes',lvl=>{crossLvl=lvl;crossYearsFill();crossDraw();});
+  crossResEnable();crossYearsFill();crossDraw();
+}
+function crossResEnable(){
+  const sx=CATIX[document.getElementById('crossX').value],sy=CATIX[document.getElementById('crossY').value];
+  const ok2=!!(sx.adm2&&sy.adm2);
+  const b2=document.querySelector('#crossRes button[data-lvl=adm2]');
+  b2.disabled=!ok2;
+  if(!ok2&&crossLvl==='adm2'){crossLvl='adm1';
+    document.querySelectorAll('#crossRes button').forEach(x=>x.classList.toggle('on',x.dataset.lvl==='adm1'));}
+}
+function crossYearsFill(){
+  const sx=CATIX[document.getElementById('crossX').value],sy=CATIX[document.getElementById('crossY').value];
+  const ysel=document.getElementById('crossYears');const prev=ysel.value;
+  let years;
+  if(sx.static&&sy.static)years=[];
+  else if(sx.static)years=seriesYears(sy,crossLvl);
+  else if(sy.static)years=seriesYears(sx,crossLvl);
+  else{const a=new Set(seriesYears(sx,crossLvl));years=seriesYears(sy,crossLvl).filter(y=>a.has(y));}
+  ysel.innerHTML='';
+  const oAll=document.createElement('option');oAll.value='all';oAll.textContent='All overlapping years (pooled)';
+  ysel.appendChild(oAll);
+  years.forEach(y=>{const o=document.createElement('option');o.value=y;o.textContent=y;ysel.appendChild(o);});
+  if([...ysel.options].some(o=>o.value===prev))ysel.value=prev;
+  else ysel.value=years.length?String(years[years.length-1]):'all';
+}
+function crossDraw(){
+  const sx=CATIX[document.getElementById('crossX').value],sy=CATIX[document.getElementById('crossY').value];
+  const lvl=crossLvl;
+  const yv=document.getElementById('crossYears').value;
+  const keys=Object.keys(sx[lvl]).filter(k=>k in sy[lvl]);
+  const X=[],Y=[],T=[],C=[];
+  const name=k=>lvl==='adm1'?k.replace(/_/g,' '):(PNAME[k]||k);
+  function pairYears(k){
+    if(sx.static&&sy.static)return[0];
+    if(yv!=='all')return[+yv];
+    if(sx.static)return sy[lvl][k].map(p=>p[0]);
+    if(sy.static)return sx[lvl][k].map(p=>p[0]);
+    const a=new Set(sx[lvl][k].map(p=>p[0]));
+    return sy[lvl][k].map(p=>p[0]).filter(y=>a.has(y));
+  }
+  keys.forEach(k=>{pairYears(k).forEach(yr=>{
+    const vx=valAt(sx,lvl,k,yr),vy=valAt(sy,lvl,k,yr);
+    if(vx===null||vy===null)return;
+    X.push(vx);Y.push(vy);C.push(yr||2021);
+    T.push(name(k)+((sx.static&&sy.static)||yv!=='all'?'':' · '+yr));});});
+  // OLS + r
+  let fit=null,anno='N = '+X.length;
+  if(X.length>2){
+    const n=X.length,mx=X.reduce((a,b)=>a+b,0)/n,my=Y.reduce((a,b)=>a+b,0)/n;
+    let sxy=0,sxx=0,syy=0;
+    for(let i=0;i<n;i++){sxy+=(X[i]-mx)*(Y[i]-my);sxx+=(X[i]-mx)**2;syy+=(Y[i]-my)**2;}
+    if(sxx>0&&syy>0){const b=sxy/sxx,a=my-b*mx,r=sxy/Math.sqrt(sxx*syy);
+      const x0=Math.min(...X),x1=Math.max(...X);
+      fit={x:[x0,x1],y:[a+b*x0,a+b*x1],mode:'lines',line:{color:'#b45309',dash:'dash',width:1.8},
+           hoverinfo:'skip',name:'OLS fit'};
+      anno='r = '+r.toFixed(2)+' · N = '+n;}}
+  const pooled=yv==='all'&&!(sx.static&&sy.static);
+  const traces=[{x:X,y:Y,text:T,type:'scatter',mode:X.length<=60?'markers+text':'markers',
+    textposition:'top center',textfont:{size:9.5,color:'#68717c'},
+    marker:pooled?{size:7,color:C,colorscale:'Viridis',showscale:true,colorbar:{title:'year',thickness:12},opacity:.8}
+                 :{size:9,color:'#0e7490',opacity:.85},
+    hovertemplate:'%{text}<br>x = %{x}<br>y = %{y}<extra></extra>',name:''}];
+  if(fit)traces.push(fit);
+  plot('crossChart',traces,lay({showlegend:false,
+    xaxis:{title:sx.label.slice(0,70),type:document.getElementById('crossLog').checked?'log':'linear'},
+    yaxis:{title:sy.label.slice(0,70)},
+    annotations:[{x:.02,y:.98,xref:'paper',yref:'paper',text:'<b>'+anno+'</b>',showarrow:false,
+      font:{size:13,color:'#155e70'},bgcolor:'rgba(255,255,255,.75)'}]}));
+}
+
+/* ---------------- ABOUT (tables + event study + burden) ---------------- */
+function renderAbout(){
+  const sel=document.getElementById('tblSelect');
+  Object.keys(DATA.tables).forEach(k=>{const o=document.createElement('option');o.value=k;
+    o.textContent=DATA.tables[k].title;sel.appendChild(o);});
+  sel.onchange=()=>showTable(sel.value);showTable('T1');
+  const outs=[...new Set(DATA.tables.T6.rows.map(r=>r[0]))];
+  const es=document.getElementById('esOutcome');
+  outs.forEach(o=>{const e=document.createElement('option');e.value=o;e.textContent=o;es.appendChild(e);});
+  es.onchange=()=>eventStudy(es.value);eventStudy(outs[0]);
+  const t1=DATA.tables.T1;const ci=t1.columns.indexOf('energy_share_pct');
+  const get=(p,g,po)=>{const r=t1.rows.find(r=>r[0]===p&&String(r[1])==g&&String(r[2])==po);return r?r[ci]:null;};
+  plot('ovBurden',[
+    {x:['Non-grid','Grid'],y:[get('winter','0','0'),get('winter','1','0')],type:'bar',name:'Winter, pre-reform',marker:{color:'#0e7490'}},
+    {x:['Non-grid','Grid'],y:[get('winter','0','1'),get('winter','1','1')],type:'bar',name:'Winter, post-reform',marker:{color:'#b45309'}},
+    {x:['Non-grid','Grid'],y:[get('all months','0','1'),get('all months','1','1')],type:'bar',name:'All months, post',marker:{color:'#c5c9c1'}}],
+    lay({yaxis:{title:'median energy share of income (%)'},barmode:'group'}));
+}
+function showTable(key){
+  const t=DATA.tables[key];const tbl=document.getElementById('tblOut');
+  const bi=t.columns.indexOf('beta'),ti=t.columns.indexOf('t');
+  let h='<thead><tr>'+t.columns.map(c=>'<th>'+c+'</th>').join('')+'</tr></thead><tbody>';
+  t.rows.forEach(r=>{h+='<tr>'+r.map((v,i)=>{
+    let s=fmt(v);
+    if(i===bi&&ti>=0&&typeof v==='number'){s=(v>0?'+':'')+v.toFixed(4)+'<b>'+stars(r[ti])+'</b>';}
+    if(i===ti&&typeof v==='number')s=v.toFixed(2);
+    return '<td>'+s+'</td>';}).join('')+'</tr>';});
+  tbl.innerHTML=h+'</tbody>';
+}
+const MON={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
+function winKey(w){const m=w.match(/^([A-Z][a-z]{2})(\d{2})/);return m?(2000+ +m[2])*12+MON[m[1]]:0;}
+function eventStudy(outcome){
+  const rows=DATA.tables.T6.rows.filter(r=>r[0]===outcome);
+  const cols=DATA.tables.T6.columns,ti_=cols.indexOf('term'),bi=cols.indexOf('beta'),si=cols.indexOf('se');
+  let pts=rows.map(r=>{const w=String(r[ti_]).replace(/^grid\s*×\s*/,'');
+    return {w,k:winKey(w),b:r[bi],se:r[si]};}).sort((a,b)=>a.k-b.k);
+  for(let i=1;i<pts.length;i++){
+    if(pts[i].k-pts[i-1].k===6){
+      const k=pts[i-1].k+3;const y=Math.floor((k-1)/12),mo=((k-1)%12)+1;
+      const names=Object.keys(MON);const lbl=names[mo-1]+String(y).slice(2)+' (ref ◦)';
+      pts.splice(i,0,{w:lbl,k,b:0,se:0,ref:true});break;}}
+  const x=pts.map(p=>p.w),y=pts.map(p=>p.b),
+        up=pts.map(p=>1.96*p.se),refIdx=pts.findIndex(p=>p.ref);
+  const shapes=[];
+  if(refIdx>0)shapes.push({type:'line',x0:refIdx+0.5,x1:refIdx+0.5,xref:'x',yref:'paper',y0:0,y1:1,
+    line:{color:'#b45309',width:1.5,dash:'dash'}});
+  shapes.push({type:'line',x0:-0.5,x1:pts.length-0.5,y0:0,y1:0,line:{color:'#999',width:1}});
+  plot('esChart',[{x,y,error_y:{type:'data',array:up,visible:true,color:'#0e7490',thickness:1.2},
+    type:'scatter',mode:'markers',marker:{size:8,color:pts.map(p=>p.ref?'#999':'#0e7490'),
+    symbol:pts.map(p=>p.ref?'circle-open':'circle')},name:outcome}],
+    lay({yaxis:{title:'β (grid × window)'},xaxis:{tickangle:-40},shapes,
+         annotations:refIdx>0?[{x:refIdx+0.5,xref:'x',y:1.04,yref:'paper',text:'tariff (1 May 2024)',
+         showarrow:false,font:{size:11,color:'#b45309'}}]:[]}));
+}
+
+/* ---------------- WB EXPLORER ---------------- */
+const wbSel=[];
+function renderWB(){
+  const S=DATA.wb.series;
+  document.getElementById('wbCount').textContent=Object.keys(S).length+' series';
+  const topicSel=document.getElementById('wbTopic');
+  DATA.wb.topics.forEach((t,i)=>{const o=document.createElement('option');o.value=i;o.textContent=t;topicSel.appendChild(o);});
+  document.getElementById('wbSearch').oninput=wbFilter;
+  topicSel.onchange=wbFilter;
+  document.querySelectorAll('input[name=wbMode]').forEach(r=>r.onchange=wbDraw);
+  document.getElementById('wbNorm').onchange=wbDraw;
+  document.getElementById('wbLog').onchange=wbDraw;
+  document.getElementById('wbX').onchange=wbDraw;
+  document.getElementById('wbY').onchange=wbDraw;
+  ['NY.GDP.PCAP.CD','FP.CPI.TOTL.ZG'].forEach(c=>{if(S[c])wbSel.push(c);});
+  if(!wbSel.length)wbSel.push(...Object.keys(S).slice(0,2));
+  wbFilter();wbDraw();
+}
+function wbFilter(){
+  const S=DATA.wb.series,q=document.getElementById('wbSearch').value.toLowerCase(),
+        topic=document.getElementById('wbTopic').value;
+  const list=document.getElementById('wbList');list.innerHTML='';
+  let n=0;
+  for(const code of Object.keys(S)){
+    const s=S[code];
+    if(topic!==''&&!s.t.includes(+topic))continue;
+    if(q&&!(s.n.toLowerCase().includes(q)||code.toLowerCase().includes(q)))continue;
+    if(++n>250){const d=document.createElement('div');d.className='yrs';d.textContent='… more matches — refine the search';list.appendChild(d);break;}
+    const d=document.createElement('div');d.dataset.code=code;
+    if(wbSel.includes(code))d.classList.add('sel');
+    d.innerHTML=s.n+' <div class="yrs">'+code+' · '+s.y[0]+'–'+s.y[s.y.length-1]+' · '+s.y.length+' obs</div>';
+    d.onclick=()=>wbToggle(code);
+    list.appendChild(d);
+  }
+}
+function wbToggle(code){
+  const i=wbSel.indexOf(code);
+  if(i>=0)wbSel.splice(i,1);else{if(wbSel.length>=6){alert('Max 6 series — remove one first.');return;}wbSel.push(code);}
+  wbFilter();wbDraw();
+}
+function wbDraw(){
+  const S=DATA.wb.series;
+  const chips=document.getElementById('wbChips');chips.innerHTML='';
+  wbSel.forEach(c=>{const d=document.createElement('div');d.className='chip';
+    d.innerHTML=S[c].n+'<span>×</span>';d.onclick=()=>wbToggle(c);chips.appendChild(d);});
+  const mode=document.querySelector('input[name=wbMode]:checked').value;
+  document.getElementById('wbXYctl').style.display=mode==='scatter'?'inline':'none';
+  document.getElementById('wbNormWrap').style.display=mode==='lines'?'flex':'none';
+  if(!window.Plotly)return;
+  if(!wbSel.length){Plotly.purge('wbChart');document.getElementById('wbChart').innerHTML='<p class="small" style="padding:30px">Select indicators from the list.</p>';return;}
+  if(mode==='lines'){
+    const norm=document.getElementById('wbNorm').checked;
+    const traces=wbSel.map((c,i)=>{const s=S[c];let v=s.v;
+      if(norm){const b=s.v.find(x=>x!==0)||1;v=s.v.map(x=>100*x/b);}
+      return {x:s.y,y:v,name:s.n.length>60?s.n.slice(0,58)+'…':s.n,type:'scatter',mode:'lines+markers',
+              marker:{size:4},line:{color:PAL[i%PAL.length],width:2}};});
+    plot('wbChart',traces,lay({yaxis:{title:norm?'index (first obs = 100)':'value',
+      type:document.getElementById('wbLog').checked?'log':'linear'},legend:{orientation:'h',y:-0.15}}));
+  }else{
+    const xs=document.getElementById('wbX'),ys=document.getElementById('wbY');
+    [xs,ys].forEach(sel=>{const cur=sel.value;sel.innerHTML='';
+      wbSel.forEach(c=>{const o=document.createElement('option');o.value=c;
+        o.textContent=S[c].n.slice(0,70);sel.appendChild(o);});
+      if(wbSel.includes(cur))sel.value=cur;});
+    if(ys.options.length>1&&xs.value===ys.value)ys.selectedIndex=1;
+    const a=S[xs.value],b=S[ys.value];
+    const yearsB={};b.y.forEach((yr,i)=>yearsB[yr]=b.v[i]);
+    const yr=[],xv=[],yv=[];
+    a.y.forEach((year,i)=>{if(year in yearsB){yr.push(year);xv.push(a.v[i]);yv.push(yearsB[year]);}});
+    plot('wbChart',[{x:xv,y:yv,text:yr.map(String),type:'scatter',mode:'markers+lines',
+      line:{color:'#ddd',width:1},marker:{size:9,color:yr,colorscale:'Viridis',showscale:true,
+      colorbar:{title:'year',thickness:12}},hovertemplate:'%{text}<br>x=%{x}<br>y=%{y}<extra></extra>'}],
+      lay({xaxis:{title:a.n.slice(0,80)},yaxis:{title:b.n.slice(0,80)}}));
+  }
+}
+
+/* ---------------- REGIONAL ---------------- */
+function renderRegional(){
+  const sel=document.getElementById('regInd');
+  const groups={};
+  Object.keys(DATA.regional).forEach(ind=>{const g=ind.split('::')[0];(groups[g]=groups[g]||[]).push(ind);});
+  Object.keys(groups).sort().forEach(g=>{
+    const og=document.createElement('optgroup');og.label=g;
+    groups[g].sort().forEach(ind=>{const o=document.createElement('option');o.value=ind;
+      o.textContent=regName(ind);og.appendChild(o);});
+    sel.appendChild(og);});
+  sel.onchange=regDraw;document.getElementById('regNorm').onchange=regDraw;
+  regDraw();
+}
+function regDraw(){
+  const ind=document.getElementById('regInd').value;
+  const norm=document.getElementById('regNorm').checked;
+  const regs=DATA.regional[ind];
+  const traces=Object.keys(regs).sort().map((rg,i)=>{
+    let pts=regs[rg];let v=pts.map(p=>p[1]);
+    if(norm){const b=v.find(x=>x!==0)||1;v=v.map(x=>100*x/b);}
+    return {x:pts.map(p=>p[0]),y:v,name:rg.replace(/_/g,' '),type:'scatter',mode:'lines+markers',
+            marker:{size:4},line:{color:PAL[i%PAL.length],width:1.8}};});
+  plot('regChart',traces,lay({yaxis:{title:norm?'index (first year = 100)':regName(ind)},
+       legend:{orientation:'h',y:-0.15}}));
+}
+
+/* ---------------- CLIMATE ---------------- */
+function renderClimate(){
+  document.querySelectorAll('input[name=climMetric]').forEach(r=>r.onchange=climDraw);
+  climDraw();
+  const rain=DATA.climate.rain,ndvi=DATA.climate.ndvi;
+  const xs=[],ys=[],txt=[],col=[];
+  Object.keys(rain).forEach((rg,i)=>{
+    const nd={};(ndvi[rg]||[]).forEach(p=>nd[p[0]]=p[1]);
+    rain[rg].forEach(p=>{if(p[0] in nd){xs.push(p[1]);ys.push(nd[p[0]]);
+      txt.push(rg.replace(/_/g,' ')+' '+p[0]);col.push(PAL[i%PAL.length]);}});});
+  plot('climScatter',[{x:xs,y:ys,text:txt,type:'scatter',mode:'markers',
+    marker:{size:6,color:col,opacity:.75},hovertemplate:'%{text}<br>rain %{x:.0f} mm · NDVI %{y:.3f}<extra></extra>'}],
+    lay({xaxis:{title:'growing-season rainfall (mm)'},yaxis:{title:'growing-season NDVI'}}));
+}
+function climDraw(){
+  const m=document.querySelector('input[name=climMetric]:checked').value;
+  const D=DATA.climate[m];
+  const traces=Object.keys(D).sort().map((rg,i)=>({x:D[rg].map(p=>p[0]),y:D[rg].map(p=>p[1]),
+    name:rg.replace(/_/g,' '),type:'scatter',mode:'lines',line:{color:PAL[i%PAL.length],width:1.8}}));
+  plot('climChart',traces,lay({yaxis:{title:m==='rain'?'Mar–Aug rainfall total (mm)':'Apr–Sep mean NDVI'},
+    legend:{orientation:'h',y:-0.2}}));
+}
+
+/* ---------------- MACRO ---------------- */
+function renderMacro(){
+  const M=DATA.macro,X=DATA.ext;
+  const g=M.gas;
+  const gasT=[{x:g.years,y:g.production,name:'Production (stat.uz)',line:{color:'#0e7490',width:2.5}},
+    {x:g.years,y:g.consumption,name:'Consumption (stat.uz)',line:{color:'#b45309',width:2.5}},
+    {x:g.years,y:g.net,name:'Net balance',type:'bar',opacity:.6,
+     marker:{color:g.net.map(v=>v>=0?'#9db8a5':'#d9a0a0')}}];
+  if(X){const cvt=p=>Math.round(p[1]/10.55*1000);
+    gasT.unshift(
+      {x:X.gasProdTWh.map(p=>p[0]),y:X.gasProdTWh.map(cvt),name:'Production (EI)',
+       line:{color:'#0e7490',width:1.3,dash:'dot'}},
+      {x:X.gasConsTWh.map(p=>p[0]),y:X.gasConsTWh.map(cvt),name:'Consumption (EI)',
+       line:{color:'#b45309',width:1.3,dash:'dot'}});}
+  plot('mGas',gasT,lay({yaxis:{title:'million m³'},legend:{orientation:'h',y:-0.15,font:{size:10.5}}}));
+  if(X){
+    const em=X.elecMix;
+    const ECOL={'Coal':'#52525b','Oil':'#7c2d12','Gas':'#b45309','Nuclear':'#a855f7',
+      'Hydropower':'#0e7490','Wind':'#38bdf8','Solar':'#d9a509','Bioenergy':'#166534','Other renewables':'#9ca3af'};
+    const eOrder=['Coal','Oil','Gas','Nuclear','Hydropower','Wind','Solar','Bioenergy','Other renewables'];
+    const emT=eOrder.filter(s=>em.sources[s]&&em.sources[s].some(v=>v)).map(s=>({
+      x:em.years,y:em.sources[s],name:s,stackgroup:'em',mode:'lines',
+      line:{width:.5,color:ECOL[s]},fillcolor:ECOL[s]+'b3'}));
+    plot('mElec',emT,lay({yaxis:{title:'TWh'},legend:{orientation:'h',y:-0.2,font:{size:10.5}},showlegend:true}));
+    plot('mMaddison',[{x:X.maddison.map(p=>p[0]),y:X.maddison.map(p=>p[1]),mode:'lines+markers',
+      marker:{size:4},line:{color:'#0e7490',width:2.2},name:'GDP per capita'}],
+      lay({yaxis:{title:'2011 int\'l $ per capita'}}));
+  }
+  const cpiT=Object.keys(M.cpiMonthly).map((k,i)=>({x:M.cpiMonthly[k].map(p=>p[0]),
+    y:M.cpiMonthly[k].map(p=>p[1]),name:k,line:{color:PAL[i%PAL.length],width:2}}));
+  plot('mCpi',cpiT,lay({yaxis:{title:'index (2015 = 100)',type:'log'},shapes:[reformLine()]}));
+  const wT=Object.keys(M.wages).map((k,i)=>({x:M.wages[k].map(p=>p[0]),y:M.wages[k].map(p=>p[1]),
+    name:k.length>38?k.slice(0,36)+'…':k,line:{color:PAL[i%PAL.length],width:1.8},mode:'lines+markers',marker:{size:4}}));
+  plot('mWages',wT,lay({yaxis:{title:'real wage bill (2017 sum)'},legend:{orientation:'h',y:-0.25,font:{size:10.5}}}));
+  const last={};Object.keys(M.empShare).forEach(k=>{const v=M.empShare[k];last[k]=v[v.length-1][1];});
+  const top=Object.keys(M.empShare).sort((a,b)=>last[b]-last[a]);
+  const eT=top.map((k,i)=>({x:M.empShare[k].map(p=>p[0]),y:M.empShare[k].map(p=>p[1]),
+    name:k.length>38?k.slice(0,36)+'…':k,stackgroup:'one',line:{width:.5},
+    fillcolor:PAL[i%PAL.length]+'99',mode:'lines'}));
+  plot('mEmp',eT,lay({yaxis:{title:'% of employment'},legend:{orientation:'h',y:-0.25,font:{size:10.5}},showlegend:true}));
+  plot('mGold',[{x:M.gold.years,y:M.gold.share,name:'Gold share of tracked exports (%)',type:'bar',marker:{color:'#b45309'}},
+    {x:M.gold.years,y:M.gold.gold_usd_bn,name:'Gold exports (USD bn)',yaxis:'y2',mode:'lines+markers',line:{color:'#0e7490',width:2.5}}],
+    lay({yaxis:{title:'% of tracked exports'},yaxis2:{overlaying:'y',side:'right',title:'USD bn',gridcolor:'rgba(0,0,0,0)'}}));
+  plot('mPub',[{x:M.publicShare.years,y:M.publicShare.share,mode:'lines+markers',
+    line:{color:'#0e7490',width:2.5},name:'public share'}],lay({yaxis:{title:'% of employment'}}));
+  plot('mMig',[{x:M.migration.dates,y:M.migration.abroad,name:'member abroad',line:{color:'#0e7490',width:2}},
+    {x:M.migration.dates,y:M.migration.considering,name:'considering',line:{color:'#b45309',width:2}},
+    {x:M.migration.dates,y:M.migration.returned,name:'returned',line:{color:'#166534',width:2}}],
+    lay({yaxis:{title:'% of households'},shapes:[reformLine()]}));
+  const pp=document.getElementById('ppItem');
+  if(M.producerPrices){Object.keys(M.producerPrices).sort().forEach(k=>{
+    const o=document.createElement('option');o.value=k;o.textContent=k;pp.appendChild(o);});
+    const def=Object.keys(M.producerPrices).find(k=>/cotton/i.test(k));if(def)pp.value=def;
+    pp.onchange=()=>ppDraw();ppDraw();}
+  const hm=document.getElementById('hMetric');
+  Object.keys(M.health).forEach(k=>{const o=document.createElement('option');o.value=k;
+    o.textContent=k.replace(/_/g,' ');hm.appendChild(o);});
+  hm.onchange=()=>healthDraw();healthDraw();
+}
+function ppDraw(){
+  const k=document.getElementById('ppItem').value,d=DATA.macro.producerPrices[k];
+  plot('mPP',[{x:d.map(p=>p[0]),y:d.map(p=>p[1]),mode:'lines+markers',line:{color:'#b45309',width:2.2},name:k}],
+    lay({yaxis:{title:'USD / tonne'}}));
+}
+function healthDraw(){
+  const k=document.getElementById('hMetric').value,D=DATA.macro.health[k];
+  const traces=Object.keys(D).sort().map((rg,i)=>({x:D[rg].map(p=>p[0]),y:D[rg].map(p=>p[1]),
+    name:rg.replace(/_/g,' '),mode:'lines',line:{color:PAL[i%PAL.length],width:1.8}}));
+  plot('mHealth',traces,lay({yaxis:{title:k.replace(/_/g,' ')},legend:{orientation:'h',y:-0.2}}));
+}
+
+renderMap();rendered.map=true;
+</script>
+</body>
+</html>

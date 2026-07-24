@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The compensation channel reached 16 households · Uzbekistan Data Atlas</title>
+<meta name="description" content="The income-targeted compensation for the tariff failed structurally — it reached almost no one — because the losers are defined by grid access, not income.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body data-finding="compensation">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow"><a href="./" style="text-decoration:none;color:inherit">Findings</a> · The tariff</p>
+  <div class="finding-head">
+    <h1>The compensation channel reached 16 households</h1>
+    <p class="oneline">The income-targeted compensation for the tariff failed structurally — it reached almost no one — because the losers are defined by grid access, not income.</p>
+    <p style="margin:14px 0 0"><span class="status" data-status="proven">proven</span>
+      <span style="font-size:13px;color:var(--ink-muted);margin-left:8px">Identified — the estimate holds up under the panel&#x27;s fixed effects.</span></p>
+  </div>
+
+  <figure class="card" style="margin:26px 0 0">
+    <div id="finding-chart"></div>
+  </figure>
+
+  <div class="prose" style="margin-top:26px"><p><strong>What we found</strong></p>
+<ul>
+<li>The targeted utility-compensation transfer (<code>benefit_17</code>) appears for <strong>~16 households in the entire L2CU panel</strong> (~2,500 HH).</li>
+<li>Pension/benefit recipients grew only +2.4% in 2024 — the safety net did not expand — against a bill shock hitting ~54% of households (the grid share).</li>
+<li>The effective transfer instead ran through untargeted agricultural subsidies.</li>
+<li>Because losers are defined by grid access, not income (a Hanna–Olken targeting mismatch), income-targeting was structurally incapable of finding them. The implied fix is exposure-indexed (grid × winter) compensation.</li>
+</ul>
+<p><strong>Behind it:</strong> <code>analysis/02_coding_and_availability.py</code>. Context: iCRAFT tranche ($7.5M, Jun 2024) targeted "poorest grid households" — an under-used direct channel. Oct 2025: compensation transfer quadrupled (270k → 1M sum) — a built-in second event not yet exploited.</p></div>
+
+  <aside class="caveats">
+    <h3>What this cannot carry</h3>
+    <ul>
+<li>Take-up of ~16 HH also blocks an RD design on compensation eligibility — that would need administrative rolls.</li>
+</ul>
+  </aside>
+
+  <details class="technical">
+    <summary>The numbers — specification, coefficients and caveats</summary>
+    <div class="technical-body">
+      <div class="prose"><h3>Claim</h3>
+<blockquote><p>The income-targeted compensation channel failed structurally: the targeted utility-compensation transfer (<code>benefit_17</code>) appears for <strong>~16 households in the entire L2CU panel</strong>, and pension/benefit recipients grew only <strong>+2.4%</strong> in 2024 — the safety net did not expand. The effective transfer ran through <strong>untargeted agricultural subsidies</strong> instead. Because the losers are defined by <strong>grid access, not income</strong> (Hanna–Olken mismatch), income-targeting was structurally incapable of finding them; the policy implication is <strong>exposure-indexed (grid × winter) compensation</strong>.</p></blockquote>
+<h3>Evidence</h3>
+<ul>
+<li><code>benefit_17</code> (utility compensation): ~16 HH ever, in a panel of ~2,500.</li>
+<li>Safety-net caseload +2.4% (2024) vs an energy bill shock hitting ~54% of households (grid share).</li>
+<li>iCRAFT tranche ($7.5M, Jun 2024) targeted "poorest grid households" — the under-used direct channel.</li>
+<li>Oct 2025: compensation transfer quadrupled (270k→1M sum) — a built-in second event (N4) for testing reversal, not yet exploited.</li>
+</ul>
+<h3>Caveats</h3>
+<ul>
+<li>Take-up ≈16 HH also <strong>blocks</strong> the RD design on compensation eligibility (B2) — needs admin rolls.</li>
+</ul></div>
+    </div>
+  </details>
+
+  <div class="pager"><a href="revenue-not-conservation.html"><span class="lbl">Previous</span>Revenue, not conservation</a><a href="robustness.html" style="text-align:right"><span class="lbl">Next</span>Robustness, and the claims we withdrew</a></div>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/finding.js"></script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The frozen bill — a winter-shaped price shock · Uzbekistan Data Atlas</title>
+<meta name="description" content="The 1 May 2024 tariff raised every household&#x27;s energy bill ~70%, but the extra bite lands almost entirely in winter, on grid (piped-gas) households.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body data-finding="frozenBill">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow"><a href="./" style="text-decoration:none;color:inherit">Findings</a> · The tariff</p>
+  <div class="finding-head">
+    <h1>The frozen bill — a winter-shaped price shock</h1>
+    <p class="oneline">The 1 May 2024 tariff raised every household's energy bill ~70%, but the extra bite lands almost entirely in winter, on grid (piped-gas) households.</p>
+    <p style="margin:14px 0 0"><span class="status" data-status="proven">proven</span>
+      <span style="font-size:13px;color:var(--ink-muted);margin-left:8px">Identified — the estimate holds up under the panel&#x27;s fixed effects.</span></p>
+  </div>
+
+  <figure class="card" style="margin:26px 0 0">
+    <div id="finding-chart"></div>
+  </figure>
+
+  <div class="prose" style="margin-top:26px"><p><strong>What we found</strong></p>
+<ul>
+<li>The subsidy era shows up as a <em>frozen nominal price</em>: median electricity payment sat at exactly 50,000 UZS from 2021 through 2023 (so the real price fell ~10%/yr), then jumped +60% in 2024 and +25% in 2025.</li>
+<li>After the reform, post = <strong>+0.53 log points</strong> on total energy payment (t=28) — a ~70% rise for everyone.</li>
+<li>The grid premium exists <strong>only in winter</strong>: post × grid × winter = <strong>+0.17</strong> (t=5.3). Grid households' heating-season bills roughly doubled (piped-gas median Dec 2023 100k → Dec 2024 200k UZS).</li>
+<li>First stage scales with baseline use: post × ln(baseline bill) on ln(payment) = <strong>+0.072</strong> — the block-tariff structure binding.</li>
+</ul>
+<p><strong>Behind it:</strong> L2CU household panel; canonical run <code>dissertation/build_results.py</code> (T2), first cut <code>exploration/claude_newangles.py</code>. Exposure = modal pre-reform gas type (rounds ≤68); canonical sample 1,862 households.</p></div>
+
+  <aside class="caveats">
+    <h3>What this cannot carry</h3>
+    <ul>
+<li>Payments are expenditures (price × quantity, possibly lagged ~1 month, heaped at round numbers) — there's no kWh denominator in the data.</li>
+<li>The May→Aug 2024 ramp partly reflects payment lags and the scheduled block phase-in, not just the price change.</li>
+</ul>
+  </aside>
+
+  <details class="technical">
+    <summary>The numbers — specification, coefficients and caveats</summary>
+    <div class="technical-body">
+      <div class="prose"><h3>Claim</h3>
+<blockquote><p>The subsidy era is visible as a frozen nominal price: the median electricity payment sat at exactly 50,000 UZS from 2021 through 2023 (a real price falling ~10%/yr), then jumped +60% in 2024 and +25% in 2025. After 1 May 2024 every household's energy bill rose ~70% (post = <strong>+0.53 log points</strong><span class="sig">*</span>, t=28), but the <strong>grid premium exists only in winter</strong>: post×grid×winter = <strong>+0.17</strong><span class="sig">*</span> (t=5.3) — grid households' heating-season bills roughly doubled (piped-gas median Dec 2023 100k → Dec 2024 200k UZS).</p></blockquote>
+<h3>Evidence</h3>
+<div class="tableview"><table class="data"><thead><tr><th>Term</th><th>β</th><th>t</th></tr></thead><tbody><tr><td>post</td><td><strong>+0.53</strong><span class="sig">*</span></td><td class="num">28</td></tr><tr><td>post × grid</td><td class="num">−0.03</td><td class="num">−1.1</td></tr><tr><td>post × winter</td><td class="num">+0.06<span class="sig">***</span></td><td class="num">3.1</td></tr><tr><td>grid × winter</td><td class="num">+0.18<span class="sig">***</span></td><td class="num">7.7</td></tr><tr><td><strong>post × grid × winter</strong></td><td><strong>+0.17</strong><span class="sig">*</span></td><td><strong>5.3</strong></td></tr></tbody></table></div>
+<ul>
+<li>First stage scales with baseline use: post × ln(baseline bill) on ln(payment) = <strong>+0.072</strong><span class="sig">**</span> — the block structure binding. (But distress does <em>not</em> scale with volume — see 15 Robustness and withdrawn claims.)</li>
+<li>Piped-gas payment (grid HH only): post +0.47<span class="sig">***</span>, post×winter +0.26<span class="sig">***</span>.</li>
+</ul>
+<p></p>
+<h3>Backing code</h3>
+<p>Canonical run: <code>dissertation/build_results.py</code> (T2 block). Exposure definition and spec:</p>
+<pre><code class="language-python"># baseline grid exposure: modal pre-reform gas type (rounds &lt;= 68)
+pre = d[d[&#x27;round&#x27;] &lt;= 68]
+grid = (pre.assign(p=(pre.gas_type.astype(&#x27;string&#x27;).str.strip() == &#x27;Piped/central gas&#x27;).astype(float))
+        .groupby(&#x27;hhid&#x27;)[&#x27;p&#x27;].mean().round().rename(&#x27;grid&#x27;))
+d = d.merge(grid, on=&#x27;hhid&#x27;, how=&#x27;left&#x27;)
+d = d.dropna(subset=[&#x27;grid&#x27;])                      # CANONICAL SAMPLE (1,862 HH)
+
+d[&#x27;pay_total&#x27;] = d[[&#x27;electricity_payment&#x27;, &#x27;gas_payment_piped&#x27;, &#x27;gas_payment_liquid&#x27;]].fillna(0).sum(axis=1)
+d.loc[d.electricity_payment.isna(), &#x27;pay_total&#x27;] = np.nan
+d[&#x27;ln_pay_total&#x27;] = np.log1p(d[&#x27;pay_total&#x27;])
+
+# interactions
+d[&#x27;p_g&#x27;] = d.post * d.grid
+d[&#x27;p_w&#x27;] = d.post * d.winter          # winter = Dec-Mar
+d[&#x27;g_w&#x27;] = d.grid * d.winter
+d[&#x27;p_g_w&#x27;] = d.post * d.grid * d.winter
+
+# T2 — first stage (HH FE + calendar-month FE, CR0 cluster-HH; see [[The estimator]])
+rows = (fereg(d, &#x27;ln_pay_total&#x27;, [&#x27;post&#x27;, &#x27;p_g&#x27;])
+        + fereg(d, &#x27;ln_pay_total&#x27;, [&#x27;post&#x27;, &#x27;p_g&#x27;, &#x27;p_w&#x27;, &#x27;g_w&#x27;, &#x27;p_g_w&#x27;])
+        + fereg(d, &#x27;ln_pay_elec&#x27;, [&#x27;post&#x27;])
+        + fereg(d[d.grid == 1], &#x27;ln_pay_gas&#x27;, [&#x27;post&#x27;, &#x27;p_w&#x27;]))</code></pre>
+<p>First estimated in <code>exploration/claude_newangles.py</code> §A; canonical numbers in RESULTS T2.</p>
+<h3>Caveats</h3>
+<ul>
+<li>Payments are <em>expenditures</em> (price × quantity, possibly lagged ~1 month, heaped at round numbers); no kWh denominator (the B1 blocker — see Data caveats).</li>
+<li>The May→Aug 2024 ramp partly reflects payment lags and the scheduled block phase-in.</li>
+</ul></div>
+    </div>
+  </details>
+
+  <div class="pager"><a href="grid-not-income.html"><span class="lbl">Previous</span>Incidence ran on the grid, not on income</a><a href="winter-burden.html" style="text-align:right"><span class="lbl">Next</span>The winter burden annual averages hide</a></div>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/finding.js"></script>
+</body>
+</html>

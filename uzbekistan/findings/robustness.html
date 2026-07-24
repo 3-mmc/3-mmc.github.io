@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robustness checks and claims we withdrew · Uzbekistan Data Atlas</title>
+<meta name="description" content="The honesty ledger — things that looked true in a naive comparison but did not survive household fixed effects, and the claims we therefore dropped.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body data-finding="robustness">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow"><a href="./" style="text-decoration:none;color:inherit">Findings</a> · Method</p>
+  <div class="finding-head">
+    <h1>Robustness checks and claims we withdrew</h1>
+    <p class="oneline">The honesty ledger — things that looked true in a naive comparison but did not survive household fixed effects, and the claims we therefore dropped.</p>
+    <p style="margin:14px 0 0"><span class="status" data-status="revised">revised</span>
+      <span style="font-size:13px;color:var(--ink-muted);margin-left:8px">The honesty ledger — what did not survive a harder test.</span></p>
+  </div>
+
+  <figure class="card" style="margin:26px 0 0">
+    <div id="finding-chart"></div>
+  </figure>
+
+  <div class="prose" style="margin-top:26px"><p><strong>Three revisions</strong></p>
+<ol>
+<li><strong>Dose-response is NULL under household FE — monotonicity claim WITHDRAWN.</strong> post × baseline-bill quartile on utility distress: Q4−Q1 ≈ +0.002 (t=0.2). Bills scaled with baseline use (post×ln-base on ln-payment +0.072) but <em>distress</em> did not — plausibly because big users are richer. The incidence margin is <strong>winter × grid, not bill volume.</strong></li>
+<li><strong>Grid incomes did NOT rise differentially — "urban income boom" SOFTENED.</strong> post×grid on ln(HH cash income) = −0.01 (t=−0.1). Masking worked through a <em>broad-based</em> nominal income boom (~+20%/yr both groups) plus seasonal averaging, not a differential urban boom. Side benefit: no differential-income confound on the winter-bite estimates.</li>
+<li><strong>Exit margin exists but is small.</strong> Baseline-grid HH using any gas −4.5pp post; no switch to bottled. Sits alongside elasticity ≈ 0.</li>
+</ol>
+<p><strong>Standing "don't claim" list</strong></p>
+<ul>
+<li>❌ "The tariff bought reliability" → "imports restored it, the tariff repriced it."</li>
+<li>❌ Orchestrated balancing act (no decree/statement evidence of intent).</li>
+<li>❌ Industrial policy as achieved productive reallocation (unfalsifiable in-window).</li>
+<li>❌ Reform <em>impoverished</em> urban households (bill shock masked by income gains ≠ immiseration).</li>
+<li>❌ Political-legitimacy cost (right-track −0.013 does not survive the event study — unconfirmed).</li>
+</ul>
+<p><strong>Behind it:</strong> <code>dissertation/build_results.py</code> (T7).</p></div>
+
+  <details class="technical">
+    <summary>The numbers — specification, coefficients and caveats</summary>
+    <div class="technical-body">
+      <div class="prose"><p><strong>Every results paragraph must respect these revisions (2026-06-11). They are strengths — show them.</strong></p>
+<h3>1. Dose-response is NULL under household FE — monotonicity claim WITHDRAWN</h3>
+<blockquote><p>post × baseline-bill quartile on utility distress: Q4−Q1 ≈ +0.002 (t=0.2). The earlier "distress rises monotonically with pre-use" was a naive group comparison. Bills scaled with baseline use (post×ln-base on ln-payment +0.072<span class="sig">**</span>) but distress did not — plausibly because big users are richer. <strong>The incidence margin is winter × grid, not bill volume.</strong></p></blockquote>
+<h3>2. Grid incomes did NOT rise differentially — "urban income boom" claim SOFTENED</h3>
+<blockquote><p>post×grid on ln(HH cash income) = −0.01 (t=−0.1). Masking worked through a <strong>broad-based</strong> nominal income boom (~+20%/yr both groups) plus seasonal averaging — not a differential urban boom. Side benefit: <strong>no differential-income confound on the winter-bite estimates.</strong></p></blockquote>
+<h3>3. Exit margin exists but is small</h3>
+<blockquote><p>Baseline-grid HH using any gas −4.5pp<span class="sig">***</span> post; no switch to bottled (piped share among users +1.4pp). Note alongside elasticity ≈ 0.</p></blockquote>
+<h3>Standing don't-claim list (from the claim table)</h3>
+<ul>
+<li>❌ "The tariff bought reliability" → "imports restored it, the tariff repriced it"</li>
+<li>❌ Orchestrated balancing act (no decree/statement evidence of intent)</li>
+<li>❌ Industrial policy as achieved productive reallocation (unfalsifiable in-window)</li>
+<li>❌ Reform <em>impoverished</em> urban households (bill shock masked by income gains ≠ immiseration)</li>
+<li>❌ Political-legitimacy cost (right-track −0.013 does <strong>not</strong> survive the event study — unconfirmed; first cut-candidate)</li>
+</ul>
+<h3>Backing code</h3>
+<p><code>dissertation/build_results.py</code> T7:</p>
+<pre><code class="language-python">base_bill = (d[(d[&#x27;round&#x27;] &gt;= 49) &amp; (d[&#x27;round&#x27;] &lt;= 68)].groupby(&#x27;hhid&#x27;)[&#x27;pay_total&#x27;].mean())
+d7[&#x27;bill_q&#x27;] = pd.qcut(d7.groupby(&#x27;hhid&#x27;)[&#x27;base_bill&#x27;].transform(&#x27;first&#x27;), 4, labels=False)
+rows = (fereg(d7, &#x27;util_distress&#x27;, [&#x27;post&#x27;, &#x27;p_q1&#x27;, &#x27;p_q2&#x27;, &#x27;p_q3&#x27;])   # dose-response: null
+        + fereg(d, &#x27;ln_income&#x27;, [&#x27;post&#x27;, &#x27;p_g&#x27;])                       # no differential income trend
+        + fereg(d[d.grid == 1], &#x27;uses_gas&#x27;, [&#x27;post&#x27;]))                 # small exit margin</code></pre></div>
+    </div>
+  </details>
+
+  <div class="pager"><a href="compensation-16.html"><span class="lbl">Previous</span>The compensation channel reached 16 households</a><a href="tsarist-railways.html" style="text-align:right"><span class="lbl">Next</span>Tsarist railway persistence</a></div>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/finding.js"></script>
+</body>
+</html>

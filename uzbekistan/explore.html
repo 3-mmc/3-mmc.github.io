@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en" data-base=".">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explore the data · Uzbekistan Data Atlas</title>
+<meta name="description" content="Put any Uzbek regional series on the map, correlate any two, or search 1,583 World Bank indicators.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="findings/">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="topics/energy.html">Energy</a>
+      <a href="topics/gold.html">Gold</a>
+      <a href="topics/agriculture.html">Agriculture</a>
+      <a href="topics/prices.html">Prices</a>
+      <a href="topics/people.html">People</a>
+      <a href="topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="explore.html" aria-current="page">Explore</a>
+      <a href="about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main">
+  <p class="eyebrow">Explore</p>
+  <h1>Take the data apart yourself</h1>
+  <p class="lede">Four tools over the same collection: a map, a scatter, a long regional
+  panel and the full World Bank series for Uzbekistan. Nothing here is modelled — these
+  are the raw series, and every chart will hand you its table.</p>
+
+  <div class="controls" style="margin-bottom:22px">
+    <span class="seg" id="tool-picker" role="group" aria-label="Tool">
+      <button type="button" data-pane="map" aria-pressed="true">Map</button>
+      <button type="button" data-pane="correlate" aria-pressed="false">Correlate</button>
+      <button type="button" data-pane="regions" aria-pressed="false">Regions over time</button>
+      <button type="button" data-pane="wdi" aria-pressed="false">World Bank</button>
+    </span>
+  </div>
+
+  <!-- ─────────────────────────────── MAP ─────────────────────────────── -->
+  <section class="pane active" id="pane-map">
+    <div class="card">
+      <h3>Put any regional series on the map</h3>
+      <p class="sub">Wealth and climate exist for all 199 districts; stat.uz publishes for
+      the 14 regions only. Switching resolution shows you what each source can and cannot
+      actually resolve.</p>
+      <div class="controls">
+        <label for="map-layer">Layer</label>
+        <select id="map-layer" style="max-width:min(100%,420px)"></select>
+        <label for="map-year">Year</label>
+        <select id="map-year"></select>
+        <span class="seg" id="map-res" role="group" aria-label="Resolution">
+          <button type="button" data-lvl="adm1" aria-pressed="true">14 regions</button>
+          <button type="button" data-lvl="adm2" aria-pressed="false">199 districts</button>
+        </span>
+      </div>
+      <div class="grid wide-left">
+        <div id="map"></div>
+        <div id="map-rank"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────── CORRELATE ──────────────────────────── -->
+  <section class="pane" id="pane-correlate">
+    <div class="card">
+      <h3>Plot any two regional series against each other</h3>
+      <p class="sub">Each point is one region in one year. The dashed line is an ordinary
+      least-squares fit — descriptive only, with no controls and no fixed effects.</p>
+      <div class="controls">
+        <label for="cx">Horizontal</label>
+        <select id="cx" style="max-width:min(100%,320px)"></select>
+        <label for="cy">Vertical</label>
+        <select id="cy" style="max-width:min(100%,320px)"></select>
+        <label for="cyear">Years</label>
+        <select id="cyear"></select>
+      </div>
+      <div id="correlate"></div>
+    </div>
+  </section>
+
+  <!-- ───────────────────────────── REGIONS ───────────────────────────── -->
+  <section class="pane" id="pane-regions">
+    <div class="card">
+      <h3>The regional panel, 14 regions over time</h3>
+      <p class="sub">266 series assembled from stat.uz topic downloads.</p>
+      <div class="controls">
+        <label for="reg-ind">Series</label>
+        <select id="reg-ind" style="max-width:min(100%,560px)"></select>
+        <label class="check"><input type="checkbox" id="reg-index"> Index first year = 100</label>
+      </div>
+      <div id="regions"></div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────── WDI ─────────────────────────────── -->
+  <section class="pane" id="pane-wdi">
+    <div class="explore-wrap">
+      <div>
+        <div class="controls">
+          <input type="search" id="wdi-search" placeholder="Search 1,583 indicators…" style="flex:1 1 160px">
+          <select id="wdi-topic"><option value="">All topics</option></select>
+        </div>
+        <div class="pick-list" id="wdi-list"></div>
+      </div>
+      <div class="card">
+        <h3>World Bank indicators for Uzbekistan</h3>
+        <p class="sub">Pick up to six from the list. Compare them as levels, or index them
+        to a common base when the units differ.</p>
+        <div class="chips" id="wdi-chips"></div>
+        <div class="controls">
+          <label class="check"><input type="checkbox" id="wdi-index"> Index first year = 100</label>
+          <label class="check"><input type="checkbox" id="wdi-log"> Log scale</label>
+        </div>
+        <div id="wdi-chart"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="findings/">Findings</a></li>
+        <li><a href="explore.html">Explore the data</a></li>
+        <li><a href="about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="topics/gold.html">Gold</a></li>
+        <li><a href="topics/agriculture.html">Agriculture</a></li>
+        <li><a href="topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="topics/people.html">People &amp; work</a></li>
+        <li><a href="topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="./assets/pages/explore.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agriculture · Uzbekistan Data Atlas</title>
+<meta name="description" content="Cotton against every other Uzbek crop, regional production, irrigation and the 2024 agricultural subsidy package.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html" aria-current="page">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main">
+  <p class="eyebrow">Topic</p>
+  <h1>Agriculture</h1>
+  <p class="lede">Half of Uzbek households receive some agricultural income, and almost all
+  of the country's farmland is irrigated rather than rainfed. Two things make the sector
+  worth looking at closely: cotton is bought at a price the state sets rather than one the
+  market clears, and the 2024 reform package moved a great deal of money into the sector
+  at exactly the moment household energy bills rose.</p>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Cotton against everything else</h2>
+      <p>Between 2022 and 2024, 43 of 52 FAO commodities rose in price — median +55%. The
+      two largest falls were both cotton.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Producer prices, US$ per tonne</h3>
+        <p class="sub">Pick any commodity. Cotton is preselected because it is the outlier.</p>
+        <div class="controls">
+          <label for="pp-item">Commodity</label>
+          <select id="pp-item"></select>
+          <label class="check"><input type="checkbox" id="pp-index"> Index first year = 100</label>
+        </div>
+        <div id="pp-chart"></div>
+      </div>
+      <div class="card">
+        <h3>Change 2022 → 2024, every commodity</h3>
+        <p class="sub">Each tick is one commodity. Cotton sits alone on the left.</p>
+        <div id="pp-barcode"></div>
+        <p class="note">World cotton softened ~20–35% over the same window, so part of this
+        is global. The Uzbek fall is steeper, and it runs opposite to the domestic median.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>What the regions grow</h2>
+      <p>Output by region for each crop and livestock series stat.uz publishes.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Regional production</h3>
+        <div class="controls">
+          <label for="crop-series">Series</label>
+          <select id="crop-series"></select>
+          <label class="check"><input type="checkbox" id="crop-index"> Index first year = 100</label>
+        </div>
+        <div id="crop-chart"></div>
+      </div>
+      <div class="card">
+        <h3>Latest year, ranked</h3>
+        <div id="crop-rank"></div>
+        <p class="note">Regions are ordered by output in the most recent year available for
+        the selected series.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The sector in the national accounts</h2>
+      <p>Agriculture's share of output has fallen steadily while its share of employment
+      has fallen faster — the standard structural-transformation pattern, with an
+      irrigation twist.</p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Value added, employment and yield</h3>
+        <div class="controls">
+          <label for="ag-wdi">Indicator</label>
+          <select id="ag-wdi"></select>
+        </div>
+        <div id="ag-wdi-chart"></div>
+      </div>
+      <div class="card">
+        <h3>Water</h3>
+        <p class="sub">Nearly all agricultural land here is irrigated, and agriculture takes
+        almost all the freshwater withdrawn.</p>
+        <div id="ag-water"></div>
+        <p class="note">Which is why rainfall is a weak weather control in this country:
+        greenness predicts grain output, rain does not. See
+        <a href="climate.html">Climate &amp; water</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Findings from this sector</h2>
+    </div>
+    <div class="topic-list">
+      <a class="topic-card" href="../findings/cotton-monopsony.html">
+        <h3>The cotton monopsony</h3>
+        <p>Raw seed-cotton fell 56% and was then frozen at one price for 24 straight months.</p>
+        <span class="count">Descriptive</span>
+      </a>
+      <a class="topic-card" href="../findings/recomposition.html">
+        <h3>Gains visible, losses masked</h3>
+        <p>The agricultural gains show up cleanly at household level; the energy losses do not.</p>
+        <span class="count">Identified</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/agriculture.js"></script>
+</body>
+</html>

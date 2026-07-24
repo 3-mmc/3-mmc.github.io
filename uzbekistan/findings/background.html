@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broad background findings (off-topic) · Uzbekistan Data Atlas</title>
+<meta name="description" content="Broad background findings (off-topic)">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow"><a href="./" style="text-decoration:none;color:inherit">Findings</a> · Background</p>
+  <div class="finding-head">
+    <h1>Broad background findings (off-topic)</h1>
+    
+    <p style="margin:14px 0 0"><span class="status" data-status="descriptive">descriptive</span>
+      <span style="font-size:13px;color:var(--ink-muted);margin-left:8px">Real in the data, but not causally identified.</span></p>
+  </div>
+
+  <div class="prose" style="margin-top:26px"><p>A reservoir of facts from the wide all-data exploration. None of these is an identified causal result — they're context, and several could seed an entirely different project.</p>
+<ul>
+<li><strong>Regional inequality is widening.</strong> No β-convergence; σ-divergence (cross-region SD of log real income 0.28→0.35, 2018–25). Tashkent city is 3.6× Karakalpakstan. (<code>reg_convergence.py</code>, <code>subnational_growth*.py</code>)</li>
+<li><strong>2017 liberalization re-wired the economy.</strong> Currency unification (~170% devaluation), credit 10→30% of GDP, trade 39→62% of GDP, internet 32→77%. (<code>wdi_break.py</code>)</li>
+<li><strong>Migration.</strong> 13–18% of households have a member abroad; Russia is ~80% of destinations and barely moved after Feb 2022; remittances are 14% of GDP (3rd most dependent globally). (<code>l2cu_migration.py</code>)</li>
+<li><strong>Attitudes.</strong> "Government fights corruption well" fell 93%→70% (2019–25) — the sharpest erosion — while WGI governance indicators <em>improved</em> on every dimension: an expectations-outrun-delivery paradox. (<code>l2cu_views.py</code>, <code>fetch_wgi.py</code>)</li>
+<li><strong>Female higher-ed revolution.</strong> Enrolment F:M ratio 0.70 (2011) → 1.18 (2024), but attainment is still male-skewed and female youth unemployment ratio doubled. (<code>mics_edu.py</code>)</li>
+<li><strong>Network infrastructure is urban-locked regardless of wealth (MICS6).</strong> Piped water 1.5% (poorest) → 70% (richest); flush-to-sewer 0% → 81%; urban coefficients survive wealth controls — rhymes with the grid-incidence result. (<code>mics_hh*.py</code>)</li>
+<li><strong>Irrigation, not rain.</strong> NDVI predicts grain output (β=1.43), rainfall doesn't. (<code>district_climate.py</code>)</li>
+</ul>
+<p><strong>Infrastructure built along the way</strong></p>
+<ul>
+<li><code>exploration/outputs/regional_panel_wide.csv</code> — region × year panel, 266 indicators, 364 region-years.</li>
+<li><code>exploration/outputs/district_climate_year.csv</code> — 182-district climate panel.</li>
+<li><code>datasets/external_worldbank/</code> — 15-country comparator panel + WGI.</li>
+</ul>
+<p><strong>Behind it:</strong> <code>exploration/FINDINGS.md</code> (full detail), <code>exploration/SUMMARY_FOR_COLLEAGUES.md</code> (plain-language + charts).</p></div>
+
+  <details class="technical">
+    <summary>The numbers — specification, coefficients and caveats</summary>
+    <div class="technical-body">
+      <div class="prose"><p>Full detail in <code>exploration/FINDINGS.md</code>; plain-language version with charts in <code>exploration/SUMMARY_FOR_COLLEAGUES.md</code>. Kept here as context reservoir for Ch.2 and the conclusion — <strong>none of this is an identified leg.</strong></p>
+<h3>Usable as dissertation context</h3>
+<ul>
+<li><strong>Regional inequality is widening</strong>: no β-convergence; σ-divergence (cross-region SD of log real income 0.28→0.35, 2018–25); Tashkent city 3.6× Karakalpakstan. (<code>reg_convergence.py</code>, <code>subnational_growth*.py</code>)</li>
+<li><strong>2017 liberalization re-wired the economy</strong>: currency unification (~170% devaluation), credit 10→30% GDP, trade 39→62% GDP, internet 32→77%. The reform era the tariff belongs to. (<code>wdi_break.py</code>)</li>
+<li><strong>Migration</strong>: 13–18% of HH have a member abroad; <strong>Russia ~80% of destinations, barely moved after Feb 2022</strong>; remittances 14% of GDP (3rd most dependent globally). (<code>l2cu_migration.py</code>)</li>
+<li><strong>Attitudes</strong>: "government fights corruption well" <strong>93%→70%</strong> (2019–25) — sharpest erosion; WGI meanwhile <em>improving</em> on every dimension → expectations-outrun-delivery paradox. (<code>l2cu_views.py</code>, <code>fetch_wgi.py</code>)</li>
+<li><strong>Female higher-ed revolution</strong>: enrolment F:M ratio 0.70 (2011) → 1.18 (2024), but attainment still male-skewed and female youth-unemployment ratio doubled. (<code>mics_edu.py</code>, chart <code>03_female_enrolment.png</code>)</li>
+<li><strong>Network infrastructure is urban-locked regardless of wealth</strong> (MICS6): piped water 1.5% poorest → 70% richest; flush-to-sewer 0% → 81%; urban coefficients survive wealth controls — rhymes with the grid-incidence thesis. (<code>mics_hh*.py</code>)</li>
+<li><strong>Irrigation, not rain</strong>: NDVI predicts grain output (β=1.43<span class="sig">**</span>), rainfall doesn't — rainfall is a weak weather control here. (<code>district_climate.py</code>)</li>
+</ul>
+<h3>Infrastructure built along the way</h3>
+<ul>
+<li><code>exploration/outputs/regional_panel_wide.csv</code> — region × year panel, 266 indicators, 364 region-years (<code>build_panel.py</code>)</li>
+<li><code>exploration/outputs/district_climate_year.csv</code> — 182-district climate panel</li>
+<li><code>datasets/external_worldbank/</code> — 15-country comparator panel + WGI (<code>fetch_wb.py</code>, <code>fetch_wgi.py</code>)</li>
+</ul></div>
+    </div>
+  </details>
+
+  <div class="pager"><a href="college-reversal.html"><span class="lbl">Previous</span>The compulsory-college reversal</a><a href="dead-ends.html" style="text-align:right"><span class="lbl">Next</span>Dead ends</a></div>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/finding.js"></script>
+</body>
+</html>

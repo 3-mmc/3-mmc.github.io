@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Electricity &amp; gas · Uzbekistan Data Atlas</title>
+<meta name="description" content="Uzbekistan&#x27;s gas balance, electricity generation mix, grid access and energy affordability — the data behind the 2024 tariff reform.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html" aria-current="page">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main">
+  <p class="eyebrow">Topic</p>
+  <h1>Electricity &amp; gas</h1>
+  <p class="lede">Uzbekistan spent thirty years as a gas exporter and then, quite suddenly,
+  stopped being one. Production fell by a third while consumption held flat; in 2023 the
+  country became a net importer. That is the pressure behind everything else on this
+  page — the outage winter, the import deal, and the tariff that made households pay for
+  the fix.</p>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The gas dividend, and its end</h2>
+      <p>Production, consumption and the net balance. Above the zero line the country
+      exports; below it, it buys.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Production has fallen by a third since 2010; consumption has not</h3>
+        <p class="sub">Solid lines are the stat.uz national balance. Faint lines extend the
+        series back to 1985 using Energy Institute data, converted at 1&nbsp;bcm ≈ 10.55&nbsp;TWh.</p>
+        <div id="gas-balance"></div>
+      </div>
+      <div class="card">
+        <h3>Net balance</h3>
+        <p class="sub">Export surplus above zero, import deficit below.</p>
+        <div id="gas-net"></div>
+        <p class="note">The flip happens in 2023 — the same winter Russian pipeline imports
+        began, and one year before the household tariff rose.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Where the electricity comes from</h2>
+      <p>Gas has done nearly all the work for thirty-five years. Solar and wind arrive
+      only at the very end of the series.</p>
+    </div>
+    <div class="card">
+      <h3>Generation by source</h3>
+      <div id="elec-mix"></div>
+      <p class="note">Ember and the Energy Institute, via Our World in Data. Hydropower is
+      the only non-fossil source with real history here; everything renewable other than
+      hydro is a post-2020 phenomenon.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Who is actually on the gas grid</h2>
+      <p>This is the variable that decides who the 2024 tariff reached — and it is not
+      income.</p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Share of homes with piped natural gas, by region</h3>
+        <p class="sub">Pick a year to see the spread; the gap between the capital and the
+        gas-producing south-west is the whole story.</p>
+        <div class="controls">
+          <label for="access-year">Year</label>
+          <select id="access-year"></select>
+        </div>
+        <div id="gas-access"></div>
+      </div>
+      <div class="card">
+        <h3>The same regions over time</h3>
+        <p class="sub">Access has not converged. Several regions have lost ground.</p>
+        <div id="gas-access-time"></div>
+        <p class="note">stat.uz <code>environment/1243</code>. Nationally about 56% of homes
+        are connected — but that number hides cities at 96–100% and rural districts at 15–35%.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Electricity: production, consumption and reliability</h2>
+      <p>Regional series from stat.uz, plus the national-level indicators the World Bank
+      tracks.</p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Regional series</h3>
+        <div class="controls">
+          <label for="elec-series">Series</label>
+          <select id="elec-series"></select>
+          <label class="check"><input type="checkbox" id="elec-index"> Index first year = 100</label>
+        </div>
+        <div id="elec-regional"></div>
+      </div>
+      <div class="card">
+        <h3>Access, losses and outages</h3>
+        <p class="sub">Electricity access has been universal since the 1990s. The
+        interesting variation is in losses and in what firms report.</p>
+        <div class="controls">
+          <label for="elec-wdi">Indicator</label>
+          <select id="elec-wdi"></select>
+        </div>
+        <div id="elec-wdi-chart"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>What the reform did to households</h2>
+      <p>Three findings from the household panel sit behind this topic.</p>
+    </div>
+    <div class="topic-list">
+      <a class="topic-card" href="../findings/the-reshuffle.html">
+        <h3>The reshuffle</h3>
+        <p>Rationing by shortage and rationing by price burdened near-disjoint sets of households.</p>
+        <span class="count">Identified</span>
+      </a>
+      <a class="topic-card" href="../findings/reliability.html">
+        <h3>Imports restored reliability</h3>
+        <p>The most reliable winter in the panel was also the most financially distressed.</p>
+        <span class="count">Identified</span>
+      </a>
+      <a class="topic-card" href="../findings/revenue-not-conservation.html">
+        <h3>Revenue, not conservation</h3>
+        <p>Prices rose 53–400%; physical consumption barely moved.</p>
+        <span class="count">Identified</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/energy.js"></script>
+</body>
+</html>

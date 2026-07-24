@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Incidence ran on the grid, not on income · Uzbekistan Data Atlas</title>
+<meta name="description" content="Because the gas grid is urban, a universal energy subsidy was implicitly an urban/grid/big-user subsidy — so withdrawing it is governed by infrastructure access, not income.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body data-finding="gridAccess">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow"><a href="./" style="text-decoration:none;color:inherit">Findings</a> · The tariff</p>
+  <div class="finding-head">
+    <h1>Incidence ran on the grid, not on income</h1>
+    <p class="oneline">Because the gas grid is urban, a universal energy subsidy was implicitly an urban/grid/big-user subsidy — so withdrawing it is governed by infrastructure access, not income.</p>
+    <p style="margin:14px 0 0"><span class="status" data-status="proven">proven</span>
+      <span style="font-size:13px;color:var(--ink-muted);margin-left:8px">Identified — the estimate holds up under the panel&#x27;s fixed effects.</span></p>
+  </div>
+
+  <figure class="card" style="margin:26px 0 0">
+    <div id="finding-chart"></div>
+  </figure>
+
+  <div class="prose" style="margin-top:26px"><p><strong>What we found</strong></p>
+<ul>
+<li>Pre-reform median "subsidised" bill: <strong>piped 202,500 vs bottled/other 75,000 UZS (2.7×)</strong>; urban 150k vs rural 112.5k.</li>
+<li>Top-quartile pre-reform users: 88.5% piped, ~50% urban (vs 39% / 34% for the rest).</li>
+<li>Administrative grid gradient (stat.uz district-level % apartments with piped gas): cities ~96–100%, rural districts 15–35%, national ~56% — administrative proof that tariff exposure is urban.</li>
+<li>Core DiD: "tariff too high" +0.330 (t=37); couldn't pay utilities +0.030 (t=11); reduced food +0.015 (t=7); FIES and dirty-fuel switching did <em>not</em> rise.</li>
+<li>Welfare stress rose <em>more</em> among urban households — this inverts the original proposal's prior that the rural poor would be hit.</li>
+</ul>
+<p><strong>The point:</strong> the development question "do block tariffs protect the poor?" largely misfires here — the rural poor were never in the subsidised system.</p>
+<p><strong>Behind it:</strong> incidence pipeline <code>analysis/01–08</code> (two-way FE DiD in <code>l2cu_common.py</code>); stat.uz <code>environment/1243</code>.</p></div>
+
+  <aside class="caveats">
+    <h3>What this cannot carry</h3>
+    <ul>
+<li>The naive pre/post absorbs seasonality but not secular 2024 trends — the identified claims live in the exposure interactions and the winter triple-diff, not the raw pre/post.</li>
+<li>The 2.7× bill ratio is the subsidy's size gradient, not yet an estimate of harm.</li>
+</ul>
+  </aside>
+
+  <details class="technical">
+    <summary>The numbers — specification, coefficients and caveats</summary>
+    <div class="technical-body">
+      <div class="prose"><h3>Claim</h3>
+<blockquote><p>In a country where the gas grid is urban, a universal energy subsidy is implicitly an <strong>urban / grid / big-user</strong> subsidy — so withdrawing it is mechanically a grid-incidence event governed by <strong>infrastructure access, not income</strong>. The development question "do block tariffs protect the poor?" largely misfires: the rural poor were never in the subsidised system.</p></blockquote>
+<h3>Evidence</h3>
+<ul>
+<li>Pre-reform median "subsidised" bill: <strong>piped 202,500 vs bottled/other 75,000 UZS (2.7×)</strong>; urban 150k vs rural 112.5k.</li>
+<li>Top-quartile pre-reform users: <strong>88.5% piped, ~50% urban</strong> (vs 39% / 34% for the rest).</li>
+<li><strong>Administrative grid gradient</strong> (stat.uz <code>environment/1243</code>, district-level % apartments with piped gas): cities ~96–100%, rural districts 15–35%, national ~56% — administrative proof that tariff exposure is urban.</li>
+<li>Core DiD (HH + calendar-month FE): "tariff too high" <strong>+0.330</strong> (t=37); couldn't pay utilities <strong>+0.030</strong> (t=11); reduced food <strong>+0.015</strong> (t=7); FIES and dirty-fuel switching did <strong>not</strong> rise.</li>
+<li>Welfare stress rose <strong>more among urban</strong> households (validated ag-based rural proxy) — inverts the original proposal's prior.</li>
+</ul>
+<h3>Backing code</h3>
+<p>The original incidence pipeline <code>analysis/01–08</code> (provenance; <code>dissertation/</code> is canonical). The shared estimator:</p>
+<pre><code class="language-python"># analysis/l2cu_common.py — two-way FE DiD (naive pre/post; the exposure
+# interactions in later scripts are what difference out common macro shocks)
+def twoway_fe_did(df, outcome, unit=&quot;hhid&quot;, post=&quot;post&quot;, timefe=&quot;calmonth&quot;):
+    &quot;&quot;&quot;outcome_it = beta*POST_t + alpha_i (unit FE) + gamma_m (month FE) + e_it
+    Iterative within-transformation; SE cluster-robust by household (CR0).&quot;&quot;&quot;</code></pre>
+<p>Exposure split and grid definition: see 01 The frozen bill and the first stage (same <code>grid</code> variable everywhere).</p>
+<h3>Caveats</h3>
+<ul>
+<li>The naive pre/post absorbs seasonality, <strong>not</strong> secular 2024 trends — magnitudes from <code>analysis/04</code> are descriptive; the identified claims live in the exposure interactions and the winter triple-diff.</li>
+<li>The 2.7× bill ratio is the subsidy's <em>size</em> gradient, not yet an estimate of harm.</li>
+</ul></div>
+    </div>
+  </details>
+
+  <div class="pager"><a href="the-reshuffle.html"><span class="lbl">Previous</span>The reshuffle</a><a href="frozen-bill.html" style="text-align:right"><span class="lbl">Next</span>The frozen bill</a></div>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/finding.js"></script>
+</body>
+</html>

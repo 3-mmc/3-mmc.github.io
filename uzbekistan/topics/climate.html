@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Climate &amp; water · Uzbekistan Data Atlas</title>
+<meta name="description" content="Growing-season rainfall and vegetation greenness for Uzbekistan&#x27;s 14 regions and 199 districts, from WFP satellite data.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html" aria-current="page">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main">
+  <p class="eyebrow">Topic</p>
+  <h1>Climate &amp; water</h1>
+  <p class="lede">Uzbekistan farms a desert. Almost all cropland is irrigated, which means
+  the weather variable that matters is not how much rain fell — it is how green things
+  actually got. That distinction has teeth: vegetation greenness predicts grain output
+  here, and rainfall does not. If you are looking for a weather instrument in this
+  country, rain is the wrong one.</p>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The growing season, region by region</h2>
+      <p>Rainfall is summed over March–August; greenness (NDVI) is averaged over
+      April–September. Both come from ten-day satellite composites.</p>
+    </div>
+    <div class="card">
+      <h3>Growing-season climate</h3>
+      <div class="controls">
+        <span class="seg" id="clim-metric" role="group" aria-label="Metric">
+          <button type="button" data-metric="rain" aria-pressed="true">Rainfall</button>
+          <button type="button" data-metric="ndvi" aria-pressed="false">Greenness</button>
+        </span>
+        <label class="check"><input type="checkbox" id="clim-index"> Index first year = 100</label>
+      </div>
+      <div id="clim-series"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Does rain make things green here?</h2>
+      <p>Each point is one region in one year. If irrigation dominates, this relationship
+      should be weak — and it is.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Rainfall against greenness, region-years</h3>
+        <div id="clim-scatter"></div>
+        <p class="note">The fitted line and its correlation update with the data shown.
+        A weak relationship is the finding, not a data problem: the Amu Darya and Syr Darya
+        supply the water, not the sky.</p>
+      </div>
+      <div class="card">
+        <h3>Regional spread in one year</h3>
+        <p class="sub">Every district in the country, as a single strip. Pick the year and
+        the measure.</p>
+        <div class="controls">
+          <label for="clim-year">Year</label>
+          <select id="clim-year"></select>
+        </div>
+        <div id="clim-barcode"></div>
+        <p class="note">199 districts. Each tick is one district; the taller marks are the
+        14 regional averages for comparison.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Water and land</h2>
+      <p>The national picture from the World Bank: how much land is irrigated, and how
+      much of the country's freshwater agriculture takes.</p>
+    </div>
+    <div class="card">
+      <h3>Irrigation and freshwater withdrawal</h3>
+      <div id="water-wdi"></div>
+      <p class="note">Agriculture accounts for the overwhelming majority of freshwater
+      withdrawals — the Aral Sea is what that policy cost.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Emissions and warming</h2>
+      <p>The climate-change indicators the World Bank tracks for Uzbekistan.</p>
+    </div>
+    <div class="card">
+      <h3>Climate indicators</h3>
+      <div class="controls">
+        <label for="climate-wdi">Indicator</label>
+        <select id="climate-wdi"></select>
+      </div>
+      <div id="climate-wdi-chart"></div>
+    </div>
+  </section>
+</main>
+
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/climate.js"></script>
+</body>
+</html>

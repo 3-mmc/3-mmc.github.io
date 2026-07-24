@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The eaten disinflation (CPI placebo) · Uzbekistan Data Atlas</title>
+<meta name="description" content="The repricing is invisible in headline inflation because the tariff shock absorbed a global disinflation that every regional peer enjoyed in 2024.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body data-finding="cpiPeers">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow"><a href="./" style="text-decoration:none;color:inherit">Findings</a> · The tariff</p>
+  <div class="finding-head">
+    <h1>The eaten disinflation (CPI placebo)</h1>
+    <p class="oneline">The repricing is invisible in headline inflation because the tariff shock absorbed a global disinflation that every regional peer enjoyed in 2024.</p>
+    <p style="margin:14px 0 0"><span class="status" data-status="proven">proven</span>
+      <span style="font-size:13px;color:var(--ink-muted);margin-left:8px">Identified — the estimate holds up under the panel&#x27;s fixed effects.</span></p>
+  </div>
+
+  <figure class="card" style="margin:26px 0 0">
+    <div id="finding-chart"></div>
+  </figure>
+
+  <div class="prose" style="margin-top:26px"><p><strong>What we found — three masks</strong></p>
+<ol>
+<li><strong>Seasonal:</strong> annual energy shares flat while winter shares jump.</li>
+<li><strong>Cross-sectional:</strong> the non-grid half never had the subsidy, so it doesn't move.</li>
+<li><strong>Macro:</strong> in 2024 every regional peer disinflated sharply while Uzbekistan stayed flat.</li>
+</ol>
+<div class="tableview"><table class="data"><thead><tr><th>Country</th><th>2023 → 2024 inflation</th></tr></thead><tbody><tr><td>Kazakhstan</td><td>14.5 → 8.7</td></tr><tr><td>Kyrgyz Rep.</td><td>10.8 → 5.0</td></tr><tr><td>Azerbaijan</td><td>8.8 → 2.2</td></tr><tr><td>Moldova</td><td>13.4 → 4.7</td></tr><tr><td>Mongolia</td><td>10.3 → 6.2</td></tr><tr><td><strong>Uzbekistan</strong></td><td><strong>10.0 → 9.6</strong></td></tr></tbody></table></div>
+<ul>
+<li>Against a regional counterfactual of ~−5pp, "headline stable" is not benign — the tariff shock ate ~5pp of disinflation.</li>
+<li>Within-survey micro check: households' own reported bread prices were +0% in 2024 (after +56% in 2022, +20% in 2023), while electricity payments rose +60% — food relief and energy shock in the same survey, same month.</li>
+<li>Mechanism (WB deck reconstruction): services CPI +28% YoY post-reform, headline ~flat because food CPI collapsed to ~2.5%.</li>
+</ul>
+<p><strong>Behind it:</strong> <code>datasets/external_worldbank/central_asia_panel_long.csv</code>; <code>dissertation/build_results.py</code> (F4); <code>analysis/09_cpi_chart_reconstruction.py</code>.</p></div>
+
+  <aside class="caveats">
+    <h3>What this cannot carry</h3>
+    <ul>
+<li>The cross-country comparison is a placebo/benchmark, not an identified DiD.</li>
+<li>Bread-price jump in 2025 (+64%) is unexplained — don't lean on 2025 food prices.</li>
+<li>Food disinflation is global prices + input-cost subsidies, not an import glut (food exports +22% rule out a glut).</li>
+</ul>
+  </aside>
+
+  <details class="technical">
+    <summary>The numbers — specification, coefficients and caveats</summary>
+    <div class="technical-body">
+      <div class="prose"><h3>Claim</h3>
+<blockquote><p>The repricing is invisible in aggregates because of three masks: (i) <strong>seasonal</strong> aggregation — annual energy shares flat while winter shares jump; (ii) <strong>cross-sectional</strong> aggregation — the non-grid half never had the subsidy; (iii) <strong>macro</strong> aggregation — in 2024 every regional peer disinflated sharply (KAZ 14.5→8.7, KGZ 10.8→5.0, AZE 8.8→2.2, MDA 13.4→4.7, MNG 10.3→6.2) while <strong>Uzbekistan stayed flat (10.0→9.6)</strong>. Against the regional counterfactual (~−5pp), "headline stable" is not benign: <strong>the tariff shock absorbed a global disinflation</strong> that would otherwise have delivered ~5% inflation.</p></blockquote>
+<h3>Evidence</h3>
+<ul>
+<li><strong>Cross-country placebo (N7)</strong>: WDI headline inflation, 2024 vs 2023 — UZB the only non-disinflating peer. </li>
+<li><strong>Within-survey micro-validation</strong>: in households' own reported prices (L2CU medians), bread <strong>+0% in 2024</strong> (after +56% in 2022, +20% in 2023), flour falling — while electricity payments <strong>+60%</strong>. Food relief and energy shock experienced simultaneously, in the same survey.</li>
+<li>Mechanism (WB deck reconstruction, <code>analysis/09_cpi_chart_reconstruction.py</code>): services CPI <strong>+28% YoY</strong> post-reform, headline ~flat (~9.7%) because food CPI collapsed to ~2.5%.</li>
+<li>Attribution caution: food disinflation is <strong>global prices + input-cost subsidies</strong>, not domestic supply or an import glut (food imports +5.7%, food exports <strong>+22%</strong> — rising exports rule out a glut).</li>
+</ul>
+<h3>Backing code</h3>
+<p><code>dissertation/build_results.py</code> F4:</p>
+<pre><code class="language-python">ca = pd.read_csv(ROOT / &quot;datasets/external_worldbank/central_asia_panel_long.csv&quot;)
+inf = ca[(ca.indicator == &#x27;inflation&#x27;) &amp; (ca.year.between(2019, 2024))]
+piv = inf.pivot_table(index=&#x27;year&#x27;, columns=&#x27;country&#x27;, values=&#x27;value&#x27;)
+peers = [&#x27;Kazakhstan&#x27;, &#x27;Kyrgyz Republic&#x27;, &#x27;Azerbaijan&#x27;, &#x27;Georgia&#x27;, &#x27;Armenia&#x27;, &#x27;Mongolia&#x27;, &#x27;Moldova&#x27;]
+ax.plot(piv.index, piv[peers].median(axis=1), color=&#x27;grey&#x27;, lw=2, ls=&#x27;--&#x27;, label=&#x27;Peer median&#x27;)
+ax.plot(piv.index, piv[&#x27;Uzbekistan&#x27;], color=&#x27;crimson&#x27;, lw=2.5, label=&#x27;Uzbekistan&#x27;)</code></pre>
+<h3>Caveats</h3>
+<ul>
+<li>Bread-price jump in <strong>2025</strong> (+64%) is unexplained (possible liberalization/composition) — don't lean on 2025 food prices without checking.</li>
+<li>The cross-country comparison is a <strong>placebo/benchmark</strong>, not an identified DiD.</li>
+</ul></div>
+    </div>
+  </details>
+
+  <div class="pager"><a href="recomposition.html"><span class="lbl">Previous</span>Gains were visible, losses were masked</a><a href="revenue-not-conservation.html" style="text-align:right"><span class="lbl">Next</span>Revenue, not conservation</a></div>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/finding.js"></script>
+</body>
+</html>

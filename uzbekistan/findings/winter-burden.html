@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The winter burden hidden by annual averages · Uzbekistan Data Atlas</title>
+<meta name="description" content="The energy burden is a winter phenomenon that annual averages wash out completely.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body data-finding="winterBurden">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow"><a href="./" style="text-decoration:none;color:inherit">Findings</a> · The tariff</p>
+  <div class="finding-head">
+    <h1>The winter burden hidden by annual averages</h1>
+    <p class="oneline">The energy burden is a winter phenomenon that annual averages wash out completely.</p>
+    <p style="margin:14px 0 0"><span class="status" data-status="proven">proven</span>
+      <span style="font-size:13px;color:var(--ink-muted);margin-left:8px">Identified — the estimate holds up under the panel&#x27;s fixed effects.</span></p>
+  </div>
+
+  <figure class="card" style="margin:26px 0 0">
+    <div id="finding-chart"></div>
+  </figure>
+
+  <div class="prose" style="margin-top:26px"><p><strong>What we found</strong></p>
+<ul>
+<li>Grid households' median energy share of cash income is <strong>flat across the reform on an all-months basis (5.1% → 5.0%)</strong> but rises <strong>6.2% → 8.0% in winter</strong>.</li>
+<li>Triple-diff (post × grid × winter) on the income share = <strong>+3.1pp</strong>.</li>
+<li>Nominal income grew ~+20%/yr for both groups — enough to cover the <em>average</em> bill but not the <em>winter spike</em>.</li>
+</ul>
+<div class="tableview"><table class="data"><thead><tr><th>Median energy share</th><th>pre</th><th>post</th></tr></thead><tbody><tr><td>grid, all months</td><td class="num">5.1%</td><td class="num">5.0%</td></tr><tr><td>grid, winter</td><td class="num">6.2%</td><td class="num">8.0%</td></tr><tr><td>non-grid, winter</td><td class="num">4.2%</td><td class="num">4.3%</td></tr></tbody></table></div>
+<p><strong>Behind it:</strong> <code>dissertation/build_results.py</code> (T1/T4), first run <code>exploration/claude_newangles.py</code>. Denominator is cash income only (wage/pension/benefit/ag/self-emp/other); shares &gt;100% trimmed.</p></div>
+
+  <aside class="caveats">
+    <h3>What this cannot carry</h3>
+    <ul>
+<li>Treat the <em>levels</em> as descriptive and the <strong>triple-diff as the estimate</strong> — the denominator excludes in-kind income and the remittance module.</li>
+</ul>
+  </aside>
+
+  <details class="technical">
+    <summary>The numbers — specification, coefficients and caveats</summary>
+    <div class="technical-body">
+      <div class="prose"><h3>Claim</h3>
+<blockquote><p>The burden is a <strong>winter phenomenon</strong> that annual averages wash out. Grid households' median energy share of cash income is flat across the reform on an all-months basis (5.1% → 5.0%) but rises <strong>6.2% → 8.0% in winter</strong>; the triple-diff (post×grid×winter) on the share is <strong>+3.1pp</strong><span class="sig">*</span>. Nominal income growth (~+20%/yr, both groups) covered the <em>average</em> bill but not the <em>winter spike</em> — masking has a temporal dimension alongside the cross-sectional and macro ones.</p></blockquote>
+<h3>Evidence</h3>
+<div class="tableview"><table class="data"><thead><tr><th>Median energy share</th><th>pre</th><th>post</th></tr></thead><tbody><tr><td>grid, all months</td><td class="num">5.1%</td><td class="num">5.0%</td></tr><tr><td><strong>grid, winter</strong></td><td><strong>6.2%</strong></td><td><strong>8.0%</strong></td></tr><tr><td>non-grid, winter</td><td class="num">4.2%</td><td class="num">4.3%</td></tr></tbody></table></div>
+<p>Full triple-diff on <code>energy_share</code> (T4 bottom panel): post −0.0124<span class="sig">***</span>, post×grid −0.0090<span class="sig">***</span>, post×winter +0.0103<span class="sig">***</span>, grid×winter +0.0090<span class="sig">***</span>, <strong>post×grid×winter +0.0311</strong><span class="sig">*</span>.</p>
+<h3>Backing code</h3>
+<p><code>dissertation/build_results.py</code> (income &amp; share construction; T1/T4 blocks):</p>
+<pre><code class="language-python"># cash income &amp; burden
+for stub in [&#x27;wage&#x27;, &#x27;pension&#x27;, &#x27;benefit&#x27;, &#x27;aginc&#x27;, &#x27;selfempinc&#x27;, &#x27;otherinc&#x27;]:
+    d[&#x27;inc_&#x27; + stub] = d[stub + &#x27;_amount&#x27;].where(is_yes(d[stub + &#x27;_past30d&#x27;]) == 1, 0).fillna(0)
+d[&#x27;income_total&#x27;] = d[[c for c in d.columns if c.startswith(&#x27;inc_&#x27;)]].sum(axis=1)
+d[&#x27;energy_share&#x27;] = np.where(d.income_total &gt; 0, d.pay_total / d.income_total, np.nan)
+d.loc[d.energy_share &gt; 1, &#x27;energy_share&#x27;] = np.nan   # trim absurd shares
+
+# T4 bottom panel: the share triple-diff
+rows += fereg(d, &#x27;energy_share&#x27;, [&#x27;post&#x27;, &#x27;p_g&#x27;, &#x27;p_w&#x27;, &#x27;g_w&#x27;, &#x27;p_g_w&#x27;])</code></pre>
+<p>First run: <code>exploration/claude_newangles.py</code> §G.</p>
+<h3>Caveats</h3>
+<ul>
+<li>Denominator is <strong>cash income only</strong> (wage/pension/benefit/ag/self-emp/other amounts; excludes in-kind and the remittance module). Shares &gt;100% trimmed. Treat the <em>levels</em> as descriptive and the <strong>triple-diff as the estimate</strong>.</li>
+</ul></div>
+    </div>
+  </details>
+
+  <div class="pager"><a href="frozen-bill.html"><span class="lbl">Previous</span>The frozen bill</a><a href="heating-bite.html" style="text-align:right"><span class="lbl">Next</span>The winter heating bite</a></div>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/finding.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The winter heating bite (triple-difference) · Uzbekistan Data Atlas</title>
+<meta name="description" content="Post-reform, grid households face an extra winter payment-distress bite that the annual average hides.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body data-finding="heatingBite">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow"><a href="./" style="text-decoration:none;color:inherit">Findings</a> · The tariff</p>
+  <div class="finding-head">
+    <h1>The winter heating bite (triple-difference)</h1>
+    <p class="oneline">Post-reform, grid households face an extra winter payment-distress bite that the annual average hides.</p>
+    <p style="margin:14px 0 0"><span class="status" data-status="proven">proven</span>
+      <span style="font-size:13px;color:var(--ink-muted);margin-left:8px">Identified — the estimate holds up under the panel&#x27;s fixed effects.</span></p>
+  </div>
+
+  <figure class="card" style="margin:26px 0 0">
+    <div id="finding-chart"></div>
+  </figure>
+
+  <div class="prose" style="margin-top:26px"><p><strong>What we found</strong></p>
+<ul>
+<li>post × grid × winter on "couldn't pay utilities" = <strong>+1.9pp</strong> (t=2.1), on top of a general post-winter rise of +2.5pp.</li>
+<li>Same triple-diff on energy share of income = <strong>+3.1pp</strong>.</li>
+<li>No grid-specific winter <em>health</em> effect (sick / needed-medical ≈ 0), but a general post-reform winter rise in healthcare cut-backs (+7.4pp) — a coping margin, not cleanly the gas tariff.</li>
+<li>Distress <em>fell</em> in non-winter post months and <em>rose</em> in winter — a seasonal heating story the annual average cancels out.</li>
+</ul>
+<div class="tableview"><table class="data"><thead><tr><th>Outcome</th><th>post × winter</th><th>post × grid × winter</th></tr></thead><tbody><tr><td>couldn't pay utilities</td><td class="num">+0.025</td><td><strong>+0.019</strong> (t=2.1)</td></tr><tr><td>reduced food</td><td class="num">+0.025</td><td class="num">−0.005</td></tr><tr><td>food insecurity (FIES)</td><td class="num">+0.101</td><td class="num">−0.048</td></tr><tr><td>reduced healthcare</td><td class="num">+0.074</td><td class="num">−0.032</td></tr><tr><td>energy share of income</td><td class="num">+0.010</td><td><strong>+0.031</strong></td></tr></tbody></table></div>
+<p><strong>Behind it:</strong> <code>exploration/tariff_recomp_triple.py</code> (N1) → <code>dissertation/build_results.py</code> (T4). Winter = Dec–Mar; HH + calendar-month fixed effects.</p></div>
+
+  <aside class="caveats">
+    <h3>What this cannot carry</h3>
+    <ul>
+<li>Identification rests on the income boom having no winter×grid signature (checked: post×grid on ln income ≈ 0).</li>
+<li>Because the pre-period contains the 2022/23 supply crisis, these estimates are biased <em>toward zero</em> — i.e. conservative.</li>
+<li><code>heat_require</code> as a severity proxy is indirect; corroborate winter temperature with ERA5 if this becomes load-bearing.</li>
+</ul>
+  </aside>
+
+  <details class="technical">
+    <summary>The numbers — specification, coefficients and caveats</summary>
+    <div class="technical-body">
+      <div class="prose"><h3>Claim</h3>
+<blockquote><p>Post-reform, grid (piped-gas) households face an <strong>extra winter utility-payment bite of +1.9pp</strong><span class="sig">**</span> (post×grid×winter on "couldn't pay utilities", t=2.1) beyond the general post-winter rise (+2.5pp<span class="sig">***</span>) — isolated from secular trends because the income boom has no winter signature. This reconciles the muted annual effect: distress <em>fell</em> in non-winter post months and <em>rose</em> in winter — a seasonal heating phenomenon the annual average washes out.</p></blockquote>
+<h3>Evidence</h3>
+<div class="tableview"><table class="data"><thead><tr><th>Outcome</th><th>post×winter</th><th>post×grid×winter (heating bite)</th></tr></thead><tbody><tr><td><strong>couldn't pay utilities</strong></td><td class="num">+0.025<span class="sig">***</span></td><td><strong>+0.019</strong><span class="sig">**</span> (t=2.1)</td></tr><tr><td>reduced food consumption</td><td class="num">+0.025<span class="sig">***</span></td><td class="num">−0.005</td></tr><tr><td>food insecurity (FIES)</td><td class="num">+0.101<span class="sig">***</span></td><td class="num">−0.048</td></tr><tr><td>reduced healthcare</td><td class="num">+0.074<span class="sig">**</span></td><td class="num">−0.032</td></tr><tr><td>energy share of income</td><td class="num">+0.010<span class="sig">***</span></td><td><strong>+0.031</strong><span class="sig">*</span></td></tr></tbody></table></div>
+<ul>
+<li>No grid-specific winter <strong>health</strong> effect (sick / needed-medical triples ~0), but a general post-reform winter rise in healthcare cut-backs (+7.4pp<span class="sig">**</span>) — an energy-season coping margin, not cleanly attributable to the gas tariff.</li>
+<li>Because the pre-period contains the 2022/23 grid-specific supply crisis, these estimates are <strong>biased toward zero — conservative</strong> (see 05 Two winters, two crises — the event study).</li>
+</ul>
+<h3>Backing code</h3>
+<p>Origin: <code>exploration/tariff_recomp_triple.py</code> (N1 block); canonical: <code>dissertation/build_results.py</code> T4.</p>
+<pre><code class="language-python"># N1 — WINTER TRIPLE-DIFF (post×grid×winter = extra heating-season bite); HH+calmonth FE
+d[&#x27;winter&#x27;] = d.month.isin([12, 1, 2, 3]).astype(float)   # heating season
+d[&#x27;p_w&#x27;] = d.post*d.winter; d[&#x27;g_w&#x27;] = d.grid*d.winter
+d[&#x27;p_g&#x27;] = d.post*d.grid;   d[&#x27;p_g_w&#x27;] = d.post*d.grid*d.winter
+X3 = [&#x27;post&#x27;, &#x27;p_g&#x27;, &#x27;p_w&#x27;, &#x27;g_w&#x27;, &#x27;p_g_w&#x27;]
+for y in [&#x27;util_distress&#x27;, &#x27;reduced_food&#x27;, &#x27;fies&#x27;, &#x27;reduced_hc&#x27;]:
+    rows += fereg(d, y, X3)        # HH FE + calendar-month FE, cluster HH</code></pre>
+<h3>Caveats</h3>
+<ul>
+<li>Identification rests on the income boom having no winter×grid signature — checked: post×grid on ln(income) ≈ 0 (15 Robustness and withdrawn claims).</li>
+<li><code>heat_require</code> as severity proxy is indirect; corroborate winter 2024/25 temperature with ERA5 if the seasonal claim becomes load-bearing.</li>
+</ul></div>
+    </div>
+  </details>
+
+  <div class="pager"><a href="winter-burden.html"><span class="lbl">Previous</span>The winter burden annual averages hide</a><a href="reliability.html" style="text-align:right"><span class="lbl">Next</span>Reliability recovered before the tariff</a></div>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/finding.js"></script>
+</body>
+</html>

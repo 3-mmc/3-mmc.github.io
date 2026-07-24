@@ -1,0 +1,175 @@
+{
+  "_note": "Numbers transcribed verbatim from `03 Findings/*.md`. Each block carries the note it came from. Nothing here is computed at build time — edit the note and this file together.",
+
+  "threeWinterArc": {
+    "source": "18 The reshuffle — rationing and repricing swapped the losers (T8)",
+    "unit": {"elecHours": "hours/day", "heatDisrupt": "% of households", "utilDistress": "% of households"},
+    "rows": [
+      {"winter": "2021/22", "label": "baseline",        "elecHours": 23.1, "heatDisrupt": 14.2, "utilDistress": 5.4},
+      {"winter": "2022/23", "label": "rationing",       "elecHours": 20.8, "heatDisrupt": 13.6, "utilDistress": 4.6},
+      {"winter": "2023/24", "label": "neither",         "elecHours": 22.8, "heatDisrupt": 3.4,  "utilDistress": 4.0},
+      {"winter": "2024/25", "label": "pricing",         "elecHours": 23.6, "heatDisrupt": 1.6,  "utilDistress": 9.0}
+    ]
+  },
+
+  "reshuffleQuartiles": {
+    "source": "18 The reshuffle (T9) — 1,175 households seen in both the crisis and the price winter",
+    "rows": [
+      {"q": "Q1", "label": "never out",   "elecHours": 24.0, "gridShare": 70, "distress2425": 11.1},
+      {"q": "Q2", "label": "",            "elecHours": 23.0, "gridShare": 61, "distress2425": 12.1},
+      {"q": "Q3", "label": "",            "elecHours": 20.3, "gridShare": 41, "distress2425": 7.5},
+      {"q": "Q4", "label": "worst rationed", "elecHours": 15.0, "gridShare": 25, "distress2425": 5.5}
+    ],
+    "gradient": [
+      {"sample": "all households",              "beta": -0.0065, "t": -5.0, "n": 1175},
+      {"sample": "grid households only",        "beta": -0.0120, "t": -5.2, "n": 574},
+      {"sample": "all, controlling for grid",   "beta": -0.0050, "t": -4.1, "n": 1170}
+    ]
+  },
+
+  "reliabilityWinters": {
+    "source": "04 Reliability — imports restored it, the tariff repriced it (T5)",
+    "rows": [
+      {"winter": "2021/22", "elecHours": 23.1, "gasDisrupt": 3.6, "heatDisrupt": 14.2, "needHeat": 79, "utilDistress": 5.4},
+      {"winter": "2022/23", "elecHours": 20.8, "gasDisrupt": 5.1, "heatDisrupt": 13.6, "needHeat": 67, "utilDistress": 4.6},
+      {"winter": "2023/24", "elecHours": 22.8, "gasDisrupt": 2.4, "heatDisrupt": 3.4,  "needHeat": 85, "utilDistress": 4.0},
+      {"winter": "2024/25", "elecHours": 23.6, "gasDisrupt": 2.7, "heatDisrupt": 1.6,  "needHeat": 88, "utilDistress": 9.0}
+    ]
+  },
+
+  "cpiPeers": {
+    "source": "07 The eaten disinflation (CPI placebo) — WDI headline inflation, %",
+    "rows": [
+      {"country": "Kazakhstan",     "y2023": 14.5, "y2024": 8.7},
+      {"country": "Moldova",        "y2023": 13.4, "y2024": 4.7},
+      {"country": "Kyrgyz Republic","y2023": 10.8, "y2024": 5.0},
+      {"country": "Mongolia",       "y2023": 10.3, "y2024": 6.2},
+      {"country": "Uzbekistan",     "y2023": 10.0, "y2024": 9.6},
+      {"country": "Azerbaijan",     "y2023": 8.8,  "y2024": 2.2}
+    ]
+  },
+
+  "gasParadox": {
+    "source": "13 The Soviet gas paradox — stat.uz environment/1243 + Bukhara-Khiva field coordinates",
+    "corrAccessDistance": 0.14,
+    "corrP": 0.64,
+    "producerMeanAccess": 52.7,
+    "otherMeanAccess": 61.3,
+    "rows": [
+      {"region": "Tashkent city",  "access": 93.4, "kmToField": 479, "producer": false},
+      {"region": "Bukhara",        "access": 66.7, "kmToField": 40,  "producer": true},
+      {"region": "Surkhandarya",   "access": 28.3, "kmToField": 159, "producer": true},
+      {"region": "Kashkadarya",    "access": 26.7, "kmToField": 39,  "producer": true}
+    ]
+  },
+
+  "railway": {
+    "source": "14 Tsarist railway persistence — exploration/railway_rwi.py",
+    "betaNear20km": 0.155,
+    "pValue": "1e-113",
+    "sdUnits": 0.37,
+    "rwiSd": 0.42,
+    "nCells": 21382,
+    "gradient": [
+      {"band": "0–10 km",   "mid": 5,   "rwi": 0.109},
+      {"band": "200 km+",   "mid": 250, "rwi": -0.294}
+    ],
+    "stations": {
+      "main": [
+        {"lon": 63.58, "lat": 39.08, "name": "Türkmenabat"},
+        {"lon": 64.42, "lat": 39.77, "name": "Bukhara"},
+        {"lon": 65.37, "lat": 40.10, "name": "Navoi"},
+        {"lon": 66.96, "lat": 39.65, "name": "Samarkand"},
+        {"lon": 67.84, "lat": 40.12, "name": "Jizzakh"},
+        {"lon": 68.78, "lat": 40.49, "name": "Gulistan"},
+        {"lon": 69.28, "lat": 41.31, "name": "Tashkent"}
+      ],
+      "fergana": [
+        {"lon": 69.28, "lat": 41.31, "name": "Tashkent"},
+        {"lon": 69.62, "lat": 40.28, "name": "Khavast"},
+        {"lon": 70.94, "lat": 40.53, "name": "Kokand"},
+        {"lon": 71.72, "lat": 40.38, "name": "Fergana"},
+        {"lon": 72.34, "lat": 40.78, "name": "Andijan"}
+      ]
+    }
+  },
+
+  "cohortCliff": {
+    "source": "17 Banked — the compulsory-college reversal cohort cliff (MICS6)",
+    "unit": "% of birth cohort with secondary-specialised vocational education",
+    "rows": [
+      {"cohort": 1990, "ssve": 58, "phase": "forcing in"},
+      {"cohort": 1993, "ssve": 76, "phase": "forcing in"},
+      {"cohort": 1994, "ssve": 77, "phase": "plateau"},
+      {"cohort": 1999, "ssve": 80, "phase": "plateau"},
+      {"cohort": 2000, "ssve": 72, "phase": "release"},
+      {"cohort": 2001, "ssve": 56, "phase": "release"},
+      {"cohort": 2002, "ssve": 23, "phase": "release"},
+      {"cohort": 2003, "ssve": 7,  "phase": "release"}
+    ]
+  },
+
+  "burdenShares": {
+    "source": "02 The winter burden — median energy share of cash income, %",
+    "rows": [
+      {"group": "Grid",     "basis": "All months", "pre": 5.1, "post": 5.0},
+      {"group": "Grid",     "basis": "Winter",     "pre": 6.2, "post": 8.0},
+      {"group": "Non-grid", "basis": "Winter",     "pre": 4.2, "post": 4.3}
+    ],
+    "tripleDiff": 3.1
+  },
+
+  "elasticity": {
+    "source": "08 Revenue, not conservation — stat.uz physical consumption, 2024 change %",
+    "rows": [
+      {"series": "Natural gas",            "change": -1.1},
+      {"series": "Electricity",            "change": 4.2},
+      {"series": "Industrial electricity", "change": 7.1}
+    ],
+    "claimedDrop": -10.6
+  },
+
+  "cottonMonopsony": {
+    "source": "10 The cotton monopsony and subsidy bunching — FAO producer prices 2022–24",
+    "commoditiesTotal": 52,
+    "commoditiesUp": 43,
+    "medianRise": 55,
+    "rawSeedCotton": -56,
+    "frozenPriceSum": 4500000,
+    "frozenMonths": 24,
+    "bunching": [
+      {"year": "before", "exact1mShare": 14},
+      {"year": "after",  "exact1mShare": 24}
+    ],
+    "incomeDecomposition": [
+      {"component": "Agricultural income", "pp": 3.1},
+      {"component": "Wage income",         "pp": -2.5},
+      {"component": "Other income",        "pp": -2.1}
+    ]
+  },
+
+  "incidence": {
+    "source": "09 Incidence ran on the grid, not on income",
+    "medianBillPiped": 202500,
+    "medianBillBottled": 75000,
+    "topQuartilePipedShare": 88.5,
+    "restPipedShare": 39,
+    "gridAccessCities": "96–100%",
+    "gridAccessRural": "15–35%",
+    "gridAccessNational": 56
+  },
+
+  "headline": {
+    "billRise": 70,
+    "billBeta": 0.53,
+    "billT": 28,
+    "winterShareFrom": 6.2,
+    "winterShareTo": 8.0,
+    "winterDistressPp": 1.9,
+    "compensationHouseholds": 16,
+    "panelHouseholds": 1862,
+    "panelRounds": 82,
+    "gridShare": 54,
+    "reformDate": "2024-05-01"
+  }
+}

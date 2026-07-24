@@ -1,0 +1,87 @@
+<!-- description: Growing-season rainfall and vegetation greenness for Uzbekistan's 14 regions and 199 districts, from WFP satellite data. -->
+<main id="main">
+  <p class="eyebrow">Topic</p>
+  <h1>Climate &amp; water</h1>
+  <p class="lede">Uzbekistan farms a desert. Almost all cropland is irrigated, which means
+  the weather variable that matters is not how much rain fell — it is how green things
+  actually got. That distinction has teeth: vegetation greenness predicts grain output
+  here, and rainfall does not. If you are looking for a weather instrument in this
+  country, rain is the wrong one.</p>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The growing season, region by region</h2>
+      <p>Rainfall is summed over March–August; greenness (NDVI) is averaged over
+      April–September. Both come from ten-day satellite composites.</p>
+    </div>
+    <div class="card">
+      <h3>Growing-season climate</h3>
+      <div class="controls">
+        <span class="seg" id="clim-metric" role="group" aria-label="Metric">
+          <button type="button" data-metric="rain" aria-pressed="true">Rainfall</button>
+          <button type="button" data-metric="ndvi" aria-pressed="false">Greenness</button>
+        </span>
+        <label class="check"><input type="checkbox" id="clim-index"> Index first year = 100</label>
+      </div>
+      <div id="clim-series"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Does rain make things green here?</h2>
+      <p>Each point is one region in one year. If irrigation dominates, this relationship
+      should be weak — and it is.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Rainfall against greenness, region-years</h3>
+        <div id="clim-scatter"></div>
+        <p class="note">The fitted line and its correlation update with the data shown.
+        A weak relationship is the finding, not a data problem: the Amu Darya and Syr Darya
+        supply the water, not the sky.</p>
+      </div>
+      <div class="card">
+        <h3>Regional spread in one year</h3>
+        <p class="sub">Every district in the country, as a single strip. Pick the year and
+        the measure.</p>
+        <div class="controls">
+          <label for="clim-year">Year</label>
+          <select id="clim-year"></select>
+        </div>
+        <div id="clim-barcode"></div>
+        <p class="note">199 districts. Each tick is one district; the taller marks are the
+        14 regional averages for comparison.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Water and land</h2>
+      <p>The national picture from the World Bank: how much land is irrigated, and how
+      much of the country's freshwater agriculture takes.</p>
+    </div>
+    <div class="card">
+      <h3>Irrigation and freshwater withdrawal</h3>
+      <div id="water-wdi"></div>
+      <p class="note">Agriculture accounts for the overwhelming majority of freshwater
+      withdrawals — the Aral Sea is what that policy cost.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Emissions and warming</h2>
+      <p>The climate-change indicators the World Bank tracks for Uzbekistan.</p>
+    </div>
+    <div class="card">
+      <h3>Climate indicators</h3>
+      <div class="controls">
+        <label for="climate-wdi">Indicator</label>
+        <select id="climate-wdi"></select>
+      </div>
+      <div id="climate-wdi-chart"></div>
+    </div>
+  </section>
+</main>

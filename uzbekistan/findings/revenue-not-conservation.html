@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revenue, not conservation — demand was inelastic · Uzbekistan Data Atlas</title>
+<meta name="description" content="The reform&#x27;s stated goal was conservation; physical energy use barely moved, so it was a pure income transfer, not an efficiency gain.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body data-finding="elasticity">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow"><a href="./" style="text-decoration:none;color:inherit">Findings</a> · The tariff</p>
+  <div class="finding-head">
+    <h1>Revenue, not conservation — demand was inelastic</h1>
+    <p class="oneline">The reform's stated goal was conservation; physical energy use barely moved, so it was a pure income transfer, not an efficiency gain.</p>
+    <p style="margin:14px 0 0"><span class="status" data-status="proven">proven</span>
+      <span style="font-size:13px;color:var(--ink-muted);margin-left:8px">Identified — the estimate holds up under the panel&#x27;s fixed effects.</span></p>
+  </div>
+
+  <figure class="card" style="margin:26px 0 0">
+    <div id="finding-chart"></div>
+  </figure>
+
+  <div class="prose" style="margin-top:26px"><p><strong>What we found</strong></p>
+<ul>
+<li>Despite price rises of 53–400%, physical consumption in 2024 (stat.uz): gas <strong>−1.1%</strong>, electricity <strong>+4.2%</strong>, industrial electricity <strong>+7.1%</strong>.</li>
+<li>The government's claimed "10.6% drop" is not in the annual data.</li>
+<li>Elasticity ≈ 0 ⇒ the reform raised revenue, not conservation.</li>
+<li>Micro extensive margin is small: baseline-grid households using any gas −4.5pp post (no switch to bottled). Buildings-sector emissions ≈ flat (+1.6%, ClimateTrace). No dirty-fuel switch ("other" heating −0.042).</li>
+</ul>
+<p><strong>Behind it:</strong> stat.uz energy series (<code>natgas_consumption_2681</code>, <code>electricity_consumption_subscribers_2684</code>) via <code>analysis/scrape_external.py</code>; micro exit margin <code>dissertation/build_results.py</code> (T7).</p></div>
+
+  <aside class="caveats">
+    <h3>What this cannot carry</h3>
+    <ul>
+<li>The elasticity statement is macro-descriptive (national series, no within-country price variation exploited).</li>
+<li>A clean bunching/RK design at the 200 kWh / 100 m³ block norms is blocked — it needs utility billing microdata that isn't available.</li>
+</ul>
+  </aside>
+
+  <details class="technical">
+    <summary>The numbers — specification, coefficients and caveats</summary>
+    <div class="technical-body">
+      <div class="prose"><h3>Claim</h3>
+<blockquote><p>The reform's <em>stated</em> goal was conservation; it did not happen. Despite price rises of 53–400%, <strong>physical energy consumption barely moved</strong>: gas −1.1%, electricity +4.2%, industrial electricity +7.1% (2024, stat.uz). The government's claimed "10.6% drop" is not in the annual data. <strong>Elasticity ≈ 0 ⇒ a pure income transfer, not an efficiency gain</strong> — the reform raised revenue, not conservation.</p></blockquote>
+<h3>Evidence</h3>
+<ul>
+<li>Macro physical consumption (stat.uz energy series — fills the L2CU no-kWh gap): flat through 2024.</li>
+<li>Micro extensive margin is small: baseline-grid households using any gas <strong>−4.5pp</strong><span class="sig">*</span> post (no switch to bottled; T7) — a modest demand response that does not move the macro total.</li>
+<li>Buildings-sector emissions ≈ flat (+1.6%, ClimateTrace) — corroborates the muted household response.</li>
+<li>Dirty-fuel switch did <strong>not</strong> happen ("other" heating −0.042, t=−6).</li>
+</ul>
+<h3>Backing code</h3>
+<p>Macro series pulled by <code>analysis/scrape_external.py</code> / stat.uz energy files (<code>natgas_consumption_2681</code>, <code>electricity_consumption_subscribers_2684</code>); micro exit margin in <code>build_results.py</code> T7:</p>
+<pre><code class="language-python">rows += fereg(d[d.grid == 1], &#x27;uses_gas&#x27;, [&#x27;post&#x27;])    # -0.0446*** on 1,011 baseline-grid HH</code></pre>
+<h3>Caveats</h3>
+<ul>
+<li>The elasticity statement is macro-descriptive (national series, no within-country price variation exploited). The clean bunching/RK design at the 200 kWh / 100 m³ norms is <strong>blocked</strong> on utility billing microdata (B1 — see <code>exploration/TARIFF_CAUSAL_WEB.md</code> §2).</li>
+<li>Formalizable as regional Δlog-consumption ~ effective-Δprice (N8) if needed.</li>
+</ul></div>
+    </div>
+  </details>
+
+  <div class="pager"><a href="eaten-disinflation.html"><span class="lbl">Previous</span>The eaten disinflation</a><a href="compensation-16.html" style="text-align:right"><span class="lbl">Next</span>The compensation channel reached 16 households</a></div>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/finding.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!-- description: Uzbek consumer prices by basket, the 2024 disinflation that never arrived, the exchange rate and credit. -->
+<main id="main">
+  <p class="eyebrow">Topic</p>
+  <h1>Prices &amp; money</h1>
+  <p class="lede">Uzbek headline inflation has sat near 10% for years, which sounds like
+  stability. In 2024 it was the opposite: every comparable economy in the region
+  disinflated sharply that year and Uzbekistan did not. Food prices fell hard enough to
+  cancel out an energy shock in the same basket — so the aggregate stayed still while its
+  components moved violently in opposite directions.</p>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The disinflation that did not happen</h2>
+      <p>Headline consumer price inflation, 2023 against 2024, for Uzbekistan and its
+      regional peers.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Every peer fell. Uzbekistan did not.</h3>
+        <p class="sub">Each line is one country, from its 2023 rate to its 2024 rate.</p>
+        <div id="cpi-peers"></div>
+        <p class="note">World Bank WDI headline inflation. This is a benchmark, not an
+        identified comparison — but against a regional counterfactual of roughly −5
+        percentage points, "headline stable" is not a benign result.</p>
+      </div>
+      <div class="card">
+        <h3>Uzbek inflation, long run</h3>
+        <div id="inflation-long"></div>
+        <p class="note">The 2017 spike is currency unification — a roughly 170% devaluation
+        when the official and street exchange rates were merged.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>What is inside the basket</h2>
+      <p>Monthly consumer price indices by component. The dashed line marks the
+      1 May 2024 energy tariff reform.</p>
+    </div>
+    <div class="card">
+      <h3>Consumer prices by basket, 2015 = 100</h3>
+      <p class="sub">Toggle components on and off. Food and general prices move together
+      until 2024, then separate.</p>
+      <div class="controls" id="cpi-picker"></div>
+      <div id="cpi-monthly"></div>
+      <p class="note">FAO monthly series. Services inflation ran at about +28% year-on-year
+      after the tariff while food inflation collapsed to roughly 2.5% — the headline stayed
+      flat because the two cancelled.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The soum</h2>
+      <p>A managed crawl since the 2017 float, at roughly 6% a year.</p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Soum per US dollar</h3>
+        <div id="fx"></div>
+      </div>
+      <div class="card">
+        <h3>Money, credit and trade</h3>
+        <div class="controls">
+          <label for="money-ind">Indicator</label>
+          <select id="money-ind"></select>
+        </div>
+        <div id="money-chart"></div>
+        <p class="note">The 2017 liberalisation shows up in all of these: credit went from
+        10% to 30% of GDP, trade from 39% to 62%.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Income</h2>
+      <p>GDP per capita in current dollars and in constant purchasing-power terms — the
+      two tell noticeably different stories about the 2017 devaluation.</p>
+    </div>
+    <div class="card">
+      <h3>GDP per capita</h3>
+      <div id="gdp-pc"></div>
+      <p class="note">Indexed to their own first year so both fit one axis. The dollar
+      series falls in 2017 because the currency was devalued; the PPP series does not,
+      because real output did not fall.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Findings from the price data</h2></div>
+    <div class="topic-list">
+      <a class="topic-card" href="../findings/eaten-disinflation.html">
+        <h3>The eaten disinflation</h3>
+        <p>The tariff shock absorbed a global disinflation every regional peer enjoyed.</p>
+        <span class="count">Identified</span>
+      </a>
+      <a class="topic-card" href="../findings/frozen-bill.html">
+        <h3>The frozen bill</h3>
+        <p>The median electricity payment sat at exactly 50,000 soum for three years, then jumped 60%.</p>
+        <span class="count">Identified</span>
+      </a>
+    </div>
+  </section>
+</main>

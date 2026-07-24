@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Findings · Uzbekistan Data Atlas</title>
+<meta name="description" content="Standalone research findings from Uzbek household, energy and historical data — each with its claim, its chart and its caveats.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main">
+  <p class="eyebrow">Interesting findings</p>
+  <h1>What the data turned out to say</h1>
+  <p class="lede">Each of these is a standalone result with its own page: the claim in
+  plain language and a chart first, the specification and the coefficients behind a
+  fold. Nothing is arranged into an argument — they are labelled by how much weight
+  each one can carry, and several are here because they failed.</p>
+
+  <div class="stats" style="margin:0 0 40px">
+    <div class="stat"><span class="v">11</span><span class="k">identified — hold up under household fixed effects</span></div>
+    <div class="stat"><span class="v">5</span><span class="k">descriptive — real, not causally identified</span></div>
+    <div class="stat"><span class="v">2</span><span class="k">revised or killed — the honesty ledger</span></div>
+    <div class="stat"><span class="v">1</span><span class="k">banked — waiting on data that has not arrived</span></div>
+  </div>
+
+  <section class="section"><div class="section-head"><h2>Headline</h2></div><div class="finding-list"><a class="finding-card" href="the-reshuffle.html"><span class="status" data-status="proven">proven</span><h3>The reshuffle — shortage and price hit different households</h3><p>Uzbekistan ran two energy-rationing regimes in three winters, and they burdened near-disjoint sets of households — the shortage hit the off-grid periphery, the price hit the connected core.</p></a></div></section><section class="section"><div class="section-head"><h2>The tariff</h2></div><div class="finding-list"><a class="finding-card" href="grid-not-income.html"><span class="status" data-status="proven">proven</span><h3>Incidence ran on the grid, not on income</h3><p>Because the gas grid is urban, a universal energy subsidy was implicitly an urban/grid/big-user subsidy — so withdrawing it is governed by infrastructure access, not income.</p></a><a class="finding-card" href="frozen-bill.html"><span class="status" data-status="proven">proven</span><h3>The frozen bill — a winter-shaped price shock</h3><p>The 1 May 2024 tariff raised every household's energy bill ~70%, but the extra bite lands almost entirely in winter, on grid (piped-gas) households.</p></a><a class="finding-card" href="winter-burden.html"><span class="status" data-status="proven">proven</span><h3>The winter burden hidden by annual averages</h3><p>The energy burden is a winter phenomenon that annual averages wash out completely.</p></a><a class="finding-card" href="heating-bite.html"><span class="status" data-status="proven">proven</span><h3>The winter heating bite (triple-difference)</h3><p>Post-reform, grid households face an extra winter payment-distress bite that the annual average hides.</p></a><a class="finding-card" href="reliability.html"><span class="status" data-status="proven">proven</span><h3>Reliability recovered before the tariff, not because of it</h3><p>Winter 2024/25 was the most reliable winter in the panel <em>and</em> the most financially distressed — but the reliability recovery began a year earlier, when Russian gas imports started, before the tariff.</p></a><a class="finding-card" href="two-winters.html"><span class="status" data-status="proven">proven</span><h3>Two winters, two crises (event study)</h3><p>Grid-household payment distress spikes exactly twice — the 2022/23 supply crisis and the 2024/25 price winter — with a clean zero in between.</p></a><a class="finding-card" href="recomposition.html"><span class="status" data-status="proven">proven</span><h3>Gains were visible, losses were masked (recomposition)</h3><p>Estimating both arms in one model, the <em>gains</em> (ag income, better economic sentiment) show up cleanly at the household level while the <em>losses</em> don't appear as welfare damage — the aggregation-bias argument made structural.</p></a><a class="finding-card" href="eaten-disinflation.html"><span class="status" data-status="proven">proven</span><h3>The eaten disinflation (CPI placebo)</h3><p>The repricing is invisible in headline inflation because the tariff shock absorbed a global disinflation that every regional peer enjoyed in 2024.</p></a><a class="finding-card" href="revenue-not-conservation.html"><span class="status" data-status="proven">proven</span><h3>Revenue, not conservation — demand was inelastic</h3><p>The reform's stated goal was conservation; physical energy use barely moved, so it was a pure income transfer, not an efficiency gain.</p></a><a class="finding-card" href="compensation-16.html"><span class="status" data-status="proven">proven</span><h3>The compensation channel reached 16 households</h3><p>The income-targeted compensation for the tariff failed structurally — it reached almost no one — because the losers are defined by grid access, not income.</p></a></div></section><section class="section"><div class="section-head"><h2>Method</h2></div><div class="finding-list"><a class="finding-card" href="robustness.html"><span class="status" data-status="revised">revised</span><h3>Robustness checks and claims we withdrew</h3><p>The honesty ledger — things that looked true in a naive comparison but did not survive household fixed effects, and the claims we therefore dropped.</p></a></div></section><section class="section"><div class="section-head"><h2>History</h2></div><div class="finding-list"><a class="finding-card" href="tsarist-railways.html"><span class="status" data-status="descriptive">descriptive</span><h3>Tsarist railway persistence in today&#x27;s wealth</h3><p>The 1888–1906 Trans-Caspian railway still predicts local wealth 130 years later.</p></a><a class="finding-card" href="soviet-gas-paradox.html"><span class="status" data-status="descriptive">descriptive</span><h3>The Soviet gas paradox — &quot;produce gas, freeze in winter&quot;</h3><p>The gas-producing regions have the <em>lowest</em> domestic gas access — grid access reflects Soviet political-distribution choices, not geology or income.</p></a><a class="finding-card" href="gas-dividend.html"><span class="status" data-status="descriptive">descriptive</span><h3>The end of the gas dividend</h3><p>The rent that paid for cheap gas evaporated exactly as households were asked to pay more — this is the "why now."</p></a></div></section><section class="section"><div class="section-head"><h2>Agriculture</h2></div><div class="finding-list"><a class="finding-card" href="cotton-monopsony.html"><span class="status" data-status="descriptive">descriptive</span><h3>The cotton monopsony and subsidy bunching</h3><p>The 2024 ag package looks like industrial policy (clusters, per-ha subsidy, export promotion) but behaves like rent-recomposition — transfers, not productive transformation.</p></a></div></section><section class="section"><div class="section-head"><h2>Banked</h2></div><div class="finding-list"><a class="finding-card" href="college-reversal.html"><span class="status" data-status="banked">banked</span><h3>Banked — the compulsory-college reversal cohort cliff</h3><p>Uzbekistan's 1997 compulsory-vocational reform and its 2017 reversal produce one of the sharpest cohort discontinuities in survey data — possibly the only modern case of a state <em>removing</em> compulsory schooling years — but the outcome window hasn't matured.</p></a></div></section><section class="section"><div class="section-head"><h2>Background</h2></div><div class="finding-list"><a class="finding-card" href="background.html"><span class="status" data-status="descriptive">descriptive</span><h3>Broad background findings (off-topic)</h3><p></p></a></div></section><section class="section"><div class="section-head"><h2>Method</h2></div><div class="finding-list"><a class="finding-card" href="dead-ends.html"><span class="status" data-status="null">null</span><h3>Dead ends — natural experiments tried and killed</h3><p></p></a></div></section>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module">import { boot } from "../assets/atlas.js"; boot();</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold · Uzbekistan Data Atlas</title>
+<meta name="description" content="Uzbekistan is a top-ten gold producer whose central bank reserves are now nearly four-fifths metal. Exports, reserve composition and the world price.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html" aria-current="page">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main">
+  <p class="eyebrow">Topic</p>
+  <h1>Gold</h1>
+  <p class="lede">Uzbekistan mines roughly a hundred tonnes of gold a year, and by law the
+  central bank gets first refusal on all of it. The result is one of the most
+  gold-concentrated reserve portfolios on earth: as the metal's price ran up after 2019,
+  the bank's gold pile grew while its dollar buffer shrank. This page is the public,
+  descriptive record of that — exports, reserve composition, and the world price that
+  drives both.</p>
+
+  <div class="stats" style="margin-bottom:38px" id="gold-stats"></div>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Reserves: gold against everything else</h2>
+      <p>Total reserves split into the gold component and the rest. Same axis, same
+      units — the composition shift is the point.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Reserve composition, US$ billions</h3>
+        <p class="sub">Gold has risen while non-gold reserves have been drawn down.</p>
+        <div id="reserve-split"></div>
+      </div>
+      <div class="card">
+        <h3>Gold as a share of reserves</h3>
+        <div id="reserve-share"></div>
+        <p class="note">World Bank WDI, <code>FI.RES.TOTL.CD</code> minus
+        <code>FI.RES.XGLD.CD</code>. Revaluation and purchases both move this line — a rising
+        share does not by itself mean the bank bought more metal.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The world price</h2>
+      <p>Uzbekistan is a price taker. The same tonnage has been worth very different
+      amounts over this window.</p>
+    </div>
+    <div class="card">
+      <h3>Gold, US$ per troy ounce, monthly</h3>
+      <div id="gold-price"></div>
+      <p class="note">London benchmark. Between 2019 and 2026 the price roughly quadrupled
+      the local-currency value of a constant ~100&nbsp;tonnes of annual output.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Exports</h2>
+      <p>How much of what Uzbekistan sells abroad is gold — and how that compares with
+      the fuel exports it used to depend on.</p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Gold exports, US$ billions</h3>
+        <div id="gold-exports"></div>
+      </div>
+      <div class="card">
+        <h3>Gold as a share of tracked exports</h3>
+        <div id="gold-share"></div>
+        <p class="note">UN Comtrade, via <code>exploration/gold_windfall.py</code>. "Tracked"
+        means the commodity lines present in the Comtrade pull, not total merchandise trade.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Resource rents in context</h2>
+      <p>Mineral rents rose as gas rents collapsed. The composition of Uzbekistan's
+      resource income changed completely within about fifteen years.</p>
+    </div>
+    <div class="card">
+      <h3>Natural resource rents, % of GDP</h3>
+      <div id="rents"></div>
+      <p class="note">World Bank WDI. This is the macro backdrop to
+      <a href="../findings/gas-dividend.html">the end of the gas dividend</a>: one rent
+      stream ran down while another ran up, but they do not accrue to the same people or
+      through the same institutions.</p>
+    </div>
+  </section>
+
+  <aside class="caveats" style="margin-top:34px">
+    <h3>How far these numbers go</h3>
+    <ul>
+      <li>This page is the descriptive public record: exports, reserve composition and the
+      world price. It makes no claim about what any of it caused.</li>
+      <li>Reserve values move with revaluation as well as with purchases. A rising gold
+      share can mean the bank bought metal, or simply that the metal it already held became
+      worth more. Separating the two needs tonnage, not the dollar series shown here.</li>
+      <li>"Tracked exports" is the set of commodity lines in the Comtrade pull behind this
+      page, not total merchandise trade — so the share is a share of that set.</li>
+    </ul>
+  </aside>
+</main>
+
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/gold.js"></script>
+</body>
+</html>

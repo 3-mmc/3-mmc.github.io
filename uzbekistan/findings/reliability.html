@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reliability recovered before the tariff, not because of it · Uzbekistan Data Atlas</title>
+<meta name="description" content="Winter 2024/25 was the most reliable winter in the panel *and* the most financially distressed — but the reliability recovery began a year earlier, when Russian gas imports started, before the tariff.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body data-finding="reliability">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow"><a href="./" style="text-decoration:none;color:inherit">Findings</a> · The tariff</p>
+  <div class="finding-head">
+    <h1>Reliability recovered before the tariff, not because of it</h1>
+    <p class="oneline">Winter 2024/25 was the most reliable winter in the panel <em>and</em> the most financially distressed — but the reliability recovery began a year earlier, when Russian gas imports started, before the tariff.</p>
+    <p style="margin:14px 0 0"><span class="status" data-status="proven">proven</span>
+      <span style="font-size:13px;color:var(--ink-muted);margin-left:8px">Identified — the estimate holds up under the panel&#x27;s fixed effects.</span></p>
+  </div>
+
+  <figure class="card" style="margin:26px 0 0">
+    <div id="finding-chart"></div>
+  </figure>
+
+  <div class="prose" style="margin-top:26px"><p><strong>What we found</strong></p>
+<ul>
+<li>Winter 2024/25: 23.6 electricity hrs/day, 1.6% heat disruption — the best in the panel — <em>despite</em> the highest heating need (88% needing heat). Also the most distressed: 9.0% couldn't pay.</li>
+<li>The recovery started in winter <strong>2023/24</strong>, right after Russian gas imports began (Oct 2023) — before the May 2024 tariff.</li>
+<li>FE estimates: electricity hours post × winter <strong>+1.02 hrs/day</strong>; heat disruption post <strong>−16.5pp</strong>; gas disruption (grid HH) post × winter <strong>−2.6pp</strong>.</li>
+</ul>
+<div class="tableview"><table class="data"><thead><tr><th>Winter</th><th>elec hrs/day</th><th>gas disruption</th><th>heat disruption</th><th>% needing heat</th><th>util distress</th></tr></thead><tbody><tr><td>2021/22</td><td class="num">23.1</td><td class="num">3.6%</td><td class="num">14.2%</td><td class="num">79%</td><td class="num">5.4%</td></tr><tr><td>2022/23 (crisis)</td><td class="num">20.8</td><td class="num">5.1%</td><td class="num">13.6%</td><td class="num">67%</td><td class="num">4.6%</td></tr><tr><td>2023/24</td><td class="num">22.8</td><td class="num">2.4%</td><td class="num">3.4%</td><td class="num">85%</td><td class="num">4.0%</td></tr><tr><td>2024/25 (post)</td><td class="num">23.6</td><td class="num">2.7%</td><td class="num">1.6%</td><td class="num">88%</td><td class="num">9.0%</td></tr></tbody></table></div>
+<p><strong>The honest phrasing:</strong> "imports restored reliability; the tariff made households pay for it." Never "the tariff bought reliability."</p>
+<p><strong>Behind it:</strong> L2CU service-quality variables (<code>electricity_yesterday</code>, gas/heat disruption); <code>exploration/claude_newangles.py</code>, <code>dissertation/build_results.py</code> (T5).</p></div>
+
+  <aside class="caveats">
+    <h3>What this cannot carry</h3>
+    <ul>
+<li>Reliability could also reflect ongoing grid investment, not only imports — another reason to avoid the causal "tariff bought it" claim.</li>
+<li>High heating need rules out a mild-winter artifact.</li>
+</ul>
+  </aside>
+
+  <details class="technical">
+    <summary>The numbers — specification, coefficients and caveats</summary>
+    <div class="technical-body">
+      <div class="prose"><h3>Claim</h3>
+<blockquote><p><strong>Winter 2024/25 was the most reliable winter in the panel</strong> (23.6 elec hrs/day, 1.6% heat disruption) <em>despite the highest heating need</em> (88% <code>heat_require</code>) — and simultaneously the most financially distressed (9.0% couldn't pay). But the recovery <strong>began in winter 2023/24, BEFORE the tariff</strong>, right after Russian gas imports started (Oct 2023). Claim exactly: <strong>"imports restored reliability; the tariff made households pay for it"</strong> — never "the tariff bought reliability."</p></blockquote>
+<p>This is the narrative hinge of "From Shortage to Price": it pre-empts the examiner objection <em>"but the lights stayed on — wasn't it worth it?"</em></p>
+<h3>Evidence</h3>
+<div class="tableview"><table class="data"><thead><tr><th>Winter</th><th>elec hrs/day</th><th>gas disruption</th><th>heat disruption</th><th>% needing heat</th><th>util distress</th></tr></thead><tbody><tr><td>2021/22</td><td class="num">23.1</td><td class="num">3.6%</td><td class="num">14.2%</td><td class="num">79%</td><td class="num">5.4%</td></tr><tr><td><strong>2022/23 (crisis)</strong></td><td><strong>20.8</strong></td><td><strong>5.1%</strong></td><td class="num">13.6%</td><td class="num">67%</td><td class="num">4.6%</td></tr><tr><td>2023/24</td><td class="num">22.8</td><td class="num">2.4%</td><td class="num">3.4%</td><td class="num">85%</td><td class="num">4.0%</td></tr><tr><td><strong>2024/25 (post)</strong></td><td><strong>23.6</strong></td><td class="num">2.7%</td><td><strong>1.6%</strong></td><td><strong>88%</strong></td><td><strong>9.0%</strong></td></tr></tbody></table></div>
+<p>FE estimates (T5): electricity hours post×winter <strong>+1.02</strong><span class="sig">*</span> hrs/day; heat disruption post <strong>−16.5pp</strong><span class="sig">*</span>; gas disruption (grid HH) post×winter <strong>−2.6pp</strong><span class="sig">*</span>.</p>
+<p></p>
+<h3>Backing code</h3>
+<p>Outcome construction and by-winter table, <code>exploration/claude_newangles.py</code> §C/§E (canonical FE: <code>build_results.py</code> T5):</p>
+<pre><code class="language-python"># L2CU service-quality variables nobody used
+d[&#x27;elec_hours&#x27;] = d.electricity_yesterday          # hours, 0-24
+d[&#x27;gas_disrupt&#x27;] = yes_no_nan(d.gas_disruption)
+d[&#x27;heat_disrupt&#x27;] = yes_no_nan(d.heat_disruption)  # asked only if heat_require == Yes
+
+# by-winter means (winter labelled by Jan year)
+w = d[d.winter == 1].copy()
+w[&#x27;wy&#x27;] = np.where(w.month == 12, w.year + 1, w.year)
+ts = w.groupby(&#x27;wy&#x27;).agg(elec_hours=(&#x27;elec_hours&#x27;, &#x27;mean&#x27;),
+                         gas_disrupt=(&#x27;gas_disrupt&#x27;, &#x27;mean&#x27;),
+                         heat_disrupt=(&#x27;heat_disrupt&#x27;, &#x27;mean&#x27;),
+                         util_distress=(&#x27;util_distress&#x27;, &#x27;mean&#x27;))
+
+# T5 — reliability FE
+rows = (fereg(d, &#x27;elec_hours&#x27;, [&#x27;post&#x27;, &#x27;p_w&#x27;])
+        + fereg(d[d.grid == 1], &#x27;gas_disrupt&#x27;, [&#x27;post&#x27;, &#x27;p_w&#x27;])
+        + fereg(d, &#x27;heat_disrupt&#x27;, [&#x27;post&#x27;, &#x27;p_g&#x27;]))</code></pre>
+<h3>Caveats</h3>
+<ul>
+<li>Reliability could also reflect ongoing grid investment, not only imports — another reason to avoid the causal "tariff bought it" claim.</li>
+<li>High <code>heat_require</code> rules out a mild-winter artifact; if anything the bill shock landed in a high-need winter.</li>
+</ul></div>
+    </div>
+  </details>
+
+  <div class="pager"><a href="heating-bite.html"><span class="lbl">Previous</span>The winter heating bite</a><a href="two-winters.html" style="text-align:right"><span class="lbl">Next</span>Two winters, two crises</a></div>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/finding.js"></script>
+</body>
+</html>

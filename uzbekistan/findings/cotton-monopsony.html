@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The cotton monopsony and subsidy bunching · Uzbekistan Data Atlas</title>
+<meta name="description" content="The 2024 ag package looks like industrial policy (clusters, per-ha subsidy, export promotion) but behaves like rent-recomposition — transfers, not productive transformation.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body data-finding="cotton">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow"><a href="./" style="text-decoration:none;color:inherit">Findings</a> · Agriculture</p>
+  <div class="finding-head">
+    <h1>The cotton monopsony and subsidy bunching</h1>
+    <p class="oneline">The 2024 ag package looks like industrial policy (clusters, per-ha subsidy, export promotion) but behaves like rent-recomposition — transfers, not productive transformation.</p>
+    <p style="margin:14px 0 0"><span class="status" data-status="descriptive">descriptive</span>
+      <span style="font-size:13px;color:var(--ink-muted);margin-left:8px">Real in the data, but not causally identified.</span></p>
+  </div>
+
+  <figure class="card" style="margin:26px 0 0">
+    <div id="finding-chart"></div>
+  </figure>
+
+  <div class="prose" style="margin-top:26px"><p><strong>What we found</strong></p>
+<ol>
+<li><strong>Cotton monopsony:</strong> of 52 FAO commodities, 43 rose (median +55%) over 2022–24, while the two biggest falls are both cotton — raw seed-cotton <strong>−56%</strong>, then frozen at 4,500,000 sum/tonne for 24 straight months (a set price, not a cleared one).</li>
+<li><strong>Subsidy bunching:</strong> ag-household "gains" are transfer-driven, not crop revenue — reports at exactly <strong>1,000,000 sum (the per-hectare subsidy) rose from ~14% to 24%</strong> of ag-income reports, while ag-base wage receipt <em>fell</em> −2.5pp.</li>
+<li><strong>No productivity signal:</strong> the rural boom was fiscal, not physical — NDVI ≈ normal, official output ≈ trend, ag emissions flat, value +8.5% &gt; volume ~+5%.</li>
+</ol>
+<p>Income decomposition (post × ag-base on receipt): aginc +3.1pp, wage −2.5pp, other −2.1pp. National transfer share of income 27.1 → 29.6% (2023–25) while production share fell.</p>
+<p><strong>Behind it:</strong> <code>exploration/ag_gains.py</code>; <code>datasets/producer-prices_uzb.csv</code> (FAO); ClimateTrace ag emissions. Confirms Babadjanov &amp; Petrick's monopsony qualitatively, with numbers they lacked.</p></div>
+
+  <aside class="caveats">
+    <h3>What this cannot carry</h3>
+    <ul>
+<li>World cotton softened ~20–35% over 2022–24, so part is global — but the Uzbek raw-cotton fall is steeper and runs <em>opposite</em> to the +55% domestic median.</li>
+<li>Don't claim orchestration intent, or that energy savings <em>financed</em> agriculture (the ag package came first and was partly externally funded).</li>
+</ul>
+  </aside>
+
+  <details class="technical">
+    <summary>The numbers — specification, coefficients and caveats</summary>
+    <div class="technical-body">
+      <div class="prose"><p><strong>Scope rule: this is labelled descriptive context (SQ4), not a second identified leg.</strong></p>
+<h3>Claim</h3>
+<blockquote><p>The 2024 ag package has the <strong>form</strong> of industrial policy (clusters, per-ha subsidy, export promotion) but the <strong>substance</strong> of rent-recomposition: (1) of 52 FAO commodities, <strong>43 rose (median +55%)</strong> 2022–24 while the two biggest falls are both cotton — <strong>raw seed-cotton −56%</strong> (then frozen at 4,500,000 sum/tonne for 24 straight months — a set price, not a cleared one); (2) ag-household "gains" are <strong>transfer-driven, not crop revenue</strong> — reports at exactly <strong>1,000,000 sum (the per-hectare subsidy) rose from ~14% to 24%</strong> of ag-income reports, while ag-base wage receipt <em>fell</em> −2.5pp<span class="sig">***</span>; (3) no productivity signal — the rural boom was <strong>fiscal, not physical</strong> (NDVI ≈ normal, official output ≈ trend, ag emissions flat, value +8.5% &gt; volume ~+5%).</p></blockquote>
+<p>Confirms Babadjanov &amp; Petrick's monopsony qualitatively — with numbers they lacked.</p>
+<h3>Evidence</h3>
+<ul>
+<li>Chart: <code>exploration/outputs/charts/02_cotton_monopsony.png</code> </li>
+<li>Income decomposition (post×agbase on receipt): aginc <strong>+3.1pp</strong><span class="sig">*</span>, wage <strong>−2.5pp</strong><span class="sig">*</span>, other −2.1pp<span class="sig">***</span>.</li>
+<li>National transfer share of income 27.1→29.6% (2023–25) while production share fell.</li>
+<li>4-way fiscal-not-physical check: NDVI −0.3%; stat.uz output ~+5% (trend); ClimateTrace ag emissions +0.3%; value&gt;volume wedge.</li>
+</ul>
+<h3>Backing code</h3>
+<p><code>exploration/ag_gains.py</code> — the bunching test and the monopsony price comparison:</p>
+<pre><code class="language-python">print(&quot;IS THE AG-INCOME GAIN CROP REVENUE OR THE 1M-SUM/HA SUBSIDY? (bunching)&quot;)
+a = d[d.aginc == 1].copy(); a[&#x27;amt&#x27;] = pd.to_numeric(a.aginc_amount, errors=&#x27;coerce&#x27;)
+a[&#x27;exact1m&#x27;] = (a.amt == 1_000_000).astype(float)
+for y in sorted(a.yr.dropna().unique()):
+    s = a[a.yr == y]
+    print(f&quot;{int(y):&lt;6d}{len(s):&gt;16d}{s.amt.median():&gt;14,.0f}{s.exact1m.mean()*100:&gt;19.0f}%&quot;)
+
+print(&quot;MONOPSONY TEST — did farm-gate PRODUCER PRICES rise? (FAO, LCU/tonne, annual)&quot;)
+fao = pd.read_csv(&quot;datasets/producer-prices_uzb.csv&quot;)
+fao = fao[fao[&#x27;Months&#x27;] == &#x27;Annual value&#x27;]
+piv = fao.pivot_table(index=&#x27;Item&#x27;, columns=&#x27;Year&#x27;, values=&#x27;Value&#x27;, aggfunc=&#x27;first&#x27;)
+# raw seed-cotton -56% 2022-24 while 43/52 commodities rose (median +55%)</code></pre>
+<h3>Caveats</h3>
+<ul>
+<li>World cotton softened ~20–35% over 2022–24, so part is global — but the Uzbek raw-cotton fall is steeper and runs <em>opposite</em> to the +55% domestic median; domestic monopsony amplifies it.</li>
+<li>Don't claim orchestration intent or that energy savings <em>financed</em> agriculture (fungibility + reverse timing: ag package came first, partly externally funded).</li>
+</ul></div>
+    </div>
+  </details>
+
+  <div class="pager"><a href="gas-dividend.html"><span class="lbl">Previous</span>The end of the gas dividend</a><a href="college-reversal.html" style="text-align:right"><span class="lbl">Next</span>The compulsory-college reversal</a></div>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/finding.js"></script>
+</body>
+</html>

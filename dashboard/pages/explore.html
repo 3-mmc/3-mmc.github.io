@@ -1,0 +1,97 @@
+<!-- description: Put any Uzbek regional series on the map, correlate any two, or search 1,583 World Bank indicators. -->
+<main id="main">
+  <p class="eyebrow">Explore</p>
+  <h1>Take the data apart yourself</h1>
+  <p class="lede">Four tools over the same collection: a map, a scatter, a long regional
+  panel and the full World Bank series for Uzbekistan. Nothing here is modelled — these
+  are the raw series, and every chart will hand you its table.</p>
+
+  <div class="controls" style="margin-bottom:22px">
+    <span class="seg" id="tool-picker" role="group" aria-label="Tool">
+      <button type="button" data-pane="map" aria-pressed="true">Map</button>
+      <button type="button" data-pane="correlate" aria-pressed="false">Correlate</button>
+      <button type="button" data-pane="regions" aria-pressed="false">Regions over time</button>
+      <button type="button" data-pane="wdi" aria-pressed="false">World Bank</button>
+    </span>
+  </div>
+
+  <!-- ─────────────────────────────── MAP ─────────────────────────────── -->
+  <section class="pane active" id="pane-map">
+    <div class="card">
+      <h3>Put any regional series on the map</h3>
+      <p class="sub">Wealth and climate exist for all 199 districts; stat.uz publishes for
+      the 14 regions only. Switching resolution shows you what each source can and cannot
+      actually resolve.</p>
+      <div class="controls">
+        <label for="map-layer">Layer</label>
+        <select id="map-layer" style="max-width:min(100%,420px)"></select>
+        <label for="map-year">Year</label>
+        <select id="map-year"></select>
+        <span class="seg" id="map-res" role="group" aria-label="Resolution">
+          <button type="button" data-lvl="adm1" aria-pressed="true">14 regions</button>
+          <button type="button" data-lvl="adm2" aria-pressed="false">199 districts</button>
+        </span>
+      </div>
+      <div class="grid wide-left">
+        <div id="map"></div>
+        <div id="map-rank"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────── CORRELATE ──────────────────────────── -->
+  <section class="pane" id="pane-correlate">
+    <div class="card">
+      <h3>Plot any two regional series against each other</h3>
+      <p class="sub">Each point is one region in one year. The dashed line is an ordinary
+      least-squares fit — descriptive only, with no controls and no fixed effects.</p>
+      <div class="controls">
+        <label for="cx">Horizontal</label>
+        <select id="cx" style="max-width:min(100%,320px)"></select>
+        <label for="cy">Vertical</label>
+        <select id="cy" style="max-width:min(100%,320px)"></select>
+        <label for="cyear">Years</label>
+        <select id="cyear"></select>
+      </div>
+      <div id="correlate"></div>
+    </div>
+  </section>
+
+  <!-- ───────────────────────────── REGIONS ───────────────────────────── -->
+  <section class="pane" id="pane-regions">
+    <div class="card">
+      <h3>The regional panel, 14 regions over time</h3>
+      <p class="sub">266 series assembled from stat.uz topic downloads.</p>
+      <div class="controls">
+        <label for="reg-ind">Series</label>
+        <select id="reg-ind" style="max-width:min(100%,560px)"></select>
+        <label class="check"><input type="checkbox" id="reg-index"> Index first year = 100</label>
+      </div>
+      <div id="regions"></div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────── WDI ─────────────────────────────── -->
+  <section class="pane" id="pane-wdi">
+    <div class="explore-wrap">
+      <div>
+        <div class="controls">
+          <input type="search" id="wdi-search" placeholder="Search 1,583 indicators…" style="flex:1 1 160px">
+          <select id="wdi-topic"><option value="">All topics</option></select>
+        </div>
+        <div class="pick-list" id="wdi-list"></div>
+      </div>
+      <div class="card">
+        <h3>World Bank indicators for Uzbekistan</h3>
+        <p class="sub">Pick up to six from the list. Compare them as levels, or index them
+        to a common base when the units differ.</p>
+        <div class="chips" id="wdi-chips"></div>
+        <div class="controls">
+          <label class="check"><input type="checkbox" id="wdi-index"> Index first year = 100</label>
+          <label class="check"><input type="checkbox" id="wdi-log"> Log scale</label>
+        </div>
+        <div id="wdi-chart"></div>
+      </div>
+    </div>
+  </section>
+</main>

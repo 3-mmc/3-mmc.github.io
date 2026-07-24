@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" data-base=".">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About this atlas · Uzbekistan Data Atlas</title>
+<meta name="description" content="What this atlas is, where its data comes from, and how to read the confidence label on each finding.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="findings/">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="topics/energy.html">Energy</a>
+      <a href="topics/gold.html">Gold</a>
+      <a href="topics/agriculture.html">Agriculture</a>
+      <a href="topics/prices.html">Prices</a>
+      <a href="topics/people.html">People</a>
+      <a href="topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="explore.html">Explore</a>
+      <a href="about.html" aria-current="page">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow">About</p>
+  <h1>What this is</h1>
+
+  <div class="prose">
+    <p>An atlas of Uzbek economic, energy and household data, and the research findings
+    drawn from it. The data came together for a dissertation on the 1 May 2024 household
+    energy-tariff reform; the atlas outgrew that question and is now source-agnostic. You
+    can read the findings, browse a topic, or ignore both and go straight to the raw
+    series.</p>
+
+    <p>Everything here is static. There is no server, no account and no tracking — the
+    pages fetch a set of JSON files and draw them in your browser.</p>
+
+    <h2>How to read a finding</h2>
+    <p>Every finding carries a label saying how much weight it can bear. This matters more
+    than it sounds: a correlation in this data and an identified causal estimate look
+    identical on a chart, and are worth completely different things.</p>
+
+    <ul>
+      <li><span class="status" data-status="proven">proven</span> — identified. The estimate
+      survives household fixed effects, and the design rules out the obvious confounds.</li>
+      <li><span class="status" data-status="descriptive">descriptive</span> — real in the
+      data, but not causally identified. Often the most interesting material; treat it as a
+      pattern, not a mechanism.</li>
+      <li><span class="status" data-status="revised">revised</span> — the honesty ledger.
+      Claims that looked true in a naive comparison and did not survive a harder test.</li>
+      <li><span class="status" data-status="banked">banked</span> — real, but the outcome
+      window has not matured. Parked until the data exists.</li>
+      <li><span class="status" data-status="null">null</span> — tried and killed. Recorded
+      so the same dead end is not re-hunted.</li>
+    </ul>
+
+    <p>Each finding page leads with the claim in plain language and a chart. The
+    specification, the coefficients and the caveats sit behind a fold marked
+    <em>The numbers</em>, so you can take it as far as you want.</p>
+
+    <h2>Where the data comes from</h2>
+
+    <h3>Household microdata</h3>
+    <p><strong>Listening to the Citizens of Uzbekistan (L2CU)</strong> — a monthly
+    household panel, roughly 2,500 households across 82 rounds from September 2018 to June
+    2025. The analytical sample is the 1,862 households whose pre-reform gas connection
+    status is known. Everything about bills, payment distress, electricity hours and
+    migration comes from here.</p>
+    <p><strong>MICS6 (2021–22)</strong> — 15,600 households and 71,600 people, used for the
+    pre-reform fuel and wealth baseline and the education cohort work.</p>
+
+    <h3>Official statistics</h3>
+    <p><strong>stat.uz</strong>, the Statistics Agency of Uzbekistan — 657 files across
+    eight topics, assembled into a region-by-year panel of 266 indicators. This is the
+    source for regional energy, agriculture, labour, health and the district-level gas
+    access gradient.</p>
+
+    <h3>International sources</h3>
+    <ul>
+      <li><strong>World Bank WDI</strong> — 1,583 indicator series for Uzbekistan, 1960 to
+      2025, plus a 15-country comparator panel for the inflation benchmark.</li>
+      <li><strong>FAO</strong> — monthly consumer price indices and annual producer prices
+      by commodity.</li>
+      <li><strong>UN Comtrade</strong> — commodity trade, used for the gold export share.</li>
+      <li><strong>WFP seasonal explorer</strong> — ten-day rainfall and NDVI composites for
+      14 regions and 199 districts.</li>
+      <li><strong>Meta Data for Good</strong> — the Relative Wealth Index, 21,382 grid cells
+      from a 2021 snapshot.</li>
+      <li><strong>Energy Institute and Ember, via Our World in Data</strong> — long-run gas
+      and electricity series; <strong>Maddison Project</strong> for pre-1990 output.</li>
+    </ul>
+
+    <h2>Things worth knowing before you use a number</h2>
+    <ul>
+      <li>Household energy payments are <em>expenditures</em> — price times quantity, often
+      lagged about a month and heaped at round numbers. There is no kilowatt-hour
+      denominator anywhere in this data, which is why no demand elasticity is estimated at
+      household level.</li>
+      <li>The energy burden denominator is <em>cash</em> income only. It excludes in-kind
+      income and the remittance module, so treat burden levels as descriptive and the
+      difference-in-differences as the estimate.</li>
+      <li>The Relative Wealth Index is a single 2021 snapshot, so in the correlate tool it
+      pairs with whichever years you pick on the other axis.</li>
+      <li>Cross-country inflation comparisons here are a benchmark, not an identified
+      difference-in-differences.</li>
+      <li>Correlations in the explore tools carry no controls and no fixed effects. They are
+      for looking, not for concluding.</li>
+    </ul>
+
+    <h2>Colour and accessibility</h2>
+    <p>The chart palette is validated for protanopia and deuteranopia rather than chosen by
+    eye, and both light and dark modes were stepped and checked separately against the
+    surfaces they actually render on. Every chart has a table view, so no value is reachable
+    only by hovering, and no value is carried by colour alone. If something here is still
+    hard to read, that is a bug worth reporting.</p>
+
+    <h2>Building it</h2>
+    <p>Two scripts, both standard-library Python:
+    <code>dashboard/build_data.py</code> reads the datasets and writes the JSON payloads;
+    <code>dashboard/build_site.py</code> assembles the pages and generates the finding pages
+    from the research notes. <code>bash dashboard/publish.sh</code> runs both and pushes.</p>
+  </div>
+</main>
+
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="findings/">Findings</a></li>
+        <li><a href="explore.html">Explore the data</a></li>
+        <li><a href="about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="topics/gold.html">Gold</a></li>
+        <li><a href="topics/agriculture.html">Agriculture</a></li>
+        <li><a href="topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="topics/people.html">People &amp; work</a></li>
+        <li><a href="topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module">import { boot } from "./assets/atlas.js"; boot();</script>
+</body>
+</html>

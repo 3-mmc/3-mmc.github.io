@@ -1,0 +1,107 @@
+<!-- description: Cotton against every other Uzbek crop, regional production, irrigation and the 2024 agricultural subsidy package. -->
+<main id="main">
+  <p class="eyebrow">Topic</p>
+  <h1>Agriculture</h1>
+  <p class="lede">Half of Uzbek households receive some agricultural income, and almost all
+  of the country's farmland is irrigated rather than rainfed. Two things make the sector
+  worth looking at closely: cotton is bought at a price the state sets rather than one the
+  market clears, and the 2024 reform package moved a great deal of money into the sector
+  at exactly the moment household energy bills rose.</p>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Cotton against everything else</h2>
+      <p>Between 2022 and 2024, 43 of 52 FAO commodities rose in price — median +55%. The
+      two largest falls were both cotton.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Producer prices, US$ per tonne</h3>
+        <p class="sub">Pick any commodity. Cotton is preselected because it is the outlier.</p>
+        <div class="controls">
+          <label for="pp-item">Commodity</label>
+          <select id="pp-item"></select>
+          <label class="check"><input type="checkbox" id="pp-index"> Index first year = 100</label>
+        </div>
+        <div id="pp-chart"></div>
+      </div>
+      <div class="card">
+        <h3>Change 2022 → 2024, every commodity</h3>
+        <p class="sub">Each tick is one commodity. Cotton sits alone on the left.</p>
+        <div id="pp-barcode"></div>
+        <p class="note">World cotton softened ~20–35% over the same window, so part of this
+        is global. The Uzbek fall is steeper, and it runs opposite to the domestic median.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>What the regions grow</h2>
+      <p>Output by region for each crop and livestock series stat.uz publishes.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Regional production</h3>
+        <div class="controls">
+          <label for="crop-series">Series</label>
+          <select id="crop-series"></select>
+          <label class="check"><input type="checkbox" id="crop-index"> Index first year = 100</label>
+        </div>
+        <div id="crop-chart"></div>
+      </div>
+      <div class="card">
+        <h3>Latest year, ranked</h3>
+        <div id="crop-rank"></div>
+        <p class="note">Regions are ordered by output in the most recent year available for
+        the selected series.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The sector in the national accounts</h2>
+      <p>Agriculture's share of output has fallen steadily while its share of employment
+      has fallen faster — the standard structural-transformation pattern, with an
+      irrigation twist.</p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Value added, employment and yield</h3>
+        <div class="controls">
+          <label for="ag-wdi">Indicator</label>
+          <select id="ag-wdi"></select>
+        </div>
+        <div id="ag-wdi-chart"></div>
+      </div>
+      <div class="card">
+        <h3>Water</h3>
+        <p class="sub">Nearly all agricultural land here is irrigated, and agriculture takes
+        almost all the freshwater withdrawn.</p>
+        <div id="ag-water"></div>
+        <p class="note">Which is why rainfall is a weak weather control in this country:
+        greenness predicts grain output, rain does not. See
+        <a href="climate.html">Climate &amp; water</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Findings from this sector</h2>
+    </div>
+    <div class="topic-list">
+      <a class="topic-card" href="../findings/cotton-monopsony.html">
+        <h3>The cotton monopsony</h3>
+        <p>Raw seed-cotton fell 56% and was then frozen at one price for 24 straight months.</p>
+        <span class="count">Descriptive</span>
+      </a>
+      <a class="topic-card" href="../findings/recomposition.html">
+        <h3>Gains visible, losses masked</h3>
+        <p>The agricultural gains show up cleanly at household level; the energy losses do not.</p>
+        <span class="count">Identified</span>
+      </a>
+    </div>
+  </section>
+</main>

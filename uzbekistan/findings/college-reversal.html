@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banked — the compulsory-college reversal cohort cliff · Uzbekistan Data Atlas</title>
+<meta name="description" content="Uzbekistan&#x27;s 1997 compulsory-vocational reform and its 2017 reversal produce one of the sharpest cohort discontinuities in survey data — possibly the only modern case of a state *removing* compulsory schooling years — but the outcome window hasn&#x27;t matured.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body data-finding="cohortCliff">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/" aria-current="page">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main" class="reading">
+  <p class="eyebrow"><a href="./" style="text-decoration:none;color:inherit">Findings</a> · Banked</p>
+  <div class="finding-head">
+    <h1>Banked — the compulsory-college reversal cohort cliff</h1>
+    <p class="oneline">Uzbekistan's 1997 compulsory-vocational reform and its 2017 reversal produce one of the sharpest cohort discontinuities in survey data — possibly the only modern case of a state <em>removing</em> compulsory schooling years — but the outcome window hasn't matured.</p>
+    <p style="margin:14px 0 0"><span class="status" data-status="banked">banked</span>
+      <span style="font-size:13px;color:var(--ink-muted);margin-left:8px">Real, but the outcome window has not matured.</span></p>
+  </div>
+
+  <figure class="card" style="margin:26px 0 0">
+    <div id="finding-chart"></div>
+  </figure>
+
+  <div class="prose" style="margin-top:26px"><p><strong>The find</strong></p>
+<ul>
+<li>% with secondary-specialized vocational education (SSVE) by birth cohort: 58→76 (forcing-in, 1990→93), plateaus at 77–80 (1994–99), then collapses <strong>72 → 56 → 23 → 7%</strong> across cohorts 2000→2003 (release).</li>
+<li>The reversal <em>direction</em> does not exist in the compulsory-schooling literature.</li>
+</ul>
+<p><strong>Why it's banked, not used</strong></p>
+<ul>
+<li>The sensational downstream result (released-cohort women: married-by-20 7%→24.7%) is a <strong>period effect</strong> — the 2021–22 post-COVID marriage surge. An age-contrast DiD kills it (hazards tripled at all ages; DiD t=−0.5).</li>
+<li>University attendance at the release margin is confounded by the simultaneous 2018–24 tertiary expansion.</li>
+<li>L2CU's roster education variable contradicts MICS6 (55% vs ~7–16% SSVE for born 2005) — miscoded, unusable without a codebook deep-dive.</li>
+<li>Needs MICS7 / LFS microdata circa 2026+, when released cohorts hit their mid-20s outside the COVID surge.</li>
+</ul>
+<p><strong>What's writable now:</strong> a first-stage + detracking-incidence note — who left the colleges, by region/wealth/sex (MICS6 has all three).</p>
+<p><strong>Behind it:</strong> <code>exploration/NE_HUNT_2026-06.md</code>; MICS6 (hl.sav, wm.sav).</p></div>
+
+  <details class="technical">
+    <summary>The numbers — specification, coefficients and caveats</summary>
+    <div class="technical-body">
+      <div class="prose"><p><strong>Not in the dissertation. Parked as the post-MICS7 follow-up paper.</strong></p>
+<h3>The find</h3>
+<blockquote><p>Uzbekistan's 1997 compulsory-SSVE reform and its <strong>2017 reversal</strong> produce one of the sharpest cohort discontinuities in survey data: % SSVE by birth cohort runs 58→76 (forcing-in, 1990→93), plateaus at 77–80 (1994–99), then collapses <strong>72 → 56 → 23 → 7%</strong> across cohorts 2000→2003 (release). Possibly the only modern case of a state <em>removing</em> compulsory schooling years — the reversal direction does not exist in the compulsory-schooling literature.</p></blockquote>
+<h3>Why it's banked, not used</h3>
+<ul>
+<li>The sensational downstream result (released-cohort women: married-by-20 7%→24.7%) is a <strong>period effect</strong> — the age-contrast DiD kills it (hazards tripled at all ages post-COVID; DiD t=−0.5).</li>
+<li>University attendance at the release margin is confounded by the simultaneous 2018–24 tertiary expansion.</li>
+<li>L2CU's roster <code>education</code> variable contradicts MICS6 (55% vs ~7–16% SSVE for born 2005) — miscoded, unusable without a codebook deep-dive.</li>
+<li><strong>Outcome window has not matured</strong>: needs MICS7 / LFS microdata circa 2026+, when released cohorts hit their mid-20s outside the COVID marriage surge.</li>
+</ul>
+<h3>What is writable now</h3>
+<p>A first-stage + detracking-incidence note: who left the colleges, by region/wealth/sex (MICS6 has all three).</p>
+<h3>Two hunts, one survivor</h3>
+<p>Both NE hunts (archive/NATURAL_EXPERIMENTS.md, exploration/NE_HUNT_2026-06.md) covered regional reforms, pilots (Syrdarya MHI), cohort discontinuities, RDs (pension age — not sharp), external shocks (ruble windfall — no micro first stage; crisis-flu — data junk), and historical persistence. <strong>The tariff reform is the only design with a first stage, mature outcomes, and credible identification simultaneously</strong> — a defensible "alternatives considered and rejected" sentence.</p></div>
+    </div>
+  </details>
+
+  <div class="pager"><a href="cotton-monopsony.html"><span class="lbl">Previous</span>The cotton monopsony and subsidy bunching</a><a href="background.html" style="text-align:right"><span class="lbl">Next</span>Background findings</a></div>
+</main>
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/finding.js"></script>
+</body>
+</html>

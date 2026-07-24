@@ -1,0 +1,128 @@
+<!-- description: Uzbekistan's gas balance, electricity generation mix, grid access and energy affordability — the data behind the 2024 tariff reform. -->
+<main id="main">
+  <p class="eyebrow">Topic</p>
+  <h1>Electricity &amp; gas</h1>
+  <p class="lede">Uzbekistan spent thirty years as a gas exporter and then, quite suddenly,
+  stopped being one. Production fell by a third while consumption held flat; in 2023 the
+  country became a net importer. That is the pressure behind everything else on this
+  page — the outage winter, the import deal, and the tariff that made households pay for
+  the fix.</p>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The gas dividend, and its end</h2>
+      <p>Production, consumption and the net balance. Above the zero line the country
+      exports; below it, it buys.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Production has fallen by a third since 2010; consumption has not</h3>
+        <p class="sub">Solid lines are the stat.uz national balance. Faint lines extend the
+        series back to 1985 using Energy Institute data, converted at 1&nbsp;bcm ≈ 10.55&nbsp;TWh.</p>
+        <div id="gas-balance"></div>
+      </div>
+      <div class="card">
+        <h3>Net balance</h3>
+        <p class="sub">Export surplus above zero, import deficit below.</p>
+        <div id="gas-net"></div>
+        <p class="note">The flip happens in 2023 — the same winter Russian pipeline imports
+        began, and one year before the household tariff rose.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Where the electricity comes from</h2>
+      <p>Gas has done nearly all the work for thirty-five years. Solar and wind arrive
+      only at the very end of the series.</p>
+    </div>
+    <div class="card">
+      <h3>Generation by source</h3>
+      <div id="elec-mix"></div>
+      <p class="note">Ember and the Energy Institute, via Our World in Data. Hydropower is
+      the only non-fossil source with real history here; everything renewable other than
+      hydro is a post-2020 phenomenon.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Who is actually on the gas grid</h2>
+      <p>This is the variable that decides who the 2024 tariff reached — and it is not
+      income.</p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Share of homes with piped natural gas, by region</h3>
+        <p class="sub">Pick a year to see the spread; the gap between the capital and the
+        gas-producing south-west is the whole story.</p>
+        <div class="controls">
+          <label for="access-year">Year</label>
+          <select id="access-year"></select>
+        </div>
+        <div id="gas-access"></div>
+      </div>
+      <div class="card">
+        <h3>The same regions over time</h3>
+        <p class="sub">Access has not converged. Several regions have lost ground.</p>
+        <div id="gas-access-time"></div>
+        <p class="note">stat.uz <code>environment/1243</code>. Nationally about 56% of homes
+        are connected — but that number hides cities at 96–100% and rural districts at 15–35%.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Electricity: production, consumption and reliability</h2>
+      <p>Regional series from stat.uz, plus the national-level indicators the World Bank
+      tracks.</p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Regional series</h3>
+        <div class="controls">
+          <label for="elec-series">Series</label>
+          <select id="elec-series"></select>
+          <label class="check"><input type="checkbox" id="elec-index"> Index first year = 100</label>
+        </div>
+        <div id="elec-regional"></div>
+      </div>
+      <div class="card">
+        <h3>Access, losses and outages</h3>
+        <p class="sub">Electricity access has been universal since the 1990s. The
+        interesting variation is in losses and in what firms report.</p>
+        <div class="controls">
+          <label for="elec-wdi">Indicator</label>
+          <select id="elec-wdi"></select>
+        </div>
+        <div id="elec-wdi-chart"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>What the reform did to households</h2>
+      <p>Three findings from the household panel sit behind this topic.</p>
+    </div>
+    <div class="topic-list">
+      <a class="topic-card" href="../findings/the-reshuffle.html">
+        <h3>The reshuffle</h3>
+        <p>Rationing by shortage and rationing by price burdened near-disjoint sets of households.</p>
+        <span class="count">Identified</span>
+      </a>
+      <a class="topic-card" href="../findings/reliability.html">
+        <h3>Imports restored reliability</h3>
+        <p>The most reliable winter in the panel was also the most financially distressed.</p>
+        <span class="count">Identified</span>
+      </a>
+      <a class="topic-card" href="../findings/revenue-not-conservation.html">
+        <h3>Revenue, not conservation</h3>
+        <p>Prices rose 53–400%; physical consumption barely moved.</p>
+        <span class="count">Identified</span>
+      </a>
+    </div>
+  </section>
+</main>

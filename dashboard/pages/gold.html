@@ -1,0 +1,98 @@
+<!-- description: Uzbekistan is a top-ten gold producer whose central bank reserves are now nearly four-fifths metal. Exports, reserve composition and the world price. -->
+<main id="main">
+  <p class="eyebrow">Topic</p>
+  <h1>Gold</h1>
+  <p class="lede">Uzbekistan mines roughly a hundred tonnes of gold a year, and by law the
+  central bank gets first refusal on all of it. The result is one of the most
+  gold-concentrated reserve portfolios on earth: as the metal's price ran up after 2019,
+  the bank's gold pile grew while its dollar buffer shrank. This page is the public,
+  descriptive record of that — exports, reserve composition, and the world price that
+  drives both.</p>
+
+  <div class="stats" style="margin-bottom:38px" id="gold-stats"></div>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Reserves: gold against everything else</h2>
+      <p>Total reserves split into the gold component and the rest. Same axis, same
+      units — the composition shift is the point.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Reserve composition, US$ billions</h3>
+        <p class="sub">Gold has risen while non-gold reserves have been drawn down.</p>
+        <div id="reserve-split"></div>
+      </div>
+      <div class="card">
+        <h3>Gold as a share of reserves</h3>
+        <div id="reserve-share"></div>
+        <p class="note">World Bank WDI, <code>FI.RES.TOTL.CD</code> minus
+        <code>FI.RES.XGLD.CD</code>. Revaluation and purchases both move this line — a rising
+        share does not by itself mean the bank bought more metal.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>The world price</h2>
+      <p>Uzbekistan is a price taker. The same tonnage has been worth very different
+      amounts over this window.</p>
+    </div>
+    <div class="card">
+      <h3>Gold, US$ per troy ounce, monthly</h3>
+      <div id="gold-price"></div>
+      <p class="note">London benchmark. Between 2019 and 2026 the price roughly quadrupled
+      the local-currency value of a constant ~100&nbsp;tonnes of annual output.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Exports</h2>
+      <p>How much of what Uzbekistan sells abroad is gold — and how that compares with
+      the fuel exports it used to depend on.</p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Gold exports, US$ billions</h3>
+        <div id="gold-exports"></div>
+      </div>
+      <div class="card">
+        <h3>Gold as a share of tracked exports</h3>
+        <div id="gold-share"></div>
+        <p class="note">UN Comtrade, via <code>exploration/gold_windfall.py</code>. "Tracked"
+        means the commodity lines present in the Comtrade pull, not total merchandise trade.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Resource rents in context</h2>
+      <p>Mineral rents rose as gas rents collapsed. The composition of Uzbekistan's
+      resource income changed completely within about fifteen years.</p>
+    </div>
+    <div class="card">
+      <h3>Natural resource rents, % of GDP</h3>
+      <div id="rents"></div>
+      <p class="note">World Bank WDI. This is the macro backdrop to
+      <a href="../findings/gas-dividend.html">the end of the gas dividend</a>: one rent
+      stream ran down while another ran up, but they do not accrue to the same people or
+      through the same institutions.</p>
+    </div>
+  </section>
+
+  <aside class="caveats" style="margin-top:34px">
+    <h3>How far these numbers go</h3>
+    <ul>
+      <li>This page is the descriptive public record: exports, reserve composition and the
+      world price. It makes no claim about what any of it caused.</li>
+      <li>Reserve values move with revaluation as well as with purchases. A rising gold
+      share can mean the bank bought metal, or simply that the metal it already held became
+      worth more. Separating the two needs tonnage, not the dollar series shown here.</li>
+      <li>"Tracked exports" is the set of commodity lines in the Comtrade pull behind this
+      page, not total merchandise trade — so the share is a share of that set.</li>
+    </ul>
+  </aside>
+</main>
