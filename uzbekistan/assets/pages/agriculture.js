@@ -103,11 +103,13 @@ if (A.production && Object.keys(A.production).length) {
 
   const fig = figure({
     el: "crop-chart",
-    caption: "One panel per region — every panel shares the same vertical scale.",
-    render: () => C.smallMultiples({
-      data: C.toRows(current()), width: autoWidth("crop-chart")(),
-      label: nice(sel?.value || keys[0]), columns: 4, height: 54, index: !!idx?.checked,
+    views: C.panelViews({
+      el: "crop-chart", data: () => C.toRows(current()),
+      label: () => nice(sel?.value || keys[0]),
+      index: () => !!idx?.checked,
     }),
+    defaultView: "Heatmap",
+    caption: (v) => C.panelCaption(v),
     table: () => ({
       caption: nice(sel?.value || keys[0]) + " by region",
       columns: ["Region", "Year", { label: "Value", num: true }],
@@ -128,7 +130,7 @@ if (A.production && Object.keys(A.production).length) {
         .filter(Boolean);
       return C.rankBar({
         data: rows, width: autoWidth("crop-rank")(),
-        label: nice(sel?.value || keys[0]), sequential: true,
+        label: nice(sel?.value || keys[0]),
       });
     },
     table: () => {

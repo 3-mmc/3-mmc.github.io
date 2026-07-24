@@ -317,11 +317,13 @@ let regFig = null;
 
   regFig = figure({
     el: "regions",
-    caption: "One panel per region, so no series has to be told apart by colour.",
-    render: () => C.smallMultiples({
-      data: C.toRows(REG[sel.value]), width: autoWidth("regions")(),
-      label: prettyReg(sel.value), columns: 4, height: 56, index: !!idx.checked,
+    views: C.panelViews({
+      el: "regions", data: () => C.toRows(REG[sel.value]),
+      label: () => prettyReg(sel.value),
+      index: () => !!idx.checked,
     }),
+    defaultView: "Heatmap",
+    caption: (v) => C.panelCaption(v),
     table: () => ({
       caption: prettyReg(sel.value),
       columns: ["Region", "Year", { label: "Value", num: true }],

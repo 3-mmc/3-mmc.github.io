@@ -151,7 +151,6 @@ if (E.gasAccess) {
         data: valuesFor(year),
         width: autoWidth("gas-access")(),
         label: `% of homes with piped gas, ${year}`,
-        sequential: true,
         highlight: (d) => producers.has(d.name),
         format: (v) => v.toFixed(1) + "%",
       });
@@ -172,11 +171,13 @@ if (E.gasAccess) {
   const panel = C.toRows(E.gasAccess);
   figure({
     el: "gas-access-time",
-    caption: "One panel per region. All share the same vertical scale.",
-    render: () => C.smallMultiples({
-      data: panel, width: autoWidth("gas-access-time")(),
-      label: "% of homes", columns: 3, height: 56,
+    views: C.panelViews({
+      el: "gas-access-time", data: () => panel,
+      label: "% of homes", columns: 3,
+      format: (v) => v.toFixed(1) + "%",
     }),
+    defaultView: "Heatmap",
+    caption: (v) => C.panelCaption(v),
     table: () => ({
       caption: "Homes with piped natural gas by region, %",
       columns: ["Region", "Year", { label: "% of homes", num: true }],
@@ -203,15 +204,16 @@ if (E.gasAccess) {
     }
   }
   if (opts.length) {
+    const rows = () => C.toRows(E[sel?.value || opts[0][0]]);
     const fig = figure({
       el: "elec-regional",
-      caption: "One panel per region — 14 regions is more than any colour scheme can carry.",
-      render: () => C.smallMultiples({
-        data: C.toRows(E[sel?.value || opts[0][0]]),
-        width: autoWidth("elec-regional")(),
-        label: "value", columns: 3, height: 56,
-        index: !!idx?.checked,
+      views: C.panelViews({
+        el: "elec-regional", data: rows,
+        label: () => opts.find(([k]) => k === (sel?.value || opts[0][0]))?.[1] ?? "value",
+        index: () => !!idx?.checked, columns: 3,
       }),
+      defaultView: "Heatmap",
+      caption: (v) => C.panelCaption(v),
       table: () => ({
         caption: opts.find(([k]) => k === (sel?.value || opts[0][0]))?.[1] ?? "",
         columns: ["Region", "Year", { label: "Value", num: true }],

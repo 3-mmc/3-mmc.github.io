@@ -21,82 +21,93 @@ SITE = os.path.join(ROOT, "uzbekistan")
 SITE_TITLE = "Uzbekistan Data Atlas"
 
 # ─────────────────────────────────── findings ──────────────────────────────
-# slug -> plain-language note, technical note (may be None), status, chart id.
-# Order here is the order on the findings index and in the pager.
+# slug -> display title, plain-language note, technical note (may be None),
+# status, section, chart id.
+#
+# The display title overrides the note's own H1. The notes are written for the
+# vault and lean on shorthand ("The reshuffle", "The eaten disinflation") that
+# means nothing to a reader arriving cold — so the site says plainly what each
+# finding found. Sections must stay contiguous: the index starts a new block
+# whenever the section name changes.
 FINDINGS = [
-    ("the-reshuffle", "The reshuffle",
+    ("the-reshuffle", "Shortages and price rises hit different households",
      "16 The reshuffle — shortage and price hit different households.md",
      "18 The reshuffle — rationing and repricing swapped the losers.md",
-     "proven", "Headline", "reshuffle"),
-    ("grid-not-income", "Incidence ran on the grid, not on income",
+     "proven", "The 2024 energy tariff", "reshuffle"),
+    ("grid-not-income", "Who paid depended on gas connection, not income",
      "09 Incidence ran on the grid, not on income.md",
      "09 Incidence ran on the grid, not income.md",
-     "proven", "The tariff", "gridAccess"),
-    ("frozen-bill", "The frozen bill",
+     "proven", "The 2024 energy tariff", "gridAccess"),
+    ("frozen-bill", "Energy bills rose about 70%, almost all of it in winter",
      "01 The frozen bill — a winter-shaped price shock.md",
      "01 The frozen bill and the first stage.md",
-     "proven", "The tariff", "frozenBill"),
-    ("winter-burden", "The winter burden annual averages hide",
+     "proven", "The 2024 energy tariff", "frozenBill"),
+    ("winter-burden", "Annual averages hide the winter cost increase",
      "02 The winter burden hidden by annual averages.md",
      "02 The winter burden — energy share of income.md",
-     "proven", "The tariff", "winterBurden"),
-    ("heating-bite", "The winter heating bite",
+     "proven", "The 2024 energy tariff", "winterBurden"),
+    ("heating-bite", "Grid households fell behind on winter bills after the reform",
      "03 The winter heating bite (triple-difference).md",
      "03 The heating bite — winter triple-diff.md",
-     "proven", "The tariff", "heatingBite"),
-    ("reliability", "Reliability recovered before the tariff",
+     "proven", "The 2024 energy tariff", "heatingBite"),
+    ("reliability", "Electricity supply improved before the tariff, not because of it",
      "04 Reliability recovered before the tariff, not because of it.md",
      "04 Reliability — imports restored it, the tariff repriced it.md",
-     "proven", "The tariff", "reliability"),
-    ("two-winters", "Two winters, two crises",
+     "proven", "The 2024 energy tariff", "reliability"),
+    ("two-winters", "Payment problems spiked twice, for two different reasons",
      "05 Two winters, two crises (event study).md",
      "05 Two winters, two crises — the event study.md",
-     "proven", "The tariff", "eventStudy"),
-    ("recomposition", "Gains were visible, losses were masked",
+     "proven", "The 2024 energy tariff", "eventStudy"),
+    ("recomposition", "Farm income gains were measurable, energy losses were not",
      "06 Gains were visible, losses were masked (recomposition).md",
      "06 Gains visible, losses masked — the recomposition.md",
-     "proven", "The tariff", "recomposition"),
-    ("eaten-disinflation", "The eaten disinflation",
+     "proven", "The 2024 energy tariff", "recomposition"),
+    ("eaten-disinflation", "Inflation stayed flat in 2024 while every neighbour's fell",
      "07 The eaten disinflation (CPI placebo).md",
      "07 The three masks — CPI placebo and within-survey prices.md",
-     "proven", "The tariff", "cpiPeers"),
-    ("revenue-not-conservation", "Revenue, not conservation",
+     "proven", "The 2024 energy tariff", "cpiPeers"),
+    ("revenue-not-conservation", "Energy use barely changed after prices rose",
      "08 Revenue, not conservation — demand was inelastic.md",
      "08 Revenue, not conservation.md",
-     "proven", "The tariff", "elasticity"),
-    ("compensation-16", "The compensation channel reached 16 households",
+     "proven", "The 2024 energy tariff", "elasticity"),
+    ("compensation-16", "Compensation for the tariff reached 16 households",
      "11 The compensation channel reached 16 households.md",
      "11 Targeting failure — compensation reached 16 households.md",
-     "proven", "The tariff", "compensation"),
-    ("robustness", "Robustness, and the claims we withdrew",
-     "15 Robustness checks and claims we withdrew.md",
-     "15 Robustness and withdrawn claims.md",
-     "revised", "Method", "robustness"),
-    ("tsarist-railways", "Tsarist railway persistence",
+     "proven", "The 2024 energy tariff", "compensation"),
+
+    ("tsarist-railways", "An 1888 railway still predicts local wealth",
      "14 Tsarist railway persistence in today's wealth.md",
      "14 Tsarist railway persistence.md",
-     "descriptive", "History", "railway"),
-    ("soviet-gas-paradox", "The Soviet gas paradox",
+     "descriptive", "History and geography", "railway"),
+    ("soviet-gas-paradox", "Gas-producing regions have the least gas access",
      "13 The Soviet gas paradox.md", None,
-     "descriptive", "History", "gasParadox"),
-    ("gas-dividend", "The end of the gas dividend",
+     "descriptive", "History and geography", "gasParadox"),
+    ("gas-dividend", "Uzbekistan stopped being a gas exporter",
      "12 The end of the gas dividend.md", None,
-     "descriptive", "History", "gasDividend"),
-    ("cotton-monopsony", "The cotton monopsony and subsidy bunching",
+     "descriptive", "History and geography", "gasDividend"),
+
+    ("cotton-monopsony", "Cotton prices fell while almost every other crop rose",
      "10 The cotton monopsony and subsidy bunching.md",
      "10 The ag arm — cotton monopsony and subsidy bunching.md",
      "descriptive", "Agriculture", "cotton"),
-    ("college-reversal", "The compulsory-college reversal",
+
+    ("robustness", "Claims that did not survive further testing",
+     "15 Robustness checks and claims we withdrew.md",
+     "15 Robustness and withdrawn claims.md",
+     "revised", "Method and limitations", "robustness"),
+    ("dead-ends", "Approaches that were tried and abandoned",
+     "19 Dead ends — natural experiments tried and killed.md", None,
+     "null", "Method and limitations", None),
+
+    ("college-reversal", "Vocational enrolment collapsed after the 2017 reform",
      "17 Banked — the compulsory-college reversal cohort cliff.md",
      "16 Banked — the compulsory-college reversal.md",
-     "banked", "Banked", "cohortCliff"),
-    ("background", "Background findings",
+     "banked", "Waiting on data", "cohortCliff"),
+
+    ("background", "Other findings from the wider data",
      "18 Broad background findings (off-topic).md",
      "17 Background — broad exploration findings.md",
-     "descriptive", "Background", None),
-    ("dead-ends", "Dead ends",
-     "19 Dead ends — natural experiments tried and killed.md", None,
-     "null", "Method", None),
+     "descriptive", "Other findings", None),
 ]
 
 STATUS_BLURB = {
@@ -349,6 +360,11 @@ def md_to_html(text, heading_offset=1):
     return "\n".join(out)
 
 
+def strip_tags(s):
+    """Plain text for JSON payloads — the gallery inserts with textContent."""
+    return html.unescape(re.sub(r"<[^>]+>", "", s or "")).strip()
+
+
 def read_note(fn):
     path = os.path.join(FINDINGS_SRC, fn)
     with open(path, encoding="utf-8") as f:
@@ -392,9 +408,21 @@ def split_note(text):
         caveats = rest[:nxt.start()] if nxt else rest
         joined = joined[:m.start()] + (rest[nxt.start():] if nxt else "")
 
+    joined = joined.strip()
+    if not oneline:
+        # Some notes have no "In one line" hook — fall back to the first real
+        # sentence of the body so a card is never left blank.
+        for para in re.split(r"\n\s*\n", joined):
+            para = para.strip()
+            if not para or re.match(r"^\s*(#|\||>|```|[-*+]\s|\d+\.\s)", para):
+                continue
+            flat = re.sub(r"\s+", " ", para)
+            m = re.match(r"(.+?[.!?])(\s|$)", flat)
+            oneline = (m.group(1) if m else flat)[:240]
+            break
     if oneline:
         oneline = oneline[0].upper() + oneline[1:]
-    return title, oneline, joined.strip(), caveats.strip()
+    return title, oneline, joined, caveats.strip()
 
 
 # ────────────────────────────────── shell ─────────────────────────────────
@@ -521,16 +549,18 @@ def build_findings():
     entries = []
     for slug, short, plain_fn, tech_fn, status, group, chart in FINDINGS:
         plain = read_note(plain_fn)
-        title, oneline, body, caveats = split_note(plain)
+        _, oneline, body, caveats = split_note(plain)
         tech_html = ""
         if tech_fn:
-            t_title, _, t_body, t_caveats = split_note(read_note(tech_fn))
+            _, _, t_body, t_caveats = split_note(read_note(tech_fn))
             merged = t_body + (("\n\n## Caveats\n\n" + t_caveats) if t_caveats else "")
             tech_html = md_to_html(merged, heading_offset=1)
-        entries.append(dict(slug=slug, short=short, title=title or short,
-                            oneline=oneline, body=body, caveats=caveats,
-                            status=status, group=group, chart=chart,
-                            tech=tech_html))
+        # `short` is the site's plain title; the note's own H1 is kept as a
+        # subtitle only where it says something the title does not.
+        entries.append(dict(slug=slug, short=short, title=short,
+                            oneline=oneline, body=body,
+                            caveats=caveats, status=status, group=group,
+                            chart=chart, tech=tech_html))
 
     os.makedirs(os.path.join(SITE, "findings"), exist_ok=True)
 
@@ -617,12 +647,12 @@ def build_findings():
             f'<div class="finding-list">{"".join(cards)}</div></section>')
 
     index_body = f"""<main id="main">
-  <p class="eyebrow">Interesting findings</p>
-  <h1>What the data turned out to say</h1>
-  <p class="lede">Each of these is a standalone result with its own page: the claim in
-  plain language and a chart first, the specification and the coefficients behind a
-  fold. Nothing is arranged into an argument — they are labelled by how much weight
-  each one can carry, and several are here because they failed.</p>
+  <p class="eyebrow">Findings</p>
+  <h1>Nineteen findings from the Uzbek data</h1>
+  <p class="lede">Each is a standalone result with its own page: the claim in plain
+  language and a chart first, the specification and the coefficients behind a fold.
+  Nothing is arranged into an argument — they are labelled by how much weight each one
+  can carry, and several are here because they failed.</p>
 
   <div class="stats" style="margin:0 0 40px">
     <div class="stat"><span class="v">{sum(1 for e in entries if e["status"] == "proven")}</span><span class="k">identified — hold up under household fixed effects</span></div>
@@ -638,6 +668,20 @@ def build_findings():
                       description="Standalone research findings from Uzbek household, "
                                   "energy and historical data — each with its claim, its "
                                   "chart and its caveats."))
+
+    # The home page's rotating gallery reads this rather than re-parsing notes.
+    import json
+    # inline() first, then strip: the gallery inserts with textContent, so raw
+    # markdown emphasis would otherwise show up as literal asterisks.
+    index = [{"slug": e["slug"], "title": e["title"],
+              "oneline": strip_tags(inline(e["oneline"])),
+              "status": e["status"], "group": e["group"], "hasChart": bool(e["chart"])}
+             for e in entries]
+    data_dir = os.path.join(SITE, "data")
+    os.makedirs(data_dir, exist_ok=True)
+    with open(os.path.join(data_dir, "findings-index.json"), "w", encoding="utf-8") as f:
+        json.dump(index, f, separators=(",", ":"), ensure_ascii=False)
+    print(f"  data/findings-index.json ({len(index)} entries)")
     return entries
 
 

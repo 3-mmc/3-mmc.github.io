@@ -6,6 +6,167 @@ if (core) {
   build(core);
   buildSpineFull();
 }
+buildGallery();
+
+/* ── rotating findings gallery ─────────────────────────────────────────────
+   A scroll-snap track rather than a transform carousel: it stays usable with
+   a trackpad, a keyboard and a screen reader, and the auto-advance is just a
+   scroll. It pauses on hover, on focus, when the tab is hidden, and entirely
+   under prefers-reduced-motion. */
+async function buildGallery() {
+  const track = document.getElementById("gallery-track");
+  const dotsBox = document.getElementById("gallery-dots");
+  const playBtn = document.getElementById("gallery-play");
+  if (!track) return;
+
+  let items;
+  try {
+    items = await load("findings-index");
+  } catch (err) {
+    console.error("findings-index.json failed to load", err);
+    document.getElementById("findings-gallery")?.remove();
+    return;
+  }
+
+  const STATUS_TEXT = {
+    proven: "identified",
+    descriptive: "descriptive",
+    revised: "revised",
+    banked: "waiting on data",
+    null: "abandoned",
+  };
+
+  for (const f of items) {
+    const a = document.createElement("a");
+    a.className = "gallery-card";
+    a.href = `findings/${f.slug}.html`;
+
+    const group = document.createElement("span");
+    group.className = "g-group";
+    group.textContent = f.group;
+
+    const h = document.createElement("h3");
+    h.textContent = f.title;
+
+    const p = document.createElement("p");
+    p.textContent = f.oneline || "";
+
+    const foot = document.createElement("div");
+    foot.className = "g-foot";
+    const st = document.createElement("span");
+    st.className = "status";
+    st.dataset.status = f.status;
+    st.textContent = STATUS_TEXT[f.status] ?? f.status;
+    const read = document.createElement("span");
+    read.className = "g-read";
+    read.textContent = "Read →";
+    foot.append(st, read);
+
+    a.append(group, h, p, foot);
+    track.append(a);
+  }
+
+  const perView = () => {
+    const card = track.firstElementChild;
+    if (!card) return 1;
+    return Math.max(1, Math.round(track.clientWidth / (card.getBoundingClientRect().width + 14)));
+  };
+  const pages = () => Math.max(1, Math.ceil(items.length / perView()));
+  const current = () => {
+    const card = track.firstElementChild;
+    if (!card) return 0;
+    const step = (card.getBoundingClientRect().width + 14) * perView();
+    return Math.round(track.scrollLeft / step);
+  };
+
+  function renderDots() {
+    dotsBox.textContent = "";
+    const n = pages();
+    const cur = Math.min(current(), n - 1);
+    for (let i = 0; i < n; i++) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-selected", String(i === cur));
+      b.setAttribute("aria-label", `Findings ${i * perView() + 1}–${Math.min(items.length, (i + 1) * perView())}`);
+      b.addEventListener("click", () => goTo(i));
+      dotsBox.append(b);
+    }
+  }
+
+  function goTo(page) {
+    const card = track.firstElementChild;
+    if (!card) return;
+    const step = (card.getBoundingClientRect().width + 14) * perView();
+    track.scrollTo({ left: page * step, behavior: reduced.matches ? "auto" : "smooth" });
+  }
+
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+  let timer = null;
+  let playing = !reduced.matches;
+
+  function advance(dir = 1) {
+    const n = pages();
+    let next = current() + dir;
+    if (next >= n) next = 0;
+    if (next < 0) next = n - 1;
+    goTo(next);
+  }
+
+  function start() {
+    stop();
+    if (!playing || reduced.matches) return;
+    timer = setInterval(() => advance(1), 6000);
+  }
+  function stop() {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
+  playBtn.addEventListener("click", () => {
+    playing = !playing;
+    playBtn.textContent = playing ? "Pause" : "Play";
+    playBtn.setAttribute("aria-pressed", String(playing));
+    playing ? start() : stop();
+  });
+  if (reduced.matches) {
+    playing = false;
+    playBtn.textContent = "Play";
+    playBtn.setAttribute("aria-pressed", "false");
+  }
+
+  for (const b of document.querySelectorAll(".gallery-btn")) {
+    b.addEventListener("click", () => {
+      advance(Number(b.dataset.dir));
+      start();               // restart the clock after a manual move
+    });
+  }
+
+  const gallery = document.getElementById("findings-gallery");
+  gallery.addEventListener("pointerenter", stop);
+  gallery.addEventListener("pointerleave", () => playing && start());
+  gallery.addEventListener("focusin", stop);
+  gallery.addEventListener("focusout", (e) => {
+    if (!gallery.contains(e.relatedTarget) && playing) start();
+  });
+  document.addEventListener("visibilitychange", () => {
+    document.hidden ? stop() : playing && start();
+  });
+
+  let scrollTimer;
+  track.addEventListener("scroll", () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(renderDots, 120);
+  });
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(renderDots, 180);
+  });
+
+  renderDots();
+  start();
+}
 
 function build(core) {
   /* ── the three-winter arc ───────────────────────────────────────────────

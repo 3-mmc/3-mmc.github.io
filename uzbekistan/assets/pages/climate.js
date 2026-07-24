@@ -25,13 +25,14 @@ const DNAME = new Map(
 
   const fig = figure({
     el: "clim-series",
-    caption: "One panel per region. Ten-day satellite composites, aggregated to the growing season.",
-    render: () => C.smallMultiples({
-      data: C.toRows(CL.adm1[metric]),
-      width: autoWidth("clim-series")(),
-      label: metric === "rain" ? "mm" : "NDVI",
-      columns: 4, height: 56, index: !!idx?.checked,
+    views: C.panelViews({
+      el: "clim-series", data: () => C.toRows(CL.adm1[metric]),
+      label: () => (metric === "rain" ? "rainfall, mm" : "NDVI"),
+      index: () => !!idx?.checked,
+      format: (v) => (metric === "rain" ? v.toFixed(0) + " mm" : v.toFixed(3)),
     }),
+    defaultView: "Heatmap",
+    caption: (v) => C.panelCaption(v) + " Ten-day satellite composites.",
     table: () => ({
       caption: LABEL[metric],
       columns: ["Region", "Year", { label: metric === "rain" ? "mm" : "NDVI", num: true }],

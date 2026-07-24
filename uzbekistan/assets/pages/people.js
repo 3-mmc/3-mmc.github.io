@@ -72,11 +72,14 @@ if (M.wagesReal) {
   }
   const fig = figure({
     el: "wages",
-    caption: "One panel per sector. Deflated to 2017 soum.",
-    render: () => C.smallMultiples({
-      data: panel, width: autoWidth("wages")(),
-      label: "2017 soum", columns: 4, height: 54, index: !!idx?.checked,
+    // Horizon first: there are more sectors than any colour scheme can name,
+    // and the question here is magnitude over time, not identity.
+    views: C.panelViews({
+      el: "wages", data: () => panel, label: "real wage bill, 2017 soum",
+      index: () => !!idx?.checked, rowHeight: 26,
     }),
+    defaultView: "Horizon",
+    caption: (v) => C.panelCaption(v, "sector") + " Deflated to 2017 soum.",
     table: () => ({
       caption: "Real wage bill by sector, 2017 soum",
       columns: ["Sector", "Year", { label: "2017 soum", num: true }],
@@ -157,13 +160,13 @@ if (M.health && Object.keys(M.health).length) {
   }
   const fig = figure({
     el: "health",
-    caption: "One panel per region.",
-    render: () => C.smallMultiples({
-      data: C.toRows(M.health[sel?.value || metrics[0]]),
-      width: autoWidth("health")(),
-      label: (sel?.value || metrics[0]).replace(/_/g, " "),
-      columns: 4, height: 54, index: !!idx?.checked,
+    views: C.panelViews({
+      el: "health", data: () => C.toRows(M.health[sel?.value || metrics[0]]),
+      label: () => (sel?.value || metrics[0]).replace(/_/g, " "),
+      index: () => !!idx?.checked,
     }),
+    defaultView: "Heatmap",
+    caption: (v) => C.panelCaption(v),
     table: () => ({
       caption: (sel?.value || metrics[0]).replace(/_/g, " ") + " by region",
       columns: ["Region", "Year", { label: "Value", num: true }],

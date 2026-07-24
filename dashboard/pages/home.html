@@ -1,33 +1,40 @@
 <!-- description: An atlas of Uzbek economic, energy and household data — with the research findings drawn from it, from the 2024 energy tariff to a railway built in 1888. -->
 <main id="main">
 
-  <section class="section" style="margin-bottom:34px">
-    <div class="grid wide-left" style="align-items:end">
-      <div>
-        <p class="eyebrow">The headline finding</p>
-        <h1 style="max-width:20ch">Uzbekistan swapped a queue for a price. Different people paid.</h1>
-        <p class="lede">In the winter of 2022/23 the country rationed energy by shortage: the
-        worst-hit households sat in the dark nine hours a day. In May 2024 it rationed by
-        price instead. The households the shortage hurt most turned out to be the ones the
-        price hurt least — the burden did not move up or down the income distribution, it
-        moved sideways, onto whoever the Soviet gas grid had connected.</p>
-        <p style="margin-top:-8px">
-          <a href="findings/the-reshuffle.html" style="font-weight:600;text-decoration-color:var(--accent)">Read the finding</a>
-          <span style="color:var(--ink-muted);margin:0 10px">·</span>
-          <a href="findings/">All 19 findings</a>
-        </p>
-      </div>
-      <div>
-        <p class="hero-figure" style="color:var(--series-1)">−0.0065</p>
-        <p style="font-size:14px;color:var(--ink-2);max-width:32ch;margin:6px 0 0">
-          Each extra hour a day without power in the crisis winter predicts
-          <em>lower</em> payment distress two years later. t&nbsp;=&nbsp;−5.0, across 1,175
-          households seen in both winters.</p>
+  <section class="section" style="margin-bottom:30px">
+    <h1 style="max-width:22ch">What the data says about Uzbekistan</h1>
+    <p class="lede">Household energy bills, gas and electricity, gold, cotton, wages,
+    rainfall and a railway built in 1888 — with the research findings drawn from all of
+    it. Every chart hands you its table, and every finding says how much weight it can
+    carry.</p>
+  </section>
+
+  <section class="section" aria-labelledby="gallery-heading">
+    <div class="section-head">
+      <h2 id="gallery-heading">The findings</h2>
+      <p>Nineteen standalone results. Each has its own page: the claim in plain language
+      and a chart first, the specification and coefficients behind a fold.</p>
+    </div>
+    <div class="gallery" id="findings-gallery" aria-roledescription="carousel"
+         aria-label="Research findings">
+      <div class="gallery-track" id="gallery-track"></div>
+      <div class="gallery-controls">
+        <button type="button" class="gallery-btn" data-dir="-1" aria-label="Previous findings">←</button>
+        <div class="gallery-dots" id="gallery-dots" role="tablist" aria-label="Finding groups"></div>
+        <button type="button" class="gallery-btn" data-dir="1" aria-label="Next findings">→</button>
+        <button type="button" class="gallery-play" id="gallery-play" aria-pressed="true">Pause</button>
+        <a href="findings/" class="gallery-all">See all 19</a>
       </div>
     </div>
   </section>
 
   <section class="section">
+    <div class="section-head">
+      <h2>Shortages and price rises hit different households</h2>
+      <p>The result the rest of the energy work hangs off. Uzbekistan rationed energy by
+      shortage in 2022/23 and by price in 2024/25 — and the two burdens fell on
+      near-disjoint sets of households.</p>
+    </div>
     <div class="grid two">
       <div class="card">
         <p class="eyebrow">Three winters</p>
@@ -37,13 +44,19 @@
         <div id="arc"></div>
       </div>
       <div class="card">
-        <p class="eyebrow">The reshuffle</p>
-        <h3>Who the shortage hit, and who the price hit</h3>
+        <p class="eyebrow">Who carried each burden</p>
+        <h3>The households the shortage hit hardest paid the least later</h3>
         <p class="sub">Households ranked by how badly they were rationed in 2022/23,
         then followed into the 2024/25 price winter.</p>
         <div id="reshuffle"></div>
       </div>
     </div>
+    <p style="margin:14px 0 0;font-size:14px">
+      <a href="findings/the-reshuffle.html" style="font-weight:600;text-decoration-color:var(--accent)">Read the full finding</a>
+      <span style="color:var(--ink-muted);margin:0 10px">·</span>
+      Each extra hour a day without power in the crisis winter predicts
+      <em>lower</em> payment distress two years later (β&nbsp;=&nbsp;−0.0065, t&nbsp;=&nbsp;−5.0, n&nbsp;=&nbsp;1,175).
+    </p>
   </section>
 
   <section class="section">

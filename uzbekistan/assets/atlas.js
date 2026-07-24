@@ -151,9 +151,11 @@ const registry = [];
  * @param {Object} spec
  * @param {string|Element} spec.el      target (id or element)
  * @param {Function} spec.render        () => SVG/HTML element (an Observable Plot)
+ * @param {Object}   [spec.views]       {name: () => element} — adds a view switcher
+ * @param {string}   [spec.defaultView]  which view starts selected
  * @param {Function} [spec.table]       () => ({columns, rows, caption})
- * @param {Array}    [spec.legend]      [{label, color, kind:"line"|"rect"}]
- * @param {string}   [spec.caption]     figcaption text (HTML-free)
+ * @param {Array|Function} [spec.legend] [{label, color, kind:"line"|"rect"}]
+ * @param {string|Function} [spec.caption] figcaption text (HTML-free)
  */
 export function figure(spec) {
   const host = typeof spec.el === "string" ? document.getElementById(spec.el) : spec.el;
@@ -161,6 +163,37 @@ export function figure(spec) {
 
   host.textContent = "";
   host.classList.add("figure");
+
+  const viewNames = spec.views ? Object.keys(spec.views) : [];
+  let view = spec.defaultView && viewNames.includes(spec.defaultView)
+    ? spec.defaultView : viewNames[0];
+
+  let switcher = null;
+  if (viewNames.length > 1) {
+    switcher = document.createElement("div");
+    switcher.className = "view-switch";
+    const label = document.createElement("span");
+    label.textContent = "View";
+    const seg = document.createElement("span");
+    seg.className = "seg";
+    seg.setAttribute("role", "group");
+    seg.setAttribute("aria-label", "Chart view");
+    for (const name of viewNames) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = name;
+      b.setAttribute("aria-pressed", String(name === view));
+      b.addEventListener("click", () => {
+        if (view === name) return;
+        view = name;
+        seg.querySelectorAll("button").forEach((x) =>
+          x.setAttribute("aria-pressed", String(x.textContent === view)));
+        draw();
+      });
+      seg.append(b);
+    }
+    switcher.append(label, seg);
+  }
 
   const legendBox = document.createElement("div");
   legendBox.className = "legend";
@@ -173,7 +206,7 @@ export function figure(spec) {
 
   const cap = document.createElement("div");
   cap.style.cssText = "font-size:12.5px;color:var(--ink-muted);flex:1 1 240px;min-width:0";
-  if (spec.caption) cap.textContent = spec.caption;
+  if (typeof spec.caption === "string") cap.textContent = spec.caption;
 
   const tableWrap = document.createElement("div");
   tableWrap.hidden = true;
@@ -196,6 +229,7 @@ export function figure(spec) {
 
   foot.append(cap);
   if (toggle) foot.append(toggle);
+  if (switcher) host.append(switcher);
   host.append(legendBox, plotBox, foot, tableWrap);
 
   const draw = () => {
@@ -203,7 +237,8 @@ export function figure(spec) {
     plotBox.style.opacity = ".55";
     let node;
     try {
-      node = spec.render();
+      node = spec.views ? spec.views[view]() : spec.render();
+      if (typeof spec.caption === "function") cap.textContent = spec.caption(view);
     } catch (err) {
       console.error("figure render failed", spec.el, err);
       plotBox.innerHTML = `<p class="empty">This chart could not be drawn.</p>`;
@@ -215,7 +250,7 @@ export function figure(spec) {
     plotBox.style.opacity = "1";
 
     legendBox.textContent = "";
-    const items = typeof spec.legend === "function" ? spec.legend() : spec.legend;
+    const items = typeof spec.legend === "function" ? spec.legend(view) : spec.legend;
     if (items && items.length > 1) {
       for (const it of items) {
         const row = document.createElement("span");

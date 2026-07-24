@@ -49,6 +49,178 @@ export function toRows(obj, keyName = "region") {
 
 const niceName = (s) => String(s).replace(/_/g, " ");
 
+/* ──────────────────────── views for a region × year panel ──────────────── */
+// Fourteen regions is past the categorical ceiling, so none of these encodes a
+// region by hue. The heatmap and horizon forms both spend colour on magnitude,
+// which is the job it should be doing here.
+
+/**
+ * Heatmap: one row per region, one cell per year, colour = magnitude.
+ *
+ * The most compact way to read a regional panel — every region and every year
+ * on screen at once, and "who was high, and when" is a single glance.
+ */
+export function heatmap({ data, width, label, index = false, format = fmt, sortBy = "mean" }) {
+  let rows = data;
+  if (index) {
+    const out = [];
+    for (const [, pts] of d3.group(rows, (d) => d.region)) {
+      const sorted = [...pts].sort((a, b) => a.x - b.x);
+      const b = sorted.find((p) => p.y !== 0 && p.y != null);
+      if (!b) continue;
+      for (const p of sorted) out.push({ ...p, y: (100 * p.y) / b.y });
+    }
+    rows = out;
+  }
+  const stat = sortBy === "last"
+    ? (v) => d3.greatest(v, (d) => d.x)?.y
+    : (v) => d3.mean(v, (d) => d.y);
+  const order = [...d3.group(rows, (d) => d.region)]
+    .sort((a, b) => d3.descending(stat(a[1]), stat(b[1])))
+    .map(([k]) => k);
+  const years = [...new Set(rows.map((d) => d.x))].sort((a, b) => a - b);
+  const longest = d3.max(order, (r) => r.length) ?? 10;
+
+  return Plot.plot(
+    base({
+      width,
+      height: order.length * 22 + 78,
+      marginLeft: Math.min(160, longest * 6.6 + 14),
+      marginRight: 10,
+      marginTop: 30,
+      marginBottom: 34,
+      x: { type: "band", domain: years, label: null, tickFormat: "d",
+           ticks: years.length > 18 ? years.filter((_, i) => i % 3 === 0) : undefined },
+      y: { type: "band", domain: order, label: null },
+      color: {
+        // 5 bins, not 7: quantize thresholds land on raw floats, and seven of
+        // them collide into an unreadable smear under the legend swatches.
+        type: "quantize", n: 5, range: SEQ().filter((_, i) => i % 2 === 0 || i === 6).slice(0, 5),
+        label: index ? "index, first year = 100" : label,
+        tickFormat: (v) => fmt(v),
+        legend: true, unknown: token("--plane-deep"),
+      },
+      marks: [
+        Plot.cell(rows, {
+          x: "x", y: "region", fill: "y",
+          inset: 0.75,                     // the surface gap, not a stroke
+          rx: 1,
+        }),
+        Plot.tip(rows, Plot.pointer({
+          x: "x", y: "region", maxRadius: 30,
+          title: (d) => `${d.region}\n${d.x}: ${format(d.y)}`,
+          fill: token("--surface"), stroke: token("--rule"),
+        })),
+      ],
+    })
+  );
+}
+
+/**
+ * Horizon chart: each region's line folded into stacked colour bands, so a
+ * tall series fits in one thin row without losing resolution.
+ *
+ * Technique from Observable's horizon examples: draw the same area `bands`
+ * times, each offset down by one step and filled a step darker, clipped to the
+ * row. Darker therefore means "higher up the scale", on one hue.
+ */
+export function horizon({ data, width, label, bands = 5, rowHeight = 30, index = false, format = fmt }) {
+  let rows = data;
+  if (index) {
+    const out = [];
+    for (const [, pts] of d3.group(rows, (d) => d.region)) {
+      const sorted = [...pts].sort((a, b) => a.x - b.x);
+      const b = sorted.find((p) => p.y !== 0 && p.y != null);
+      if (!b) continue;
+      for (const p of sorted) out.push({ ...p, y: (100 * p.y) / b.y });
+    }
+    rows = out;
+  }
+  // Horizon bands measure from a baseline, so shift a negative series up to it
+  // rather than pretending the folding still reads correctly.
+  const min = d3.min(rows, (d) => d.y) ?? 0;
+  const offset = min < 0 ? -min : 0;
+  if (offset) rows = rows.map((d) => ({ ...d, y: d.y + offset }));
+
+  const max = d3.max(rows, (d) => d.y) ?? 1;
+  const step = max / bands;
+  const order = [...d3.group(rows, (d) => d.region)]
+    .sort((a, b) => d3.descending(d3.mean(a[1], (d) => d.y), d3.mean(b[1], (d) => d.y)))
+    .map(([k]) => k);
+  const ramp = SEQ().slice(0, bands);
+
+  return Plot.plot(
+    base({
+      width,
+      height: order.length * rowHeight + 56,
+      // room for the first and last year labels, which sit under the edges
+      marginLeft: 24, marginRight: 24, marginTop: 12, marginBottom: 34,
+      // whole years only — the default tick generator lands on halves and
+      // formats them all as "2018 2018 2019 2019"
+      x: { label: null, tickFormat: "d", axis: "bottom", interval: yearStep(rows) },
+      y: { domain: [0, step], axis: null },
+      fy: { domain: order, axis: null, padding: 0.08 },
+      color: {
+        type: "ordinal", range: ramp, label: label,
+        tickFormat: (i) => format((i + 1) * step - offset),
+        legend: true,
+      },
+      marks: [
+        ...d3.range(bands).map((band) =>
+          Plot.areaY(rows, {
+            x: "x", y: (d) => d.y - band * step, fy: "region",
+            fill: band, sort: "x", clip: true, curve: "monotone-x",
+          })
+        ),
+        Plot.text(rows, Plot.selectFirst({
+          text: "region", fy: "region", frameAnchor: "left", dx: 5,
+          fill: token("--ink"), stroke: token("--surface"), strokeWidth: 3,
+          fontSize: 11, fontWeight: 600,
+        })),
+        Plot.tip(rows, Plot.pointerX({
+          x: "x", fy: "region",
+          title: (d) => `${d.region}\n${d.x}: ${format(d.y - offset)}`,
+          fill: token("--surface"), stroke: token("--rule"),
+        })),
+      ],
+    })
+  );
+}
+
+/**
+ * The three ways to look at a region × year panel, wired for `figure({views})`.
+ *
+ * `data` and `index` are thunks so the switcher always redraws against the
+ * current selection rather than a snapshot taken at wiring time.
+ */
+export function panelViews({ el, data, label, index = () => false, format = fmt, columns = 4, rowHeight = 30 }) {
+  const width = () => {
+    const host = typeof el === "string" ? document.getElementById(el) : el;
+    return Math.max(300, Math.floor(host?.getBoundingClientRect().width) || 720);
+  };
+  const lbl = () => (typeof label === "function" ? label() : label);
+  return {
+    Heatmap: () => heatmap({ data: data(), width: width(), label: lbl(), index: index(), format }),
+    Horizon: () => horizon({ data: data(), width: width(), label: lbl(), index: index(), format, rowHeight }),
+    Panels: () => smallMultiples({ data: data(), width: width(), label: lbl(), index: index(), columns }),
+  };
+}
+
+/** Whole-year tick spacing, so a long panel does not repeat its labels. */
+function yearStep(rows) {
+  const years = d3.extent(rows, (d) => d.x);
+  const span = (years[1] ?? 0) - (years[0] ?? 0);
+  return span > 24 ? 5 : span > 12 ? 2 : 1;
+}
+
+export function panelCaption(view, noun = "region") {
+  return {
+    Heatmap: `One row per ${noun}, one cell per year. Darker means higher.`,
+    Horizon: `Each ${noun}'s series folded into colour bands — darker means higher up the scale.`,
+    Panels: `One small chart per ${noun}, all sharing the same vertical scale.`,
+  }[view] ?? "";
+}
+
 /* ───────────────────── small multiples for regional panels ──────────────── */
 
 /**
