@@ -40,6 +40,7 @@
       <a href="../topics/prices.html" aria-current="page">Prices</a>
       <a href="../topics/people.html">People</a>
       <a href="../topics/climate.html">Climate</a>
+      <a href="../topics/map.html">Map</a>
       <span class="nav-sep" aria-hidden="true"></span>
       <a href="../explore.html">Explore</a>
       <a href="../about.html">About</a>
@@ -105,8 +106,12 @@
     </div>
     <div class="grid two">
       <div class="card">
-        <h3>Soum per US dollar</h3>
-        <div id="fx"></div>
+        <h3>How much the soum lost each year</h3>
+        <p class="sub">One dot per year, dodged so none overlap. Right of the line is
+        devaluation, left is appreciation — 2017 is off on its own.</p>
+        <div id="fx-dots"></div>
+        <p class="note">The cluster between 0 and 10% is the managed crawl since the
+        float. The outlier is the 2017 currency unification.</p>
       </div>
       <div class="card">
         <h3>Money, credit and trade</h3>
@@ -117,6 +122,26 @@
         <div id="money-chart"></div>
         <p class="note">The 2017 liberalisation shows up in all of these: credit went from
         10% to 30% of GDP, trade from 39% to 62%.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>What the economy is made of</h2>
+      <p>Value added by sector, as a share of GDP. Agriculture's share has roughly
+      halved since independence while services took its place.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Sector shares over time</h3>
+        <div id="gdp-sectors"></div>
+      </div>
+      <div class="card">
+        <h3 id="gdp-donut-title">The latest split</h3>
+        <p class="sub">Three parts of one whole — the one place on this site a
+        part-to-whole circle earns its keep.</p>
+        <div id="gdp-donut"></div>
       </div>
     </div>
   </section>
@@ -174,6 +199,7 @@
         <li><a href="../topics/prices.html">Prices &amp; money</a></li>
         <li><a href="../topics/people.html">People &amp; work</a></li>
         <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+        <li><a href="../topics/map.html">The map</a></li>
       </ul>
     </div>
     <div>

@@ -154,17 +154,114 @@ if (P.cpiMonthly) {
 }
 
 /* ── exchange rate ─────────────────────────────────────────────────────── */
+// A line of the level buries the thing worth seeing: almost every year is a
+// single-digit crawl, and one year is not. One dot per year shows the
+// distribution and the outlier at the same time.
 if (P.wdi?.exchangeRate) {
   const s = P.wdi.exchangeRate;
+  // Only consecutive years. This WDI series has a gap from 2001 to 2012, and
+  // differencing across it would report a thirteen-year change (+785%) as if it
+  // were a single year's devaluation.
+  const changes = [];
+  let skipped = 0;
+  for (let i = 1; i < s.points.length; i++) {
+    const [y0, v0] = s.points[i - 1];
+    const [y1, v1] = s.points[i];
+    if (!v0) continue;
+    if (y1 - y0 !== 1) { skipped++; continue; }
+    changes.push({ value: (100 * (v1 - v0)) / v0, label: String(y1).slice(2), year: y1 });
+  }
   figure({
-    el: "fx",
-    caption: "Official exchange rate, soum per US dollar, period average.",
-    render: () => C.multiLine({
-      data: s.points.map(([x, y]) => ({ name: "Soum per US$", x, y })),
-      width: autoWidth("fx")(), height: 300, label: "soum per US$", names: ["Soum per US$"],
+    el: "fx-dots",
+    legend: [
+      { label: "Soum weakened", color: token("--div-pos-2"), kind: "rect" },
+      ...(changes.some((d) => d.value < 0)
+        ? [{ label: "Soum strengthened", color: token("--div-neg-2"), kind: "rect" }]
+        : []),
+    ],
+    caption: () => "Year-on-year change in the official soum/US$ rate, labelled by year."
+      + (skipped ? " Years either side of the 2001–2012 gap in this series are omitted." : ""),
+    render: () => C.stackedDots({
+      values: changes, width: autoWidth("fx-dots")(), height: 280,
+      label: "change in soum per US$ (%)",
+      format: (v) => (v > 0 ? "+" : "") + v.toFixed(1) + "%",
     }),
-    table: () => ({ caption: s.name, columns: ["Year", { label: "Soum per US$", num: true }], rows: s.points }),
+    table: () => ({
+      caption: "Official exchange rate and its annual change",
+      columns: ["Year", { label: "Soum per US$", num: true }, { label: "Change %", num: true }],
+      rows: s.points.map(([y, v]) => {
+        const c = changes.find((d) => d.year === y);
+        return [y, v, c ? Number(c.value.toFixed(1)) : null];
+      }),
+    }),
   });
+}
+
+/* ── GDP by sector ─────────────────────────────────────────────────────── */
+{
+  const parts = [
+    ["agValueAddedShare", "Agriculture"],
+    ["industryShare", "Industry"],
+    ["servicesShare", "Services"],
+  ];
+  const series = {
+    Agriculture: P.wdi?.agValueAddedShare,
+    Industry: P.wdi?.industryShare,
+    Services: P.wdi?.servicesShare,
+  };
+  const names = Object.keys(series).filter((k) => series[k]);
+  if (names.length === 3) {
+    const data = names.flatMap((n) =>
+      series[n].points.map(([x, y]) => ({ name: n, x, y })));
+
+    figure({
+      el: "gdp-sectors",
+      legend: C.legendFor(names, null, "rect"),
+      caption: "Value added by sector, % of GDP. The three do not sum to exactly 100 — taxes and imputed bank charges sit outside them.",
+      render: () => C.stackedArea({
+        data, width: autoWidth("gdp-sectors")(), height: 340,
+        label: "% of GDP", names,
+      }),
+      table: () => {
+        const years = [...new Set(data.map((d) => d.x))].sort();
+        return {
+          caption: "Value added by sector, % of GDP",
+          columns: ["Year", ...names.map((n) => ({ label: n, num: true }))],
+          rows: years.map((y) => [y, ...names.map((n) =>
+            data.find((d) => d.x === y && d.name === n)?.y ?? null)]),
+        };
+      },
+    });
+
+    const latestYear = d3.min(names, (n) => series[n].points.at(-1)[0]);
+    const slice = names.map((n) => ({
+      name: n,
+      value: series[n].points.find((p) => p[0] === latestYear)?.[1] ?? 0,
+    }));
+    const total = d3.sum(slice, (d) => d.value);
+    const titleEl = document.getElementById("gdp-donut-title");
+    if (titleEl) titleEl.textContent = `The split in ${latestYear}`;
+
+    figure({
+      el: "gdp-donut",
+      legend: slice.map((d, i) => ({
+        label: `${d.name} — ${d.value.toFixed(1)}%`,
+        color: C.legendFor(names)[i].color, kind: "rect",
+      })),
+      caption: `Sector shares of GDP, ${latestYear}.`,
+      render: () => C.donut({
+        parts: slice, width: autoWidth("gdp-donut")(), size: 240,
+        format: (v) => v.toFixed(1) + "% of GDP",
+        centerLabel: `of GDP, ${latestYear}`,
+        centerValue: total.toFixed(0) + "%",
+      }),
+      table: () => ({
+        caption: `Value added by sector, ${latestYear}`,
+        columns: ["Sector", { label: "% of GDP", num: true }],
+        rows: slice.map((d) => [d.name, Number(d.value.toFixed(1))]),
+      }),
+    });
+  }
 }
 
 /* ── money & credit ────────────────────────────────────────────────────── */

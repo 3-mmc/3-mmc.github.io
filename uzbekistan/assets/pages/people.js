@@ -1,4 +1,4 @@
-import { boot, load, figure, autoWidth, token, fmt, reformRule, Plot, d3 } from "../atlas.js";
+import { boot, load, figure, autoWidth, token, fmt, Plot, d3 } from "../atlas.js";
 import * as C from "../charts.js";
 
 await boot();
@@ -101,7 +101,7 @@ if (M.migration?.length) {
   figure({
     el: "migration",
     legend: C.legendFor(names, null, "line"),
-    caption: "Share of surveyed households, by round.",
+    caption: "Share of surveyed households, by round. Note what does not happen at February 2022.",
     render: () => {
       const w = autoWidth("migration")();
       const pal = C.legendFor(names).map((d) => d.color);
@@ -113,7 +113,6 @@ if (M.migration?.length) {
         y: { label: "% of households", labelAnchor: "top", grid: false, nice: true },
         marks: [
           Plot.gridY({ stroke: token("--grid"), strokeOpacity: 1 }),
-          ...reformRule("1 May 2024 tariff"),
           Plot.lineY(data, { x: "x", y: "y", z: "name", stroke: (d) => color.get(d.name), strokeWidth: 2 }),
           Plot.tip(data, Plot.pointerX({
             x: "x", y: "y", z: "name",

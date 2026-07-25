@@ -40,6 +40,7 @@
       <a href="../topics/prices.html">Prices</a>
       <a href="../topics/people.html">People</a>
       <a href="../topics/climate.html">Climate</a>
+      <a href="../topics/map.html">Map</a>
       <span class="nav-sep" aria-hidden="true"></span>
       <a href="../explore.html">Explore</a>
       <a href="../about.html">About</a>
@@ -76,6 +77,26 @@
         <p class="note">The flip happens in 2023 — the same winter Russian pipeline imports
         began, and one year before the household tariff rose.</p>
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Where the power goes</h2>
+      <p>Two flow diagrams over the same year. Both are built only from figures that
+      balance — nothing here is an allocation we invented.</p>
+    </div>
+    <div class="card">
+      <div class="controls">
+        <span class="seg" id="sankey-pick" role="group" aria-label="Flow">
+          <button type="button" data-s="elec" aria-pressed="true">Electricity</button>
+          <button type="button" data-s="gas" aria-pressed="false">Natural gas</button>
+        </span>
+        <label for="sankey-year">Year</label>
+        <select id="sankey-year"></select>
+      </div>
+      <div id="sankey"></div>
+      <p class="note" id="sankey-note"></p>
     </div>
   </section>
 
@@ -196,6 +217,7 @@
         <li><a href="../topics/prices.html">Prices &amp; money</a></li>
         <li><a href="../topics/people.html">People &amp; work</a></li>
         <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+        <li><a href="../topics/map.html">The map</a></li>
       </ul>
     </div>
     <div>

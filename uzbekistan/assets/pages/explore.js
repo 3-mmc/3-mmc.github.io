@@ -2,7 +2,8 @@ import { boot, load, figure, autoWidth, token, fmt, Plot, d3 } from "../atlas.js
 import * as C from "../charts.js";
 
 await boot();
-const [GEO, WEALTH, REG, CLIM, WDI] = await load("geo", "wealth", "regional", "climate", "wdi");
+const [GEO, WEALTH, REG, CLIM, WDI, MAP] = await load(
+  "geo", "wealth", "regional", "climate", "wdi", "map");
 
 /* ── one catalogue over every regional source ──────────────────────────── */
 const DNAME = new Map(GEO.adm2.features.map((f) => [
@@ -245,6 +246,13 @@ let corrFig = null;
   }
   syncYears();
 
+  // estimated regional population, for bubble size
+  const popAt = (region, year) => {
+    const pts = MAP.populationEstimate?.[region];
+    if (!pts) return null;
+    return (pts.find((p) => p[0] === year) ?? pts.at(-1))?.[1] ?? null;
+  };
+
   const points = () => {
     const sx = BY_ID.get(cx.value), sy = BY_ID.get(cy.value);
     const yv = cyear.value;
@@ -263,21 +271,72 @@ let corrFig = null;
       for (const y of years) {
         const vx = valueAt(sx, "adm1", k, y), vy = valueAt(sy, "adm1", k, y);
         if (vx == null || vy == null) continue;
-        out.push({ x: vx, y: vy, label: k.replace(/_/g, " ") + (y && yv === "all" ? ` ${y}` : "") });
+        out.push({
+          x: vx, y: vy, region: k.replace(/_/g, " "), year: y,
+          pop: popAt(k, y),
+          label: k.replace(/_/g, " ") + (y && yv === "all" ? ` ${y}` : ""),
+        });
       }
     }
     return { sx, sy, out };
   };
+
+  const sizeCb = document.getElementById("csize");
+  const playBtn = document.getElementById("cplay");
 
   corrFig = figure({
     el: "correlate",
     caption: "Descriptive only — no controls, no fixed effects.",
     render: () => {
       const { sx, sy, out } = points();
+      const w = autoWidth("correlate")();
+      const xLabel = sx.label.length > 52 ? sx.label.slice(0, 50) + "…" : sx.label;
+      const yLabel = sy.label.length > 52 ? sy.label.slice(0, 50) + "…" : sy.label;
+
+      // Bubble mode: one frame per year, sized by estimated population — the
+      // wealth-health-nations idiom. Axis domains are pinned across all years so
+      // the animation shows the data moving, not the scales.
+      if (sizeCb?.checked && out.some((d) => d.pop)) {
+        const single = cyear.value !== "all";
+        const frame = single ? out : out.filter((d) => d.year === animYear);
+        const xd = d3.extent(out, (d) => d.x);
+        const yd = d3.extent(out, (d) => d.y);
+        const pad = (e) => [e[0] - (e[1] - e[0]) * 0.06, e[1] + (e[1] - e[0]) * 0.06];
+        return Plot.plot({
+          width: w, height: 430, marginLeft: 62, marginBottom: 46,
+          style: { background: "transparent", color: token("--ink-2"), fontSize: "12px" },
+          x: { label: xLabel, domain: pad(xd), grid: false },
+          y: { label: yLabel, labelAnchor: "top", domain: pad(yd), grid: false },
+          r: { range: [4, 26] },
+          marks: [
+            Plot.gridX({ stroke: token("--grid"), strokeOpacity: 1 }),
+            Plot.gridY({ stroke: token("--grid"), strokeOpacity: 1 }),
+            !single ? Plot.text([{}], {
+              frameAnchor: "bottom-right", dx: -6, dy: -6,
+              text: () => String(animYear),
+              fill: token("--ink-muted"), fontSize: 46, fontWeight: 700,
+              opacity: 0.16,
+            }) : null,
+            Plot.dot(frame, {
+              x: "x", y: "y", r: (d) => d.pop ?? 0,
+              fill: token("--series-1"), fillOpacity: 0.5,
+              stroke: token("--series-1"), strokeWidth: 1.4,
+            }),
+            Plot.text(frame, {
+              x: "x", y: "y", text: "region", fontSize: 10,
+              fill: token("--ink-2"), stroke: token("--surface"), strokeWidth: 2.5,
+              dy: -2, pointerEvents: "none",
+            }),
+            Plot.tip(frame, Plot.pointer({
+              x: "x", y: "y", maxRadius: 40,
+              title: (d) => `${d.region}${d.year ? " · " + d.year : ""}\n${xLabel}: ${fmt(d.x)}\n${yLabel}: ${fmt(d.y)}\n≈ ${fmt(Math.round(d.pop ?? 0))} people`,
+              fill: token("--surface"), stroke: token("--rule"),
+            })),
+          ].filter(Boolean),
+        });
+      }
       return C.scatterFit({
-        data: out, width: autoWidth("correlate")(), height: 420,
-        xLabel: sx.label.length > 52 ? sx.label.slice(0, 50) + "…" : sx.label,
-        yLabel: sy.label.length > 52 ? sy.label.slice(0, 50) + "…" : sy.label,
+        data: out, width: w, height: 420, xLabel, yLabel,
         labelPoints: out.length <= 24,
       });
     },
@@ -285,16 +344,58 @@ let corrFig = null;
       const { sx, sy, out } = points();
       return {
         caption: `${sx.label} against ${sy.label}`,
-        columns: ["Region", { label: "Horizontal", num: true }, { label: "Vertical", num: true }],
-        rows: out.map((p) => [p.label, p.x, p.y]),
+        columns: ["Region", "Year", { label: "Horizontal", num: true },
+                  { label: "Vertical", num: true }, { label: "Est. population", num: true }],
+        rows: out.map((p) => [p.region, p.year ?? "—", p.x, p.y,
+                              p.pop ? Math.round(p.pop) : null]),
       };
     },
   });
 
-  const refresh = () => corrFig?.redraw();
+  /* ── year animation ──────────────────────────────────────────────────── */
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+  let animYear = null;
+  let timer = null;
+
+  const frameYears = () => {
+    const { out } = points();
+    return [...new Set(out.map((d) => d.year).filter((y) => y != null))].sort((a, b) => a - b);
+  };
+  const resetAnim = () => {
+    const ys = frameYears();
+    if (!ys.includes(animYear)) animYear = ys.at(-1) ?? null;
+  };
+  resetAnim();
+
+  function stopPlay() {
+    if (timer) clearInterval(timer);
+    timer = null;
+    playBtn.textContent = "Play years";
+    playBtn.setAttribute("aria-pressed", "false");
+  }
+  function startPlay() {
+    const ys = frameYears();
+    if (ys.length < 2) return;
+    cyear.value = "all";                 // the animation needs every year loaded
+    animYear = ys[0];
+    corrFig?.redraw();
+    playBtn.textContent = "Stop";
+    playBtn.setAttribute("aria-pressed", "true");
+    timer = setInterval(() => {
+      const list = frameYears();
+      const i = list.indexOf(animYear);
+      animYear = list[(i + 1) % list.length];
+      corrFig?.redraw();
+    }, reduced.matches ? 1600 : 850);
+  }
+
+  playBtn?.addEventListener("click", () => (timer ? stopPlay() : startPlay()));
+
+  const refresh = () => { stopPlay(); resetAnim(); corrFig?.redraw(); };
   cx.addEventListener("change", () => { syncYears(); refresh(); });
   cy.addEventListener("change", () => { syncYears(); refresh(); });
   cyear.addEventListener("change", refresh);
+  sizeCb?.addEventListener("change", () => corrFig?.redraw());
 }
 
 /* ───────────────────────────────── REGIONS ────────────────────────────── */

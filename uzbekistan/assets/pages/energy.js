@@ -91,6 +91,173 @@ const nice = (s) => s.replace(/_/g, " ").replace(/\b\d{3,4}$/, "").trim();
   });
 }
 
+/* ── flow diagrams ─────────────────────────────────────────────────────── */
+{
+  const pretty = (s) => s.replace(/_/g, " ");
+  const prod = E.electricityProduction ?? {};
+  const cons = E.electricityConsumption ?? {};
+  let which = "elec";
+
+  const yearsFor = (kind) => {
+    if (kind === "gas") return E.gasBalance.map((r) => r.year);
+    const a = new Set(Object.values(prod).flat().map((p) => p[0]));
+    return [...new Set(Object.values(cons).flat().map((p) => p[0]))]
+      .filter((y) => a.has(y)).sort((x, y) => x - y);
+  };
+
+  const sel = document.getElementById("sankey-year");
+  const note = document.getElementById("sankey-note");
+
+  function fillYears() {
+    const prev = sel.value;
+    const years = yearsFor(which);
+    sel.textContent = "";
+    for (const y of years) {
+      const o = document.createElement("option");
+      o.value = String(y); o.textContent = String(y);
+      sel.append(o);
+    }
+    sel.value = years.map(String).includes(prev) ? prev : String(years.at(-1) ?? "");
+  }
+  fillYears();
+
+  const at = (series, region, year) =>
+    series[region]?.find((p) => p[0] === year)?.[1] ?? null;
+
+  /* Electricity: regions feed the grid, the grid feeds regions, and the gap
+     between the two published series is shown as its own node rather than
+     quietly dropped. */
+  function elecGraph(year) {
+    const GRID = "National grid";
+    const RESID = "Losses & own use";
+    const nodes = [{ name: GRID, color: token("--ink-2") }];
+    const links = [];
+    let totalIn = 0, totalOut = 0;
+
+    for (const region of Object.keys(prod).sort()) {
+      const v = at(prod, region, year);
+      if (!v || v <= 0) continue;
+      nodes.push({ name: "p:" + region, color: token("--series-1") });
+      links.push({ source: "p:" + region, target: GRID, value: v });
+      totalIn += v;
+    }
+    for (const region of Object.keys(cons).sort()) {
+      const v = at(cons, region, year);
+      if (!v || v <= 0) continue;
+      nodes.push({ name: "c:" + region, color: token("--series-3") });
+      links.push({ source: GRID, target: "c:" + region, value: v });
+      totalOut += v;
+    }
+    const residual = totalIn - totalOut;
+    if (residual > 0) {
+      nodes.push({ name: RESID, color: token("--series-mute") });
+      links.push({ source: GRID, target: RESID, value: residual });
+    }
+    return { nodes, links, totalIn, totalOut, residual };
+  }
+
+  /* Gas: production and imports in, domestic use and exports out. The net
+     balance in the source data makes this an exact identity. */
+  function gasGraph(year) {
+    const row = E.gasBalance.find((r) => r.year === year);
+    if (!row) return null;
+    const DOM = "Domestic consumption";
+    const nodes = [
+      { name: "Production", color: token("--series-1") },
+      { name: DOM, color: token("--series-3") },
+    ];
+    const links = [];
+    const domesticFromProd = Math.min(row.production, row.consumption);
+    links.push({ source: "Production", target: DOM, value: domesticFromProd });
+    if (row.production > row.consumption) {
+      nodes.push({ name: "Exports", color: token("--series-4") });
+      links.push({ source: "Production", target: "Exports",
+                   value: row.production - row.consumption });
+    }
+    if (row.consumption > row.production) {
+      nodes.push({ name: "Imports", color: token("--series-2") });
+      links.push({ source: "Imports", target: DOM,
+                   value: row.consumption - row.production });
+    }
+    return { nodes, links, row };
+  }
+
+  const fig = figure({
+    el: "sankey",
+    render: () => {
+      const year = Number(sel.value);
+      const w = autoWidth("sankey")();
+      if (which === "gas") {
+        const g = gasGraph(year);
+        if (!g) throw new Error("no gas data for " + year);
+        return C.sankeyChart({
+          nodes: g.nodes, links: g.links, width: w, height: 300,
+          format: (v) => fmt(v) + " mln m³",
+          nodeLabel: (d) => d.name,
+        });
+      }
+      const g = elecGraph(year);
+      return C.sankeyChart({
+        nodes: g.nodes, links: g.links, width: w,
+        height: Math.max(420, Object.keys(cons).length * 34 + 80),
+        format: (v) => fmt(v) + " GWh",
+        nodeLabel: (d) => pretty(d.name.replace(/^[pc]:/, "")),
+      });
+    },
+    table: () => {
+      const year = Number(sel.value);
+      if (which === "gas") {
+        const g = gasGraph(year);
+        return {
+          caption: `Natural gas balance, ${year} (million m³)`,
+          columns: ["From", "To", { label: "Million m³", num: true }],
+          rows: g.links.map((l) => [l.source, l.target, l.value]),
+        };
+      }
+      const g = elecGraph(year);
+      return {
+        caption: `Electricity, ${year} (GWh). Generation ${fmt(g.totalIn)}, metered use ${fmt(g.totalOut)}.`,
+        columns: ["From", "To", { label: "GWh", num: true }],
+        rows: g.links.map((l) => [
+          pretty(String(l.source).replace(/^[pc]:/, "")),
+          pretty(String(l.target).replace(/^[pc]:/, "")),
+          l.value,
+        ]),
+      };
+    },
+  });
+
+  function refreshNote() {
+    const year = Number(sel.value);
+    if (which === "gas") {
+      const row = E.gasBalance.find((r) => r.year === year);
+      note.textContent = row
+        ? `stat.uz national gas balance. In ${year} the country ${row.net >= 0 ? "exported" : "imported"} ${fmt(Math.abs(row.net))} million m³ ${row.net >= 0 ? "beyond" : "on top of"} domestic use.`
+        : "";
+    } else {
+      const g = elecGraph(year);
+      note.textContent =
+        `Left: what each region generated. Right: what each region's metered subscribers used. ` +
+        `The ${fmt(g.residual)} GWh third branch is the difference between the two published ` +
+        `stat.uz series — transmission losses, station own-use and unmetered supply. It is a ` +
+        `residual, not a measured quantity.`;
+    }
+  }
+  refreshNote();
+
+  document.getElementById("sankey-pick").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    which = b.dataset.s;
+    e.currentTarget.querySelectorAll("button").forEach((x) =>
+      x.setAttribute("aria-pressed", String(x === b)));
+    fillYears();
+    fig?.redraw();
+    refreshNote();
+  });
+  sel.addEventListener("change", () => { fig?.redraw(); refreshNote(); });
+}
+
 /* ── electricity mix ───────────────────────────────────────────────────── */
 if (E.elecMix) {
   const names = Object.keys(E.elecMix.sources);

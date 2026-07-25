@@ -8,6 +8,8 @@
 //    sit below 3:1 on this surface and the table is their relief channel.
 
 import { Plot, d3, token, SERIES, SEQ, DIVERGING, base, gridX, gridY, fmt } from "./atlas.js";
+import { sankey as d3sankey, sankeyLinkHorizontal, sankeyJustify }
+  from "https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/+esm";
 
 export const MUTE = () => token("--series-mute");
 export const S1 = () => token("--series-1");
@@ -365,7 +367,9 @@ export function multiLine({ data, width, height = 320, label, names, colors, xIs
       // a single series needs no end-label — the card's title already names it
       marginRight: keys.length > 1 && keys.length <= 4 ? 108 : 24,
       x: { label: null, tickFormat: xIsDate ? undefined : "d" },
-      y: { label, labelAnchor: "top", grid: false },
+      // compact tick labels: raw currency values run to nine digits and get
+      // clipped by the left margin
+      y: { label, labelAnchor: "top", grid: false, tickFormat: (v) => fmt(v) },
       marks: [
         gridY(),
         Plot.lineY(data, {
@@ -782,15 +786,23 @@ export function hexbinMap({ points, width, height = 460, binSize = 9, colorLabel
 
 /* ──────────────────────────────── choropleth ────────────────────────────── */
 
-export function choropleth({ features, values, width, height = 470, label, format = fmt, nameOf }) {
+export function choropleth({ features, values, width, height = 470, label, format = fmt, nameOf, scale = "quantile" }) {
   const vals = [...values.values()].filter((v) => v != null);
-  const domain = d3.extent(vals);
+  // Quantile by default. Regional data here is heavily skewed — Tashkent city's
+  // density is 25× the next region — and an equal-interval (quantize) scale
+  // dumps thirteen of fourteen regions into the palest bin, producing a map
+  // that shows one outlier and nothing else.
+  const colorScale = scale === "quantile"
+    ? { type: "quantile", n: 5, range: SEQ().filter((_, i) => i % 2 === 0 || i === 6).slice(0, 5), domain: vals }
+    : { type: "quantize", n: 5, range: SEQ().filter((_, i) => i % 2 === 0 || i === 6).slice(0, 5), domain: d3.extent(vals) };
   return Plot.plot(
     base({
       width, height,
       marginLeft: 0, marginRight: 0, marginTop: 4, marginBottom: 4,
       projection: { type: "mercator", domain: { type: "FeatureCollection", features }, inset: 6 },
-      color: { type: "quantize", n: 7, range: SEQ(), domain, legend: true, label, unknown: token("--plane-deep") },
+      color: { ...colorScale, legend: true, unknown: token("--plane-deep"),
+               label: label + (scale === "quantile" ? " (equal-count bins)" : ""),
+               tickFormat: (v) => format(v) },
       marks: [
         Plot.geo(features, {
           fill: (f) => values.get(nameOf(f)) ?? null,
@@ -799,6 +811,416 @@ export function choropleth({ features, values, width, height = 470, label, forma
           tip: true,
         }),
       ],
+    })
+  );
+}
+
+/* ───────────────────────── ordinal ramp & share bars ───────────────────── */
+
+/**
+ * n steps of one hue for ORDERED categories (1→6 rooms, size tiers, age bands),
+ * where swapping the order would change the meaning. Starts above the lightest
+ * sequential step so the pale end still reads against the surface.
+ */
+export function ordinalRamp(n) {
+  const s = SEQ();
+  if (n <= 1) return [s[3]];
+  // Anchored at seq-3, not seq-2: the sequential ramp's palest steps are legal
+  // for a continuous scale (where near-zero may recede into the surface) but
+  // fail the ordinal 2:1 floor, where every step is a category someone must see.
+  return d3.quantize(d3.interpolateRgb(s[2], s[6]), n);
+}
+
+/** Normalised stacked bars — each row sums to 100%, one row per region. */
+export function shareBars({ data, width, categories, ordinal = false, label, x = "value", y = "region", z = "category", format = (v) => v.toFixed(1) + "%" }) {
+  const pal = ordinal ? ordinalRamp(categories.length) : SERIES();
+  const color = new Map(categories.map((c, i) => [c, pal[i % pal.length]]));
+
+  // order rows by how much of the first category they carry
+  const totals = d3.rollup(data, (v) => d3.sum(v, (d) => d[x]), (d) => d[y]);
+  const firstShare = d3.rollup(
+    data.filter((d) => d[z] === categories[0]),
+    (v) => d3.sum(v, (d) => d[x]) / (totals.get(v[0][y]) || 1),
+    (d) => d[y]
+  );
+  const order = [...totals.keys()].sort((a, b) =>
+    d3.descending(firstShare.get(a) ?? 0, firstShare.get(b) ?? 0));
+  const longest = d3.max(order, (r) => String(r).length) ?? 10;
+
+  return Plot.plot(
+    base({
+      width,
+      height: order.length * 25 + 56,
+      marginLeft: Math.min(160, longest * 6.6 + 14),
+      marginRight: 14,
+      marginBottom: 36,
+      // tickFormat, not `percent: true`: percent applies a ×100 transform to the
+      // data, which fights the [0,1] domain the normalised stack produces and
+      // throws every segment off the canvas.
+      x: { label, grid: false, domain: [0, 1], tickFormat: "%" },
+      y: { domain: order, label: null },
+      color: { domain: categories, range: categories.map((c) => color.get(c)) },
+      marks: [
+        gridX(),
+        // the stack transform needs z explicitly; inferring it from `fill` only
+        // works on marks that actually carry a fill channel
+        Plot.barX(data, Plot.stackX({
+          offset: "normalize", order: categories, z,
+          x, y, fill: z,
+          insetTop: 3, insetBottom: 3, insetLeft: 0.5, insetRight: 0.5,
+          title: (d) => `${d[y]} · ${d[z]}\n${format((100 * d[x]) / (totals.get(d[y]) || 1))}`,
+          tip: true,
+        })),
+      ],
+    })
+  );
+}
+
+/* ────────────────────────────── hex cartogram ──────────────────────────── */
+
+/**
+ * A tile cartogram: every region gets an identical hexagon, arranged to keep
+ * the real west→east, north→south geography.
+ *
+ * Uzbekistan's regions differ in area by nearly 500× — Karakalpakstan is
+ * 166,000 km², Tashkent city 351 — so on a true map the densest, most populated
+ * places are specks. Equal tiles make every region equally readable; the
+ * choropleth beside it keeps the real shape.
+ */
+export function hexCartogram({ values, layout, width, height, label, format = fmt, diverging = false, labelOf = (k) => k }) {
+  const entries = Object.entries(layout);
+  const cols = d3.max(entries, ([, p]) => p.col) + 1;
+  const rows = d3.max(entries, ([, p]) => p.row) + 1;
+  const w = Math.min(96, (width - 24) / (cols + 0.5));
+  const r = w / Math.sqrt(3);                       // pointy-top hexagon radius
+  const vStep = r * 1.5;
+  const H = height ?? rows * vStep + r * 2 + 34;
+
+  const cells = entries.map(([key, p]) => {
+    const cx = 14 + (p.col + (p.row % 2 ? 0.5 : 0)) * w + w / 2;
+    const cy = 14 + p.row * vStep + r;
+    const pts = d3.range(6).map((i) => {
+      const a = (Math.PI / 180) * (60 * i - 90);
+      return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+    });
+    return { key, cx, cy, value: values.get(key) ?? null, ring: [...pts, pts[0]] };
+  });
+
+  const vals = cells.map((c) => c.value).filter((v) => v != null);
+  const lim = d3.max(vals, Math.abs) ?? 1;
+
+  const shapes = {
+    type: "FeatureCollection",
+    features: cells.map((c) => ({
+      type: "Feature",
+      properties: { key: c.key, value: c.value },
+      geometry: { type: "Polygon", coordinates: [c.ring] },
+    })),
+  };
+
+  // A label sitting inside a filled tile has to pick its own colour: on the
+  // darkest steps, ink-on-fill is unreadable however big the halo. So mirror
+  // Plot's scale locally and choose white or ink by the fill's luminance.
+  const fillScale = diverging
+    ? d3.scaleLinear().domain([-lim, 0, lim])
+        .range([token("--div-neg-3"), token("--div-mid"), token("--div-pos-3")]).clamp(true)
+    : d3.scaleQuantize().domain(d3.extent(vals)).range(SEQ());
+  const inkFor = (v) => {
+    if (v == null) return token("--ink");
+    const c = d3.color(fillScale(v));
+    if (!c) return token("--ink");
+    const lin = (u) => (u /= 255) <= 0.03928 ? u / 12.92 : ((u + 0.055) / 1.055) ** 2.4;
+    const L = 0.2126 * lin(c.r) + 0.7152 * lin(c.g) + 0.0722 * lin(c.b);
+    return L < 0.42 ? "#ffffff" : token("--ink");
+  };
+  const haloFor = (v) => (inkFor(v) === "#ffffff" ? "rgba(0,0,0,.45)" : token("--surface"));
+
+  const ABBREV = {
+    Karakalpakstan: "Karakalpak.",
+    "Tashkent region": "Tashkent reg.",
+    "Tashkent city": "Tashkent city",
+    Surkhandarya: "Surkhand.",
+    Kashkadarya: "Kashkad.",
+  };
+  const short = (s) => {
+    const t = labelOf(s);
+    if (ABBREV[t]) return ABBREV[t];
+    return t.length > 12 ? t.slice(0, 11) + "…" : t;
+  };
+
+  return Plot.plot(
+    base({
+      width, height: H,
+      marginLeft: 0, marginRight: 0, marginTop: 0, marginBottom: 0,
+      projection: { type: "identity", domain: shapes, reflectY: true, inset: 2 },
+      color: {
+        legend: true, label,
+        tickFormat: (v) => format(v),
+        ...(diverging
+          ? { type: "diverging", pivot: 0, domain: [-lim, lim],
+              range: [token("--div-neg-3"), token("--div-mid"), token("--div-pos-3")] }
+          : { type: "quantize", n: 7, range: SEQ(), domain: d3.extent(vals) }),
+        unknown: token("--plane-deep"),
+      },
+      marks: [
+        Plot.geo(shapes.features, {
+          fill: (f) => f.properties.value,
+          stroke: token("--surface"), strokeWidth: 2,
+          title: (f) => `${labelOf(f.properties.key)}\n${f.properties.value == null ? "no data" : format(f.properties.value)}`,
+          tip: true,
+        }),
+        Plot.text(cells, {
+          x: "cx", y: "cy", text: (d) => short(d.key),
+          fill: (d) => inkFor(d.value), stroke: (d) => haloFor(d.value),
+          strokeWidth: 2.5, fontSize: 10, fontWeight: 600, dy: -5, pointerEvents: "none",
+        }),
+        Plot.text(cells.filter((c) => c.value != null), {
+          x: "cx", y: "cy", text: (d) => format(d.value),
+          fill: (d) => inkFor(d.value), stroke: (d) => haloFor(d.value),
+          strokeWidth: 2.5, fontSize: 11, dy: 8, pointerEvents: "none",
+        }),
+      ],
+    })
+  );
+}
+
+/* ──────────────────────────────── Sankey ───────────────────────────────── */
+
+/**
+ * Sankey of flows that genuinely balance. Built with d3-sankey because Plot has
+ * no Sankey mark; the result is still styled from the same tokens.
+ */
+export function sankeyChart({ nodes, links, width, height = 460, format = fmt, nodeLabel = (d) => d.name, padLeft = 118, padRight = 132 }) {
+  const NS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svg.setAttribute("width", width);
+  svg.setAttribute("height", height);
+  svg.style.maxWidth = "100%";
+  svg.style.height = "auto";
+  svg.style.fontFamily = token("--sans");
+
+  // The extent is inset to leave gutters for the labels. Without them the
+  // right-hand names get drawn back over their own ribbons.
+  const layout = d3sankey()
+    .nodeId((d) => d.name)
+    .nodeAlign(sankeyJustify)
+    .nodeWidth(13)
+    .nodePadding(13)
+    .extent([[padLeft, 12], [Math.max(padLeft + 60, width - padRight), height - 12]]);
+
+  const graph = layout({
+    nodes: nodes.map((d) => ({ ...d })),
+    links: links.map((d) => ({ ...d })),
+  });
+
+  const pal = SERIES();
+  const colorOf = (d) => d.color ?? pal[(d.index ?? 0) % pal.length];
+
+  const gl = document.createElementNS(NS, "g");
+  gl.setAttribute("fill", "none");
+  for (const l of graph.links) {
+    const path = document.createElementNS(NS, "path");
+    path.setAttribute("d", sankeyLinkHorizontal()(l));
+    // colour by whichever end is the outer one: flows into a hub take the
+    // source's colour, flows out of it take the target's
+    const hubSource = (l.source.targetLinks?.length ?? 0) > 0;
+    path.setAttribute("stroke", colorOf(hubSource ? l.target : l.source));
+    path.setAttribute("stroke-opacity", "0.34");
+    path.setAttribute("stroke-width", String(Math.max(1, l.width)));
+    const t = document.createElementNS(NS, "title");
+    t.textContent = `${l.source.name} → ${l.target.name}\n${format(l.value)}`;
+    path.append(t);
+    path.addEventListener("pointerenter", () => path.setAttribute("stroke-opacity", "0.62"));
+    path.addEventListener("pointerleave", () => path.setAttribute("stroke-opacity", "0.34"));
+    gl.append(path);
+  }
+  svg.append(gl);
+
+  const gn = document.createElementNS(NS, "g");
+  for (const n of graph.nodes) {
+    const rect = document.createElementNS(NS, "rect");
+    rect.setAttribute("x", n.x0);
+    rect.setAttribute("y", n.y0);
+    rect.setAttribute("width", n.x1 - n.x0);
+    rect.setAttribute("height", Math.max(1, n.y1 - n.y0));
+    rect.setAttribute("fill", colorOf(n));
+    rect.setAttribute("rx", "2");
+    const t = document.createElementNS(NS, "title");
+    t.textContent = `${n.name}\n${format(n.value)}`;
+    rect.append(t);
+    gn.append(rect);
+
+    // sources get their label on the outside left, sinks on the outside right,
+    // and anything in the middle sits just to its right
+    const isSource = (n.targetLinks?.length ?? 0) === 0;
+    const isSink = (n.sourceLinks?.length ?? 0) === 0;
+    const text = document.createElementNS(NS, "text");
+    text.setAttribute("x", isSource ? n.x0 - 7 : n.x1 + 7);
+    text.setAttribute("y", (n.y0 + n.y1) / 2);
+    text.setAttribute("dy", "0.35em");
+    text.setAttribute("text-anchor", isSource ? "end" : "start");
+    if (!isSource && !isSink) text.setAttribute("font-weight", "600");
+    text.setAttribute("font-size", "11.5");
+    text.setAttribute("fill", token("--ink-2"));
+    text.textContent = nodeLabel(n);
+    gn.append(text);
+  }
+  svg.append(gn);
+  return svg;
+}
+
+/* ───────────────────────────── stacked dots ────────────────────────────── */
+
+/**
+ * One dot per observation, dodged so none overlap — the distribution and every
+ * individual value at once. Good where a line hides that each year is a
+ * discrete step (annual devaluation, one dot a year).
+ */
+export function stackedDots({ values, width, height = 260, label, format = fmt, diverging = true, r = 8, xType }) {
+  const ext = d3.extent(values, (d) => d.value);
+  const color = diverging
+    ? (d) => (d.value >= 0 ? token("--div-pos-2") : token("--div-neg-2"))
+    : () => token("--series-1");
+  // Only pad the side that has data — a symmetric domain wastes half the chart
+  // when every value is one sign.
+  const span = (ext[1] - ext[0]) || 1;
+  const domain = [Math.min(0, ext[0] - span * 0.04), ext[1] + span * 0.04];
+  return Plot.plot(
+    base({
+      width, height,
+      marginLeft: 46, marginBottom: 42, marginTop: 14,
+      x: { label, grid: false, type: xType, domain, ...(xType ? { ticks: 6 } : { nice: true }) },
+      y: { axis: null },
+      marks: [
+        gridX(),
+        diverging ? Plot.ruleX([0], { stroke: token("--ink-muted") }) : null,
+        Plot.dot(values, Plot.dodgeY({
+          x: "value", r, fill: color,
+          stroke: token("--surface"), strokeWidth: 1.5,   // the surface ring
+          anchor: "middle",
+        })),
+        Plot.text(values, Plot.dodgeY({
+          x: "value", text: "label", anchor: "middle",
+          fontSize: 9.5, fontWeight: 600, fill: token("--surface"), pointerEvents: "none",
+        })),
+        Plot.tip(values, Plot.pointer(Plot.dodgeY({
+          x: "value", anchor: "middle", maxRadius: 22,
+          title: (d) => `${d.label}\n${format(d.value)}`,
+          fill: token("--surface"), stroke: token("--rule"),
+        }))),
+      ].filter(Boolean),
+    })
+  );
+}
+
+/* ──────────────────────────────── donut ────────────────────────────────── */
+
+/**
+ * Part-to-whole at a glance. Plot has no arc mark, so this is d3 directly —
+ * capped at six slices, because past that a bar chart reads better.
+ */
+export function donut({ parts, width, size = 250, format = fmt, centerLabel, centerValue }) {
+  const NS = "http://www.w3.org/2000/svg";
+  const pal = SERIES();
+  const total = d3.sum(parts, (d) => d.value);
+  const arcs = d3.pie().sort(null).value((d) => d.value)(parts);
+  const R = size / 2;
+  const arc = d3.arc().innerRadius(R * 0.56).outerRadius(R).cornerRadius(2).padAngle(0.012);
+
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", `${-R - 4} ${-R - 4} ${size + 8} ${size + 8}`);
+  svg.setAttribute("width", Math.min(width, size + 8));
+  svg.style.maxWidth = "100%";
+  svg.style.height = "auto";
+  svg.style.fontFamily = token("--sans");
+
+  arcs.forEach((a, i) => {
+    const path = document.createElementNS(NS, "path");
+    path.setAttribute("d", arc(a));
+    path.setAttribute("fill", parts[i].color ?? pal[i % pal.length]);
+    const t = document.createElementNS(NS, "title");
+    t.textContent = `${parts[i].name}\n${format(parts[i].value)} (${((100 * parts[i].value) / total).toFixed(1)}%)`;
+    path.append(t);
+    svg.append(path);
+  });
+
+  if (centerLabel) {
+    const v = document.createElementNS(NS, "text");
+    v.setAttribute("text-anchor", "middle");
+    v.setAttribute("y", "-1");
+    v.setAttribute("font-size", "21");
+    v.setAttribute("font-weight", "700");
+    v.setAttribute("fill", token("--ink"));
+    v.textContent = centerValue ?? "";
+    const l = document.createElementNS(NS, "text");
+    l.setAttribute("text-anchor", "middle");
+    l.setAttribute("y", "16");
+    l.setAttribute("font-size", "11");
+    l.setAttribute("fill", token("--ink-muted"));
+    l.textContent = centerLabel;
+    svg.append(v, l);
+  }
+  return svg;
+}
+
+/* ─────────────────────────────── world map ─────────────────────────────── */
+
+/**
+ * Trade partners on a world map: countries shaded by value, with great-circle
+ * links from Uzbekistan to the largest of them.
+ */
+export function worldFlowMap({ world, centroids, values, home, width, height = 460, label, format = fmt, nameOf, topLinks = 12 }) {
+  const vals = [...values.values()].filter((v) => v > 0);
+  const scale = d3.scaleQuantize().domain(d3.extent(vals)).range(SEQ());
+  const origin = centroids[home];
+  const ranked = [...values.entries()].sort((a, b) => b[1] - a[1]).slice(0, topLinks);
+  const maxV = ranked.length ? ranked[0][1] : 1;
+  const wScale = d3.scaleSqrt().domain([0, maxV]).range([0.6, 7]);
+
+  const links = origin
+    ? ranked.map(([code, v]) => {
+        const c = centroids[code];
+        if (!c) return null;
+        return { type: "LineString", coordinates: [origin, c], value: v, code };
+      }).filter(Boolean)
+    : [];
+
+  return Plot.plot(
+    base({
+      width, height,
+      marginLeft: 0, marginRight: 0, marginTop: 0, marginBottom: 0,
+      projection: { type: "equal-earth", rotate: [-69, 0] },
+      color: {
+        // 5 bins: seven quantize thresholds formatted as currency collide into
+        // an unreadable run under the legend swatches
+        type: "quantize", n: 5,
+        range: SEQ().filter((_, i) => i % 2 === 0 || i === 6).slice(0, 5),
+        domain: d3.extent(vals),
+        label, legend: true, unknown: token("--plane-deep"),
+        tickFormat: (v) => format(v),
+      },
+      marks: [
+        Plot.sphere({ stroke: token("--rule"), fill: token("--surface"), strokeWidth: 0.6 }),
+        Plot.graticule({ stroke: token("--grid"), strokeOpacity: 0.7, strokeWidth: 0.4 }),
+        Plot.geo(world.features, {
+          fill: (f) => values.get(String(f.properties.id)) ?? null,
+          stroke: token("--surface"), strokeWidth: 0.35,
+          title: (f) => {
+            const v = values.get(String(f.properties.id));
+            return `${nameOf(f)}\n${v ? format(v) : "no recorded trade"}`;
+          },
+          tip: true,
+        }),
+        Plot.geo(links, {
+          stroke: token("--series-2"), strokeOpacity: 0.75,
+          strokeWidth: (d) => wScale(d.value), strokeLinecap: "round",
+        }),
+        origin ? Plot.dot([origin], {
+          x: (d) => d[0], y: (d) => d[1], r: 4,
+          fill: token("--series-2"), stroke: token("--surface"), strokeWidth: 1.5,
+        }) : null,
+      ].filter(Boolean),
     })
   );
 }

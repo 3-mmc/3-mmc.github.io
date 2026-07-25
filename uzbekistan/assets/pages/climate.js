@@ -2,7 +2,7 @@ import { boot, load, figure, autoWidth, token, fmt, Plot, d3 } from "../atlas.js
 import * as C from "../charts.js";
 
 await boot();
-const [CL, GEO, WDI] = await load("climate", "geo", "wdi");
+const [CL, GEO, WDI, MAP] = await load("climate", "geo", "wdi", "map");
 
 const LABEL = {
   rain: "growing-season rainfall, mm (Mar–Aug total)",
@@ -23,16 +23,68 @@ const DNAME = new Map(
   const idx = document.getElementById("clim-index");
   const seg = document.getElementById("clim-metric");
 
+  const yearsOfAdm1 = () =>
+    [...new Set(Object.values(CL.adm1[metric]).flat().map((p) => p[0]))].sort();
+  const mapYear = document.getElementById("clim-map-year");
+  const fillMapYears = () => {
+    if (!mapYear) return;
+    const prev = mapYear.value;
+    const years = yearsOfAdm1();
+    mapYear.textContent = "";
+    for (const y of years) {
+      const o = document.createElement("option");
+      o.value = String(y); o.textContent = String(y);
+      mapYear.append(o);
+    }
+    mapYear.value = years.map(String).includes(prev) ? prev : String(years.at(-1));
+  };
+  fillMapYears();
+
+  const fmtMetric = (v) => (metric === "rain" ? v.toFixed(0) + " mm" : v.toFixed(3));
+  const mapValues = () => {
+    const year = Number(mapYear?.value || yearsOfAdm1().at(-1));
+    const m = new Map();
+    for (const [region, pts] of Object.entries(CL.adm1[metric])) {
+      const hit = pts.find((p) => p[0] === year);
+      if (hit) m.set(region, hit[1]);
+    }
+    return { year, m };
+  };
+
+  // Heatmap and map only: the panel and horizon views said the same thing less
+  // clearly, and the map is what tells a reader where these regions actually are.
   const fig = figure({
     el: "clim-series",
-    views: C.panelViews({
-      el: "clim-series", data: () => C.toRows(CL.adm1[metric]),
-      label: () => (metric === "rain" ? "rainfall, mm" : "NDVI"),
-      index: () => !!idx?.checked,
-      format: (v) => (metric === "rain" ? v.toFixed(0) + " mm" : v.toFixed(3)),
-    }),
+    views: {
+      Heatmap: () => C.heatmap({
+        data: C.toRows(CL.adm1[metric]), width: autoWidth("clim-series")(),
+        label: metric === "rain" ? "rainfall, mm" : "NDVI",
+        index: !!idx?.checked, format: fmtMetric,
+      }),
+      Map: () => {
+        const { year, m } = mapValues();
+        const w = autoWidth("clim-series")();
+        const wrap = document.createElement("div");
+        wrap.style.cssText = "display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px";
+        wrap.append(
+          C.choropleth({
+            features: GEO.adm1.features, values: m, width: Math.max(280, w / 2 - 10),
+            height: 330, label: `${metric === "rain" ? "rainfall, mm" : "NDVI"} · ${year}`,
+            format: fmtMetric, nameOf: (f) => f.properties.region,
+          }),
+          C.hexCartogram({
+            values: m, layout: MAP.hexLayout, width: Math.max(280, w / 2 - 10),
+            label: `${metric === "rain" ? "rainfall, mm" : "NDVI"} · ${year}`,
+            labelOf: (s) => s.replace(/_/g, " "), format: fmtMetric,
+          })
+        );
+        return wrap;
+      },
+    },
     defaultView: "Heatmap",
-    caption: (v) => C.panelCaption(v) + " Ten-day satellite composites.",
+    caption: (v) => (v === "Map"
+      ? "Real geography on the left, one equal tile per region on the right — Tashkent city is 351 km² and invisible on the first."
+      : C.panelCaption(v) + " Ten-day satellite composites."),
     table: () => ({
       caption: LABEL[metric],
       columns: ["Region", "Year", { label: metric === "rain" ? "mm" : "NDVI", num: true }],
@@ -46,10 +98,12 @@ const DNAME = new Map(
     metric = b.dataset.metric;
     seg.querySelectorAll("button").forEach((x) =>
       x.setAttribute("aria-pressed", String(x === b)));
+    fillMapYears();
     fig?.redraw();
     barcodeFig?.redraw();
   });
   idx?.addEventListener("change", () => fig?.redraw());
+  mapYear?.addEventListener("change", () => fig?.redraw());
 }
 
 /* ── rain against greenness ────────────────────────────────────────────── */
@@ -141,30 +195,150 @@ let barcodeFig = null;
   sel?.addEventListener("change", () => barcodeFig?.redraw());
 }
 
-/* ── water & climate WDI ───────────────────────────────────────────────── */
+/* ── water ─────────────────────────────────────────────────────────────── */
 {
-  const water = [
-    ["AG.LND.IRIG.AG.ZS", "Irrigated share of agricultural land (%)"],
-    ["ER.H2O.FWAG.ZS", "Agriculture's share of freshwater withdrawal (%)"],
-  ].filter(([c]) => WDI.series[c]);
-  if (water.length) {
-    const names = water.map(([, l]) => l);
-    const data = water.flatMap(([c, label]) =>
-      WDI.series[c].y.map((y, i) => ({ name: label, x: y, y: WDI.series[c].v[i] })));
+  const S = (c) => WDI.series[c];
+  const lastOf = (c) => {
+    const s = S(c);
+    return s ? { year: s.y.at(-1), value: s.v.at(-1) } : null;
+  };
+
+  const tiles = [
+    [lastOf("ER.H2O.FWTL.ZS"), (d) => Math.round(d.value) + "%",
+     (d) => `of the water Uzbekistan's own territory renews is withdrawn each year (${d.year})`],
+    [lastOf("ER.H2O.FWAG.ZS"), (d) => Math.round(d.value) + "%",
+     (d) => `of all withdrawal goes to agriculture (${d.year})`],
+    [lastOf("ER.H2O.FWTL.K3"), (d) => d.value.toFixed(0) + " bn m³",
+     (d) => `withdrawn in total (${d.year})`],
+    [lastOf("AG.LND.IRIG.AG.ZS"), (d) => d.value.toFixed(0) + "%",
+     (d) => `of agricultural land is irrigated (${d.year})`],
+  ].filter(([d]) => d);
+  const host = document.getElementById("water-stats");
+  if (host) {
+    host.textContent = "";
+    for (const [d, v, k] of tiles) {
+      const el = document.createElement("div");
+      el.className = "stat";
+      const a = document.createElement("span"); a.className = "v"; a.textContent = v(d);
+      const b = document.createElement("span"); b.className = "k"; b.textContent = k(d);
+      el.append(a, b);
+      host.append(el);
+    }
+  }
+
+  const split = [
+    ["ER.H2O.FWAG.ZS", "Agriculture"],
+    ["ER.H2O.FWIN.ZS", "Industry"],
+    ["ER.H2O.FWDM.ZS", "Households"],
+  ].filter(([c]) => S(c));
+  if (split.length) {
+    const names = split.map(([, l]) => l);
+    const data = split.flatMap(([c, label]) =>
+      S(c).y.map((y, i) => ({ name: label, x: y, y: S(c).v[i] })));
     figure({
-      el: "water-wdi",
-      legend: C.legendFor(names, null, "line"),
-      caption: "Both are percentages, so they share one axis.",
-      render: () => C.multiLine({ data, width: autoWidth("water-wdi")(), height: 300, label: "%", names }),
+      el: "water-split",
+      legend: C.legendFor(names, null, "rect"),
+      caption: "Shares of total annual freshwater withdrawal.",
+      render: () => C.stackedArea({
+        data, width: autoWidth("water-split")(), height: 300,
+        label: "% of withdrawal", names,
+      }),
       table: () => {
         const years = [...new Set(data.map((d) => d.x))].sort();
         return {
-          caption: "Irrigation and freshwater withdrawal",
+          caption: "Freshwater withdrawal by user, %",
           columns: ["Year", ...names.map((n) => ({ label: n, num: true }))],
-          rows: years.map((y) => [y, ...names.map((n) => data.find((d) => d.x === y && d.name === n)?.y ?? null)]),
+          rows: years.map((y) => [y, ...names.map((n) =>
+            data.find((d) => d.x === y && d.name === n)?.y ?? null)]),
         };
       },
     });
+  }
+
+  if (S("ER.H2O.FWTL.ZS")) {
+    const s = S("ER.H2O.FWTL.ZS");
+    figure({
+      el: "water-stress",
+      caption: "Withdrawal as a percentage of internally renewable resources.",
+      render: () => {
+        const rows = s.y.map((y, i) => ({ x: y, y: s.v[i] }));
+        return Plot.plot({
+          width: autoWidth("water-stress")(), height: 300,
+          marginLeft: 54, marginBottom: 36,
+          style: { background: "transparent", color: token("--ink-2"), fontSize: "12px" },
+          x: { label: null, tickFormat: "d" },
+          y: { label: "% of renewable supply", labelAnchor: "top", grid: false, nice: true },
+          marks: [
+            Plot.gridY({ stroke: token("--grid"), strokeOpacity: 1 }),
+            Plot.areaY(rows, { x: "x", y: "y", fill: token("--series-1"),
+                               fillOpacity: 0.1, curve: "monotone-x" }),
+            Plot.lineY(rows, { x: "x", y: "y", stroke: token("--series-1"),
+                               strokeWidth: 2, curve: "monotone-x" }),
+            Plot.ruleY([100], { stroke: token("--critical"), strokeDasharray: "3,3" }),
+            Plot.text([{ x: rows[0]?.x, y: 100 }], {
+              x: "x", y: "y", text: () => "everything the country renews",
+              dy: -7, dx: 3, textAnchor: "start",
+              fill: token("--critical"), fontSize: 10.5,
+            }),
+            Plot.tip(rows, Plot.pointerX({
+              x: "x", y: "y", title: (d) => `${d.x}\n${fmt(d.y)}% of renewable supply`,
+              fill: token("--surface"), stroke: token("--rule"),
+            })),
+          ],
+        });
+      },
+      table: () => ({ caption: s.n, columns: ["Year", { label: "%", num: true }],
+                      rows: s.y.map((y, i) => [y, s.v[i]]) }),
+    });
+  }
+
+  // regional networks come from the housing block on the map payload
+  const nets = MAP.housing?.utilities ?? {};
+  const netKeys = Object.keys(nets).filter((k) => /water|sewer/i.test(k));
+  const netSel = document.getElementById("water-metric");
+  if (netSel && netKeys.length) {
+    for (const k of netKeys) {
+      const o = document.createElement("option");
+      o.value = k; o.textContent = k;
+      netSel.append(o);
+    }
+    const fig = figure({
+      el: "water-regional",
+      views: {
+        Map: () => {
+          const series = nets[netSel.value] ?? {};
+          const m = new Map(Object.entries(series).map(([r, pts]) => [r, pts.at(-1)?.[1]]));
+          const w = autoWidth("water-regional")();
+          const wrap = document.createElement("div");
+          wrap.style.cssText = "display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px";
+          wrap.append(
+            C.choropleth({
+              features: GEO.adm1.features, values: m, width: Math.max(280, w / 2 - 10),
+              height: 320, label: netSel.value + ", % of dwellings",
+              format: (v) => v.toFixed(1) + "%", nameOf: (f) => f.properties.region,
+            }),
+            C.hexCartogram({
+              values: m, layout: MAP.hexLayout, width: Math.max(280, w / 2 - 10),
+              label: netSel.value + ", % of dwellings",
+              labelOf: (s) => s.replace(/_/g, " "), format: (v) => v.toFixed(1) + "%",
+            })
+          );
+          return wrap;
+        },
+        Heatmap: () => C.heatmap({
+          data: C.toRows(nets[netSel.value] ?? {}), width: autoWidth("water-regional")(),
+          label: "% of dwellings", format: (v) => v.toFixed(1) + "%",
+        }),
+      },
+      defaultView: "Map",
+      caption: "stat.uz housing stock series. Latest year shown on the map.",
+      table: () => ({
+        caption: netSel.value + " by region, % of dwellings",
+        columns: ["Region", "Year", { label: "%", num: true }],
+        rows: C.toRows(nets[netSel.value] ?? {}).map((d) => [d.region, d.x, d.y]),
+      }),
+    });
+    netSel.addEventListener("change", () => fig?.redraw());
   }
 
   const climateTopic = WDI.topics.indexOf("Climate change");

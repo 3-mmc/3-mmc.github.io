@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en" data-base="..">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The map · Uzbekistan Data Atlas</title>
+<meta name="description" content="Uzbekistan&#x27;s regions on a map and as a tile cartogram — population density, housing, and where the country trades.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
+<link rel="stylesheet" href="../assets/atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="../index.html">Uzbekistan <span class="thin">Data Atlas</span></a>
+    <div class="counts"></div>
+  </div>
+</header>
+
+<div class="spine" aria-hidden="true" title="Every Meta wealth cell in Uzbekistan, ordered by distance from the 1888 Trans-Caspian railway. Blue is wealthier, red is poorer.">
+  <canvas></canvas>
+  <div class="spine-key">
+    <span>On the 1888 railway</span>
+    <span>400 km away</span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+      <a href="../findings/">Findings</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">Topics</span>
+      <a href="../topics/energy.html">Energy</a>
+      <a href="../topics/gold.html">Gold</a>
+      <a href="../topics/agriculture.html">Agriculture</a>
+      <a href="../topics/prices.html">Prices</a>
+      <a href="../topics/people.html">People</a>
+      <a href="../topics/climate.html">Climate</a>
+      <a href="../topics/map.html" aria-current="page">Map</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="../explore.html">Explore</a>
+      <a href="../about.html">About</a>
+    <button class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<main id="main">
+  <p class="eyebrow">Topic</p>
+  <h1>The map</h1>
+  <p class="lede">Uzbekistan's regions differ in size by nearly five hundred times:
+  Karakalpakstan covers 166,000&nbsp;km², Tashkent city 351. On a true-area map the
+  places where most people actually live are specks. So every layer here comes two
+  ways — the real geography, and a tile cartogram that gives each region the same
+  amount of ink.</p>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Put any regional series on the map</h2>
+      <p>The same value, twice: shape on the left, equal tiles on the right. Small
+      dense regions are legible in the second one.</p>
+    </div>
+    <div class="card">
+      <div class="controls">
+        <label for="map-layer">Layer</label>
+        <select id="map-layer" style="max-width:min(100%,420px)"></select>
+        <label for="map-year">Year</label>
+        <select id="map-year"></select>
+        <span class="seg" id="map-res" role="group" aria-label="Resolution">
+          <button type="button" data-lvl="adm1" aria-pressed="true">14 regions</button>
+          <button type="button" data-lvl="adm2" aria-pressed="false">199 districts</button>
+        </span>
+      </div>
+      <div class="grid two">
+        <div>
+          <h3 style="font-size:14px;margin-bottom:6px">Real geography</h3>
+          <div id="map-geo"></div>
+        </div>
+        <div>
+          <h3 style="font-size:14px;margin-bottom:6px">Equal tiles</h3>
+          <div id="map-hex"></div>
+          <p class="note">One hexagon per region, arranged west to east and north to
+          south. District data has no tile view — switch back to regions to see it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Where people are</h2>
+      <p>Population is not published per region in this collection, so density here is
+      <em>estimated</em> — dwellings times mean household size, over the region's area.
+      Treat it as an order of magnitude, not a census.</p>
+    </div>
+    <div class="grid wide-left">
+      <div class="card">
+        <h3>Estimated people per square kilometre</h3>
+        <p class="sub">Tashkent city is roughly twenty-five times denser than anywhere
+        else, which is why it needs the tile view to be visible at all.</p>
+        <div id="density"></div>
+      </div>
+      <div class="card">
+        <h3>Region size against estimated population</h3>
+        <p class="sub">The gap between the two is the whole argument for the cartogram.</p>
+        <div id="area-pop"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>How Uzbekistan is housed</h2>
+      <p>The housing stock, region by region: how big dwellings are, what their walls
+      are made of, and what is plumbed into them.</p>
+    </div>
+    <div class="card">
+      <div class="controls">
+        <span class="seg" id="housing-pick" role="group" aria-label="Housing measure">
+          <button type="button" data-h="rooms" aria-pressed="true">Rooms per dwelling</button>
+          <button type="button" data-h="walls" aria-pressed="false">Wall material</button>
+          <button type="button" data-h="type" aria-pressed="false">Flat or house</button>
+          <button type="button" data-h="utilities" aria-pressed="false">Utilities</button>
+        </span>
+      </div>
+      <div class="grid wide-left">
+        <div>
+          <div id="housing-bars"></div>
+        </div>
+        <div>
+          <div class="controls">
+            <label for="housing-cat">Show on tiles</label>
+            <select id="housing-cat"></select>
+          </div>
+          <div id="housing-hex"></div>
+        </div>
+      </div>
+      <p class="note" id="housing-note"></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Where Uzbekistan trades</h2>
+      <p>Merchandise trade by partner country. Lines run from Uzbekistan to its largest
+      partners; countries are shaded by value.</p>
+    </div>
+    <div class="card">
+      <div class="controls">
+        <span class="seg" id="trade-flow" role="group" aria-label="Direction">
+          <button type="button" data-flow="export" aria-pressed="true">Exports</button>
+          <button type="button" data-flow="import" aria-pressed="false">Imports</button>
+        </span>
+        <label for="trade-year">Year</label>
+        <select id="trade-year"></select>
+      </div>
+      <div id="trade-map"></div>
+      <p class="note" id="trade-note"></p>
+    </div>
+    <div class="grid two" style="margin-top:16px">
+      <div class="card">
+        <h3>Largest partners</h3>
+        <div id="trade-partners"></div>
+      </div>
+      <div class="card">
+        <h3>What is traded</h3>
+        <p class="sub">The commodity groups pulled for this project, not the full tariff schedule.</p>
+        <div id="trade-commodities"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Money from abroad</h2>
+      <p>Bilateral aid by donor is not in this collection — only national totals — so
+      this is a time series rather than a map.</p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Aid and investment received</h3>
+        <div class="controls">
+          <label for="aid-ind">Series</label>
+          <select id="aid-ind"></select>
+        </div>
+        <div id="aid"></div>
+      </div>
+      <div class="card">
+        <h3>Trade openness</h3>
+        <p class="sub">Exports and imports as a share of GDP.</p>
+        <div id="openness"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<footer class="site">
+  <div class="in">
+    <div>
+      <h4>The atlas</h4>
+      <ul>
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="../findings/">Findings</a></li>
+        <li><a href="../explore.html">Explore the data</a></li>
+        <li><a href="../about.html">About &amp; sources</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../topics/energy.html">Electricity &amp; gas</a></li>
+        <li><a href="../topics/gold.html">Gold</a></li>
+        <li><a href="../topics/agriculture.html">Agriculture</a></li>
+        <li><a href="../topics/prices.html">Prices &amp; money</a></li>
+        <li><a href="../topics/people.html">People &amp; work</a></li>
+        <li><a href="../topics/climate.html">Climate &amp; water</a></li>
+        <li><a href="../topics/map.html">The map</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <ul>
+        <li>Listening to the Citizens of Uzbekistan (L2CU) panel</li>
+        <li>stat.uz · Statistics Agency of Uzbekistan</li>
+        <li>World Bank WDI · FAO · UN Comtrade</li>
+        <li>WFP seasonal explorer · Meta Data for Good</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reading the numbers</h4>
+      <p style="margin:0;max-width:34ch">Every chart has a table view. Findings are
+      labelled by how much they can carry: identified, descriptive, revised, banked,
+      or killed.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/pages/map.js"></script>
+</body>
+</html>

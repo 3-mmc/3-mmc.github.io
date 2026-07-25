@@ -28,7 +28,28 @@ payload per concern so each page downloads only what it draws:
 | `regional.json` | 783 KB | explore |
 | `climate.json` | 145 KB | climate, explore |
 | `energy.json` `gold.json` `agriculture.json` `prices.json` `people.json` | 5–47 KB | their topic page |
+| `map.json` | 54 KB | the map page (areas, hex layout, housing, density) |
+| `trade.json` | 204 KB | the map page's world trade section |
 | `findings.json` | 13 KB | finding pages |
+| `findings-index.json` | 5 KB | the home page's rotating gallery |
+
+Three things it derives rather than reads, each labelled as derived wherever it
+surfaces:
+
+- **Region areas** from the boundary polygons, by geodesic area. These files use
+  `Polygon` with several rings to mean *separate landmasses* (Fergana has four,
+  largest last), so the GeoJSON "first ring outer, rest are holes" convention
+  would subtract real territory — it gave Tashkent region a negative area. Rings
+  are nested by containment instead. The 14 areas sum to 450,171 km² against an
+  official 448,900.
+- **Population and density**, as dwellings × mean household size ÷ area.
+  Population is not published per region in this collection. It is an estimate and
+  the site says so every time it appears.
+- **Trade partners**, from the Comtrade pull. Comtrade mixes real countries with
+  aggregates ("Areas, nes", free zones); those are separated into an
+  `unallocated` bucket rather than dropped or mapped. For Uzbekistan that bucket
+  is $9bn — most of the gold leaves without a named counterparty — so hiding it
+  would misrepresent the map badly.
 
 It also recomputes the distance from every Meta wealth cell to the 1888–1906
 Trans-Caspian railway. That reproduces `exploration/railway_rwi.py`: the recomputed
@@ -85,7 +106,19 @@ Two constraints worth knowing before editing a chart:
    series sit below 3:1 contrast on this surface; the table is their relief
    channel. Colours were validated with the dataviz skill's
    `validate_palette.js` against `#f7f9fb` (light) and `#141a22` (dark) — re-run it
-   before changing any `--series-*` value.
+   before changing any `--series-*` value. `ordinalRamp()` is validated separately
+   with `--ordinal`; it starts at seq-3 because the sequential ramp's palest steps
+   fail the ordinal 2:1 floor.
+3. **Choropleths bin by quantile, not equal interval.** Regional data here is
+   heavily skewed (Tashkent city's density is 25× the next region), and equal
+   intervals put thirteen of fourteen regions in the palest bin. Legends say
+   "equal-count bins" when that scale is in use.
+
+Two Plot traps worth remembering, both of which cost real debugging time:
+`dx`/`textAnchor`/`fontWeight` are *constants*, not channels — a function makes
+them stringify into `translate(NaN,…)` and the mark silently disappears (see
+`signedLabels`). And `percent: true` applies a ×100 transform to the *data*, so
+combining it with a `[0, 1]` domain throws every mark off the canvas.
 
 ## Superseded
 

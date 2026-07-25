@@ -444,8 +444,291 @@ def build_prices(wb):
         ("gdpPerCapitaPpp", "NY.GDP.PCAP.PP.KD"),
         ("tradeShare", "NE.TRD.GNFS.ZS"),
         ("creditPrivate", "FS.AST.PRVT.GD.ZS"),
+        ("agValueAddedShare", "NV.AGR.TOTL.ZS"),
+        ("industryShare", "NV.IND.TOTL.ZS"),
+        ("servicesShare", "NV.SRV.TOTL.ZS"),
     )}
     return p
+
+
+# ─────────────────────────────────── map ──────────────────────────────────
+# A tile cartogram of the 14 regions, laid out on an odd-r offset hex grid that
+# keeps the real west→east, north→south arrangement. Uzbekistan's regions differ
+# in area by two orders of magnitude — Karakalpakstan is ~165,000 km², Tashkent
+# city ~335 — so on a true-area map the densest places are invisible. Equal tiles
+# fix that; the choropleth beside it keeps the real geography.
+HEX_LAYOUT = {
+    "Karakalpakstan":   (0, 0),
+    "Navoi":            (2, 1),
+    "Khorezm":          (1, 2),
+    "Tashkent_region":  (5, 1),
+    "Tashkent_city":    (6, 1),
+    "Namangan":         (6, 2),
+    "Andijan":          (7, 2),
+    "Jizzakh":          (4, 2),
+    "Syrdarya":         (5, 2),
+    "Fergana":          (7, 3),
+    "Bukhara":          (2, 3),
+    "Samarkand":        (3, 3),
+    "Kashkadarya":      (3, 4),
+    "Surkhandarya":     (4, 5),
+}
+
+
+def _rings(geom):
+    """Yield each polygon's ring list, for Polygon or MultiPolygon."""
+    if geom["type"] == "Polygon":
+        yield geom["coordinates"]
+    elif geom["type"] == "MultiPolygon":
+        for poly in geom["coordinates"]:
+            yield poly
+    else:                                    # the boundaries here are flat rings
+        yield geom["coordinates"]
+
+
+def _ring_area_km2(ring):
+    """Geodesic area of one ring, in km² (spherical excess)."""
+    R = 6371.0088
+    total = 0.0
+    n = len(ring)
+    if n < 3:
+        return 0.0
+    for i in range(n):
+        lon1, lat1 = math.radians(ring[i][0]), math.radians(ring[i][1])
+        lon2, lat2 = math.radians(ring[(i + 1) % n][0]), math.radians(ring[(i + 1) % n][1])
+        total += (lon2 - lon1) * (2 + math.sin(lat1) + math.sin(lat2))
+    return abs(total * R * R / 2.0)
+
+
+def polygon_area_km2(geom):
+    """Area of a feature, resolving holes by containment rather than ring order.
+
+    These boundary files use `Polygon` with several rings to mean *separate
+    landmasses* (Fergana has four, largest last), so the GeoJSON convention of
+    "first ring outer, rest are holes" would subtract real territory — it gave
+    Tashkent region a negative area. Instead nest each ring by how many larger
+    rings contain it: even depth adds, odd depth is a hole.
+    """
+    parts = []
+    for poly in _rings(geom):
+        if not poly:
+            continue
+        if isinstance(poly[0][0], (int, float)):      # a flat ring
+            parts.append(poly)
+        else:
+            parts.extend(poly)
+
+    infos = [(_ring_area_km2(r), r) for r in parts if len(r) >= 3]
+    total = 0.0
+    for i, (a, r) in enumerate(infos):
+        depth = sum(1 for j, (a2, r2) in enumerate(infos)
+                    if j != i and a2 > a and _pip(r[0][0], r[0][1], [r2]))
+        total += -a if depth % 2 else a
+    return total
+
+
+HOUSING = {
+    "rooms": [
+        ("One_room_apartments_houses_in_the_context_of_rooms", "1 room"),
+        ("2_rooms_apartments_houses", "2 rooms"),
+        ("3_rooms_apartments_houses", "3 rooms"),
+        ("4_rooms_apartments_houses", "4 rooms"),
+        ("5_rooms_apartments_houses", "5 rooms"),
+        ("6_rooms_and_more_apartments_houses", "6+ rooms"),
+    ],
+    "walls": [
+        ("Distribution_of_housing_stock_by_wall_material_Burnt_brick", "Burnt brick"),
+        ("Distribution_of_housing_stock_by_wall_material_Raw_brick", "Raw brick"),
+        ("Distribution_of_housing_stock_by_wall_material_Large_panel_a", "Panel / block"),
+        ("Distribution_of_housing_stock_by_material_of_pise_wall", "Pisé (rammed earth)"),
+        ("Distribution_of_housing_stock_by_material_of_others_wall", "Other"),
+    ],
+    "utilities": [
+        ("Provision_of_apartments_houses_with_natural_gas", "Piped natural gas"),
+        ("Providing_drinking_water_to_apartments_houses", "Piped drinking water"),
+        ("Provision_of_apartments_houses_with_sewage", "Sewerage"),
+    ],
+    "type": [
+        ("Number_of_apartments_in_apartment_buildings", "Flats in apartment blocks"),
+        ("Number_of_individual_houses", "Individual houses"),
+    ],
+}
+
+
+def build_map(regional, geo):
+    m = {"hexLayout": {k: {"col": c, "row": r} for k, (c, r) in HEX_LAYOUT.items()}}
+
+    areas = {}
+    for f in geo["adm1"]["features"]:
+        areas[f["properties"]["region"]] = r5(polygon_area_km2(f["geometry"]))
+    m["areaKm2"] = areas
+
+    # Population is not published per region in this collection. Dwellings and
+    # mean household size are, so the density layer is an ESTIMATE — labelled as
+    # one everywhere it appears, never presented as an official count.
+    dwellings = regional.get("environment::Number_of_residential_apartments_houses", {})
+    hhsize = regional.get("living-standards::Information_about_the_average_household_size", {})
+    est = {}
+    for region, pts in dwellings.items():
+        sizes = dict(hhsize.get(region, []))
+        series = []
+        for yr, n in pts:
+            s = sizes.get(yr)
+            if s:
+                series.append([yr, r5(n * s)])
+        if series:
+            est[region] = series
+    m["populationEstimate"] = est
+    m["density"] = {
+        region: [[yr, r5(v / areas[region])] for yr, v in series]
+        for region, series in est.items() if areas.get(region)
+    }
+    m["populationNote"] = ("Estimated as dwellings × mean household size (stat.uz). "
+                           "Not an official population count.")
+
+    housing = {}
+    for group, items in HOUSING.items():
+        block = {}
+        for key, label in items:
+            series = regional.get("environment::" + key)
+            if series:
+                block[label] = series
+        if block:
+            housing[group] = block
+    m["housing"] = housing
+    return m
+
+
+# ────────────────────────────────── trade ─────────────────────────────────
+def topo_to_geojson(topo, object_name):
+    """Minimal TopoJSON decoder — enough for the world-atlas countries file."""
+    tr = topo.get("transform")
+    sx, sy = (tr["scale"] if tr else (1, 1))
+    tx, ty = (tr["translate"] if tr else (0, 0))
+
+    arcs = []
+    for arc in topo["arcs"]:
+        x = y = 0
+        out = []
+        for dx, dy in arc:
+            if tr:
+                x += dx; y += dy
+                out.append([x * sx + tx, y * sy + ty])
+            else:
+                out.append([dx, dy])
+        arcs.append(out)
+
+    def ring(idxs):
+        pts = []
+        for i in idxs:
+            a = arcs[~i][::-1] if i < 0 else arcs[i]
+            pts.extend(a[1:] if pts else a)
+        return pts
+
+    feats = []
+    for g in topo["objects"][object_name]["geometries"]:
+        if g["type"] == "Polygon":
+            coords = [ring(r) for r in g["arcs"]]
+        elif g["type"] == "MultiPolygon":
+            coords = [[ring(r) for r in poly] for poly in g["arcs"]]
+        else:
+            continue
+        props = dict(g.get("properties", {}))
+        props["id"] = g.get("id")
+        feats.append({"type": "Feature", "id": g.get("id"),
+                      "properties": props,
+                      "geometry": {"type": g["type"], "coordinates": coords}})
+    return {"type": "FeatureCollection", "features": feats}
+
+
+def _round_coords(obj, nd=2):
+    if isinstance(obj, list):
+        if obj and isinstance(obj[0], (int, float)):
+            return [round(v, nd) for v in obj]
+        return [_round_coords(v, nd) for v in obj]
+    return obj
+
+
+def _centroid(geom):
+    """Area-weighted centroid of the largest ring — good enough for a flow map."""
+    best, best_area = None, -1
+    for poly in _rings(geom):
+        r = poly[0] if poly and not isinstance(poly[0][0], (int, float)) else poly
+        a = _ring_area_km2(r)
+        if a > best_area:
+            best_area, best = a, r
+    if not best:
+        return None
+    return [r5(sum(p[0] for p in best) / len(best)), r5(sum(p[1] for p in best) / len(best))]
+
+
+def build_trade():
+    """Bilateral merchandise trade by partner (UN Comtrade), plus world shapes."""
+    cdir = os.path.join(DS, "comtrade")
+    wpath = os.path.join(HERE, "geodata", "world-110m.topo.json")
+    if not (os.path.isdir(cdir) and os.path.exists(wpath)):
+        return None
+
+    with open(wpath, encoding="utf-8") as f:
+        world = topo_to_geojson(json.load(f), "countries")
+    for feat in world["features"]:
+        feat["geometry"]["coordinates"] = _round_coords(feat["geometry"]["coordinates"], 2)
+    centroids = {f["properties"]["id"]: _centroid(f["geometry"]) for f in world["features"]}
+
+    # Comtrade mixes real countries with aggregates ("Areas, nes", "Other Asia",
+    # free zones). For Uzbekistan the unallocated bucket is huge — most gold
+    # leaves to an unspecified destination — so it must not be silently dropped
+    # onto the map as if it were a country.
+    groups = set()
+    apath = os.path.join(cdir, "partner_areas.csv")
+    if os.path.exists(apath):
+        for row in read_csv(apath):
+            if str(row.get("isGroup", "")).strip().lower() == "true":
+                groups.add(str(row.get("PartnerCode", "")).strip())
+
+    flows = defaultdict(lambda: defaultdict(float))
+    unallocated = defaultdict(float)
+    names, commodities = {}, defaultdict(lambda: defaultdict(float))
+    for fn, flow in (("uzb_annual_hs2_export.csv", "export"),
+                     ("uzb_annual_hs2_import.csv", "import")):
+        p = os.path.join(cdir, fn)
+        if not os.path.exists(p):
+            continue
+        for row in read_csv(p):
+            code = (row.get("partnerCode") or "").strip()
+            iso = (row.get("partnerISO") or "").strip()
+            if not code or iso == "W00":            # W00 = World, the total row
+                continue
+            try:
+                year = int(row["refYear"])
+                val = float(row.get("primaryValue") or 0)
+            except (ValueError, TypeError):
+                continue
+            if val <= 0:
+                continue
+            commodities[(flow, year)][row.get("_hs_label", "other")] += val
+            if code in groups or code not in centroids or not centroids.get(code):
+                unallocated[(flow, year)] += val
+                continue
+            flows[(flow, year)][code] += val
+            names[code] = row.get("partnerDesc", code)
+
+    years = sorted({y for _, y in flows})
+    return {
+        "world": world,
+        "centroids": {k: v for k, v in centroids.items() if v},
+        "years": years,
+        "partnerNames": names,
+        "flows": {f"{fl}:{yr}": {c: r5(v) for c, v in sorted(d.items(), key=lambda kv: -kv[1])}
+                  for (fl, yr), d in flows.items()},
+        "unallocated": {f"{fl}:{yr}": r5(v) for (fl, yr), v in unallocated.items()},
+        "commodities": {f"{fl}:{yr}": {k: r5(v) for k, v in sorted(d.items(), key=lambda kv: -kv[1])}
+                        for (fl, yr), d in commodities.items()},
+        "home": "860",
+        "note": ("UN Comtrade, the HS-2 commodity groups pulled for this project — "
+                 "not total merchandise trade. Trade reported to an unspecified "
+                 "destination is counted separately, not placed on the map."),
+    }
 
 
 def build_people(regional, wb):
@@ -537,6 +820,12 @@ def main():
     total += write("agriculture", build_agriculture(regional, wb))
     total += write("prices", build_prices(wb))
     total += write("people", build_people(regional, wb))
+    total += write("map", build_map(regional, geo))
+    trade = build_trade()
+    if trade:
+        total += write("trade", trade)
+    else:
+        print("  ! trade skipped — datasets/comtrade or the world atlas is missing")
     total += write("findings", {"tables": tables, "notes": notes,
                                 "railBins": rail_bins})
     # The spine: every page draws it, so ship a subsample rather than the full

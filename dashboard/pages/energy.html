@@ -33,6 +33,26 @@
 
   <section class="section">
     <div class="section-head">
+      <h2>Where the power goes</h2>
+      <p>Two flow diagrams over the same year. Both are built only from figures that
+      balance — nothing here is an allocation we invented.</p>
+    </div>
+    <div class="card">
+      <div class="controls">
+        <span class="seg" id="sankey-pick" role="group" aria-label="Flow">
+          <button type="button" data-s="elec" aria-pressed="true">Electricity</button>
+          <button type="button" data-s="gas" aria-pressed="false">Natural gas</button>
+        </span>
+        <label for="sankey-year">Year</label>
+        <select id="sankey-year"></select>
+      </div>
+      <div id="sankey"></div>
+      <p class="note" id="sankey-note"></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
       <h2>Where the electricity comes from</h2>
       <p>Gas has done nearly all the work for thirty-five years. Solar and wind arrive
       only at the very end of the series.</p>

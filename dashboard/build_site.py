@@ -130,6 +130,7 @@ STATIC_PAGES = [
     ("topics/prices.html",   "prices",      "Prices & money",              "prices",   "prices",      1),
     ("topics/people.html",   "people",      "People & work",               "people",   "people",      1),
     ("topics/climate.html",  "climate",     "Climate & water",             "climate",  "climate",     1),
+    ("topics/map.html",      "map",         "The map",                     "map",      "map",         1),
 ]
 
 NAV = [
@@ -142,6 +143,7 @@ NAV = [
     ("link", "prices", "Prices", "topics/prices.html"),
     ("link", "people", "People", "topics/people.html"),
     ("link", "climate", "Climate", "topics/climate.html"),
+    ("link", "map", "Map", "topics/map.html"),
     ("sep", None),
     ("link", "explore", "Explore", "explore.html"),
     ("link", "about", "About", "about.html"),
@@ -519,6 +521,7 @@ def shell(*, title, body, depth, active, module=None, description="",
         <li><a href="{rel(depth, 'topics/prices.html')}">Prices &amp; money</a></li>
         <li><a href="{rel(depth, 'topics/people.html')}">People &amp; work</a></li>
         <li><a href="{rel(depth, 'topics/climate.html')}">Climate &amp; water</a></li>
+        <li><a href="{rel(depth, 'topics/map.html')}">The map</a></li>
       </ul>
     </div>
     <div>

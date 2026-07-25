@@ -22,6 +22,8 @@
           <button type="button" data-metric="ndvi" aria-pressed="false">Greenness</button>
         </span>
         <label class="check"><input type="checkbox" id="clim-index"> Index first year = 100</label>
+        <label for="clim-map-year">Map year</label>
+        <select id="clim-map-year"></select>
       </div>
       <div id="clim-series"></div>
     </div>
@@ -58,15 +60,34 @@
 
   <section class="section">
     <div class="section-head">
-      <h2>Water and land</h2>
-      <p>The national picture from the World Bank: how much land is irrigated, and how
-      much of the country's freshwater agriculture takes.</p>
+      <h2>Water</h2>
+      <p>Uzbekistan withdraws more freshwater than its own rivers generate — the
+      balance comes from upstream, and the Aral Sea is what the shortfall cost.</p>
     </div>
-    <div class="card">
-      <h3>Irrigation and freshwater withdrawal</h3>
-      <div id="water-wdi"></div>
-      <p class="note">Agriculture accounts for the overwhelming majority of freshwater
-      withdrawals — the Aral Sea is what that policy cost.</p>
+    <div class="stats" style="margin-bottom:18px" id="water-stats"></div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Who takes the water</h3>
+        <p class="sub">Agriculture, industry and households as shares of total
+        withdrawal. Cotton is most of the first bar.</p>
+        <div id="water-split"></div>
+      </div>
+      <div class="card">
+        <h3>Withdrawal against renewable supply</h3>
+        <p class="sub">Above 100% means the country is taking more each year than its
+        own territory renews.</p>
+        <div id="water-stress"></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>Piped water and sewerage, region by region</h3>
+      <p class="sub">Share of dwellings connected. These networks are urban-locked in
+      much the same way the gas grid is.</p>
+      <div class="controls">
+        <label for="water-metric">Network</label>
+        <select id="water-metric"></select>
+      </div>
+      <div id="water-regional"></div>
     </div>
   </section>
 
