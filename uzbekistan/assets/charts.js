@@ -7,12 +7,14 @@
 //  * Every recipe returns data for a table view, because three light-mode series
 //    sit below 3:1 on this surface and the table is their relief channel.
 
-import { Plot, d3, token, SERIES, SEQ, DIVERGING, base, gridX, gridY, fmt } from "./atlas.js";
+import { Plot, d3, token, SERIES, SEQ, SEQ_GREEN, PRIMARY, DIVERGING, base, gridX, gridY, fmt } from "./atlas.js";
 import { sankey as d3sankey, sankeyLinkHorizontal, sankeyJustify }
   from "https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/+esm";
 
 export const MUTE = () => token("--series-mute");
-export const S1 = () => token("--series-1");
+// single-series marks follow the page's identity hue, not categorical slot 1
+export const S1 = () => PRIMARY();
+export { SEQ_GREEN, PRIMARY };
 
 /** Index a [[x, y], ...] series so its first non-zero value is 100. */
 export function indexed(points) {
@@ -62,7 +64,7 @@ const niceName = (s) => String(s).replace(/_/g, " ");
  * The most compact way to read a regional panel — every region and every year
  * on screen at once, and "who was high, and when" is a single glance.
  */
-export function heatmap({ data, width, label, index = false, format = fmt, sortBy = "mean" }) {
+export function heatmap({ data, width, label, index = false, format = fmt, sortBy = "mean", ramp }) {
   let rows = data;
   if (index) {
     const out = [];
@@ -97,7 +99,8 @@ export function heatmap({ data, width, label, index = false, format = fmt, sortB
       color: {
         // 5 bins, not 7: quantize thresholds land on raw floats, and seven of
         // them collide into an unreadable smear under the legend swatches.
-        type: "quantize", n: 5, range: SEQ().filter((_, i) => i % 2 === 0 || i === 6).slice(0, 5),
+        type: "quantize", n: 5,
+        range: (ramp ?? SEQ()).filter((_, i) => i % 2 === 0 || i === 6).slice(0, 5),
         label: index ? "index, first year = 100" : label,
         tickFormat: (v) => fmt(v),
         legend: true, unknown: token("--plane-deep"),
@@ -195,17 +198,54 @@ export function horizon({ data, width, label, bands = 5, rowHeight = 30, index =
  * `data` and `index` are thunks so the switcher always redraws against the
  * current selection rather than a snapshot taken at wiring time.
  */
-export function panelViews({ el, data, label, index = () => false, format = fmt, columns = 4, rowHeight = 30 }) {
+export function panelViews({ el, data, label, index = () => false, format = fmt, columns = 4, rowHeight = 30, ramp, features, hexLayout, year }) {
   const width = () => {
     const host = typeof el === "string" ? document.getElementById(el) : el;
     return Math.max(300, Math.floor(host?.getBoundingClientRect().width) || 720);
   };
   const lbl = () => (typeof label === "function" ? label() : label);
-  return {
-    Heatmap: () => heatmap({ data: data(), width: width(), label: lbl(), index: index(), format }),
-    Horizon: () => horizon({ data: data(), width: width(), label: lbl(), index: index(), format, rowHeight }),
-    Panels: () => smallMultiples({ data: data(), width: width(), label: lbl(), index: index(), columns }),
-  };
+  const views = {};
+
+  // Map first when geometry is available: it answers "where is this?", which no
+  // amount of sorting a heatmap will.
+  if (features && hexLayout) {
+    views.Map = () => {
+      const rows = data();
+      const pickYear = typeof year === "function" ? year() : year;
+      const chosen = pickYear ?? d3.max(rows, (d) => d.x);
+      // toRows() prettifies "Tashkent_city" to "Tashkent city", but the geometry
+      // and the hex layout both key on the underscored form. Register both, or
+      // those two regions silently render as "no data".
+      const m = new Map();
+      for (const d of rows) {
+        if (d.x !== chosen) continue;
+        m.set(d.region, d.y);
+        m.set(String(d.region).replace(/ /g, "_"), d.y);
+      }
+      const w = width();
+      // The grid falls to one column below ~694px (two 340px minimums plus the
+      // gap). When it stacks, each map gets the full width — halving it there
+      // was shrinking the tiles until their labels had to be dropped.
+      const each = w >= 694 ? Math.floor(w / 2 - 10) : w;
+      const wrap = document.createElement("div");
+      // 340px minimum: below that the two maps squeeze and the cartogram's
+      // labels collide, so they stack instead
+      wrap.style.cssText =
+        "display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px";
+      const heading = `${lbl()} · ${chosen}`;
+      wrap.append(
+        choropleth({ features, values: m, width: each, height: 330, label: heading,
+                     format, nameOf: (f) => f.properties.region, ramp }),
+        hexCartogram({ values: m, layout: hexLayout, width: each, label: heading,
+                       format, labelOf: niceName, ramp })
+      );
+      return wrap;
+    };
+  }
+  views.Heatmap = () => heatmap({ data: data(), width: width(), label: lbl(), index: index(), format, ramp });
+  views.Horizon = () => horizon({ data: data(), width: width(), label: lbl(), index: index(), format, rowHeight });
+  views.Panels = () => smallMultiples({ data: data(), width: width(), label: lbl(), index: index(), columns });
+  return views;
 }
 
 /** Whole-year tick spacing, so a long panel does not repeat its labels. */
@@ -217,6 +257,7 @@ function yearStep(rows) {
 
 export function panelCaption(view, noun = "region") {
   return {
+    Map: `Real geography on the left, one equal tile per ${noun} on the right — Tashkent city is 351 km² and all but invisible on the first.`,
     Heatmap: `One row per ${noun}, one cell per year. Darker means higher.`,
     Horizon: `Each ${noun}'s series folded into colour bands — darker means higher up the scale.`,
     Panels: `One small chart per ${noun}, all sharing the same vertical scale.`,
@@ -337,7 +378,7 @@ export function emphasisLines({ data, width, height = 340, label, highlight, ind
  */
 export function multiLine({ data, width, height = 320, label, names, colors, xIsDate = false, x = "x", y = "y", z = "name", dash }) {
   const keys = names ?? [...new Set(data.map((d) => d[z]))];
-  const pal = colors ?? SERIES();
+  const pal = colors ?? (keys.length === 1 ? [PRIMARY()] : SERIES());
   const color = new Map(keys.map((k, i) => [k, pal[i % pal.length]]));
   const lastPoints = keys
     .map((k) => d3.greatest(data.filter((d) => d[z] === k), (d) => d[x]))
@@ -786,15 +827,16 @@ export function hexbinMap({ points, width, height = 460, binSize = 9, colorLabel
 
 /* ──────────────────────────────── choropleth ────────────────────────────── */
 
-export function choropleth({ features, values, width, height = 470, label, format = fmt, nameOf, scale = "quantile" }) {
+export function choropleth({ features, values, width, height = 470, label, format = fmt, nameOf, scale = "quantile", ramp }) {
   const vals = [...values.values()].filter((v) => v != null);
   // Quantile by default. Regional data here is heavily skewed — Tashkent city's
   // density is 25× the next region — and an equal-interval (quantize) scale
   // dumps thirteen of fourteen regions into the palest bin, producing a map
   // that shows one outlier and nothing else.
+  const steps = (ramp ?? SEQ()).filter((_, i) => i % 2 === 0 || i === 6).slice(0, 5);
   const colorScale = scale === "quantile"
-    ? { type: "quantile", n: 5, range: SEQ().filter((_, i) => i % 2 === 0 || i === 6).slice(0, 5), domain: vals }
-    : { type: "quantize", n: 5, range: SEQ().filter((_, i) => i % 2 === 0 || i === 6).slice(0, 5), domain: d3.extent(vals) };
+    ? { type: "quantile", n: 5, range: steps, domain: vals }
+    : { type: "quantize", n: 5, range: steps, domain: d3.extent(vals) };
   return Plot.plot(
     base({
       width, height,
@@ -822,8 +864,8 @@ export function choropleth({ features, values, width, height = 470, label, forma
  * where swapping the order would change the meaning. Starts above the lightest
  * sequential step so the pale end still reads against the surface.
  */
-export function ordinalRamp(n) {
-  const s = SEQ();
+export function ordinalRamp(n, ramp) {
+  const s = ramp ?? SEQ();
   if (n <= 1) return [s[3]];
   // Anchored at seq-3, not seq-2: the sequential ramp's palest steps are legal
   // for a continuous scale (where near-zero may recede into the surface) but
@@ -887,7 +929,7 @@ export function shareBars({ data, width, categories, ordinal = false, label, x =
  * places are specks. Equal tiles make every region equally readable; the
  * choropleth beside it keeps the real shape.
  */
-export function hexCartogram({ values, layout, width, height, label, format = fmt, diverging = false, labelOf = (k) => k }) {
+export function hexCartogram({ values, layout, width, height, label, format = fmt, diverging = false, labelOf = (k) => k, ramp }) {
   const entries = Object.entries(layout);
   const cols = d3.max(entries, ([, p]) => p.col) + 1;
   const rows = d3.max(entries, ([, p]) => p.row) + 1;
@@ -924,7 +966,7 @@ export function hexCartogram({ values, layout, width, height, label, format = fm
   const fillScale = diverging
     ? d3.scaleLinear().domain([-lim, 0, lim])
         .range([token("--div-neg-3"), token("--div-mid"), token("--div-pos-3")]).clamp(true)
-    : d3.scaleQuantize().domain(d3.extent(vals)).range(SEQ());
+    : d3.scaleQuantize().domain(d3.extent(vals)).range(ramp ?? SEQ());
   const inkFor = (v) => {
     if (v == null) return token("--ink");
     const c = d3.color(fillScale(v));
@@ -947,6 +989,11 @@ export function hexCartogram({ values, layout, width, height, label, format = fm
     if (ABBREV[t]) return ABBREV[t];
     return t.length > 12 ? t.slice(0, 11) + "…" : t;
   };
+  // In a half-width card the tiles shrink to ~32px and names run into each
+  // other. Below these widths the label is dropped rather than overlapped —
+  // the hover tooltip and the table still carry it.
+  const showName = w >= 56;
+  const showValue = w >= 40;
 
   return Plot.plot(
     base({
@@ -959,7 +1006,7 @@ export function hexCartogram({ values, layout, width, height, label, format = fm
         ...(diverging
           ? { type: "diverging", pivot: 0, domain: [-lim, lim],
               range: [token("--div-neg-3"), token("--div-mid"), token("--div-pos-3")] }
-          : { type: "quantize", n: 7, range: SEQ(), domain: d3.extent(vals) }),
+          : { type: "quantize", n: 7, range: ramp ?? SEQ(), domain: d3.extent(vals) }),
         unknown: token("--plane-deep"),
       },
       marks: [
@@ -969,17 +1016,18 @@ export function hexCartogram({ values, layout, width, height, label, format = fm
           title: (f) => `${labelOf(f.properties.key)}\n${f.properties.value == null ? "no data" : format(f.properties.value)}`,
           tip: true,
         }),
-        Plot.text(cells, {
+        showName ? Plot.text(cells, {
           x: "cx", y: "cy", text: (d) => short(d.key),
           fill: (d) => inkFor(d.value), stroke: (d) => haloFor(d.value),
-          strokeWidth: 2.5, fontSize: 10, fontWeight: 600, dy: -5, pointerEvents: "none",
-        }),
-        Plot.text(cells.filter((c) => c.value != null), {
+          strokeWidth: 2.5, fontSize: 10, fontWeight: 600,
+          dy: showValue ? -5 : 0, pointerEvents: "none",
+        }) : null,
+        showValue ? Plot.text(cells.filter((c) => c.value != null), {
           x: "cx", y: "cy", text: (d) => format(d.value),
           fill: (d) => inkFor(d.value), stroke: (d) => haloFor(d.value),
-          strokeWidth: 2.5, fontSize: 11, dy: 8, pointerEvents: "none",
-        }),
-      ],
+          strokeWidth: 2.5, fontSize: 11, dy: showName ? 8 : 0, pointerEvents: "none",
+        }) : null,
+      ].filter(Boolean),
     })
   );
 }
@@ -1112,6 +1160,111 @@ export function stackedDots({ values, width, height = 260, label, format = fmt, 
       ].filter(Boolean),
     })
   );
+}
+
+/* ─────────────────────────────── butterfly ─────────────────────────────── */
+
+/**
+ * Two bars per row growing away from a shared centre — a butterfly (tornado)
+ * chart. Used where one quantity has two reciprocal readings: soum per dollar
+ * grows to the right, dollars per million soum grows to the left, and the same
+ * devaluation is legible from both sides at once.
+ *
+ * Each arm gets its OWN scale, because the two are in different units. That is
+ * only honest because they are reciprocals of one number rather than two
+ * measures being silently equated — the axis labels say which is which.
+ */
+export function butterfly({ rows, width, rowHeight = 22, leftLabel, rightLabel, leftFormat = fmt, rightFormat = fmt, gutter = 74 }) {
+  const height = rows.length * rowHeight + 74;
+  const pal = SEQ();
+  const leftColor = pal[2], rightColor = pal[5];
+  const outerPad = 56;   // room for the value label beyond each bar end
+  const half = Math.max(90, (width - gutter - outerPad * 2) / 2);
+
+  const maxL = d3.max(rows, (d) => d.left) ?? 1;
+  const maxR = d3.max(rows, (d) => d.right) ?? 1;
+  // both arms are measured out from the centre, in their own units
+  const xL = d3.scaleLinear().domain([0, maxL]).range([0, half]).nice();
+  const xR = d3.scaleLinear().domain([0, maxR]).range([0, half]).nice();
+  const centre = half + gutter / 2 + outerPad;
+
+  const laid = rows.map((d) => ({
+    ...d,
+    lx: centre - gutter / 2 - xL(d.left),
+    rx: centre + gutter / 2 + xR(d.right),
+  }));
+
+  const ticks = (scale, dir) =>
+    scale.ticks(4).filter((t) => t > 0).map((t) => ({
+      x: centre + dir * (gutter / 2 + scale(t)),
+      t,
+    }));
+
+  return Plot.plot(
+    base({
+      width, height,
+      marginLeft: 0, marginRight: 0, marginTop: 34, marginBottom: 40,
+      x: { axis: null, domain: [0, width] },
+      y: { type: "band", domain: rows.map((d) => d.name), label: null, padding: 0.22 },
+      marks: [
+        // per-arm gridlines, drawn from the tick positions of each scale
+        Plot.ruleX(ticks(xL, -1), { x: "x", stroke: token("--grid"), strokeWidth: 1 }),
+        Plot.ruleX(ticks(xR, 1), { x: "x", stroke: token("--grid"), strokeWidth: 1 }),
+        Plot.text(ticks(xL, -1), {
+          x: "x", text: (d) => leftFormat(d.t), frameAnchor: "bottom", dy: 18,
+          fill: token("--ink-muted"), fontSize: 10,
+        }),
+        Plot.text(ticks(xR, 1), {
+          x: "x", text: (d) => rightFormat(d.t), frameAnchor: "bottom", dy: 18,
+          fill: token("--ink-muted"), fontSize: 10,
+        }),
+        Plot.barX(laid, {
+          x1: "lx", x2: () => centre - gutter / 2, y: "name",
+          fill: leftColor, insetTop: 1.5, insetBottom: 1.5, rx: 2,
+          title: (d) => `${d.name}\n${leftLabel}: ${leftFormat(d.left)}\n${rightLabel}: ${rightFormat(d.right)}`,
+          tip: true,
+        }),
+        Plot.barX(laid, {
+          x1: () => centre + gutter / 2, x2: "rx", y: "name",
+          fill: rightColor, insetTop: 1.5, insetBottom: 1.5, rx: 2,
+          title: (d) => `${d.name}\n${leftLabel}: ${leftFormat(d.left)}\n${rightLabel}: ${rightFormat(d.right)}`,
+          tip: true,
+        }),
+        // Value labels on both arms. The left arm is the reciprocal, so recent
+        // bars are legitimately near-zero and invisible — the label is how those
+        // rows stay readable without distorting the scale.
+        Plot.text(laid, {
+          x: "lx", y: "name", text: (d) => leftFormat(d.left),
+          dx: -5, textAnchor: "end", fontSize: 10, fill: token("--ink-muted"),
+        }),
+        Plot.text(laid, {
+          x: "rx", y: "name", text: (d) => rightFormat(d.right),
+          dx: 5, textAnchor: "start", fontSize: 10, fill: token("--ink-muted"),
+        }),
+        // the row label lives in the central gutter
+        Plot.text(laid, {
+          x: () => centre, y: "name", text: "name",
+          fill: token("--ink-2"), fontSize: 11, fontWeight: 600,
+        }),
+        Plot.text([{}], {
+          x: () => centre - gutter / 2 - half / 2, frameAnchor: "top", dy: -20,
+          text: () => "◄ " + leftLabel, fill: token("--ink-2"), fontSize: 11.5, fontWeight: 600,
+        }),
+        Plot.text([{}], {
+          x: () => centre + gutter / 2 + half / 2, frameAnchor: "top", dy: -20,
+          text: () => rightLabel + " ►", fill: token("--ink-2"), fontSize: 11.5, fontWeight: 600,
+        }),
+      ],
+    })
+  );
+}
+
+export function butterflyLegend(leftLabel, rightLabel) {
+  const pal = SEQ();
+  return [
+    { label: leftLabel, color: pal[2], kind: "rect" },
+    { label: rightLabel, color: pal[5], kind: "rect" },
+  ];
 }
 
 /* ──────────────────────────────── donut ────────────────────────────────── */

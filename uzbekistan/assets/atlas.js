@@ -24,6 +24,10 @@ function clearTokens() { varCache.clear(); }
 export const SERIES = () =>
   [1, 2, 3, 4, 5, 6, 7, 8].map((i) => token(`--series-${i}`));
 export const SEQ = () => [1, 2, 3, 4, 5, 6, 7].map((i) => token(`--seq-${i}`));
+/** Green sequential ramp — for greenness/vegetation, where blue reads wrong. */
+export const SEQ_GREEN = () => [1, 2, 3, 4, 5, 6, 7].map((i) => token(`--grn-${i}`));
+/** The page's identity hue: single-series marks and sequential anchors. */
+export const PRIMARY = () => token("--primary");
 export const DIVERGING = () => [
   token("--div-neg-3"), token("--div-neg-2"), token("--div-neg-1"),
   token("--div-mid"),

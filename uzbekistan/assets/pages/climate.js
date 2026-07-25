@@ -41,6 +41,8 @@ const DNAME = new Map(
   fillMapYears();
 
   const fmtMetric = (v) => (metric === "rain" ? v.toFixed(0) + " mm" : v.toFixed(3));
+  // Greenness reads as green. Rainfall stays on the default blue ramp.
+  const metricRamp = () => (metric === "ndvi" ? C.SEQ_GREEN() : undefined);
   const mapValues = () => {
     const year = Number(mapYear?.value || yearsOfAdm1().at(-1));
     const m = new Map();
@@ -56,32 +58,33 @@ const DNAME = new Map(
   const fig = figure({
     el: "clim-series",
     views: {
-      Heatmap: () => C.heatmap({
-        data: C.toRows(CL.adm1[metric]), width: autoWidth("clim-series")(),
-        label: metric === "rain" ? "rainfall, mm" : "NDVI",
-        index: !!idx?.checked, format: fmtMetric,
-      }),
       Map: () => {
         const { year, m } = mapValues();
         const w = autoWidth("clim-series")();
+        const each = w >= 694 ? Math.floor(w / 2 - 10) : w;
         const wrap = document.createElement("div");
-        wrap.style.cssText = "display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px";
+        wrap.style.cssText = "display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px";
         wrap.append(
           C.choropleth({
-            features: GEO.adm1.features, values: m, width: Math.max(280, w / 2 - 10),
+            features: GEO.adm1.features, values: m, width: each,
             height: 330, label: `${metric === "rain" ? "rainfall, mm" : "NDVI"} · ${year}`,
-            format: fmtMetric, nameOf: (f) => f.properties.region,
+            format: fmtMetric, nameOf: (f) => f.properties.region, ramp: metricRamp(),
           }),
           C.hexCartogram({
-            values: m, layout: MAP.hexLayout, width: Math.max(280, w / 2 - 10),
+            values: m, layout: MAP.hexLayout, width: each,
             label: `${metric === "rain" ? "rainfall, mm" : "NDVI"} · ${year}`,
-            labelOf: (s) => s.replace(/_/g, " "), format: fmtMetric,
+            labelOf: (s) => s.replace(/_/g, " "), format: fmtMetric, ramp: metricRamp(),
           })
         );
         return wrap;
       },
+      Heatmap: () => C.heatmap({
+        data: C.toRows(CL.adm1[metric]), width: autoWidth("clim-series")(),
+        label: metric === "rain" ? "rainfall, mm" : "NDVI",
+        index: !!idx?.checked, format: fmtMetric, ramp: metricRamp(),
+      }),
     },
-    defaultView: "Heatmap",
+    defaultView: "Map",
     caption: (v) => (v === "Map"
       ? "Real geography on the left, one equal tile per region on the right — Tashkent city is 351 km² and invisible on the first."
       : C.panelCaption(v) + " Ten-day satellite composites."),
@@ -309,16 +312,17 @@ let barcodeFig = null;
           const series = nets[netSel.value] ?? {};
           const m = new Map(Object.entries(series).map(([r, pts]) => [r, pts.at(-1)?.[1]]));
           const w = autoWidth("water-regional")();
+          const each = w >= 694 ? Math.floor(w / 2 - 10) : w;
           const wrap = document.createElement("div");
-          wrap.style.cssText = "display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px";
+          wrap.style.cssText = "display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px";
           wrap.append(
             C.choropleth({
-              features: GEO.adm1.features, values: m, width: Math.max(280, w / 2 - 10),
+              features: GEO.adm1.features, values: m, width: each,
               height: 320, label: netSel.value + ", % of dwellings",
               format: (v) => v.toFixed(1) + "%", nameOf: (f) => f.properties.region,
             }),
             C.hexCartogram({
-              values: m, layout: MAP.hexLayout, width: Math.max(280, w / 2 - 10),
+              values: m, layout: MAP.hexLayout, width: each,
               label: netSel.value + ", % of dwellings",
               labelOf: (s) => s.replace(/_/g, " "), format: (v) => v.toFixed(1) + "%",
             })

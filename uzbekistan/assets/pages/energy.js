@@ -2,7 +2,7 @@ import { boot, load, figure, autoWidth, token, fmt, titleCase, Plot, d3 } from "
 import * as C from "../charts.js";
 
 await boot();
-const E = await load("energy");
+const [E, GEO, MAP] = await load("energy", "geo", "map");
 
 const nice = (s) => s.replace(/_/g, " ").replace(/\b\d{3,4}$/, "").trim();
 
@@ -342,8 +342,9 @@ if (E.gasAccess) {
       el: "gas-access-time", data: () => panel,
       label: "% of homes", columns: 3,
       format: (v) => v.toFixed(1) + "%",
+      features: GEO.adm1.features, hexLayout: MAP.hexLayout,
     }),
-    defaultView: "Heatmap",
+    defaultView: "Map",
     caption: (v) => C.panelCaption(v),
     table: () => ({
       caption: "Homes with piped natural gas by region, %",
@@ -378,8 +379,9 @@ if (E.gasAccess) {
         el: "elec-regional", data: rows,
         label: () => opts.find(([k]) => k === (sel?.value || opts[0][0]))?.[1] ?? "value",
         index: () => !!idx?.checked, columns: 3,
+        features: GEO.adm1.features, hexLayout: MAP.hexLayout,
       }),
-      defaultView: "Heatmap",
+      defaultView: "Map",
       caption: (v) => C.panelCaption(v),
       table: () => ({
         caption: opts.find(([k]) => k === (sel?.value || opts[0][0]))?.[1] ?? "",

@@ -119,18 +119,20 @@ STATUS_BLURB = {
 }
 
 # Pages built from dashboard/pages/<name>.html
+# `topic` sets data-topic on <html>, which swaps --primary and the sequential
+# ramp in atlas.css. Only pages with their own identity hue declare one.
 STATIC_PAGES = [
-    # (output path,          fragment,      title,                        nav key, page module, depth)
-    ("index.html",           "home",        None,                          "home",     "home",        0),
-    ("explore.html",         "explore",     "Explore the data",            "explore",  "explore",     0),
-    ("about.html",           "about",       "About this atlas",            "about",    None,          0),
-    ("topics/energy.html",   "energy",      "Electricity & gas",           "energy",   "energy",      1),
-    ("topics/gold.html",     "gold",        "Gold",                        "gold",     "gold",        1),
-    ("topics/agriculture.html", "agriculture", "Agriculture",              "agriculture", "agriculture", 1),
-    ("topics/prices.html",   "prices",      "Prices & money",              "prices",   "prices",      1),
-    ("topics/people.html",   "people",      "People & work",               "people",   "people",      1),
-    ("topics/climate.html",  "climate",     "Climate & water",             "climate",  "climate",     1),
-    ("topics/map.html",      "map",         "The map",                     "map",      "map",         1),
+    # (output path,        fragment,   title,               nav key,   module,   depth, topic)
+    ("index.html",           "home",        None,                "home",        "home",        0, None),
+    ("explore.html",         "explore",     "Explore the data",  "explore",     "explore",     0, None),
+    ("about.html",           "about",       "About this atlas",  "about",       None,          0, None),
+    ("topics/energy.html",   "energy",      "Electricity & gas", "energy",      "energy",      1, "energy"),
+    ("topics/gold.html",     "gold",        "Gold",              "gold",        "gold",        1, None),
+    ("topics/agriculture.html", "agriculture", "Agriculture",    "agriculture", "agriculture", 1, "agriculture"),
+    ("topics/prices.html",   "prices",      "Prices & money",    "prices",      "prices",      1, None),
+    ("topics/people.html",   "people",      "People & work",     "people",      "people",      1, None),
+    ("topics/climate.html",  "climate",     "Climate & water",   "climate",     "climate",     1, None),
+    ("topics/map.html",      "map",         "The map",           "map",         "map",         1, None),
 ]
 
 NAV = [
@@ -452,7 +454,7 @@ def nav_html(active, depth):
 
 
 def shell(*, title, body, depth, active, module=None, description="",
-          body_attrs="", head_extra=""):
+          body_attrs="", head_extra="", topic=None):
     base = ("../" * depth).rstrip("/") or "."
     full_title = title if title == SITE_TITLE else f"{title} · {SITE_TITLE}"
     desc = description or (
@@ -462,7 +464,7 @@ def shell(*, title, body, depth, active, module=None, description="",
            if module else
            f'\n<script type="module">import {{ boot }} from "{mod_rel(depth, "assets/atlas.js")}"; boot();</script>')
     return f"""<!doctype html>
-<html lang="en" data-base="{base}">
+<html lang="en" data-base="{base}"{(' data-topic="' + topic + '"') if topic else ''}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -690,7 +692,7 @@ def build_findings():
 
 # ─────────────────────────────── static pages ─────────────────────────────
 def build_static():
-    for out_path, frag, title, active, module, depth in STATIC_PAGES:
+    for out_path, frag, title, active, module, depth, topic in STATIC_PAGES:
         src = os.path.join(PAGES, frag + ".html")
         if not os.path.exists(src):
             print(f"  ! missing fragment {frag}.html — skipped")
@@ -703,7 +705,7 @@ def build_static():
             desc = m.group(1)
             raw = raw[m.end():]
         page = shell(title=title or SITE_TITLE, body=raw, depth=depth,
-                     active=active, module=module, description=desc)
+                     active=active, module=module, description=desc, topic=topic)
         dest = os.path.join(SITE, out_path)
         os.makedirs(os.path.dirname(dest), exist_ok=True)
         with open(dest, "w", encoding="utf-8") as f:

@@ -109,16 +109,31 @@ Two constraints worth knowing before editing a chart:
    before changing any `--series-*` value. `ordinalRamp()` is validated separately
    with `--ordinal`; it starts at seq-3 because the sequential ramp's palest steps
    fail the ordinal 2:1 floor.
-3. **Choropleths bin by quantile, not equal interval.** Regional data here is
+3. **A page's identity hue is `--primary` and the sequential ramp, never the
+   categorical slots.** `data-topic` on `<html>` swaps those (energy → gold,
+   agriculture → green). The 8-slot order is deliberately left alone: gold beside
+   the palette's orange measures ΔE 3.7 under protanopia and green beside it 4.2,
+   so re-basing the categorical order on a topic hue would make every
+   multi-series chart on those pages colourblind-unsafe.
+4. **Choropleths bin by quantile, not equal interval.** Regional data here is
    heavily skewed (Tashkent city's density is 25× the next region), and equal
    intervals put thirteen of fourteen regions in the palest bin. Legends say
    "equal-count bins" when that scale is in use.
 
-Two Plot traps worth remembering, both of which cost real debugging time:
-`dx`/`textAnchor`/`fontWeight` are *constants*, not channels — a function makes
-them stringify into `translate(NaN,…)` and the mark silently disappears (see
-`signedLabels`). And `percent: true` applies a ×100 transform to the *data*, so
-combining it with a `[0, 1]` domain throws every mark off the canvas.
+Traps worth remembering, all of which cost real debugging time:
+
+- `dx` / `textAnchor` / `fontWeight` are *constants*, not channels. A function
+  makes them stringify into `translate(NaN,…)` and the mark silently disappears
+  (see `signedLabels`).
+- `percent: true` applies a ×100 transform to the *data*, so combining it with a
+  `[0, 1]` domain throws every mark off the canvas.
+- `Plot.stackX` needs `z` explicitly; it only infers it from `fill` on marks that
+  carry a fill channel.
+- `fy` bands are contiguous, so a facet title placed above its frame lands inside
+  the panel above it — hence the band padding in `smallMultiples`.
+- `toRows()` prettifies `Tashkent_city` to `Tashkent city`, but geometry and the
+  hex layout key on the underscored form. `panelViews` registers both, or those
+  two regions render as "no data".
 
 ## Superseded
 

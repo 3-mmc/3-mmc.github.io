@@ -422,8 +422,9 @@ let regFig = null;
       el: "regions", data: () => C.toRows(REG[sel.value]),
       label: () => prettyReg(sel.value),
       index: () => !!idx.checked,
+      features: GEO.adm1.features, hexLayout: MAP.hexLayout,
     }),
-    defaultView: "Heatmap",
+    defaultView: "Map",
     caption: (v) => C.panelCaption(v),
     table: () => ({
       caption: prettyReg(sel.value),

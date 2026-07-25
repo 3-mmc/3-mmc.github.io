@@ -2,7 +2,7 @@ import { boot, load, figure, autoWidth, token, fmt, Plot, d3 } from "../atlas.js
 import * as C from "../charts.js";
 
 await boot();
-const M = await load("people");
+const [M, GEO, MAP] = await load("people", "geo", "map");
 
 const short = (s) => (s.length > 30 ? s.slice(0, 28) + "…" : s);
 
@@ -163,8 +163,9 @@ if (M.health && Object.keys(M.health).length) {
       el: "health", data: () => C.toRows(M.health[sel?.value || metrics[0]]),
       label: () => (sel?.value || metrics[0]).replace(/_/g, " "),
       index: () => !!idx?.checked,
+      features: GEO.adm1.features, hexLayout: MAP.hexLayout,
     }),
-    defaultView: "Heatmap",
+    defaultView: "Map",
     caption: (v) => C.panelCaption(v),
     table: () => ({
       caption: (sel?.value || metrics[0]).replace(/_/g, " ") + " by region",

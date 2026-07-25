@@ -171,28 +171,38 @@ if (P.wdi?.exchangeRate) {
     if (y1 - y0 !== 1) { skipped++; continue; }
     changes.push({ value: (100 * (v1 - v0)) / v0, label: String(y1).slice(2), year: y1 });
   }
+  // Two readings of the same rate, growing away from a shared centre: soum you
+  // get for a dollar (rising), dollars you get for a million soum (falling).
+  const LEFT = "US$ per million soum";
+  const RIGHT = "soum per US$";
+  const rows = [...s.points]
+    .sort((a, b) => b[0] - a[0])
+    .map(([year, rate]) => ({
+      name: String(year),
+      right: rate,
+      left: rate ? 1e6 / rate : 0,
+      change: changes.find((d) => d.year === year)?.value ?? null,
+    }));
+
   figure({
     el: "fx-dots",
-    legend: [
-      { label: "Soum weakened", color: token("--div-pos-2"), kind: "rect" },
-      ...(changes.some((d) => d.value < 0)
-        ? [{ label: "Soum strengthened", color: token("--div-neg-2"), kind: "rect" }]
-        : []),
-    ],
-    caption: () => "Year-on-year change in the official soum/US$ rate, labelled by year."
-      + (skipped ? " Years either side of the 2001–2012 gap in this series are omitted." : ""),
-    render: () => C.stackedDots({
-      values: changes, width: autoWidth("fx-dots")(), height: 280,
-      label: "change in soum per US$ (%)",
-      format: (v) => (v > 0 ? "+" : "") + v.toFixed(1) + "%",
+    legend: C.butterflyLegend(LEFT, RIGHT),
+    caption: "Each row is one year. The two arms are reciprocals of the same rate, so they mirror each other — as the right arm grows, the left shrinks.",
+    render: () => C.butterfly({
+      rows, width: autoWidth("fx-dots")(), rowHeight: 21,
+      leftLabel: LEFT, rightLabel: RIGHT,
+      leftFormat: (v) => "$" + (v >= 100 ? Math.round(v).toLocaleString("en-GB") : v.toFixed(0)),
+      rightFormat: (v) => Math.round(v).toLocaleString("en-GB"),
     }),
     table: () => ({
-      caption: "Official exchange rate and its annual change",
-      columns: ["Year", { label: "Soum per US$", num: true }, { label: "Change %", num: true }],
-      rows: s.points.map(([y, v]) => {
-        const c = changes.find((d) => d.year === y);
-        return [y, v, c ? Number(c.value.toFixed(1)) : null];
-      }),
+      caption: "Official exchange rate, both ways round"
+        + (skipped ? " (this series has no values for 2001–2012)" : ""),
+      columns: ["Year", { label: "Soum per US$", num: true },
+                { label: "US$ per million soum", num: true },
+                { label: "Annual change %", num: true }],
+      rows: rows.map((d) => [Number(d.name), Number(d.right.toFixed(0)),
+                             Number(d.left.toFixed(2)),
+                             d.change == null ? null : Number(d.change.toFixed(1))]),
     }),
   });
 }

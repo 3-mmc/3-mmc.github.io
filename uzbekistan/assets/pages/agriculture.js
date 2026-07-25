@@ -2,7 +2,7 @@ import { boot, load, figure, autoWidth, token, fmt, Plot, d3 } from "../atlas.js
 import * as C from "../charts.js";
 
 await boot();
-const A = await load("agriculture");
+const [A, GEO, MAP] = await load("agriculture", "geo", "map");
 
 const nice = (s) => s.replace(/_/g, " ").replace(/_?\d{3,4}$/, "").trim()
   .replace(/^./, (c) => c.toUpperCase());
@@ -107,8 +107,9 @@ if (A.production && Object.keys(A.production).length) {
       el: "crop-chart", data: () => C.toRows(current()),
       label: () => nice(sel?.value || keys[0]),
       index: () => !!idx?.checked,
+      features: GEO.adm1.features, hexLayout: MAP.hexLayout,
     }),
-    defaultView: "Heatmap",
+    defaultView: "Map",
     caption: (v) => C.panelCaption(v),
     table: () => ({
       caption: nice(sel?.value || keys[0]) + " by region",

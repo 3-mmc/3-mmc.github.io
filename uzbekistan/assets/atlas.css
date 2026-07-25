@@ -32,6 +32,16 @@
   --seq-1:#cde2fb; --seq-2:#9ec5f4; --seq-3:#6da7ec; --seq-4:#3987e5;
   --seq-5:#256abf; --seq-6:#184f95; --seq-7:#0d366b;
 
+  /* The page's identity hue. Single-series marks and every sequential ramp use
+     this; the 8-slot categorical order below is NOT re-based on it, because
+     gold-beside-orange and green-beside-orange both collapse under protanopia
+     (ΔE 3.7 and 4.2). Multi-series charts keep the validated order. */
+  --primary: #2a78d6;
+
+  /* standalone green ramp — greenness/NDVI reads as green, not blue */
+  --grn-1:#d5f6df; --grn-2:#add9ba; --grn-3:#86bd97; --grn-4:#5ea175;
+  --grn-5:#338655; --grn-6:#006b36; --grn-7:#005118;
+
   /* diverging (blue <-> red, neutral gray midpoint) */
   --div-neg-3:#a02f2f; --div-neg-2:#d03b3b; --div-neg-1:#ea8c8c;
   --div-mid:  #e7e5e0;
@@ -62,6 +72,9 @@
     --series-mute:#4b5765;
     --seq-1:#0d366b; --seq-2:#184f95; --seq-3:#256abf; --seq-4:#3987e5;
     --seq-5:#6da7ec; --seq-6:#9ec5f4; --seq-7:#cde2fb;
+    --primary:#3987e5;
+    --grn-1:#005118; --grn-2:#006b36; --grn-3:#338655; --grn-4:#5ea175;
+    --grn-5:#86bd97; --grn-6:#add9ba; --grn-7:#d5f6df;
     --div-mid:#383835;
     --div-neg-1:#8f3636; --div-neg-2:#d03b3b; --div-neg-3:#ef8f8f;
     --div-pos-1:#1c5cab; --div-pos-2:#3987e5; --div-pos-3:#9ec5f4;
@@ -79,9 +92,51 @@
   --series-mute:#4b5765;
   --seq-1:#0d366b; --seq-2:#184f95; --seq-3:#256abf; --seq-4:#3987e5;
   --seq-5:#6da7ec; --seq-6:#9ec5f4; --seq-7:#cde2fb;
+  --primary:#3987e5;
+  --grn-1:#005118; --grn-2:#006b36; --grn-3:#338655; --grn-4:#5ea175;
+  --grn-5:#86bd97; --grn-6:#add9ba; --grn-7:#d5f6df;
   --div-mid:#383835;
   --div-neg-1:#8f3636; --div-neg-2:#d03b3b; --div-neg-3:#ef8f8f;
   --div-pos-1:#1c5cab; --div-pos-2:#3987e5; --div-pos-3:#9ec5f4;
+}
+
+
+/* ───────────────────── per-topic identity hue ──────────────────────────── */
+/* Only --primary and the sequential ramp change. The categorical slots stay as
+   validated: re-basing them on gold or green would put those hues next to the
+   palette's orange, a pair that is indistinguishable under protanopia. */
+
+:root[data-topic="energy"] {
+  --primary:#957323;                                   /* 4.07:1 on the light surface */
+  --seq-1:#fbe5bf; --seq-2:#e2c797; --seq-3:#c9aa70; --seq-4:#af8e4a;
+  --seq-5:#957323; --seq-6:#7b5900; --seq-7:#614000;
+}
+:root[data-topic="agriculture"] {
+  --primary:#338655;                                   /* 4.25:1 on the light surface */
+  --seq-1:#d5f6df; --seq-2:#add9ba; --seq-3:#86bd97; --seq-4:#5ea175;
+  --seq-5:#338655; --seq-6:#006b36; --seq-7:#005118;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-topic="energy"]:where(:not([data-theme="light"])) {
+    --primary:#c9aa70;
+    --seq-1:#614000; --seq-2:#7b5900; --seq-3:#957323; --seq-4:#af8e4a;
+    --seq-5:#c9aa70; --seq-6:#e2c797; --seq-7:#fbe5bf;
+  }
+  :root[data-topic="agriculture"]:where(:not([data-theme="light"])) {
+    --primary:#5ea175;
+    --seq-1:#005118; --seq-2:#006b36; --seq-3:#338655; --seq-4:#5ea175;
+    --seq-5:#86bd97; --seq-6:#add9ba; --seq-7:#d5f6df;
+  }
+}
+:root[data-theme="dark"][data-topic="energy"] {
+  --primary:#c9aa70;
+  --seq-1:#614000; --seq-2:#7b5900; --seq-3:#957323; --seq-4:#af8e4a;
+  --seq-5:#c9aa70; --seq-6:#e2c797; --seq-7:#fbe5bf;
+}
+:root[data-theme="dark"][data-topic="agriculture"] {
+  --primary:#5ea175;
+  --seq-1:#005118; --seq-2:#006b36; --seq-3:#338655; --seq-4:#5ea175;
+  --seq-5:#86bd97; --seq-6:#add9ba; --seq-7:#d5f6df;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
