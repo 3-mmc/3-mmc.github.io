@@ -1,0 +1,9190 @@
+{
+ "venues": [
+  {
+   "venue": "Nowadays",
+   "city": "New York",
+   "count": 20,
+   "nights": [
+    {
+     "date": "2024-10-10",
+     "dow": "Thu",
+     "event": "BUT, CAN SHE SING?",
+     "lineup": [
+      "Kilopatrah Jones",
+      "Mike Servito",
+      "Nita Aviance"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-02-07",
+     "dow": "Fri",
+     "event": "GROOVY GROOVY",
+     "lineup": [
+      "Akanbi",
+      "anu",
+      "DJ Temporary",
+      "Ploy"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-02-16",
+     "dow": "Sun",
+     "event": "Nonstop",
+     "lineup": [
+      "JP Solis",
+      "DJ Python",
+      "Juliana Huxtable",
+      "Booty Spoon",
+      "Olof Dreijer",
+      "Ron Trent",
+      "Rose Kourts",
+      "MORENXXX",
+      "Musclecars",
+      "Guarionex"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-03-14",
+     "dow": "Fri",
+     "event": "Residency Night: JADALAREIGN invites",
+     "lineup": [
+      "JADALAREIGN",
+      "AshTreJinkins",
+      "Nedda Sou"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-03-28",
+     "dow": "Fri",
+     "event": "Nonstop",
+     "lineup": [
+      "Lychee",
+      "Feral Heruka",
+      "Spekki Webu",
+      "MORENXXX",
+      "LSDXOXO",
+      "LEONCE",
+      "A Highly Sensitive Black Woman",
+      "Kilopatrah Jones",
+      "Bobby Beethoven"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "SoundCloud",
+       "artist": "Lychee",
+       "url": "https://soundcloud.com/lycheefrut/lychee-nowadays-nonstop-03292025",
+       "title": "Nowadays Nonstop - March 29, 2025",
+       "minutes": 165
+      },
+      {
+       "source": "SoundCloud",
+       "artist": "LEONCE",
+       "url": "https://soundcloud.com/djleoatl/leonce-nonstop-29-mar-25",
+       "title": "at Nowadays Nonstop, 29 March 2025",
+       "minutes": 186
+      }
+     ]
+    },
+    {
+     "date": "2025-04-05",
+     "dow": "Sat",
+     "event": "Mister Nonstop",
+     "lineup": [
+      "Alexis Curshé",
+      "David Vunk",
+      "Floorplan",
+      "MZ3",
+      "Soul Summit",
+      "Veronica Vasicka"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-04-11",
+     "dow": "Fri",
+     "event": "Theo Parrish All Night",
+     "lineup": [
+      "Theo Parrish"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-05-11",
+     "dow": "Sun",
+     "event": "Nonstop → Mister Sunday — Season Opener",
+     "lineup": [
+      "Sii Sii",
+      "Shyboi",
+      "DJ Fuckoff",
+      "Maara",
+      "ISAbella",
+      "Pariah",
+      "Eamon Harkin",
+      "Justin Carter"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-05-18",
+     "dow": "Sun",
+     "event": "Nonstop → Mister Sunday",
+     "lineup": [
+      "DJ DEADNAME",
+      "Simo Cell",
+      "DJ G.",
+      "x3butterfly",
+      "Ayesha",
+      "Ben UFO",
+      "Laurel Halo",
+      "Justin Carter"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-05-25",
+     "dow": "Sun",
+     "event": "Nonstop → Mister Sunday — Memorial Day",
+     "lineup": [
+      "Yumi",
+      "Reptant",
+      "Kia (AU)",
+      "Special Guest",
+      "DJ Marfox b2b DJ Lycox",
+      "DjRUM",
+      "Justin Carter",
+      "Eamon Harkin"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-07-26",
+     "dow": "Sat",
+     "event": "Nonstop",
+     "lineup": [
+      "Crystallmess",
+      "JADALAREIGN",
+      "MORENXXX",
+      "OK Williams",
+      "Shyboi",
+      "Robert Armani"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-08-09",
+     "dow": "Sat",
+     "event": "Nonstop",
+     "lineup": [
+      "Ariel Zetina",
+      "Devoye",
+      "JASSS",
+      "Kenny Larkin",
+      "Matas",
+      "Nene H"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-08-15",
+     "dow": "Fri",
+     "event": "GROOVY GROOVY Nonstop",
+     "lineup": [
+      "Akanbi",
+      "Enayet",
+      "rrao",
+      "Kaidara",
+      "Kraeji",
+      "Queen Majesty",
+      "TSVI"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-08-23",
+     "dow": "Sat",
+     "event": "Nonstop → Mister Sunday",
+     "lineup": [
+      "DJ Healthy",
+      "Toumba",
+      "Shyboi",
+      "LOKA (US)",
+      "Memphy b2b FASHION (US)",
+      "Schacke",
+      "Eamon Harkin",
+      "Leeon"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-09-14",
+     "dow": "Sun",
+     "event": "Nonstop → Mister Sunday",
+     "lineup": [
+      "Connor Wrong",
+      "Shinedoe",
+      "Bambi (FR)",
+      "Aaron J",
+      "Antenes",
+      "Donato Dozzy",
+      "Duane Harriott"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-04-17",
+     "dow": "Fri",
+     "event": "Theo Parrish All Night",
+     "lineup": [
+      "Theo Parrish"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-07-04",
+     "dow": "Sat",
+     "event": "DJ Python All Night",
+     "lineup": [
+      "DJ Python"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-07-19",
+     "dow": "Sun",
+     "event": "Nonstop → Mister Sunday — World Cup Final",
+     "lineup": [
+      "DJ Synclaire (Nema Hän & aka-Sol)",
+      "Isabella Koen",
+      "Cry (Kilbourne & Relaxer)",
+      "Foodman",
+      "Doula",
+      "Primo",
+      "Baby Leo b2b DJ Plead",
+      "Mark Ernestus",
+      "Justin Carter",
+      "Eamon Harkin"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-07-31",
+     "dow": "Fri",
+     "event": "Foundations: Ayesha & Kangding Ray",
+     "lineup": [
+      "Ayesha",
+      "Kangding Ray"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-08-02",
+     "dow": "Sun",
+     "event": "Nonstop → Mister Sunday",
+     "lineup": [
+      "Rrose",
+      "Carrier",
+      "Timnah",
+      "Sevyn Love",
+      "Lauren Flax b2b Scotia",
+      "Carlos Souffront b2b Patrick Russell",
+      "Justin Carter",
+      "Bridge"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Basement / Knockdown Center",
+   "city": "New York",
+   "count": 13,
+   "nights": [
+    {
+     "date": "2023-09-30",
+     "dow": "Sat",
+     "event": "MALA JUNTA",
+     "lineup": [
+      "D.DAN",
+      "ELLE DEE",
+      "LYDO"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2023-11-10",
+     "dow": "Fri",
+     "event": "Wata Igarashi night",
+     "lineup": [
+      "WATA IGARASHI",
+      "VOLVOX",
+      "PAULA KOSKI",
+      "DAN SHAKE",
+      "JASON KENDIG",
+      "X3BUTTERFLY"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2024-04-28",
+     "dow": "Sun",
+     "event": "BASSIANI NIGHT",
+     "lineup": [
+      "FADI MOHEM",
+      "KANCHELI B2B PHILIPPA PACHO",
+      "NDRX",
+      "KIM ANN FOXMAN",
+      "MATAS",
+      "SEKUCCI"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2024-09-08",
+     "dow": "Sun",
+     "event": "FREDDY K",
+     "lineup": [
+      "FREDDY K",
+      "ALARICO",
+      "KAISER",
+      "LYDO",
+      "ROZA TERENZI",
+      "CALL SUPER",
+      "MATAS"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2024-09-21",
+     "dow": "Sat",
+     "event": "DANIEL AVERY",
+     "lineup": [
+      "DANIEL AVERY",
+      "DAIYAH",
+      "PEREL",
+      "LAUREL HALO",
+      "MASHA MAR"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-04-04",
+     "dow": "Fri",
+     "event": "FIST",
+     "lineup": [
+      "Hadone",
+      "Lawrence Lee",
+      "JADALAREIGN",
+      "Mx. Blaire",
+      "ALEXIS DE LA ROSA"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-05-10",
+     "dow": "Sat",
+     "event": "MALA JUNTA — Hyperaktivist, Nene H, ÆON (BASEMENT) / Yazzus, Sekucci, Dangerous Rose (STUDIO)",
+     "lineup": [
+      "Hyperaktivist",
+      "Nene H",
+      "ÆON",
+      "Yazzus",
+      "Sekucci",
+      "Dangerous Rose"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-05-16",
+     "dow": "Fri",
+     "event": "BOUND BLACKOUT",
+     "lineup": [
+      "BAUGRUPPE90",
+      "NEWA",
+      "KATIE REX",
+      "MARIE MONTEXIER",
+      "PHYSICAL THERAPY",
+      "GAG ØRDER"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-05-23",
+     "dow": "Fri",
+     "event": "Surgeon DJ set",
+     "lineup": [
+      "SURGEON (DJ SET)",
+      "HOLDEN FEDERICO",
+      "ELLE DEE",
+      "CINTHIE",
+      "HEIDI LAWDEN",
+      "KIM ANH"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-08-02",
+     "dow": "Sat",
+     "event": "Mala Junta day+night",
+     "lineup": [
+      "DJ Tool",
+      "Kim Ann Foxman",
+      "Shaun J. Wright",
+      "Makadsi",
+      "Sterling Juan Diaz",
+      "Josh Steers",
+      "Dr. Rubinstein",
+      "TT (NYC)",
+      "Ian Crane",
+      "Why Be"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-09-13",
+     "dow": "Sat",
+     "event": "WRECKED",
+     "lineup": [
+      "Ron Like Hell",
+      "Ryan Smith",
+      "KILOPATRAH JONES",
+      "KARIM OLEN ASH",
+      "PHLEGM"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-07-11",
+     "dow": "Sat",
+     "event": "HERRENSAUNA 10 YEARS",
+     "lineup": [
+      "MCMLXXXV",
+      "DJ TOOL",
+      "PRINCESS PEGGIE",
+      "CEM",
+      "PAURRO",
+      "DJPT"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-07-25",
+     "dow": "Sat",
+     "event": "UFO95 LIVE",
+     "lineup": [
+      "UFO95",
+      "ALTINBAS",
+      "COTTON",
+      "SHAUN J.WRIGHT",
+      "COLORED CRAIG",
+      "NAT WENDELL"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "De School",
+   "city": "Amsterdam",
+   "count": 10,
+   "nights": [
+    {
+     "date": "2023-02-11",
+     "dow": "Sat",
+     "event": "Interstellar Funk",
+     "lineup": [
+      "Interstellar Funk",
+      "Loradeniz",
+      "Kangding Ray",
+      "Newa",
+      "Remma"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "Het Archief",
+       "artist": "Loradeniz",
+       "url": "https://hetarchief.deschoolamsterdam.nl/sets/11-02-2023_saturday_club-night_loradeniz_het-muzieklokaal/",
+       "title": "Het Muzieklokaal",
+       "minutes": null
+      }
+     ]
+    },
+    {
+     "date": "2023-02-25",
+     "dow": "Sat",
+     "event": "Het Weekend",
+     "lineup": [
+      "audt98",
+      "Solid Blake",
+      "Somewhen",
+      "Nedda Sou",
+      "Tarzsa",
+      "BSS",
+      "Luna Ludmila & Vand",
+      "Deadbeat & Sa Pa",
+      "Ehua",
+      "AliA",
+      "Skee Mask"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2023-03-18",
+     "dow": "Sat",
+     "event": "Club night",
+     "lineup": [
+      "Fio Fa",
+      "Roza Terenzi",
+      "D.Dan",
+      "Nelly",
+      "Quelza"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "Het Archief",
+       "artist": "Roza Terenzi",
+       "url": "https://hetarchief.deschoolamsterdam.nl/sets/18-03-2023_saturday_club-night_roza-terenzi_het-muzieklokaal/",
+       "title": "Het Muzieklokaal",
+       "minutes": null
+      },
+      {
+       "source": "Het Archief",
+       "artist": "Quelza",
+       "url": "https://hetarchief.deschoolamsterdam.nl/sets/18-03-2023_saturday_club-night_quelza_de-club/",
+       "title": "De Club",
+       "minutes": null
+      }
+     ]
+    },
+    {
+     "date": "2023-03-25",
+     "dow": "Sat",
+     "event": "Het Weekend",
+     "lineup": [
+      "Batu",
+      "BERTON",
+      "Carlos Valdes",
+      "Club Fitness",
+      "Facta b2b K-LONE",
+      "James Ruskin",
+      "Jennifer Loveless",
+      "Kameliia",
+      "k means"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "SoundCloud",
+       "artist": "Facta b2b K-LONE",
+       "url": "https://soundcloud.com/wisdomteeth-uk/facta-b2b-k-lone-de-school-26032023-sunday-het-weekend-het-muzieklokaal",
+       "title": "De School - 26/03/2023 Sunday Het Weekend - Het Muzieklokaal",
+       "minutes": 186
+      }
+     ]
+    },
+    {
+     "date": "2023-04-01",
+     "dow": "Sat",
+     "event": "Club night",
+     "lineup": [
+      "Anthony Naples",
+      "Buttechno",
+      "Djrum",
+      "Katatonic Silentio",
+      "mad miran"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "Het Archief",
+       "artist": "Anthony Naples",
+       "url": "https://hetarchief.deschoolamsterdam.nl/sets/01-04-2023_saturday_club-night_anthony-naples_het-muzieklokaal/",
+       "title": "Het Muzieklokaal",
+       "minutes": null
+      },
+      {
+       "source": "Het Archief",
+       "artist": "Buttechno",
+       "url": "https://hetarchief.deschoolamsterdam.nl/sets/01-04-2023_saturday_club-night_buttechno_het-muzieklokaal/",
+       "title": "Het Muzieklokaal",
+       "minutes": null
+      },
+      {
+       "source": "Het Archief",
+       "artist": "Katatonic Silentio",
+       "url": "https://hetarchief.deschoolamsterdam.nl/sets/01-04-2023_saturday_club-night_katatonic-silentio_de-club/",
+       "title": "De Club",
+       "minutes": null
+      }
+     ]
+    },
+    {
+     "date": "2023-06-10",
+     "dow": "Sat",
+     "event": "Antenes",
+     "lineup": [
+      "Antenes",
+      "Mario Picosso",
+      "SPFDJ"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "Het Archief",
+       "artist": "Antenes",
+       "url": "https://hetarchief.deschoolamsterdam.nl/sets/10-06-2023_saturday_club-night_antenes_de-club/",
+       "title": "De Club",
+       "minutes": null
+      },
+      {
+       "source": "Het Archief",
+       "artist": "SPFDJ",
+       "url": "https://hetarchief.deschoolamsterdam.nl/sets/10-06-2023_saturday_club-night_spfdj_de-club/",
+       "title": "De Club",
+       "minutes": null
+      }
+     ]
+    },
+    {
+     "date": "2023-06-24",
+     "dow": "Sat",
+     "event": "Het Weekend",
+     "lineup": [
+      "Afra",
+      "Amelia Holt",
+      "Dasha Rush",
+      "Interstellar Funk",
+      "Introspekt",
+      "Kia",
+      "Kombé",
+      "Luca Lozano",
+      "Paramida",
+      "Speedy J",
+      "Sunju Hargun",
+      "Thoms Traxx",
+      "Woody92"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2023-07-01",
+     "dow": "Sat",
+     "event": "DRKNGHTS",
+     "lineup": [
+      "DRKNGHTS",
+      "MARRØN"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "Het Archief",
+       "artist": "DRKNGHTS",
+       "url": "https://hetarchief.deschoolamsterdam.nl/sets/01-07-2023_saturday_club-night_drknghts_de-club/",
+       "title": "De Club",
+       "minutes": null
+      }
+     ]
+    },
+    {
+     "date": "2023-07-08",
+     "dow": "Sat",
+     "event": "De Zomernacht",
+     "lineup": [
+      "Function",
+      "Vân Anh"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "Het Archief",
+       "artist": "Function",
+       "url": "https://hetarchief.deschoolamsterdam.nl/sets/08-07-2023_saturday_de-zomernacht_function_de-club/",
+       "title": "De Club",
+       "minutes": null
+      },
+      {
+       "source": "Het Archief",
+       "artist": "Vân Anh",
+       "url": "https://hetarchief.deschoolamsterdam.nl/sets/08-07-2023_saturday_de-zomernacht_van-anh_de-club/",
+       "title": "De Club",
+       "minutes": null
+      }
+     ]
+    },
+    {
+     "date": "2023-07-14",
+     "dow": "Fri",
+     "event": "De Zomernacht 14/7 co-curated by Pamela",
+     "lineup": [
+      "BADSISTA",
+      "bebe bad",
+      "Lola Edo",
+      "Josey Rebelle",
+      "OISHĪ",
+      "DJ Shahmaran",
+      "DYKEHAUS"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "FOLD",
+   "city": "London",
+   "count": 6,
+   "nights": [
+    {
+     "date": "2025-10-03",
+     "dow": "Fri",
+     "event": "Tech Couture x De Reünie",
+     "lineup": [
+      "Amphia",
+      "Twelve Seven",
+      "Beste Hira",
+      "CRYME",
+      "Cybersex",
+      "Debbie.",
+      "Schacke",
+      "Blasha & Allatt"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-10-12",
+     "dow": "Sun",
+     "event": "UNFOLD CVIII",
+     "lineup": [
+      "Tasman",
+      "Lockhart",
+      "Mari Sakurai",
+      "Rosati",
+      "Justine Perry",
+      "Sybil",
+      "Human Safari",
+      "Paula Koski",
+      "Yazzus"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "SoundCloud",
+       "artist": "Tasman",
+       "url": "https://soundcloud.com/tasmantechno/tasman-unfold-cviii-live-recording-121025",
+       "title": "Unfold CVIII Live Recording 12/10/25",
+       "minutes": 117
+      }
+     ]
+    },
+    {
+     "date": "2025-10-26",
+     "dow": "Sun",
+     "event": "UNFOLD CIX",
+     "lineup": [
+      "Focus Congo",
+      "DJ Winggold",
+      "Vinicius Honorio",
+      "Josh Caffé",
+      "Gloria Rose",
+      "Mosai",
+      "Reenie",
+      "Danielle",
+      "Kessie",
+      "Saroor"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "SoundCloud",
+       "artist": "DJ Winggold",
+       "url": "https://soundcloud.com/unboundevents/dj-winggold-unfold-cix-visceral-actualisation-in-motion-26102025",
+       "title": "UNFOLD CIX // VISCERAL ACTUALISATION IN MOTION [26.10.2025]",
+       "minutes": 113
+      },
+      {
+       "source": "SoundCloud",
+       "artist": "Gloria Rose",
+       "url": "https://soundcloud.com/grmck/unfold-2408",
+       "title": "UNFOLD Set 26.10.25",
+       "minutes": 113
+      },
+      {
+       "source": "SoundCloud",
+       "artist": "Saroor",
+       "url": "https://soundcloud.com/sarrahyassin/saroor-live-at-unfold-cix-26",
+       "title": "Live at Unfold CIX - 26/10/25",
+       "minutes": 123
+      }
+     ]
+    },
+    {
+     "date": "2025-12-07",
+     "dow": "Sun",
+     "event": "UNFOLD CXII",
+     "lineup": [
+      "Xandy",
+      "Oliver Scala",
+      "Julie Desire",
+      "François X",
+      "UVB",
+      "Alinka",
+      "Patrick Russell",
+      "Hyperaktivist",
+      "DJ Tool",
+      "Miss Akuac"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "SoundCloud",
+       "artist": "UVB",
+       "url": "https://soundcloud.com/uvb/uvbatunfoldcxii",
+       "title": "Unfold CXII 21.12.25",
+       "minutes": 122
+      },
+      {
+       "source": "SoundCloud",
+       "artist": "Xandy",
+       "url": "https://soundcloud.com/xandyuk/xandy-unfold-cxii-07-12-25",
+       "title": "UNFOLD CXII / 07.12.25",
+       "minutes": 121
+      }
+     ]
+    },
+    {
+     "date": "2026-05-24",
+     "dow": "Sun",
+     "event": "UNFOLD CXXIII",
+     "lineup": [
+      "Mara Menace",
+      "Ly Sas",
+      "Mari Sakurai",
+      "Vilchezz",
+      "ANDRØMEDA",
+      "Hadone",
+      "Kwartz",
+      "Paula Koski",
+      "AgainstMe",
+      "Rachel Noon",
+      "Pink Concrete",
+      "Manami",
+      "TeMo",
+      "Marius Bø",
+      "Twelve Seven",
+      "Tasha",
+      "Anabel Arroyo",
+      "Belin",
+      "Toothtaxi",
+      "re:ni",
+      "Aza Şeva",
+      "HEZEN",
+      "Riva",
+      "Schacke",
+      "Tedesco",
+      "Rawting",
+      "Znzl",
+      "ANNX",
+      "softi",
+      "Pharma",
+      "NOXATRA",
+      "Commissar Lag",
+      "Voicedrone"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "SoundCloud",
+       "artist": "Vilchezz",
+       "url": "https://soundcloud.com/vilchez_wav/vilchezz-unfold-cxxiii-fold",
+       "title": "UNFOLD CXXIII | Fold London | 25 May 2026",
+       "minutes": 118
+      },
+      {
+       "source": "SoundCloud",
+       "artist": "Toothtaxi",
+       "url": "https://soundcloud.com/toothtaxi/toothtaxi-unfold-cxxiii-24-05",
+       "title": "UNFOLD CXXIII 24.05.26 LIVE RECORDING",
+       "minutes": 118
+      },
+      {
+       "source": "SoundCloud",
+       "artist": "Znzl",
+       "url": "https://soundcloud.com/znzl/znzl-unfold-cxxiii",
+       "title": "Unfold CXXIII",
+       "minutes": 107
+      },
+      {
+       "source": "SoundCloud",
+       "artist": "Rawting",
+       "url": "https://soundcloud.com/rawting/unfoldcxxiii",
+       "title": "UNFOLD CXXIII Set (25/5/2026)",
+       "minutes": 126
+      },
+      {
+       "source": "SoundCloud",
+       "artist": "HEZEN",
+       "url": "https://soundcloud.com/sarahezen/hezen-unfold-cxxiii-live",
+       "title": "UNFOLD CXXIII • 24.05.26 [hybrid-live]",
+       "minutes": 119
+      }
+     ]
+    },
+    {
+     "date": "2026-06-13",
+     "dow": "Sat",
+     "event": "Tech Couture",
+     "lineup": [
+      "Chlär",
+      "ANNĒ",
+      "Mac Declos",
+      "Pablo Bozzi",
+      "Blasha & Allatt",
+      "BLANKA",
+      "Amphia",
+      "S3BA"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Drugstore",
+   "city": "Belgrade",
+   "count": 5,
+   "nights": [
+    {
+     "date": "2022-08-27",
+     "dow": "Sat",
+     "event": "Kišobran",
+     "lineup": [
+      "Kišobran DJs",
+      "Nevena Jeremić",
+      "Aleksandra Hrib",
+      "Ana Uzelac"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2022-09-02",
+     "dow": "Fri",
+     "event": "Matrixxman",
+     "lineup": [
+      "Matrixxman",
+      "Milo Raad",
+      "Muhi"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2022-09-09",
+     "dow": "Fri",
+     "event": "Petar Martić + From The Heart",
+     "lineup": [
+      "Petar Martić",
+      "Nomark",
+      "Akomeneželiš",
+      "Andreja Laren",
+      "Kai Virtual"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2022-10-21",
+     "dow": "Fri",
+     "event": "Boston 168 — Music Reactions",
+     "lineup": [
+      "Boston 168",
+      "RAR",
+      "Vrag",
+      "Rèdacs"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2022-10-28",
+     "dow": "Fri",
+     "event": "Héctor Oaks",
+     "lineup": [
+      "Héctor Oaks",
+      "Stepn‡ak",
+      "whitegirlstudyplaylist",
+      "AM Hi",
+      "Layzie",
+      "Odopt",
+      "Schwabe"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Mansions",
+   "city": "New York",
+   "count": 5,
+   "nights": [
+    {
+     "date": "2023-11-10",
+     "dow": "Fri",
+     "event": "Facets All Night Long",
+     "lineup": [
+      "Kool Kat",
+      "Facets"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-05-01",
+     "dow": "Fri",
+     "event": "Anthony Parasole All Night Long",
+     "lineup": [
+      "ANICHE",
+      "Anthony Parasole"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-07-17",
+     "dow": "Fri",
+     "event": "DJ G All Night Long",
+     "lineup": [
+      "DJ K2",
+      "DJ G"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-07-18",
+     "dow": "Sat",
+     "event": "Manny & Sergio Dimoff / Daniel Dutts",
+     "lineup": [
+      "Manny",
+      "Sergio Dimoff",
+      "Daniel Dutts"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-07-19",
+     "dow": "Sun",
+     "event": "Burlington Electronic Department",
+     "lineup": [
+      "Music Lovers Anonymous",
+      "Crackhead Barney",
+      "Mole",
+      "Roost.World"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Radion",
+   "city": "Amsterdam",
+   "count": 4,
+   "nights": [
+    {
+     "date": "2023-03-11",
+     "dow": "Sat",
+     "event": "Disturbia",
+     "lineup": [
+      "Dominika Karaszewska",
+      "Karina Schneider",
+      "MCMLXXXV",
+      "Mystral",
+      "Nacho",
+      "Setaoc Mass"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "SoundCloud",
+       "artist": "Nacho",
+       "url": "https://soundcloud.com/disturbia-amsterdam/nacho-disturbia-4-radion-11-mar-2023",
+       "title": "DISTURBIA #4 - RADION | 11 MAR 2023",
+       "minutes": 181
+      }
+     ]
+    },
+    {
+     "date": "2023-05-12",
+     "dow": "Fri",
+     "event": "Steve Rachmad",
+     "lineup": [
+      "Disturbia",
+      "Beatrice",
+      "Cardo",
+      "Nacho",
+      "Ohce",
+      "Steve Rachmad",
+      "Sukubratz",
+      "Wata Igarashi"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "SoundCloud",
+       "artist": "Ohce",
+       "url": "https://soundcloud.com/disturbia-amsterdam/disturbia-bk1",
+       "title": "DISTURBIA #5 - RADION | 13 MAY 2023",
+       "minutes": 122
+      },
+      {
+       "source": "SoundCloud",
+       "artist": "Cardo",
+       "url": "https://soundcloud.com/disturbia-amsterdam/cardo-disturbia-5-radion-13-may-2023",
+       "title": "DISTURBIA #5 - RADION | 13 MAY 2023",
+       "minutes": 182
+      }
+     ]
+    },
+    {
+     "date": "2023-06-09",
+     "dow": "Fri",
+     "event": "The Echo Series 03",
+     "lineup": [
+      "Altinbas",
+      "Cirkle",
+      "Hitam",
+      "Inox Traxx",
+      "KETCH",
+      "Robin Kampschoer",
+      "y.unan"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2023-06-17",
+     "dow": "Sat",
+     "event": "RADION invites DRIFT Kyiv",
+     "lineup": [
+      "SOCIAL VLAD",
+      "HANNAH (NL)",
+      "Ruslan Mays",
+      "Kichi Kazuko",
+      "Nur Jaber",
+      "Liane",
+      "Technoslave_69"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Unlisted warehouse (Brooklyn)",
+   "city": "New York",
+   "count": 4,
+   "nights": [
+    {
+     "date": "2025-01-29",
+     "dow": "Wed",
+     "event": "Open Decks",
+     "lineup": [
+      "STEEN",
+      "MZ3"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-09-13",
+     "dow": "Sat",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    },
+    {
+     "date": "2026-02-27",
+     "dow": "Fri",
+     "event": "Skee Mask: A Strange Tour",
+     "lineup": [
+      "Skee Mask"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-07-18",
+     "dow": "Sat",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Melkweg",
+   "city": "Amsterdam",
+   "count": 3,
+   "nights": [
+    {
+     "date": "2023-02-20",
+     "dow": "Mon",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    },
+    {
+     "date": "2023-02-21",
+     "dow": "Tue",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    },
+    {
+     "date": "2023-06-05",
+     "dow": "Mon",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "OXI",
+   "city": "Berlin",
+   "count": 3,
+   "nights": [
+    {
+     "date": "2022-07-02",
+     "dow": "Sat",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    },
+    {
+     "date": "2022-11-26",
+     "dow": "Sat",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    },
+    {
+     "date": "2024-06-14",
+     "dow": "Fri",
+     "event": "LE TEMPLE x VESELKA",
+     "lineup": [
+      "Tweeman",
+      "Vani Vachi",
+      "Ruslan Mays",
+      "Daisy Weweh",
+      "Reita D Russo",
+      "CatMint",
+      "Esengo",
+      "Dream Miyake-Mugler",
+      "Blackpearl 007",
+      "Rico West",
+      "Candy Makaveli",
+      "Kvirtet collective",
+      "Giovvvanna"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "RSO.Berlin",
+   "city": "Berlin",
+   "count": 3,
+   "nights": [
+    {
+     "date": "2023-07-30",
+     "dow": "Sun",
+     "event": "RADIANCE / 30 Hours",
+     "lineup": [
+      "Alpha Tracks",
+      "ATEQ",
+      "Audrey Danza",
+      "Bjarki",
+      "Coco Cobra",
+      "Daniel Avery",
+      "Dangermami",
+      "David Löhlein",
+      "Rove Ranger",
+      "Disguised",
+      "DJ ALI",
+      "DJ SWISHA",
+      "Kush Jones",
+      "Enyang Ha",
+      "Exos",
+      "Gesloten Cirkel",
+      "Goldie",
+      "Julien Bracht",
+      "Kai Campos",
+      "KTK (DE)",
+      "Len Faki",
+      "LAB93.exe",
+      "LUZ1E",
+      "Ngoni Egan",
+      "MXJ",
+      "Otik",
+      "Quest",
+      "RONI",
+      "RUTHLSS",
+      "Shampain",
+      "slin",
+      "Special Request",
+      "Tijana T",
+      "Third Wife",
+      "Villa"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2023-08-15",
+     "dow": "Tue",
+     "event": "Club night",
+     "lineup": [
+      "Colors and the Kids",
+      "Ines Graf"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2024-06-28",
+     "dow": "Fri",
+     "event": "ULTRANOVA",
+     "lineup": [
+      "Caniche",
+      "Lobster (NL)",
+      "Remco Beekwilder",
+      "Xiorro"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Re:mise",
+   "city": "Berlin",
+   "count": 3,
+   "nights": [
+    {
+     "date": "2022-06-21",
+     "dow": "Tue",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    },
+    {
+     "date": "2023-07-22",
+     "dow": "Sat",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    },
+    {
+     "date": "2023-08-21",
+     "dow": "Mon",
+     "event": "SINGULARITY MONDAY RAVE",
+     "lineup": [
+      "Reka",
+      "Unhuman",
+      "Ottoman Grüw",
+      "turmanuma"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "about blank",
+   "city": "Berlin",
+   "count": 3,
+   "nights": [
+    {
+     "date": "2022-06-17",
+     "dow": "Fri",
+     "event": "No lineup published",
+     "lineup": [],
+     "unknown": "about blank does not publish lineups — no source exists for this night.",
+     "recordings": []
+    },
+    {
+     "date": "2023-07-20",
+     "dow": "Thu",
+     "event": "No lineup published",
+     "lineup": [],
+     "unknown": "about blank does not publish lineups — no source exists for this night.",
+     "recordings": []
+    },
+    {
+     "date": "2024-06-26",
+     "dow": "Wed",
+     "event": "No lineup published",
+     "lineup": [],
+     "unknown": "about blank does not publish lineups — no source exists for this night.",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Bossa Nova Civic Club",
+   "city": "New York",
+   "count": 2,
+   "nights": [
+    {
+     "date": "2025-08-27",
+     "dow": "Wed",
+     "event": "Doomscroll Forever",
+     "lineup": [],
+     "unknown": "Doomscroll Forever — a Wednesday-night party, not a DJ billed by name.",
+     "recordings": []
+    },
+    {
+     "date": "2026-07-19",
+     "dow": "Sun",
+     "event": "Psyk",
+     "lineup": [
+      "Psyk"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Le Bain",
+   "city": "New York",
+   "count": 2,
+   "nights": [
+    {
+     "date": "2025-02-17",
+     "dow": "Mon",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    },
+    {
+     "date": "2025-05-03",
+     "dow": "Sat",
+     "event": "Tony Humphries All Night",
+     "lineup": [
+      "Tony Humphries"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Levenslang",
+   "city": "Amsterdam",
+   "count": 2,
+   "nights": [
+    {
+     "date": "2023-03-04",
+     "dow": "Sat",
+     "event": "Eurotunnel by Spuistreet Records & Etape",
+     "lineup": [
+      "DJ Fart in the Club",
+      "Nathan Homan",
+      "Mata Disk",
+      "Stëfän Däniëls",
+      "DJ Delivero",
+      "Crinkhoff"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2024-07-12",
+     "dow": "Fri",
+     "event": "Levenslang Presents",
+     "lineup": [
+      "ANGEL D'LITE",
+      "DJ SWEET6TEEN"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Lofi",
+   "city": "Amsterdam",
+   "count": 2,
+   "nights": [
+    {
+     "date": "2023-04-27",
+     "dow": "Thu",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    },
+    {
+     "date": "2023-07-09",
+     "dow": "Sun",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "fabric",
+   "city": "London",
+   "count": 2,
+   "nights": [
+    {
+     "date": "2025-09-26",
+     "dow": "Fri",
+     "event": "fabric",
+     "lineup": [
+      "Roman Flügel",
+      "Ivan Smagghe",
+      "Free Zing",
+      "Harri Pepper",
+      "Lukas Wigflex"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2025-12-07",
+     "dow": "Sun",
+     "event": "Marcel Dettmann · 10 Years of Yoyaku",
+     "lineup": [
+      "Marcel Dettmann",
+      "Zenker Brothers",
+      "Jayson Wynters",
+      "Magda",
+      "Enrica Falqui",
+      "Josh Caffé",
+      "Zeina",
+      "Anna Wall",
+      "Kian OK"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Baby's All Right",
+   "city": "New York",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2024-11-10",
+     "dow": "Sun",
+     "event": "Croatian Amor",
+     "lineup": [
+      "Croatian Amor"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Bassiani",
+   "city": "Tbilisi",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2022-12-03",
+     "dow": "Sat",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Bowery Electric",
+   "city": "New York",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2025-04-14",
+     "dow": "Mon",
+     "event": "PWRHOUSE",
+     "lineup": [
+      "Shallowhalo",
+      "GRBGE_GRL",
+      "Pisha",
+      "Valley Latini"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Brighton Music Hall",
+   "city": "Boston",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2023-09-20",
+     "dow": "Wed",
+     "event": "Overmono: World Tour 2023",
+     "lineup": [
+      "Overmono"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Club RAUM",
+   "city": "Amsterdam",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2024-07-13",
+     "dow": "Sat",
+     "event": "SAT. 13 JUL | CEM, Nathan Homan & NIKS",
+     "lineup": [
+      "CEM",
+      "Nathan Homan",
+      "NIKS"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "DIY spot (Berlin)",
+   "city": "Berlin",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2025-07-11",
+     "dow": "Fri",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "E1",
+   "city": "London",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2025-12-12",
+     "dow": "Fri",
+     "event": "Ben Klock",
+     "lineup": [
+      "Ben Klock"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "El Rey",
+   "city": "Los Angeles",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2024-10-05",
+     "dow": "Sat",
+     "event": "Sega Bodega (Live)",
+     "lineup": [
+      "Sega Bodega"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Electrowerkz",
+   "city": "London",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2025-11-14",
+     "dow": "Fri",
+     "event": "Riposte queer rave FIGHT CLUB",
+     "lineup": [
+      "Animistic Beliefs"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Eutopia Warehouse",
+   "city": "London",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2025-10-31",
+     "dow": "Fri",
+     "event": "HOWLOWEEN Queer rave",
+     "lineup": [],
+     "unknown": "HOWLOWEEN — a queer Halloween rave in an Ilford warehouse.",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Fandango (Plötzensee)",
+   "city": "Berlin",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2024-06-18",
+     "dow": "Tue",
+     "event": "Tuesday at the Beach",
+     "lineup": [
+      "Adisisok",
+      "Chew Chew",
+      "Freddy",
+      "Oscar"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Farola",
+   "city": "Lisbon",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2023-08-13",
+     "dow": "Sun",
+     "event": "Paradise.music",
+     "lineup": [
+      "Chichol",
+      "ivimusick"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Garage Noord",
+   "city": "Amsterdam",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2023-06-03",
+     "dow": "Sat",
+     "event": "Tygapaw",
+     "lineup": [
+      "Tygapaw",
+      "DRKNGHTS",
+      "Foday",
+      "Romens Dawn"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Infra Boston",
+   "city": "Boston",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2024-04-11",
+     "dow": "Thu",
+     "event": "Infra presents SPFDJ & Annie Lew",
+     "lineup": [
+      "SPFDJ",
+      "Annie Lew"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "KitKatClub",
+   "city": "Berlin",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2022-07-04",
+     "dow": "Mon",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Mint Bar",
+   "city": "Barcelona",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2023-08-16",
+     "dow": "Wed",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Newtown Radio",
+   "city": "New York",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2026-05-01",
+     "dow": "Fri",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Secret warehouse (LA)",
+   "city": "Los Angeles",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2024-05-31",
+     "dow": "Fri",
+     "event": "program",
+     "lineup": [
+      "b0nitababy",
+      "BUTTFACE",
+      "Selhouette",
+      "sfcowboy",
+      "Izella",
+      "MIÑIN"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Sexyland World",
+   "city": "Amsterdam",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2023-02-16",
+     "dow": "Thu",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Shelter",
+   "city": "Amsterdam",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2023-02-17",
+     "dow": "Fri",
+     "event": "Shelter | Mord 10 Years",
+     "lineup": [
+      "Bas Mooy",
+      "Nadia Struiwigh",
+      "ROD",
+      "Thanos Hana",
+      "Quelza"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Sissi's Expo-Resto",
+   "city": "Berlin",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2023-01-01",
+     "dow": "Sun",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Sisyphos",
+   "city": "Berlin",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2024-06-29",
+     "dow": "Sat",
+     "event": "",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Sound Nightclub",
+   "city": "Los Angeles",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2024-09-26",
+     "dow": "Thu",
+     "event": "Nooriyah",
+     "lineup": [
+      "Nooriyah"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "The Love Song",
+   "city": "Los Angeles",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2024-05-17",
+     "dow": "Fri",
+     "event": "JBW presents Everything Is Everything",
+     "lineup": [
+      "Nikes",
+      "coldsweat",
+      "JAE JBW",
+      "Alleygorgon",
+      "DJ Noir",
+      "TR-666"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Tresor",
+   "city": "Berlin",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2024-06-26",
+     "dow": "Wed",
+     "event": "New Faces",
+     "lineup": [],
+     "unknown": "New Faces — Tresor’s Wednesday night, the slot the club gives to artists making their debut there.",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Vent",
+   "city": "Tokyo",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2024-05-25",
+     "dow": "Sat",
+     "event": "Club night",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Xanadu Roller Arts",
+   "city": "New York",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2025-03-22",
+     "dow": "Sat",
+     "event": "Disco Tehran — Nowruz in New York",
+     "lineup": [
+      "Sonido Gallo Negro",
+      "Kim Anh",
+      "Nickodemus",
+      "Sticky Dojah"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Zur Wilden Renate",
+   "city": "Berlin",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2024-07-05",
+     "dow": "Fri",
+     "event": "Renate Klubnacht",
+     "lineup": [
+      "Hypnotic Black Magic",
+      "Aksamit",
+      "Pushmann",
+      "Stratos",
+      "Apoena",
+      "Bavaresco",
+      "Adine Frost",
+      "Lenny Mailleau",
+      "Ramona Yacef",
+      "Topper"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "SoundCloud",
+       "artist": "Pushmann",
+       "url": "https://soundcloud.com/pushmann/pushmann-renate-berlin-05072024",
+       "title": "Renate (Berlín) 05.07.2024",
+       "minutes": 151
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "venue": "backsteinboot",
+   "city": "Berlin",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2025-07-05",
+     "dow": "Sat",
+     "event": "HyperrTerra Openair",
+     "lineup": [
+      "Christian Coiffure",
+      "D.K.",
+      "Jacky Jeane",
+      "LILLI",
+      "Zylka",
+      "livwutang",
+      "Konsudd (Konduku + Aa Sudd)",
+      "Priori",
+      "Souzo (live)",
+      "Tangela"
+     ],
+     "unknown": "",
+     "recordings": [
+      {
+       "source": "SoundCloud",
+       "artist": "LILLI",
+       "url": "https://soundcloud.com/midgar_records/lilli_zylka_midgar_useless_seconds",
+       "title": "Zylka at Midgar x Useless Seconds - Backsteinboot, Berlin 5th July 2025",
+       "minutes": 86
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "artists": [
+  {
+   "id": "dj-a-highly-sensitive-black-woman",
+   "name": "A Highly Sensitive Black Woman",
+   "times": 1,
+   "first": "2025-03-28",
+   "last": "2025-03-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-alarico",
+   "name": "ALARICO",
+   "times": 1,
+   "first": "2024-09-08",
+   "last": "2024-09-08",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-alexis-de-la-rosa",
+   "name": "ALEXIS DE LA ROSA",
+   "times": 1,
+   "first": "2025-04-04",
+   "last": "2025-04-04",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-altinbas",
+   "name": "Altinbas",
+   "times": 2,
+   "first": "2023-06-09",
+   "last": "2026-07-25",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-am-hi",
+   "name": "AM Hi",
+   "times": 1,
+   "first": "2022-10-28",
+   "last": "2022-10-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-andr-meda",
+   "name": "ANDRØMEDA",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-angel-d-lite",
+   "name": "ANGEL D'LITE",
+   "times": 1,
+   "first": "2024-07-12",
+   "last": "2024-07-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Levenslang"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-aniche",
+   "name": "ANICHE",
+   "times": 1,
+   "first": "2026-05-01",
+   "last": "2026-05-01",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-annx",
+   "name": "ANNX",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ann",
+   "name": "ANNĒ",
+   "times": 1,
+   "first": "2026-06-13",
+   "last": "2026-06-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ateq",
+   "name": "ATEQ",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-adine-frost",
+   "name": "Adine Frost",
+   "times": 1,
+   "first": "2024-07-05",
+   "last": "2024-07-05",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Renate",
+    "Zur Wilden Renate"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-adisisok",
+   "name": "Adisisok",
+   "times": 1,
+   "first": "2024-06-18",
+   "last": "2024-06-18",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Fandango",
+    "Fandango (Plötzensee)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-afra",
+   "name": "Afra",
+   "times": 1,
+   "first": "2023-06-24",
+   "last": "2023-06-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-againstme",
+   "name": "AgainstMe",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-akanbi",
+   "name": "Akanbi",
+   "times": 2,
+   "first": "2025-02-07",
+   "last": "2025-08-15",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-akomene-eli",
+   "name": "Akomeneželiš",
+   "times": 1,
+   "first": "2022-09-09",
+   "last": "2022-09-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-aksamit",
+   "name": "Aksamit",
+   "times": 1,
+   "first": "2024-07-05",
+   "last": "2024-07-05",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Renate",
+    "Zur Wilden Renate"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-aleksandra-hrib",
+   "name": "Aleksandra Hrib",
+   "times": 1,
+   "first": "2022-08-27",
+   "last": "2022-08-27",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-alexis-cursh",
+   "name": "Alexis Curshé",
+   "times": 1,
+   "first": "2025-04-05",
+   "last": "2025-04-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-alia",
+   "name": "AliA",
+   "times": 1,
+   "first": "2023-02-25",
+   "last": "2023-02-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-alinka",
+   "name": "Alinka",
+   "times": 1,
+   "first": "2025-12-07",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-alleygorgon",
+   "name": "Alleygorgon",
+   "times": 1,
+   "first": "2024-05-17",
+   "last": "2024-05-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "The Love Song"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-alpha-tracks",
+   "name": "Alpha Tracks",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-amal-brc",
+   "name": "Amal (BRC)",
+   "times": 1,
+   "first": "2024-05-15",
+   "last": "2024-05-15",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "(unknown)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-amelia-holt",
+   "name": "Amelia Holt",
+   "times": 1,
+   "first": "2023-06-24",
+   "last": "2023-06-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-amphia",
+   "name": "Amphia",
+   "times": 2,
+   "first": "2025-10-03",
+   "last": "2026-06-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ana-uzelac",
+   "name": "Ana Uzelac",
+   "times": 1,
+   "first": "2022-08-27",
+   "last": "2022-08-27",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-anabel-arroyo",
+   "name": "Anabel Arroyo",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-andreja-laren",
+   "name": "Andreja Laren",
+   "times": 1,
+   "first": "2022-09-09",
+   "last": "2022-09-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-angel-attack",
+   "name": "Angel Attack",
+   "times": 1,
+   "first": "2024-04-05",
+   "last": "2024-04-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Infra Boston"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-animistic-beliefs",
+   "name": "Animistic Beliefs",
+   "times": 1,
+   "first": "2025-11-14",
+   "last": "2025-11-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Electrowerkz"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-anna-wall",
+   "name": "Anna Wall",
+   "times": 2,
+   "first": "2025-12-06",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-annie-lew",
+   "name": "Annie Lew",
+   "times": 1,
+   "first": "2024-04-11",
+   "last": "2024-04-11",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Infra Boston"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-antenes",
+   "name": "Antenes",
+   "times": 2,
+   "first": "2023-06-10",
+   "last": "2025-09-14",
+   "clubs": 2,
+   "recordings": 1,
+   "where": [
+    "De School",
+    "Nowadays"
+   ],
+   "rec_links": [
+    "https://hetarchief.deschoolamsterdam.nl/sets/10-06-2023_saturday_club-night_antenes_de-club/"
+   ]
+  },
+  {
+   "id": "dj-anthony-naples",
+   "name": "Anthony Naples",
+   "times": 1,
+   "first": "2023-04-01",
+   "last": "2023-04-01",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "De School"
+   ],
+   "rec_links": [
+    "https://hetarchief.deschoolamsterdam.nl/sets/01-04-2023_saturday_club-night_anthony-naples_het-muzieklokaal/"
+   ]
+  },
+  {
+   "id": "dj-anthony-parasole",
+   "name": "Anthony Parasole",
+   "times": 1,
+   "first": "2026-05-01",
+   "last": "2026-05-01",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-apoena",
+   "name": "Apoena",
+   "times": 1,
+   "first": "2024-07-05",
+   "last": "2024-07-05",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Renate",
+    "Zur Wilden Renate"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ariel-zetina",
+   "name": "Ariel Zetina",
+   "times": 1,
+   "first": "2025-08-09",
+   "last": "2025-08-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ashtrejinkins",
+   "name": "AshTreJinkins",
+   "times": 1,
+   "first": "2025-03-14",
+   "last": "2025-03-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-audrey-danza",
+   "name": "Audrey Danza",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ayesha",
+   "name": "Ayesha",
+   "times": 3,
+   "first": "2025-02-15",
+   "last": "2026-07-31",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-aza-eva",
+   "name": "Aza Şeva",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-badsista",
+   "name": "BADSISTA",
+   "times": 1,
+   "first": "2023-07-14",
+   "last": "2023-07-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-baugruppe90",
+   "name": "BAUGRUPPE90",
+   "times": 1,
+   "first": "2025-05-16",
+   "last": "2025-05-16",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-berton",
+   "name": "BERTON",
+   "times": 1,
+   "first": "2023-03-25",
+   "last": "2023-03-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-blanka",
+   "name": "BLANKA",
+   "times": 1,
+   "first": "2026-06-13",
+   "last": "2026-06-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-bss",
+   "name": "BSS",
+   "times": 1,
+   "first": "2023-02-25",
+   "last": "2023-02-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-buttface",
+   "name": "BUTTFACE",
+   "times": 1,
+   "first": "2024-05-31",
+   "last": "2024-05-31",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Secret warehouse",
+    "Secret warehouse (LA)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-bas-mooy",
+   "name": "Bas Mooy",
+   "times": 1,
+   "first": "2023-02-17",
+   "last": "2023-02-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Shelter"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-batu",
+   "name": "Batu",
+   "times": 2,
+   "first": "2023-03-25",
+   "last": "2025-02-15",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "De School",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-bavaresco",
+   "name": "Bavaresco",
+   "times": 1,
+   "first": "2024-07-05",
+   "last": "2024-07-05",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Renate",
+    "Zur Wilden Renate"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-beatrice",
+   "name": "Beatrice",
+   "times": 1,
+   "first": "2023-05-12",
+   "last": "2023-05-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-belin",
+   "name": "Belin",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ben-klock",
+   "name": "Ben Klock",
+   "times": 1,
+   "first": "2025-12-12",
+   "last": "2025-12-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "E1"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-beste-hira",
+   "name": "Beste Hira",
+   "times": 1,
+   "first": "2025-10-03",
+   "last": "2025-10-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-bjarki",
+   "name": "Bjarki",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-blackpearl-007",
+   "name": "Blackpearl 007",
+   "times": 1,
+   "first": "2024-06-14",
+   "last": "2024-06-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "OXI"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-blasha-allatt",
+   "name": "Blasha & Allatt",
+   "times": 2,
+   "first": "2025-10-03",
+   "last": "2026-06-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-bobby-beethoven",
+   "name": "Bobby Beethoven",
+   "times": 1,
+   "first": "2025-03-28",
+   "last": "2025-03-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-booty-spoon",
+   "name": "Booty Spoon",
+   "times": 1,
+   "first": "2025-02-16",
+   "last": "2025-02-16",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-boston-168",
+   "name": "Boston 168",
+   "times": 1,
+   "first": "2022-10-21",
+   "last": "2022-10-21",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-bridge",
+   "name": "Bridge",
+   "times": 1,
+   "first": "2026-08-02",
+   "last": "2026-08-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-buttechno",
+   "name": "Buttechno",
+   "times": 1,
+   "first": "2023-04-01",
+   "last": "2023-04-01",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "De School"
+   ],
+   "rec_links": [
+    "https://hetarchief.deschoolamsterdam.nl/sets/01-04-2023_saturday_club-night_buttechno_het-muzieklokaal/"
+   ]
+  },
+  {
+   "id": "dj-call-super",
+   "name": "CALL SUPER",
+   "times": 1,
+   "first": "2024-09-08",
+   "last": "2024-09-08",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-cem",
+   "name": "CEM",
+   "times": 2,
+   "first": "2024-07-13",
+   "last": "2026-07-11",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "Club RAUM"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-cinthie",
+   "name": "CINTHIE",
+   "times": 1,
+   "first": "2025-05-23",
+   "last": "2025-05-23",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-colored-craig",
+   "name": "COLORED CRAIG",
+   "times": 1,
+   "first": "2026-07-25",
+   "last": "2026-07-25",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-cotton",
+   "name": "COTTON",
+   "times": 1,
+   "first": "2026-07-25",
+   "last": "2026-07-25",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-cryme",
+   "name": "CRYME",
+   "times": 1,
+   "first": "2025-10-03",
+   "last": "2025-10-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-candy-makaveli",
+   "name": "Candy Makaveli",
+   "times": 1,
+   "first": "2024-06-14",
+   "last": "2024-06-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "OXI"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-caniche",
+   "name": "Caniche",
+   "times": 1,
+   "first": "2024-06-28",
+   "last": "2024-06-28",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-cardo",
+   "name": "Cardo",
+   "times": 1,
+   "first": "2023-05-12",
+   "last": "2023-05-12",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/disturbia-amsterdam/cardo-disturbia-5-radion-13-may-2023"
+   ]
+  },
+  {
+   "id": "dj-carlos-valdes",
+   "name": "Carlos Valdes",
+   "times": 1,
+   "first": "2023-03-25",
+   "last": "2023-03-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-catmint",
+   "name": "CatMint",
+   "times": 1,
+   "first": "2024-06-14",
+   "last": "2024-06-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "OXI"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-chew-chew",
+   "name": "Chew Chew",
+   "times": 1,
+   "first": "2024-06-18",
+   "last": "2024-06-18",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Fandango",
+    "Fandango (Plötzensee)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-chichol",
+   "name": "Chichol",
+   "times": 1,
+   "first": "2023-08-13",
+   "last": "2023-08-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Farola"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-chl-r",
+   "name": "Chlär",
+   "times": 1,
+   "first": "2026-06-13",
+   "last": "2026-06-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-christian-coiffure",
+   "name": "Christian Coiffure",
+   "times": 1,
+   "first": "2025-07-05",
+   "last": "2025-07-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "backsteinboot"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-cirkle",
+   "name": "Cirkle",
+   "times": 1,
+   "first": "2023-06-09",
+   "last": "2023-06-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-club-fitness",
+   "name": "Club Fitness",
+   "times": 1,
+   "first": "2023-03-25",
+   "last": "2023-03-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-coco-cobra",
+   "name": "Coco Cobra",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-colloboh",
+   "name": "Colloboh",
+   "times": 1,
+   "first": "2024-01-03",
+   "last": "2024-01-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "(unknown)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-colors-and-the-kids",
+   "name": "Colors and the Kids",
+   "times": 1,
+   "first": "2023-08-15",
+   "last": "2023-08-15",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-commissar-lag",
+   "name": "Commissar Lag",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-crackhead-barney",
+   "name": "Crackhead Barney",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-crinkhoff",
+   "name": "Crinkhoff",
+   "times": 1,
+   "first": "2023-03-04",
+   "last": "2023-03-04",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Levenslang"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-croatian-amor",
+   "name": "Croatian Amor",
+   "times": 1,
+   "first": "2024-11-10",
+   "last": "2024-11-10",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Baby's All Right"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-crystallmess",
+   "name": "Crystallmess",
+   "times": 1,
+   "first": "2025-07-26",
+   "last": "2025-07-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-cybersex",
+   "name": "Cybersex",
+   "times": 1,
+   "first": "2025-10-03",
+   "last": "2025-10-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-d-dan",
+   "name": "D.Dan",
+   "times": 3,
+   "first": "2023-03-18",
+   "last": "2024-09-20",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-d-k",
+   "name": "D.K.",
+   "times": 1,
+   "first": "2025-07-05",
+   "last": "2025-07-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "backsteinboot"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-daiyah",
+   "name": "DAIYAH",
+   "times": 1,
+   "first": "2024-09-21",
+   "last": "2024-09-21",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dan-shake",
+   "name": "DAN SHAKE",
+   "times": 1,
+   "first": "2023-11-10",
+   "last": "2023-11-10",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dangerous-rose",
+   "name": "Dangerous Rose",
+   "times": 1,
+   "first": "2025-05-10",
+   "last": "2025-05-10",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-daniel-avery",
+   "name": "Daniel Avery",
+   "times": 2,
+   "first": "2023-07-30",
+   "last": "2024-09-21",
+   "clubs": 4,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-ali",
+   "name": "DJ ALI",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-delivero",
+   "name": "DJ Delivero",
+   "times": 1,
+   "first": "2023-03-04",
+   "last": "2023-03-04",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Levenslang"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-fart-in-the-club",
+   "name": "DJ Fart in the Club",
+   "times": 1,
+   "first": "2023-03-04",
+   "last": "2023-03-04",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Levenslang"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-g",
+   "name": "DJ G",
+   "times": 2,
+   "first": "2025-05-18",
+   "last": "2026-07-17",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Mansions",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-healthy",
+   "name": "DJ Healthy",
+   "times": 2,
+   "first": "2025-05-24",
+   "last": "2025-08-23",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-k2",
+   "name": "DJ K2",
+   "times": 1,
+   "first": "2026-07-17",
+   "last": "2026-07-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-lycox",
+   "name": "DJ Lycox",
+   "times": 2,
+   "first": "2025-05-24",
+   "last": "2025-05-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-marfox",
+   "name": "DJ Marfox",
+   "times": 2,
+   "first": "2025-05-24",
+   "last": "2025-05-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-noir",
+   "name": "DJ Noir",
+   "times": 1,
+   "first": "2024-05-17",
+   "last": "2024-05-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "The Love Song"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-poolboi",
+   "name": "DJ Poolboi",
+   "times": 1,
+   "first": "2022-11-22",
+   "last": "2022-11-22",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "(unknown)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-python",
+   "name": "DJ Python",
+   "times": 2,
+   "first": "2025-02-16",
+   "last": "2026-07-04",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-sweet6teen",
+   "name": "DJ SWEET6TEEN",
+   "times": 1,
+   "first": "2024-07-12",
+   "last": "2024-07-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Levenslang"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-swisha",
+   "name": "DJ SWISHA",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-shahmaran",
+   "name": "DJ Shahmaran",
+   "times": 1,
+   "first": "2023-07-14",
+   "last": "2023-07-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-tool",
+   "name": "DJ Tool",
+   "times": 4,
+   "first": "2025-08-02",
+   "last": "2026-07-11",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-temporary",
+   "name": "DJ Temporary",
+   "times": 1,
+   "first": "2025-02-07",
+   "last": "2025-02-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-winggold",
+   "name": "DJ Winggold",
+   "times": 1,
+   "first": "2025-10-26",
+   "last": "2025-10-26",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/unboundevents/dj-winggold-unfold-cix-visceral-actualisation-in-motion-26102025"
+   ]
+  },
+  {
+   "id": "dj-djpt",
+   "name": "DJPT",
+   "times": 1,
+   "first": "2026-07-11",
+   "last": "2026-07-11",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-drknghts",
+   "name": "DRKNGHTS",
+   "times": 2,
+   "first": "2023-06-03",
+   "last": "2023-07-01",
+   "clubs": 2,
+   "recordings": 1,
+   "where": [
+    "De School",
+    "Garage Noord"
+   ],
+   "rec_links": [
+    "https://hetarchief.deschoolamsterdam.nl/sets/01-07-2023_saturday_club-night_drknghts_de-club/"
+   ]
+  },
+  {
+   "id": "dj-dykehaus",
+   "name": "DYKEHAUS",
+   "times": 1,
+   "first": "2023-07-14",
+   "last": "2023-07-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-daisy-weweh",
+   "name": "Daisy Weweh",
+   "times": 1,
+   "first": "2024-06-14",
+   "last": "2024-06-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "OXI"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dangermami",
+   "name": "Dangermami",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-daniel-dutts",
+   "name": "Daniel Dutts",
+   "times": 1,
+   "first": "2026-07-18",
+   "last": "2026-07-18",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-danielle",
+   "name": "Danielle",
+   "times": 1,
+   "first": "2025-10-26",
+   "last": "2025-10-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dasha-rush",
+   "name": "Dasha Rush",
+   "times": 1,
+   "first": "2023-06-24",
+   "last": "2023-06-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-david-l-hlein",
+   "name": "David Löhlein",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-david-vunk",
+   "name": "David Vunk",
+   "times": 1,
+   "first": "2025-04-05",
+   "last": "2025-04-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-deadbeat-sa-pa",
+   "name": "Deadbeat & Sa Pa",
+   "times": 1,
+   "first": "2023-02-25",
+   "last": "2023-02-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-debbie",
+   "name": "Debbie.",
+   "times": 1,
+   "first": "2025-10-03",
+   "last": "2025-10-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-derrick-carter",
+   "name": "Derrick Carter",
+   "times": 1,
+   "first": "2025-08-08",
+   "last": "2025-08-08",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-devoye",
+   "name": "Devoye",
+   "times": 1,
+   "first": "2025-08-09",
+   "last": "2025-08-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-disguised",
+   "name": "Disguised",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-disturbia",
+   "name": "Disturbia",
+   "times": 1,
+   "first": "2023-05-12",
+   "last": "2023-05-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-djrum",
+   "name": "Djrum",
+   "times": 3,
+   "first": "2023-04-01",
+   "last": "2025-05-25",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "De School",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dominika-karaszewska",
+   "name": "Dominika Karaszewska",
+   "times": 1,
+   "first": "2023-03-11",
+   "last": "2023-03-11",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dr-rubinstein",
+   "name": "Dr. Rubinstein",
+   "times": 1,
+   "first": "2025-08-02",
+   "last": "2025-08-02",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dream-miyake-mugler",
+   "name": "Dream Miyake-Mugler",
+   "times": 1,
+   "first": "2024-06-14",
+   "last": "2024-06-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "OXI"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-duane-harriott",
+   "name": "Duane Harriott",
+   "times": 1,
+   "first": "2025-09-14",
+   "last": "2025-09-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-elle-dee",
+   "name": "ELLE DEE",
+   "times": 2,
+   "first": "2023-09-30",
+   "last": "2025-05-23",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-eamon-harkin",
+   "name": "Eamon Harkin",
+   "times": 4,
+   "first": "2025-05-11",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ehua",
+   "name": "Ehua",
+   "times": 1,
+   "first": "2023-02-25",
+   "last": "2023-02-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-enayet",
+   "name": "Enayet",
+   "times": 1,
+   "first": "2025-08-15",
+   "last": "2025-08-15",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-enrica-falqui",
+   "name": "Enrica Falqui",
+   "times": 2,
+   "first": "2025-12-06",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-enyang-ha",
+   "name": "Enyang Ha",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-esengo",
+   "name": "Esengo",
+   "times": 1,
+   "first": "2024-06-14",
+   "last": "2024-06-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "OXI"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-exos",
+   "name": "Exos",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-fadi-mohem",
+   "name": "FADI MOHEM",
+   "times": 1,
+   "first": "2024-04-28",
+   "last": "2024-04-28",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-fashion",
+   "name": "FASHION",
+   "times": 1,
+   "first": "2025-05-24",
+   "last": "2025-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-freddy-k",
+   "name": "FREDDY K",
+   "times": 1,
+   "first": "2024-09-08",
+   "last": "2024-09-08",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-facets",
+   "name": "Facets",
+   "times": 1,
+   "first": "2023-11-10",
+   "last": "2023-11-10",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-facta",
+   "name": "Facta",
+   "times": 1,
+   "first": "2023-03-25",
+   "last": "2023-03-25",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "De School"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/wisdomteeth-uk/facta-b2b-k-lone-de-school-26032023-sunday-het-weekend-het-muzieklokaal"
+   ]
+  },
+  {
+   "id": "dj-k-lone",
+   "name": "K-LONE",
+   "times": 1,
+   "first": "2023-03-25",
+   "last": "2023-03-25",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "De School"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/wisdomteeth-uk/facta-b2b-k-lone-de-school-26032023-sunday-het-weekend-het-muzieklokaal"
+   ]
+  },
+  {
+   "id": "dj-feral-heruka",
+   "name": "Feral Heruka",
+   "times": 1,
+   "first": "2025-03-28",
+   "last": "2025-03-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-fio-fa",
+   "name": "Fio Fa",
+   "times": 1,
+   "first": "2023-03-18",
+   "last": "2023-03-18",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-floorplan",
+   "name": "Floorplan",
+   "times": 1,
+   "first": "2025-04-05",
+   "last": "2025-04-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-focus-congo",
+   "name": "Focus Congo",
+   "times": 1,
+   "first": "2025-10-26",
+   "last": "2025-10-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-foday",
+   "name": "Foday",
+   "times": 1,
+   "first": "2023-06-03",
+   "last": "2023-06-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Garage Noord"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-fran-ois-x",
+   "name": "François X",
+   "times": 1,
+   "first": "2025-12-07",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-freddy",
+   "name": "Freddy",
+   "times": 1,
+   "first": "2024-06-18",
+   "last": "2024-06-18",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Fandango",
+    "Fandango (Plötzensee)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-free-zing",
+   "name": "Free Zing",
+   "times": 1,
+   "first": "2025-09-26",
+   "last": "2025-09-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-function",
+   "name": "Function",
+   "times": 1,
+   "first": "2023-07-08",
+   "last": "2023-07-08",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "De School"
+   ],
+   "rec_links": [
+    "https://hetarchief.deschoolamsterdam.nl/sets/08-07-2023_saturday_de-zomernacht_function_de-club/"
+   ]
+  },
+  {
+   "id": "dj-gag-rder",
+   "name": "GAG ØRDER",
+   "times": 1,
+   "first": "2025-05-16",
+   "last": "2025-05-16",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-grbge-grl",
+   "name": "GRBGE_GRL",
+   "times": 1,
+   "first": "2025-04-14",
+   "last": "2025-04-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Bowery Electric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-gabrielle-kwarteng",
+   "name": "Gabrielle Kwarteng",
+   "times": 1,
+   "first": "2025-09-12",
+   "last": "2025-09-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Basement"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-gesloten-cirkel",
+   "name": "Gesloten Cirkel",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-giovvvanna",
+   "name": "Giovvvanna",
+   "times": 1,
+   "first": "2024-06-14",
+   "last": "2024-06-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "OXI"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-gloria-rose",
+   "name": "Gloria Rose",
+   "times": 1,
+   "first": "2025-10-26",
+   "last": "2025-10-26",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/grmck/unfold-2408"
+   ]
+  },
+  {
+   "id": "dj-goldie",
+   "name": "Goldie",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-guarionex",
+   "name": "Guarionex",
+   "times": 1,
+   "first": "2025-02-16",
+   "last": "2025-02-16",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-hannah",
+   "name": "HANNAH",
+   "times": 1,
+   "first": "2023-06-17",
+   "last": "2023-06-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-heidi-lawden",
+   "name": "HEIDI LAWDEN",
+   "times": 1,
+   "first": "2025-05-23",
+   "last": "2025-05-23",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-hezen",
+   "name": "HEZEN",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/sarahezen/hezen-unfold-cxxiii-live"
+   ]
+  },
+  {
+   "id": "dj-holden-federico",
+   "name": "HOLDEN FEDERICO",
+   "times": 2,
+   "first": "2024-09-20",
+   "last": "2025-05-23",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-hadone",
+   "name": "Hadone",
+   "times": 2,
+   "first": "2025-04-04",
+   "last": "2026-05-24",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-harri-pepper",
+   "name": "Harri Pepper",
+   "times": 1,
+   "first": "2025-09-26",
+   "last": "2025-09-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-hitam",
+   "name": "Hitam",
+   "times": 1,
+   "first": "2023-06-09",
+   "last": "2023-06-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-human-safari",
+   "name": "Human Safari",
+   "times": 1,
+   "first": "2025-10-12",
+   "last": "2025-10-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-hyperaktivist",
+   "name": "Hyperaktivist",
+   "times": 2,
+   "first": "2025-05-10",
+   "last": "2025-12-07",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-hypnotic-black-magic",
+   "name": "Hypnotic Black Magic",
+   "times": 1,
+   "first": "2024-07-05",
+   "last": "2024-07-05",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Renate",
+    "Zur Wilden Renate"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-h-ctor-oaks",
+   "name": "Héctor Oaks",
+   "times": 1,
+   "first": "2022-10-28",
+   "last": "2022-10-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-isabella",
+   "name": "ISAbella",
+   "times": 2,
+   "first": "2025-05-11",
+   "last": "2025-09-12",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ian-crane",
+   "name": "Ian Crane",
+   "times": 2,
+   "first": "2025-08-02",
+   "last": "2025-09-12",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ines-graf",
+   "name": "Ines Graf",
+   "times": 1,
+   "first": "2023-08-15",
+   "last": "2023-08-15",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-infra-residents",
+   "name": "Infra residents",
+   "times": 1,
+   "first": "2024-04-12",
+   "last": "2024-04-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Infra Boston"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-inox-traxx",
+   "name": "Inox Traxx",
+   "times": 1,
+   "first": "2023-06-09",
+   "last": "2023-06-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-interstellar-funk",
+   "name": "Interstellar Funk",
+   "times": 2,
+   "first": "2023-02-11",
+   "last": "2023-06-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-introspekt",
+   "name": "Introspekt",
+   "times": 1,
+   "first": "2023-06-24",
+   "last": "2023-06-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ivan-smagghe",
+   "name": "Ivan Smagghe",
+   "times": 1,
+   "first": "2025-09-26",
+   "last": "2025-09-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-izella",
+   "name": "Izella",
+   "times": 1,
+   "first": "2024-05-31",
+   "last": "2024-05-31",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Secret warehouse",
+    "Secret warehouse (LA)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-jadalareign",
+   "name": "JADALAREIGN",
+   "times": 3,
+   "first": "2025-03-14",
+   "last": "2025-07-26",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-jae-jbw",
+   "name": "JAE JBW",
+   "times": 1,
+   "first": "2024-05-17",
+   "last": "2024-05-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "The Love Song"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-jason-kendig",
+   "name": "JASON KENDIG",
+   "times": 1,
+   "first": "2023-11-10",
+   "last": "2023-11-10",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-jasss",
+   "name": "JASSS",
+   "times": 1,
+   "first": "2025-08-09",
+   "last": "2025-08-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-jp-solis",
+   "name": "JP Solis",
+   "times": 1,
+   "first": "2025-02-16",
+   "last": "2025-02-16",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-jacky-jeane",
+   "name": "Jacky Jeane",
+   "times": 1,
+   "first": "2025-07-05",
+   "last": "2025-07-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "backsteinboot"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-james-ruskin",
+   "name": "James Ruskin",
+   "times": 1,
+   "first": "2023-03-25",
+   "last": "2023-03-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-jayson-wynters",
+   "name": "Jayson Wynters",
+   "times": 1,
+   "first": "2025-12-07",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-jennifer-loveless",
+   "name": "Jennifer Loveless",
+   "times": 1,
+   "first": "2023-03-25",
+   "last": "2023-03-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-josey-rebelle",
+   "name": "Josey Rebelle",
+   "times": 1,
+   "first": "2023-07-14",
+   "last": "2023-07-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-josh-caff",
+   "name": "Josh Caffé",
+   "times": 3,
+   "first": "2025-10-26",
+   "last": "2025-12-07",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "FOLD",
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-josh-steers",
+   "name": "Josh Steers",
+   "times": 1,
+   "first": "2025-08-02",
+   "last": "2025-08-02",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-juliana-huxtable",
+   "name": "Juliana Huxtable",
+   "times": 1,
+   "first": "2025-02-16",
+   "last": "2025-02-16",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-julie-desire",
+   "name": "Julie Desire",
+   "times": 1,
+   "first": "2025-12-07",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-julien-bracht",
+   "name": "Julien Bracht",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-justin-carter",
+   "name": "Justin Carter",
+   "times": 5,
+   "first": "2025-05-11",
+   "last": "2026-08-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-justine-perry",
+   "name": "Justine Perry",
+   "times": 1,
+   "first": "2025-10-12",
+   "last": "2025-10-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kaiser",
+   "name": "KAISER",
+   "times": 1,
+   "first": "2024-09-08",
+   "last": "2024-09-08",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kancheli",
+   "name": "KANCHELI",
+   "times": 2,
+   "first": "2024-04-28",
+   "last": "2025-09-12",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-philippa-pacho",
+   "name": "PHILIPPA PACHO",
+   "times": 1,
+   "first": "2024-04-28",
+   "last": "2024-04-28",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-karim-olen-ash",
+   "name": "KARIM OLEN ASH",
+   "times": 1,
+   "first": "2025-09-13",
+   "last": "2025-09-13",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-katie-rex",
+   "name": "KATIE REX",
+   "times": 1,
+   "first": "2025-05-16",
+   "last": "2025-05-16",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ketch",
+   "name": "KETCH",
+   "times": 1,
+   "first": "2023-06-09",
+   "last": "2023-06-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kilopatrah-jones",
+   "name": "Kilopatrah Jones",
+   "times": 3,
+   "first": "2024-10-10",
+   "last": "2025-09-13",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kim-anh",
+   "name": "Kim Anh",
+   "times": 2,
+   "first": "2025-03-22",
+   "last": "2025-05-23",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "Xanadu Roller Arts"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kim-ann-foxman",
+   "name": "KIM ANN FOXMAN",
+   "times": 3,
+   "first": "2024-04-28",
+   "last": "2025-09-12",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ktk",
+   "name": "KTK",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "RSO"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kai-campos",
+   "name": "Kai Campos",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kai-virtual",
+   "name": "Kai Virtual",
+   "times": 1,
+   "first": "2022-09-09",
+   "last": "2022-09-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kaidara",
+   "name": "Kaidara",
+   "times": 1,
+   "first": "2025-08-15",
+   "last": "2025-08-15",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kameliia",
+   "name": "Kameliia",
+   "times": 1,
+   "first": "2023-03-25",
+   "last": "2023-03-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kangding-ray",
+   "name": "Kangding Ray",
+   "times": 2,
+   "first": "2023-02-11",
+   "last": "2026-07-31",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "De School",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-karina-schneider",
+   "name": "Karina Schneider",
+   "times": 1,
+   "first": "2023-03-11",
+   "last": "2023-03-11",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-katatonic-silentio",
+   "name": "Katatonic Silentio",
+   "times": 1,
+   "first": "2023-04-01",
+   "last": "2023-04-01",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "De School"
+   ],
+   "rec_links": [
+    "https://hetarchief.deschoolamsterdam.nl/sets/01-04-2023_saturday_club-night_katatonic-silentio_de-club/"
+   ]
+  },
+  {
+   "id": "dj-kenny-larkin",
+   "name": "Kenny Larkin",
+   "times": 1,
+   "first": "2025-08-09",
+   "last": "2025-08-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kessie",
+   "name": "Kessie",
+   "times": 1,
+   "first": "2025-10-26",
+   "last": "2025-10-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kia",
+   "name": "Kia",
+   "times": 2,
+   "first": "2023-06-24",
+   "last": "2025-05-24",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "De School",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kian-ok",
+   "name": "Kian OK",
+   "times": 1,
+   "first": "2025-12-07",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kichi-kazuko",
+   "name": "Kichi Kazuko",
+   "times": 1,
+   "first": "2023-06-17",
+   "last": "2023-06-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ki-obran-djs",
+   "name": "Kišobran DJs",
+   "times": 1,
+   "first": "2022-08-27",
+   "last": "2022-08-27",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-komb",
+   "name": "Kombé",
+   "times": 1,
+   "first": "2023-06-24",
+   "last": "2023-06-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-konsudd-konduku-aa-sudd",
+   "name": "Konsudd (Konduku + Aa Sudd)",
+   "times": 1,
+   "first": "2025-07-05",
+   "last": "2025-07-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "backsteinboot"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kool-kat",
+   "name": "Kool Kat",
+   "times": 1,
+   "first": "2023-11-10",
+   "last": "2023-11-10",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kraeji",
+   "name": "Kraeji",
+   "times": 1,
+   "first": "2025-08-15",
+   "last": "2025-08-15",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kush-jones",
+   "name": "Kush Jones",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kvirtet-collective",
+   "name": "Kvirtet collective",
+   "times": 1,
+   "first": "2024-06-14",
+   "last": "2024-06-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "OXI"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kwartz",
+   "name": "Kwartz",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lab93-exe",
+   "name": "LAB93.exe",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-laurel-halo",
+   "name": "LAUREL HALO",
+   "times": 2,
+   "first": "2024-09-21",
+   "last": "2025-05-18",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-leonce",
+   "name": "LEONCE",
+   "times": 1,
+   "first": "2025-03-28",
+   "last": "2025-03-28",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/djleoatl/leonce-nonstop-29-mar-25"
+   ]
+  },
+  {
+   "id": "dj-lilli",
+   "name": "LILLI",
+   "times": 1,
+   "first": "2025-07-05",
+   "last": "2025-07-05",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "backsteinboot"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/midgar_records/lilli_zylka_midgar_useless_seconds"
+   ]
+  },
+  {
+   "id": "dj-lsdxoxo",
+   "name": "LSDXOXO",
+   "times": 1,
+   "first": "2025-03-28",
+   "last": "2025-03-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-luz1e",
+   "name": "LUZ1E",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lydo",
+   "name": "LYDO",
+   "times": 2,
+   "first": "2023-09-30",
+   "last": "2024-09-08",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lastword",
+   "name": "Lastword",
+   "times": 1,
+   "first": "2024-05-15",
+   "last": "2024-05-15",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "(unknown)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lawrence-lee",
+   "name": "Lawrence Lee",
+   "times": 1,
+   "first": "2025-04-04",
+   "last": "2025-04-04",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-layzie",
+   "name": "Layzie",
+   "times": 1,
+   "first": "2022-10-28",
+   "last": "2022-10-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-leeon",
+   "name": "Leeon",
+   "times": 1,
+   "first": "2025-08-23",
+   "last": "2025-08-23",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-len-faki",
+   "name": "Len Faki",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lenny-mailleau",
+   "name": "Lenny Mailleau",
+   "times": 1,
+   "first": "2024-07-05",
+   "last": "2024-07-05",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Renate",
+    "Zur Wilden Renate"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-liane",
+   "name": "Liane",
+   "times": 1,
+   "first": "2023-06-17",
+   "last": "2023-06-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lobster",
+   "name": "Lobster",
+   "times": 1,
+   "first": "2024-06-28",
+   "last": "2024-06-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "RSO"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lockhart",
+   "name": "Lockhart",
+   "times": 1,
+   "first": "2025-10-12",
+   "last": "2025-10-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-loka",
+   "name": "Loka",
+   "times": 1,
+   "first": "2025-05-24",
+   "last": "2025-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lola-edo",
+   "name": "Lola Edo",
+   "times": 1,
+   "first": "2023-07-14",
+   "last": "2023-07-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-loradeniz",
+   "name": "Loradeniz",
+   "times": 1,
+   "first": "2023-02-11",
+   "last": "2023-02-11",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "De School"
+   ],
+   "rec_links": [
+    "https://hetarchief.deschoolamsterdam.nl/sets/11-02-2023_saturday_club-night_loradeniz_het-muzieklokaal/"
+   ]
+  },
+  {
+   "id": "dj-luca-lozano",
+   "name": "Luca Lozano",
+   "times": 1,
+   "first": "2023-06-24",
+   "last": "2023-06-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lukas-wigflex",
+   "name": "Lukas Wigflex",
+   "times": 1,
+   "first": "2025-09-26",
+   "last": "2025-09-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-luna-ludmila-vand",
+   "name": "Luna Ludmila & Vand",
+   "times": 1,
+   "first": "2023-02-25",
+   "last": "2023-02-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ly-sas",
+   "name": "Ly Sas",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lychee",
+   "name": "Lychee",
+   "times": 1,
+   "first": "2025-03-28",
+   "last": "2025-03-28",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/lycheefrut/lychee-nowadays-nonstop-03292025"
+   ]
+  },
+  {
+   "id": "dj-marie-montexier",
+   "name": "MARIE MONTEXIER",
+   "times": 1,
+   "first": "2025-05-16",
+   "last": "2025-05-16",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-marr-n",
+   "name": "MARRØN",
+   "times": 1,
+   "first": "2023-07-01",
+   "last": "2023-07-01",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-masha-mar",
+   "name": "MASHA MAR",
+   "times": 2,
+   "first": "2024-05-15",
+   "last": "2024-09-21",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-matas",
+   "name": "MATAS",
+   "times": 3,
+   "first": "2024-04-28",
+   "last": "2025-08-09",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mcmlxxxv",
+   "name": "MCMLXXXV",
+   "times": 2,
+   "first": "2023-03-11",
+   "last": "2026-07-11",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mi-in",
+   "name": "MIÑIN",
+   "times": 1,
+   "first": "2024-05-31",
+   "last": "2024-05-31",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Secret warehouse",
+    "Secret warehouse (LA)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-morenxxx",
+   "name": "MORENXXX",
+   "times": 3,
+   "first": "2025-02-16",
+   "last": "2025-07-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mxj",
+   "name": "MXJ",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mz3",
+   "name": "MZ3",
+   "times": 2,
+   "first": "2025-01-29",
+   "last": "2025-04-05",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Nowadays",
+    "Unlisted warehouse",
+    "Unlisted warehouse (Brooklyn)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mac-declos",
+   "name": "Mac Declos",
+   "times": 1,
+   "first": "2026-06-13",
+   "last": "2026-06-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-magda",
+   "name": "Magda",
+   "times": 2,
+   "first": "2025-12-06",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-makadsi",
+   "name": "Makadsi",
+   "times": 1,
+   "first": "2025-08-02",
+   "last": "2025-08-02",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mama-snake",
+   "name": "Mama Snake",
+   "times": 1,
+   "first": "2024-09-20",
+   "last": "2024-09-20",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Basement"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-manami",
+   "name": "Manami",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-manny",
+   "name": "Manny",
+   "times": 1,
+   "first": "2026-07-18",
+   "last": "2026-07-18",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mara-menace",
+   "name": "Mara Menace",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-marcel-dettmann",
+   "name": "Marcel Dettmann",
+   "times": 2,
+   "first": "2025-12-06",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mari-sakurai",
+   "name": "Mari Sakurai",
+   "times": 2,
+   "first": "2025-10-12",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mario-picosso",
+   "name": "Mario Picosso",
+   "times": 1,
+   "first": "2023-06-10",
+   "last": "2023-06-10",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-marius-b",
+   "name": "Marius Bø",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mata-disk",
+   "name": "Mata Disk",
+   "times": 1,
+   "first": "2023-03-04",
+   "last": "2023-03-04",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Levenslang"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-matrixxman",
+   "name": "Matrixxman",
+   "times": 1,
+   "first": "2022-09-02",
+   "last": "2022-09-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-matthewdavid",
+   "name": "Matthewdavid",
+   "times": 1,
+   "first": "2024-01-03",
+   "last": "2024-01-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "(unknown)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-max-gardner",
+   "name": "Max Gardner",
+   "times": 1,
+   "first": "2023-10-28",
+   "last": "2023-10-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "(unknown)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-memphy",
+   "name": "Memphy",
+   "times": 2,
+   "first": "2025-05-24",
+   "last": "2025-08-23",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mike-servito",
+   "name": "Mike Servito",
+   "times": 1,
+   "first": "2024-10-10",
+   "last": "2024-10-10",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-milo-raad",
+   "name": "Milo Raad",
+   "times": 1,
+   "first": "2022-09-02",
+   "last": "2022-09-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-miss-akuac",
+   "name": "Miss Akuac",
+   "times": 1,
+   "first": "2025-12-07",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mole",
+   "name": "Mole",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mosai",
+   "name": "Mosai",
+   "times": 1,
+   "first": "2025-10-26",
+   "last": "2025-10-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-muhi",
+   "name": "Muhi",
+   "times": 1,
+   "first": "2022-09-02",
+   "last": "2022-09-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-musclecars",
+   "name": "Musclecars",
+   "times": 1,
+   "first": "2025-02-16",
+   "last": "2025-02-16",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-music-lovers-anonymous",
+   "name": "Music Lovers Anonymous",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mx-blaire",
+   "name": "Mx. Blaire",
+   "times": 1,
+   "first": "2025-04-04",
+   "last": "2025-04-04",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mystral",
+   "name": "Mystral",
+   "times": 1,
+   "first": "2023-03-11",
+   "last": "2023-03-11",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nat-wendell",
+   "name": "NAT WENDELL",
+   "times": 1,
+   "first": "2026-07-25",
+   "last": "2026-07-25",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ndrx",
+   "name": "NDRX",
+   "times": 1,
+   "first": "2024-04-28",
+   "last": "2024-04-28",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nene-h",
+   "name": "Nene H",
+   "times": 2,
+   "first": "2025-05-10",
+   "last": "2025-08-09",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-newa",
+   "name": "Newa",
+   "times": 2,
+   "first": "2023-02-11",
+   "last": "2025-05-16",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-niks",
+   "name": "NIKS",
+   "times": 1,
+   "first": "2024-07-13",
+   "last": "2024-07-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Club RAUM"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-noxatra",
+   "name": "NOXATRA",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nacho",
+   "name": "Nacho",
+   "times": 2,
+   "first": "2023-03-11",
+   "last": "2023-05-12",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/disturbia-amsterdam/nacho-disturbia-4-radion-11-mar-2023"
+   ]
+  },
+  {
+   "id": "dj-nadia-struiwigh",
+   "name": "Nadia Struiwigh",
+   "times": 1,
+   "first": "2023-02-17",
+   "last": "2023-02-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Shelter"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nathan-homan",
+   "name": "Nathan Homan",
+   "times": 2,
+   "first": "2023-03-04",
+   "last": "2024-07-13",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Club RAUM",
+    "Levenslang"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nedda-sou",
+   "name": "Nedda Sou",
+   "times": 2,
+   "first": "2023-02-25",
+   "last": "2025-03-14",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "De School",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nelly",
+   "name": "Nelly",
+   "times": 1,
+   "first": "2023-03-18",
+   "last": "2023-03-18",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nevena-jeremi",
+   "name": "Nevena Jeremić",
+   "times": 1,
+   "first": "2022-08-27",
+   "last": "2022-08-27",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ngoni-egan",
+   "name": "Ngoni Egan",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nickodemus",
+   "name": "Nickodemus",
+   "times": 1,
+   "first": "2025-03-22",
+   "last": "2025-03-22",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Xanadu Roller Arts"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nikes",
+   "name": "Nikes",
+   "times": 1,
+   "first": "2024-05-17",
+   "last": "2024-05-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "The Love Song"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nita-aviance",
+   "name": "Nita Aviance",
+   "times": 1,
+   "first": "2024-10-10",
+   "last": "2024-10-10",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nomark",
+   "name": "Nomark",
+   "times": 1,
+   "first": "2022-09-09",
+   "last": "2022-09-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nooriyah",
+   "name": "Nooriyah",
+   "times": 1,
+   "first": "2024-09-26",
+   "last": "2024-09-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Sound Nightclub"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nur-jaber",
+   "name": "Nur Jaber",
+   "times": 1,
+   "first": "2023-06-17",
+   "last": "2023-06-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-oish",
+   "name": "OISHĪ",
+   "times": 1,
+   "first": "2023-07-14",
+   "last": "2023-07-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ok-williams",
+   "name": "OK Williams",
+   "times": 1,
+   "first": "2025-07-26",
+   "last": "2025-07-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-odopt",
+   "name": "Odopt",
+   "times": 1,
+   "first": "2022-10-28",
+   "last": "2022-10-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ohce",
+   "name": "Ohce",
+   "times": 1,
+   "first": "2023-05-12",
+   "last": "2023-05-12",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/disturbia-amsterdam/disturbia-bk1"
+   ]
+  },
+  {
+   "id": "dj-oliver-scala",
+   "name": "Oliver Scala",
+   "times": 1,
+   "first": "2025-12-07",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-olof-dreijer",
+   "name": "Olof Dreijer",
+   "times": 1,
+   "first": "2025-02-16",
+   "last": "2025-02-16",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-om-unit",
+   "name": "Om Unit",
+   "times": 1,
+   "first": "2025-02-15",
+   "last": "2025-02-15",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-oscar",
+   "name": "Oscar",
+   "times": 1,
+   "first": "2024-06-18",
+   "last": "2024-06-18",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Fandango",
+    "Fandango (Plötzensee)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-otik",
+   "name": "Otik",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ottoman-gr-w",
+   "name": "Ottoman Grüw",
+   "times": 1,
+   "first": "2023-08-21",
+   "last": "2023-08-21",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Re:mise"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-paula-koski",
+   "name": "Paula Koski",
+   "times": 3,
+   "first": "2023-11-10",
+   "last": "2026-05-24",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-paurro",
+   "name": "PAURRO",
+   "times": 1,
+   "first": "2026-07-11",
+   "last": "2026-07-11",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-perel",
+   "name": "PEREL",
+   "times": 1,
+   "first": "2024-09-21",
+   "last": "2024-09-21",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-phlegm",
+   "name": "PHLEGM",
+   "times": 1,
+   "first": "2025-09-13",
+   "last": "2025-09-13",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-physical-therapy",
+   "name": "PHYSICAL THERAPY",
+   "times": 1,
+   "first": "2025-05-16",
+   "last": "2025-05-16",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-princess-peggie",
+   "name": "PRINCESS PEGGIE",
+   "times": 1,
+   "first": "2026-07-11",
+   "last": "2026-07-11",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-pablo-bozzi",
+   "name": "Pablo Bozzi",
+   "times": 1,
+   "first": "2026-06-13",
+   "last": "2026-06-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-pamela",
+   "name": "Pamela",
+   "times": 1,
+   "first": "2023-07-14",
+   "last": "2023-07-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "(unknown)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-paramida",
+   "name": "Paramida",
+   "times": 1,
+   "first": "2023-06-24",
+   "last": "2023-06-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-patrick-russell",
+   "name": "Patrick Russell",
+   "times": 2,
+   "first": "2025-12-07",
+   "last": "2026-08-02",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "FOLD",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-petar-marti",
+   "name": "Petar Martić",
+   "times": 1,
+   "first": "2022-09-09",
+   "last": "2022-09-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-pharma",
+   "name": "Pharma",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-pink-concrete",
+   "name": "Pink Concrete",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-pisha",
+   "name": "Pisha",
+   "times": 1,
+   "first": "2025-04-14",
+   "last": "2025-04-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Bowery Electric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ploy",
+   "name": "Ploy",
+   "times": 1,
+   "first": "2025-02-07",
+   "last": "2025-02-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-priori",
+   "name": "Priori",
+   "times": 2,
+   "first": "2025-02-15",
+   "last": "2025-07-05",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Nowadays",
+    "backsteinboot"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-psyk",
+   "name": "Psyk",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Bossa Nova",
+    "Bossa Nova Civic Club"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-pushmann",
+   "name": "Pushmann",
+   "times": 1,
+   "first": "2024-07-05",
+   "last": "2024-07-05",
+   "clubs": 2,
+   "recordings": 1,
+   "where": [
+    "Renate",
+    "Zur Wilden Renate"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/pushmann/pushmann-renate-berlin-05072024"
+   ]
+  },
+  {
+   "id": "dj-queen-majesty",
+   "name": "Queen Majesty",
+   "times": 1,
+   "first": "2025-08-15",
+   "last": "2025-08-15",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-quelza",
+   "name": "Quelza",
+   "times": 2,
+   "first": "2023-02-17",
+   "last": "2023-03-18",
+   "clubs": 2,
+   "recordings": 1,
+   "where": [
+    "De School",
+    "Shelter"
+   ],
+   "rec_links": [
+    "https://hetarchief.deschoolamsterdam.nl/sets/18-03-2023_saturday_club-night_quelza_de-club/"
+   ]
+  },
+  {
+   "id": "dj-quest",
+   "name": "Quest",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-rar",
+   "name": "RAR",
+   "times": 1,
+   "first": "2022-10-21",
+   "last": "2022-10-21",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-rod",
+   "name": "ROD",
+   "times": 1,
+   "first": "2023-02-17",
+   "last": "2023-02-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Shelter"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ron-like-hell",
+   "name": "Ron Like Hell",
+   "times": 1,
+   "first": "2025-09-13",
+   "last": "2025-09-13",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ryan-smith",
+   "name": "Ryan Smith",
+   "times": 1,
+   "first": "2025-09-13",
+   "last": "2025-09-13",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-roni",
+   "name": "RONI",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-roza-terenzi",
+   "name": "Roza Terenzi",
+   "times": 2,
+   "first": "2023-03-18",
+   "last": "2024-09-08",
+   "clubs": 3,
+   "recordings": 1,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "De School"
+   ],
+   "rec_links": [
+    "https://hetarchief.deschoolamsterdam.nl/sets/18-03-2023_saturday_club-night_roza-terenzi_het-muzieklokaal/"
+   ]
+  },
+  {
+   "id": "dj-ruthlss",
+   "name": "RUTHLSS",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ryker",
+   "name": "RYKER",
+   "times": 1,
+   "first": "2024-09-20",
+   "last": "2024-09-20",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Basement"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-rachel-noon",
+   "name": "Rachel Noon",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ramona-yacef",
+   "name": "Ramona Yacef",
+   "times": 1,
+   "first": "2024-07-05",
+   "last": "2024-07-05",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Renate",
+    "Zur Wilden Renate"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-rawting",
+   "name": "Rawting",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/rawting/unfoldcxxiii"
+   ]
+  },
+  {
+   "id": "dj-reenie",
+   "name": "Reenie",
+   "times": 1,
+   "first": "2025-10-26",
+   "last": "2025-10-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-reita-d-russo",
+   "name": "Reita D Russo",
+   "times": 1,
+   "first": "2024-06-14",
+   "last": "2024-06-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "OXI"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-reka",
+   "name": "Reka",
+   "times": 1,
+   "first": "2023-08-21",
+   "last": "2023-08-21",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Re:mise"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-remco-beekwilder",
+   "name": "Remco Beekwilder",
+   "times": 1,
+   "first": "2024-06-28",
+   "last": "2024-06-28",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-remma",
+   "name": "Remma",
+   "times": 1,
+   "first": "2023-02-11",
+   "last": "2023-02-11",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-reptant",
+   "name": "Reptant",
+   "times": 2,
+   "first": "2025-05-24",
+   "last": "2025-05-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-rico-west",
+   "name": "Rico West",
+   "times": 1,
+   "first": "2024-06-14",
+   "last": "2024-06-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "OXI"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-riva",
+   "name": "Riva",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-robert-armani",
+   "name": "Robert Armani",
+   "times": 1,
+   "first": "2025-07-26",
+   "last": "2025-07-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-robin-kampschoer",
+   "name": "Robin Kampschoer",
+   "times": 1,
+   "first": "2023-06-09",
+   "last": "2023-06-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-roman-fl-gel",
+   "name": "Roman Flügel",
+   "times": 1,
+   "first": "2025-09-26",
+   "last": "2025-09-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-romens-dawn",
+   "name": "Romens Dawn",
+   "times": 1,
+   "first": "2023-06-03",
+   "last": "2023-06-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Garage Noord"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ron-trent",
+   "name": "Ron Trent",
+   "times": 1,
+   "first": "2025-02-16",
+   "last": "2025-02-16",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-roost-world",
+   "name": "Roost.World",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-rosati",
+   "name": "Rosati",
+   "times": 1,
+   "first": "2025-10-12",
+   "last": "2025-10-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-rose-kourts",
+   "name": "Rose Kourts",
+   "times": 1,
+   "first": "2025-02-16",
+   "last": "2025-02-16",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-rove-ranger",
+   "name": "Rove Ranger",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ruslan-mays",
+   "name": "Ruslan Mays",
+   "times": 2,
+   "first": "2023-06-17",
+   "last": "2024-06-14",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "OXI",
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-r-dacs",
+   "name": "Rèdacs",
+   "times": 1,
+   "first": "2022-10-21",
+   "last": "2022-10-21",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-s3ba",
+   "name": "S3BA",
+   "times": 1,
+   "first": "2026-06-13",
+   "last": "2026-06-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-s4m23",
+   "name": "S4M23",
+   "times": 1,
+   "first": "2025-08-08",
+   "last": "2025-08-08",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sekucci",
+   "name": "SEKUCCI",
+   "times": 2,
+   "first": "2024-04-28",
+   "last": "2025-05-10",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-shaun-j-wright",
+   "name": "Shaun J. Wright",
+   "times": 2,
+   "first": "2025-08-02",
+   "last": "2026-07-25",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-social-vlad",
+   "name": "SOCIAL VLAD",
+   "times": 1,
+   "first": "2023-06-17",
+   "last": "2023-06-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-spfdj",
+   "name": "SPFDJ",
+   "times": 2,
+   "first": "2023-06-10",
+   "last": "2024-04-11",
+   "clubs": 2,
+   "recordings": 1,
+   "where": [
+    "De School",
+    "Infra Boston"
+   ],
+   "rec_links": [
+    "https://hetarchief.deschoolamsterdam.nl/sets/10-06-2023_saturday_club-night_spfdj_de-club/"
+   ]
+  },
+  {
+   "id": "dj-steen",
+   "name": "STEEN",
+   "times": 1,
+   "first": "2025-01-29",
+   "last": "2025-01-29",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Unlisted warehouse",
+    "Unlisted warehouse (Brooklyn)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-surgeon",
+   "name": "SURGEON",
+   "times": 1,
+   "first": "2025-05-23",
+   "last": "2025-05-23",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Basement"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sally-c",
+   "name": "Sally C",
+   "times": 1,
+   "first": "2025-02-15",
+   "last": "2025-02-15",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-saroor",
+   "name": "Saroor",
+   "times": 1,
+   "first": "2025-10-26",
+   "last": "2025-10-26",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/sarrahyassin/saroor-live-at-unfold-cix-26"
+   ]
+  },
+  {
+   "id": "dj-schacke",
+   "name": "Schacke",
+   "times": 4,
+   "first": "2025-05-24",
+   "last": "2026-05-24",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "FOLD",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-schwabe",
+   "name": "Schwabe",
+   "times": 1,
+   "first": "2022-10-28",
+   "last": "2022-10-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-secret-raver",
+   "name": "Secret Raver",
+   "times": 1,
+   "first": "2024-04-05",
+   "last": "2024-04-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Infra Boston"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sega-bodega",
+   "name": "Sega Bodega",
+   "times": 1,
+   "first": "2024-10-05",
+   "last": "2024-10-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "El Rey"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-selhouette",
+   "name": "Selhouette",
+   "times": 1,
+   "first": "2024-05-31",
+   "last": "2024-05-31",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Secret warehouse",
+    "Secret warehouse (LA)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sergio-dimoff",
+   "name": "Sergio Dimoff",
+   "times": 1,
+   "first": "2026-07-18",
+   "last": "2026-07-18",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-setaoc-mass",
+   "name": "Setaoc Mass",
+   "times": 1,
+   "first": "2023-03-11",
+   "last": "2023-03-11",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-seyaa",
+   "name": "Seyaa",
+   "times": 1,
+   "first": "2024-01-03",
+   "last": "2024-01-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "(unknown)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-shallowhalo",
+   "name": "Shallowhalo",
+   "times": 1,
+   "first": "2025-04-14",
+   "last": "2025-04-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Bowery Electric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-shampain",
+   "name": "Shampain",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-shyboi",
+   "name": "Shyboi",
+   "times": 4,
+   "first": "2025-05-11",
+   "last": "2025-08-23",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-skee-mask",
+   "name": "Skee Mask",
+   "times": 2,
+   "first": "2023-02-25",
+   "last": "2026-02-27",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "De School",
+    "Unlisted warehouse",
+    "Unlisted warehouse (Brooklyn)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-solid-blake",
+   "name": "Solid Blake",
+   "times": 1,
+   "first": "2023-02-25",
+   "last": "2023-02-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-somewhen",
+   "name": "Somewhen",
+   "times": 1,
+   "first": "2023-02-25",
+   "last": "2023-02-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sonido-gallo-negro",
+   "name": "Sonido Gallo Negro",
+   "times": 1,
+   "first": "2025-03-22",
+   "last": "2025-03-22",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Xanadu Roller Arts"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-soul-summit",
+   "name": "Soul Summit",
+   "times": 1,
+   "first": "2025-04-05",
+   "last": "2025-04-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-souzo",
+   "name": "Souzo",
+   "times": 1,
+   "first": "2025-07-05",
+   "last": "2025-07-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "backsteinboot"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-special-guest",
+   "name": "Special Guest",
+   "times": 2,
+   "first": "2025-05-24",
+   "last": "2025-05-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-special-request",
+   "name": "Special Request",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-speedy-j",
+   "name": "Speedy J",
+   "times": 1,
+   "first": "2023-06-24",
+   "last": "2023-06-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-spekki-webu",
+   "name": "Spekki Webu",
+   "times": 1,
+   "first": "2025-03-28",
+   "last": "2025-03-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-spray",
+   "name": "Spray",
+   "times": 1,
+   "first": "2025-02-15",
+   "last": "2025-02-15",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-stepn-ak",
+   "name": "Stepn‡ak",
+   "times": 1,
+   "first": "2022-10-28",
+   "last": "2022-10-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sterling-juan-diaz",
+   "name": "Sterling Juan Diaz",
+   "times": 1,
+   "first": "2025-08-02",
+   "last": "2025-08-02",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-steve-rachmad",
+   "name": "Steve Rachmad",
+   "times": 1,
+   "first": "2023-05-12",
+   "last": "2023-05-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sticky-dojah",
+   "name": "Sticky Dojah",
+   "times": 1,
+   "first": "2025-03-22",
+   "last": "2025-03-22",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Xanadu Roller Arts"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-stratos",
+   "name": "Stratos",
+   "times": 1,
+   "first": "2024-07-05",
+   "last": "2024-07-05",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Renate",
+    "Zur Wilden Renate"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-st-f-n-d-ni-ls",
+   "name": "Stëfän Däniëls",
+   "times": 1,
+   "first": "2023-03-04",
+   "last": "2023-03-04",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Levenslang"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sukubratz",
+   "name": "Sukubratz",
+   "times": 1,
+   "first": "2023-05-12",
+   "last": "2023-05-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sunju-hargun",
+   "name": "Sunju Hargun",
+   "times": 1,
+   "first": "2023-06-24",
+   "last": "2023-06-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sybil",
+   "name": "Sybil",
+   "times": 1,
+   "first": "2025-10-12",
+   "last": "2025-10-12",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-tr-666",
+   "name": "TR-666",
+   "times": 1,
+   "first": "2024-05-17",
+   "last": "2024-05-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "The Love Song"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-tsvi",
+   "name": "TSVI",
+   "times": 1,
+   "first": "2025-08-15",
+   "last": "2025-08-15",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-tt",
+   "name": "TT",
+   "times": 1,
+   "first": "2025-08-02",
+   "last": "2025-08-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Basement"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-tangela",
+   "name": "Tangela",
+   "times": 1,
+   "first": "2025-07-05",
+   "last": "2025-07-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "backsteinboot"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-tarzsa",
+   "name": "Tarzsa",
+   "times": 1,
+   "first": "2023-02-25",
+   "last": "2023-02-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-tasha",
+   "name": "Tasha",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-tasman",
+   "name": "Tasman",
+   "times": 1,
+   "first": "2025-10-12",
+   "last": "2025-10-12",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/tasmantechno/tasman-unfold-cviii-live-recording-121025"
+   ]
+  },
+  {
+   "id": "dj-temo",
+   "name": "TeMo",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-technoslave-69",
+   "name": "Technoslave_69",
+   "times": 1,
+   "first": "2023-06-17",
+   "last": "2023-06-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-tedesco",
+   "name": "Tedesco",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-thanos-hana",
+   "name": "Thanos Hana",
+   "times": 1,
+   "first": "2023-02-17",
+   "last": "2023-02-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Shelter"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-theo-parrish",
+   "name": "Theo Parrish",
+   "times": 2,
+   "first": "2025-04-11",
+   "last": "2026-04-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-third-wife",
+   "name": "Third Wife",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-thoms-traxx",
+   "name": "Thoms Traxx",
+   "times": 1,
+   "first": "2023-06-24",
+   "last": "2023-06-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-tijana-t",
+   "name": "Tijana T",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-tony-humphries",
+   "name": "Tony Humphries",
+   "times": 1,
+   "first": "2025-05-03",
+   "last": "2025-05-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Le Bain"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-toothtaxi",
+   "name": "Toothtaxi",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/toothtaxi/toothtaxi-unfold-cxxiii-24-05"
+   ]
+  },
+  {
+   "id": "dj-topper",
+   "name": "Topper",
+   "times": 1,
+   "first": "2024-07-05",
+   "last": "2024-07-05",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Renate",
+    "Zur Wilden Renate"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-toumba",
+   "name": "Toumba",
+   "times": 2,
+   "first": "2025-05-24",
+   "last": "2025-08-23",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-tweeman",
+   "name": "Tweeman",
+   "times": 1,
+   "first": "2024-06-14",
+   "last": "2024-06-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "OXI"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-twelve-seven",
+   "name": "Twelve Seven",
+   "times": 2,
+   "first": "2025-10-03",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-tygapaw",
+   "name": "Tygapaw",
+   "times": 1,
+   "first": "2023-06-03",
+   "last": "2023-06-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Garage Noord"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ufo95",
+   "name": "UFO95",
+   "times": 1,
+   "first": "2026-07-25",
+   "last": "2026-07-25",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-uvb",
+   "name": "UVB",
+   "times": 1,
+   "first": "2025-12-07",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/uvb/uvbatunfoldcxii"
+   ]
+  },
+  {
+   "id": "dj-unhuman",
+   "name": "Unhuman",
+   "times": 1,
+   "first": "2023-08-21",
+   "last": "2023-08-21",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Re:mise"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-volvox",
+   "name": "VOLVOX",
+   "times": 1,
+   "first": "2023-11-10",
+   "last": "2023-11-10",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-valley-latini",
+   "name": "Valley Latini",
+   "times": 1,
+   "first": "2025-04-14",
+   "last": "2025-04-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Bowery Electric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-vani-vachi",
+   "name": "Vani Vachi",
+   "times": 1,
+   "first": "2024-06-14",
+   "last": "2024-06-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "OXI"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-veronica-vasicka",
+   "name": "Veronica Vasicka",
+   "times": 1,
+   "first": "2025-04-05",
+   "last": "2025-04-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-vilchezz",
+   "name": "Vilchezz",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/vilchez_wav/vilchezz-unfold-cxxiii-fold"
+   ]
+  },
+  {
+   "id": "dj-villa",
+   "name": "Villa",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-vinicius-honorio",
+   "name": "Vinicius Honorio",
+   "times": 1,
+   "first": "2025-10-26",
+   "last": "2025-10-26",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-voicedrone",
+   "name": "Voicedrone",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-vrag",
+   "name": "Vrag",
+   "times": 1,
+   "first": "2022-10-21",
+   "last": "2022-10-21",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-v-n-anh",
+   "name": "Vân Anh",
+   "times": 1,
+   "first": "2023-07-08",
+   "last": "2023-07-08",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "De School"
+   ],
+   "rec_links": [
+    "https://hetarchief.deschoolamsterdam.nl/sets/08-07-2023_saturday_de-zomernacht_van-anh_de-club/"
+   ]
+  },
+  {
+   "id": "dj-wata-igarashi",
+   "name": "Wata Igarashi",
+   "times": 2,
+   "first": "2023-05-12",
+   "last": "2023-11-10",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-why-be",
+   "name": "Why Be",
+   "times": 1,
+   "first": "2025-08-02",
+   "last": "2025-08-02",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-woody92",
+   "name": "Woody92",
+   "times": 1,
+   "first": "2023-06-24",
+   "last": "2023-06-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-xandy",
+   "name": "Xandy",
+   "times": 1,
+   "first": "2025-12-07",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/xandyuk/xandy-unfold-cxii-07-12-25"
+   ]
+  },
+  {
+   "id": "dj-xiorro",
+   "name": "Xiorro",
+   "times": 1,
+   "first": "2024-06-28",
+   "last": "2024-06-28",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-xoce",
+   "name": "Xoce",
+   "times": 1,
+   "first": "2023-10-28",
+   "last": "2023-10-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "(unknown)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-yazzus",
+   "name": "Yazzus",
+   "times": 2,
+   "first": "2025-05-10",
+   "last": "2025-10-12",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-yumi",
+   "name": "Yumi",
+   "times": 2,
+   "first": "2025-05-24",
+   "last": "2025-05-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-zeina",
+   "name": "Zeina",
+   "times": 2,
+   "first": "2025-12-06",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-zenker-brothers",
+   "name": "Zenker Brothers",
+   "times": 2,
+   "first": "2025-12-06",
+   "last": "2025-12-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "fabric"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-znzl",
+   "name": "Znzl",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 1,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": [
+    "https://soundcloud.com/znzl/znzl-unfold-cxxiii"
+   ]
+  },
+  {
+   "id": "dj-zylka",
+   "name": "Zylka",
+   "times": 1,
+   "first": "2025-07-05",
+   "last": "2025-07-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "backsteinboot"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-adobeprincess",
+   "name": "adobeprincess",
+   "times": 1,
+   "first": "2025-02-15",
+   "last": "2025-02-15",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-anu",
+   "name": "anu",
+   "times": 1,
+   "first": "2025-02-07",
+   "last": "2025-02-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-audt98",
+   "name": "audt98",
+   "times": 1,
+   "first": "2023-02-25",
+   "last": "2023-02-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-b0nitababy",
+   "name": "b0nitababy",
+   "times": 1,
+   "first": "2024-05-31",
+   "last": "2024-05-31",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Secret warehouse",
+    "Secret warehouse (LA)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-bebe-bad",
+   "name": "bebe bad",
+   "times": 1,
+   "first": "2023-07-14",
+   "last": "2023-07-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-coldsweat",
+   "name": "coldsweat",
+   "times": 1,
+   "first": "2024-05-17",
+   "last": "2024-05-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "The Love Song"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ivimusick",
+   "name": "ivimusick",
+   "times": 1,
+   "first": "2023-08-13",
+   "last": "2023-08-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Farola"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-k-means",
+   "name": "k means",
+   "times": 1,
+   "first": "2023-03-25",
+   "last": "2023-03-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-livwutang",
+   "name": "livwutang",
+   "times": 2,
+   "first": "2025-02-15",
+   "last": "2025-07-05",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Nowadays",
+    "backsteinboot"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mad-miran",
+   "name": "mad miran",
+   "times": 1,
+   "first": "2023-04-01",
+   "last": "2023-04-01",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "De School"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-re-ni",
+   "name": "re:ni",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-rrao",
+   "name": "rrao",
+   "times": 1,
+   "first": "2025-08-15",
+   "last": "2025-08-15",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sfcowboy",
+   "name": "sfcowboy",
+   "times": 1,
+   "first": "2024-05-31",
+   "last": "2024-05-31",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Secret warehouse",
+    "Secret warehouse (LA)"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-slin",
+   "name": "slin",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "RSO",
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-softi",
+   "name": "softi",
+   "times": 1,
+   "first": "2026-05-24",
+   "last": "2026-05-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "FOLD"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-turmanuma",
+   "name": "turmanuma",
+   "times": 1,
+   "first": "2023-08-21",
+   "last": "2023-08-21",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Re:mise"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-whitegirlstudyplaylist",
+   "name": "whitegirlstudyplaylist",
+   "times": 1,
+   "first": "2022-10-28",
+   "last": "2022-10-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Drugstore"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-x3butterfly",
+   "name": "x3butterfly",
+   "times": 2,
+   "first": "2023-11-10",
+   "last": "2025-05-18",
+   "clubs": 3,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-y-unan",
+   "name": "y.unan",
+   "times": 1,
+   "first": "2023-06-09",
+   "last": "2023-06-09",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-on",
+   "name": "ÆON",
+   "times": 1,
+   "first": "2025-05-10",
+   "last": "2025-05-10",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Basement",
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sii-sii",
+   "name": "Sii Sii",
+   "times": 1,
+   "first": "2025-05-11",
+   "last": "2025-05-11",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-fuckoff",
+   "name": "DJ Fuckoff",
+   "times": 1,
+   "first": "2025-05-11",
+   "last": "2025-05-11",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-maara",
+   "name": "Maara",
+   "times": 1,
+   "first": "2025-05-11",
+   "last": "2025-05-11",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-pariah",
+   "name": "Pariah",
+   "times": 1,
+   "first": "2025-05-11",
+   "last": "2025-05-11",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-deadname",
+   "name": "DJ DEADNAME",
+   "times": 1,
+   "first": "2025-05-18",
+   "last": "2025-05-18",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-simo-cell",
+   "name": "Simo Cell",
+   "times": 1,
+   "first": "2025-05-18",
+   "last": "2025-05-18",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ben-ufo",
+   "name": "Ben UFO",
+   "times": 1,
+   "first": "2025-05-18",
+   "last": "2025-05-18",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-kia-au",
+   "name": "Kia (AU)",
+   "times": 1,
+   "first": "2025-05-25",
+   "last": "2025-05-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-loka-us",
+   "name": "LOKA (US)",
+   "times": 1,
+   "first": "2025-08-23",
+   "last": "2025-08-23",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-fashion-us",
+   "name": "FASHION (US)",
+   "times": 1,
+   "first": "2025-08-23",
+   "last": "2025-08-23",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-connor-wrong",
+   "name": "Connor Wrong",
+   "times": 1,
+   "first": "2025-09-14",
+   "last": "2025-09-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-shinedoe",
+   "name": "Shinedoe",
+   "times": 1,
+   "first": "2025-09-14",
+   "last": "2025-09-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-bambi-fr",
+   "name": "Bambi (FR)",
+   "times": 1,
+   "first": "2025-09-14",
+   "last": "2025-09-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-aaron-j",
+   "name": "Aaron J",
+   "times": 1,
+   "first": "2025-09-14",
+   "last": "2025-09-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-donato-dozzy",
+   "name": "Donato Dozzy",
+   "times": 1,
+   "first": "2025-09-14",
+   "last": "2025-09-14",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-synclaire-nema-h-n-aka-sol",
+   "name": "DJ Synclaire (Nema Hän & aka-Sol)",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-isabella-koen",
+   "name": "Isabella Koen",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-cry-kilbourne-relaxer",
+   "name": "Cry (Kilbourne & Relaxer)",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-foodman",
+   "name": "Foodman",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-doula",
+   "name": "Doula",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-primo",
+   "name": "Primo",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-baby-leo",
+   "name": "Baby Leo",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-plead",
+   "name": "DJ Plead",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mark-ernestus",
+   "name": "Mark Ernestus",
+   "times": 1,
+   "first": "2026-07-19",
+   "last": "2026-07-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-rrose",
+   "name": "Rrose",
+   "times": 1,
+   "first": "2026-08-02",
+   "last": "2026-08-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-carrier",
+   "name": "Carrier",
+   "times": 1,
+   "first": "2026-08-02",
+   "last": "2026-08-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-timnah",
+   "name": "Timnah",
+   "times": 1,
+   "first": "2026-08-02",
+   "last": "2026-08-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sevyn-love",
+   "name": "Sevyn Love",
+   "times": 1,
+   "first": "2026-08-02",
+   "last": "2026-08-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lauren-flax",
+   "name": "Lauren Flax",
+   "times": 1,
+   "first": "2026-08-02",
+   "last": "2026-08-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-scotia",
+   "name": "Scotia",
+   "times": 1,
+   "first": "2026-08-02",
+   "last": "2026-08-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-carlos-souffront",
+   "name": "Carlos Souffront",
+   "times": 1,
+   "first": "2026-08-02",
+   "last": "2026-08-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-surgeon-dj-set",
+   "name": "SURGEON (DJ SET)",
+   "times": 1,
+   "first": "2025-05-23",
+   "last": "2025-05-23",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-tt-nyc",
+   "name": "TT (NYC)",
+   "times": 1,
+   "first": "2025-08-02",
+   "last": "2025-08-02",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Basement / Knockdown Center"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-hannah-nl",
+   "name": "HANNAH (NL)",
+   "times": 1,
+   "first": "2023-06-17",
+   "last": "2023-06-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Radion"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ktk-de",
+   "name": "KTK (DE)",
+   "times": 1,
+   "first": "2023-07-30",
+   "last": "2023-07-30",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lobster-nl",
+   "name": "Lobster (NL)",
+   "times": 1,
+   "first": "2024-06-28",
+   "last": "2024-06-28",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "RSO.Berlin"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-souzo-live",
+   "name": "Souzo (live)",
+   "times": 1,
+   "first": "2025-07-05",
+   "last": "2025-07-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "backsteinboot"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-overmono",
+   "name": "Overmono",
+   "times": 1,
+   "first": "2023-09-20",
+   "last": "2023-09-20",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Brighton Music Hall"
+   ],
+   "rec_links": []
+  }
+ ],
+ "longest_sessions": [
+  {
+   "venue": "Sisyphos",
+   "date": "Sat 29 Jun 2024",
+   "event": "",
+   "duration": "41h+",
+   "flight": "Singapore→New York nonstop and straight back — about 37h in the air — with four hours left over"
+  },
+  {
+   "venue": "Nowadays",
+   "date": "Sun 14 Sep 2025",
+   "event": "Mister Sunday / Nonstop",
+   "duration": "28h",
+   "flight": "New York→Singapore nonstop (~18½h), plus a layover long enough to leave the airport"
+  },
+  {
+   "venue": "FOLD",
+   "date": "Sun 24 May 2026",
+   "event": "",
+   "duration": "28h",
+   "flight": "Singapore→New York, the longest flight there is, flown one and a half times"
+  },
+  {
+   "venue": "Nowadays",
+   "date": "Sun 24 Aug 2025",
+   "event": "Mister Sunday / Nonstop",
+   "duration": "25h",
+   "flight": "New York→Singapore nonstop (~18½h), plus a layover long enough to leave the airport"
+  },
+  {
+   "venue": "De School",
+   "date": "Sat 25 Feb 2023",
+   "event": "Het Weekend",
+   "duration": "23h",
+   "flight": "longer than any scheduled nonstop flight on earth, by about four hours"
+  }
+ ],
+ "top_clubs": [
+  {
+   "venue": "Nowadays",
+   "city": "New York",
+   "nights": "20 nights"
+  },
+  {
+   "venue": "Basement / Knockdown Center",
+   "city": "New York",
+   "nights": "13 nights"
+  },
+  {
+   "venue": "De School",
+   "city": "Amsterdam",
+   "nights": "10 nights"
+  },
+  {
+   "venue": "FOLD",
+   "city": "London",
+   "nights": "6 nights"
+  },
+  {
+   "venue": "Drugstore",
+   "city": "Belgrade",
+   "nights": "5 nights"
+  }
+ ]
+}

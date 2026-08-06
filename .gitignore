@@ -23,6 +23,12 @@
 # Superseded 2.4 MB single-file build. Kept on disk for reference only.
 /dashboard/Uzbekistan_Dashboard.html
 
+# Club archive (/djs/). The artifact fragment is a second copy of the same page
+# with the fonts inlined, and saved RA event pages are ~800 KB of browser dump
+# each — both are working files, neither is published.
+/djs-build/build/
+/djs-build/ra/
+
 # Junk
 __pycache__/
 *.pyc
