@@ -296,9 +296,12 @@
 const $ = id => document.getElementById(id);
 const SEGMENTS = 40;
 
-// Tried in order. The first is the relay's output, updated on an interval; the
-// second is a snapshot committed with the page, so this renders correctly even
-// when the relay is not running or has never been set up.
+// Tried in order. The first is the relay's own repo, used when it runs long
+// enough to be worth keeping the churn out of this one. The second ships with
+// the page, so this renders even with no relay at all — and is also where a
+// short run pushes, since committing here needs no extra repo and no token.
+// `live` marks only which URL implies a relay was configured, for telling
+// "the feed broke" apart from "there was never a feed".
 const SOURCES = [
   { url: "https://raw.githubusercontent.com/3-mmc/humidity-data/main/humidity.json", live: true },
   { url: "data/humidity.json", live: false },
@@ -336,7 +339,10 @@ function ago(ms) {
 async function load() {
   for (const src of SOURCES) {
     try {
-      const r = await fetch(src.url, { cache: "no-store" });
+      // Both hosts send max-age=600, and no-store only governs this browser's
+      // cache. A unique query defeats an edge that has not purged yet, which
+      // would otherwise serve a copy older than the age this page reports.
+      const r = await fetch(`${src.url}?t=${Date.now()}`, { cache: "no-store" });
       if (!r.ok) continue;
       return { data: await r.json(), live: src.live };
     } catch (e) { /* try the next source */ }
@@ -363,18 +369,21 @@ function render(data, live) {
   // "label" along with them, and the element would lose its type styling.
   status.classList.remove("live", "stale");
 
-  if (!live) {
-    // Fell back to the committed file. That is a fixed snapshot, not a feed
-    // that has broken, so it gets neutral treatment rather than the accent.
-    text.textContent = `Snapshot · ${ago(age)}`;
-  } else if (age > STALE_MS) {
-    // Red is an interrupt, not decoration: the relay was configured and has
-    // stopped delivering.
+  if (age <= STALE_MS) {
+    // Something is actively updating the file. Which of the two sources it
+    // arrived from is irrelevant here — freshness is a property of the data,
+    // not of the URL, and the relay can legitimately write to either.
+    status.classList.add("live");
+    text.textContent = `Live · ${ago(age)}`;
+  } else if (live) {
+    // Came from the relay's own URL and has gone quiet: it was set up and has
+    // stopped delivering. Red is an interrupt, not decoration.
     status.classList.add("stale");
     text.textContent = `Stale · ${ago(age)}`;
   } else {
-    status.classList.add("live");
-    text.textContent = `Live · ${ago(age)}`;
+    // No relay anywhere, just the snapshot committed with the page. That is a
+    // fixed moment rather than a feed that broke, so it stays neutral.
+    text.textContent = `Snapshot · ${ago(age)}`;
   }
 
   drawChart(data.samples || []);

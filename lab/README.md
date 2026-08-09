@@ -36,9 +36,25 @@ and the board's own page remains the real-time one.
 So the page renders correctly whether or not the relay is running, and a relay
 that has never been set up looks different from one that has broken.
 
-## Turning on the live feed
+## Running it live for a few hours
 
-The relay is **not running yet**. To enable it:
+```sh
+./lab/demo-relay.sh              # 6 hours, every 10 minutes
+HOURS=2 INTERVAL=300 ./lab/demo-relay.sh
+```
+
+Pushes `data/humidity.json` straight into this repo, so it needs no second repo
+and no token — the credentials for pushing here already exist. Run it from any
+machine that can see the board. The page shows **Live** because freshness is
+read from the data's own timestamp, not from which URL served it.
+
+It stops at the deadline on its own, and prints the `git rebase -i` line to
+squash the run down afterwards. A few dozen commits is nothing; the permanent
+setup below exists because *thousands* would be.
+
+## Running it indefinitely
+
+The relay is **not installed anywhere**. For a standing feed:
 
 **1. Create a public repo `3-mmc/humidity-data`.** It exists only to hold one
 file. Data churn does not belong in this repo's history — a push every ten
