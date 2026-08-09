@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab · Humidity</title>
+<meta name="description" content="Live-ish mirror of an ESP32-C3 temperature and humidity logger.">
+<meta property="og:title" content="Lab · Humidity">
+<meta property="og:description" content="Live-ish mirror of an ESP32-C3 temperature and humidity logger.">
+<meta property="og:type" content="website">
+<style>
+@font-face{font-family:'Doto';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/doto600.woff2) format('woff2')}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/mono400.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300;font-display:swap;src:url(fonts/grotesk300.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/grotesk500.woff2) format('woff2')}
+
+  /* Nothing design system tokens, carried over from the page the board itself
+     serves so this reads as the same instrument, not a redesign of it. */
+  :root {
+    --black: #000000;
+    --border: #222222;
+    --border-visible: #333333;
+    --text-disabled: #666666;
+    --text-secondary: #999999;
+    --text-primary: #E8E8E8;
+    --text-display: #FFFFFF;
+    --accent: #D71921;
+    --success: #4A9E5C;
+
+    --space-xs: 4px;  --space-sm: 8px;  --space-md: 16px;
+    --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px;
+    --space-3xl: 64px;
+
+    --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --black: #F5F5F5;
+      --border: #E8E8E8;
+      --border-visible: #CCCCCC;
+      --text-disabled: #999999;
+      --text-secondary: #666666;
+      --text-primary: #1A1A1A;
+      --text-display: #000000;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body { background: var(--black); }
+  body {
+    margin: 0;
+    padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+    color: var(--text-primary);
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 680px; margin: 0 auto; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Tertiary layer: instrument-panel labels. Always Space Mono, ALL CAPS. */
+  .label {
+    font-family: "Space Mono", ui-monospace, monospace;
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-md);
+    margin-bottom: var(--space-2xl);
+  }
+  header .brand { color: var(--text-display); }
+  #status { color: var(--text-disabled); white-space: nowrap; }
+  #status.live .dot { color: var(--success); }
+  #status.stale { color: var(--accent); }
+
+  /* Primary layer: the one thing seen first. Floats on the background,
+     never boxed. Doto is the single pattern break on this screen. */
+  .hero { margin-bottom: var(--space-xl); }
+  #rh {
+    font-family: "Doto", "Space Mono", monospace;
+    font-weight: 600;
+    font-size: clamp(72px, 22vw, 132px);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    color: var(--text-display);
+    font-variant-numeric: tabular-nums;
+  }
+  #rh .unit {
+    font-family: "Space Mono", monospace;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    vertical-align: super;
+    margin-left: var(--space-sm);
+  }
+  .hero .label { display: block; margin-top: var(--space-md); }
+
+  /* Signature visualisation: discrete mechanical segments, square ends. */
+  .segments {
+    display: flex;
+    gap: 2px;
+    height: 18px;
+    margin-bottom: var(--space-2xl);
+  }
+  .segments i {
+    flex: 1;
+    background: var(--border);
+    transition: background 200ms var(--ease);
+  }
+  .segments i.on { background: var(--text-display); }
+  .segments i.over { background: var(--accent); }
+
+  /* Secondary layer: supporting readouts. Dividers, never zebra striping. */
+  .rows { margin-bottom: var(--space-2xl); }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-md);
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+  }
+  .row:last-child { border-bottom: 1px solid var(--border); }
+  .row .v {
+    font-family: "Space Mono", ui-monospace, monospace;
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .row .v span {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-left: var(--space-xs);
+  }
+
+  .chartwrap { margin-bottom: var(--space-2xl); }
+  .charthead {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-md);
+  }
+  canvas { width: 100%; height: 200px; display: block; }
+
+  /* Planned hardware. Rendered at disabled weight throughout: the design
+     system's own way of saying "not yet" without a badge shouting it. */
+  .planned .row { align-items: flex-start; }
+  .planned .part {
+    font-family: "Space Mono", ui-monospace, monospace;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    display: block;
+  }
+  .planned .what {
+    font-size: 13px;
+    color: var(--text-disabled);
+    display: block;
+    margin-top: var(--space-xs);
+  }
+  .planned .pending {
+    font-family: "Space Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--text-disabled);
+    white-space: nowrap;
+  }
+
+  .note {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-2xl);
+    max-width: 56ch;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border);
+  }
+  footer a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-visible);
+    padding-bottom: 1px;
+    transition: color 200ms var(--ease), border-color 200ms var(--ease);
+  }
+  footer a:hover, footer a:focus-visible {
+    color: var(--text-display);
+    border-color: var(--text-display);
+  }
+  .links { display: flex; gap: var(--space-md); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <span class="label brand">Lab · Humidity · Sensor 01</span>
+    <span class="label" id="status"><span class="dot">●</span> <span id="statustext">Loading</span></span>
+  </header>
+
+  <div class="hero">
+    <div id="rh">--.-<span class="unit">%RH</span></div>
+    <span class="label">Relative humidity</span>
+  </div>
+
+  <div class="segments" id="segments"></div>
+
+  <div class="rows">
+    <div class="row">
+      <span class="label">Temperature</span>
+      <span class="v" id="temp">--.-<span>°C</span></span>
+    </div>
+    <div class="row">
+      <span class="label">Dew point</span>
+      <span class="v" id="dew">--.-<span>°C</span></span>
+    </div>
+    <div class="row">
+      <span class="label">Absolute humidity</span>
+      <span class="v" id="abs">--.-<span>g/m³</span></span>
+    </div>
+  </div>
+
+  <div class="chartwrap">
+    <div class="charthead">
+      <span class="label">History</span>
+      <span class="label" id="span">--</span>
+    </div>
+    <canvas id="chart" role="img" aria-label="Relative humidity and temperature over time"></canvas>
+  </div>
+
+  <div class="charthead"><span class="label">Planned sensors</span></div>
+  <div class="rows planned">
+    <div class="row">
+      <span>
+        <span class="part">MQ-135</span>
+        <span class="what">Air quality — VOCs, NH3, NOx, benzene, smoke</span>
+      </span>
+      <span class="pending">Pending</span>
+    </div>
+    <div class="row">
+      <span>
+        <span class="part">MQ-2</span>
+        <span class="what">Combustible gas — LPG, propane, methane, smoke</span>
+      </span>
+      <span class="pending">Pending</span>
+    </div>
+    <div class="row">
+      <span>
+        <span class="part">MS1100</span>
+        <span class="what">VOCs — formaldehyde, benzene, toluene</span>
+      </span>
+      <span class="pending">Pending</span>
+    </div>
+    <div class="row">
+      <span>
+        <span class="part">SHT40</span>
+        <span class="what">Temperature and humidity, to sit alongside the AHT10</span>
+      </span>
+      <span class="pending">Pending</span>
+    </div>
+  </div>
+
+  <p class="note">
+    An AHT10 read over I2C by an ESP32-C3, sampled every 10 seconds. The board
+    is on a home network and has no public address, so this page is a mirror:
+    a relay copies its readings out on an interval, and the timestamp above
+    says how old that copy is. The board's own page updates live.
+  </p>
+
+  <footer>
+    <span class="label" id="count">[loading]</span>
+    <span class="links">
+      <a class="label" href="data/humidity.json">JSON</a>
+      <a class="label" href="/">Index</a>
+    </span>
+  </footer>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const SEGMENTS = 40;
+
+// Tried in order. The first is the relay's output, updated on an interval; the
+// second is a snapshot committed with the page, so this renders correctly even
+// when the relay is not running or has never been set up.
+const SOURCES = [
+  { url: "https://raw.githubusercontent.com/3-mmc/humidity-data/main/humidity.json", live: true },
+  { url: "data/humidity.json", live: false },
+];
+
+// The relay is expected roughly every 10 minutes. Past this the copy is old
+// enough that presenting it as current would misrepresent it.
+const STALE_MS = 25 * 60 * 1000;
+
+const segEl = $("segments");
+for (let i = 0; i < SEGMENTS; i++) segEl.appendChild(document.createElement("i"));
+const segs = [...segEl.children];
+
+function setSegments(pct) {
+  const filled = Math.round(pct / 100 * SEGMENTS);
+  segs.forEach((s, i) => {
+    s.className = i < filled ? (pct > 70 ? "on over" : "on") : "";
+  });
+}
+
+function num(el, value, unit) {
+  el.innerHTML = (value === null || value === undefined ? "--.-" : value.toFixed(1)) +
+                 `<span>${unit}</span>`;
+}
+
+function ago(ms) {
+  const m = Math.round(ms / 60000);
+  if (m < 1) return "just now";
+  if (m < 60) return `${m} min ago`;
+  const h = ms / 3600000;
+  if (h < 48) return `${h.toFixed(h < 10 ? 1 : 0)} h ago`;
+  return `${Math.round(h / 24)} d ago`;
+}
+
+async function load() {
+  for (const src of SOURCES) {
+    try {
+      const r = await fetch(src.url, { cache: "no-store" });
+      if (!r.ok) continue;
+      return { data: await r.json(), live: src.live };
+    } catch (e) { /* try the next source */ }
+  }
+  return null;
+}
+
+function render(data, live) {
+  const status = $("status"), text = $("statustext");
+  const d = data.latest;
+
+  $("rh").innerHTML = d.rh_pct.toFixed(1) + '<span class="unit">%RH</span>';
+  setSegments(d.rh_pct);
+  num($("temp"), d.temp_c, "°C");
+  num($("dew"), d.dew_point_c, "°C");
+  num($("abs"), d.abs_hum_g_m3, "g/m³");
+  $("count").textContent = `[${d.count} samples on device]`;
+
+  // Age is measured from when the relay read the board, not from the sample
+  // timestamp — this page can never be fresher than its last copy.
+  const age = Date.now() - data.fetched_at;
+
+  // Toggle only the state classes. Assigning className outright would drop
+  // "label" along with them, and the element would lose its type styling.
+  status.classList.remove("live", "stale");
+
+  if (!live) {
+    // Fell back to the committed file. That is a fixed snapshot, not a feed
+    // that has broken, so it gets neutral treatment rather than the accent.
+    text.textContent = `Snapshot · ${ago(age)}`;
+  } else if (age > STALE_MS) {
+    // Red is an interrupt, not decoration: the relay was configured and has
+    // stopped delivering.
+    status.classList.add("stale");
+    text.textContent = `Stale · ${ago(age)}`;
+  } else {
+    status.classList.add("live");
+    text.textContent = `Live · ${ago(age)}`;
+  }
+
+  drawChart(data.samples || []);
+}
+
+let lastSamples = [];
+
+function drawChart(samples) {
+  lastSamples = samples;
+  const c = $("chart"), dpr = devicePixelRatio || 1;
+  const w = c.clientWidth, h = c.clientHeight;
+  c.width = w * dpr; c.height = h * dpr;
+  const g = c.getContext("2d");
+  g.scale(dpr, dpr);
+  g.clearRect(0, 0, w, h);
+
+  const css = getComputedStyle(document.documentElement);
+  const tok = n => css.getPropertyValue(n).trim();
+
+  if (samples.length < 2) {
+    g.fillStyle = tok("--text-disabled");
+    g.font = '11px "Space Mono", monospace';
+    g.fillText("[AWAITING DATA]", 0, 20);
+    return;
+  }
+
+  // padR has to clear the longest inline series label ("100.0 RH" at 11px
+  // Space Mono) plus its 6px offset, or the text is cut off at the edge.
+  const padL = 0, padR = 62, padT = 12, padB = 22;
+  const pw = w - padL - padR, ph = h - padT - padB;
+  const ts = samples.map(s => s[0]);
+  const temps = samples.map(s => s[1]);
+  const rhs = samples.map(s => s[2]);
+
+  const bounds = a => {
+    const lo = Math.min(...a), hi = Math.max(...a);
+    if (lo === hi) return [lo - 1, hi + 1];
+    const m = (hi - lo) * 0.15;
+    return [lo - m, hi + m];
+  };
+  const [rhLo, rhHi] = bounds(rhs);
+  const [tLo, tHi] = bounds(temps);
+  const t0 = ts[0], t1 = ts[ts.length - 1];
+  const x = t => padL + (t1 === t0 ? pw : (t - t0) / (t1 - t0) * pw);
+  const yr = v => padT + ph - (v - rhLo) / (rhHi - rhLo) * ph;
+  const yt = v => padT + ph - (v - tLo) / (tHi - tLo) * ph;
+
+  // Horizontal grid only, hairline, decorative weight.
+  g.strokeStyle = tok("--border"); g.lineWidth = 1;
+  for (let i = 0; i <= 3; i++) {
+    const yy = Math.round(padT + ph * i / 3) + 0.5;
+    g.beginPath(); g.moveTo(padL, yy); g.lineTo(padL + pw, yy); g.stroke();
+  }
+
+  const line = (vals, yf, colour, dash) => {
+    g.strokeStyle = colour; g.lineWidth = 1.5; g.setLineDash(dash);
+    g.beginPath();
+    vals.forEach((v, i) => {
+      const px = x(ts[i]), py = yf(v);
+      i ? g.lineTo(px, py) : g.moveTo(px, py);
+    });
+    g.stroke(); g.setLineDash([]);
+  };
+
+  // Series differentiated by opacity and dash, never colour.
+  line(temps, yt, tok("--text-disabled"), [2, 3]);
+  line(rhs, yr, tok("--text-display"), []);
+
+  // Lines are labelled directly; no legend box.
+  g.font = '11px "Space Mono", monospace';
+  g.textBaseline = "middle";
+  g.fillStyle = tok("--text-display");
+  g.fillText(rhs[rhs.length - 1].toFixed(1) + " RH",
+             padL + pw + 6, yr(rhs[rhs.length - 1]));
+  g.fillStyle = tok("--text-disabled");
+  g.fillText(temps[temps.length - 1].toFixed(1) + " C",
+             padL + pw + 6, yt(temps[temps.length - 1]));
+
+  const mins = Math.round((t1 - t0) / 60000);
+  $("span").textContent = mins >= 120 ? `${(mins / 60).toFixed(1)} hours`
+                                      : `${mins} minutes`;
+}
+
+async function refresh() {
+  const got = await load();
+  if (!got) {
+    $("status").classList.add("stale");
+    $("statustext").textContent = "No data";
+    return;
+  }
+  render(got.data, got.live);
+}
+
+refresh();
+// The relay writes every few minutes and raw.githubusercontent caches for
+// five, so polling faster than this only burns requests.
+setInterval(refresh, 120000);
+addEventListener("resize", () => drawChart(lastSamples));
+</script>
+</body>
+</html>
