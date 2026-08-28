@@ -32,11 +32,12 @@ import time
 import urllib.error
 import urllib.request
 
-DEFAULT_DEVICE = "http://192.168.1.169"
+DEFAULT_DEVICE = "http://192.168.1.16"
 
 # The chart is ~640 px wide, so more points than this buy nothing visible while
 # making the file the public page downloads bigger. The board's full ring is
 # 2880 samples; this keeps the shape and drops roughly three quarters of it.
+# Samples are 7 columns now, so the file is correspondingly bigger per point.
 MAX_POINTS = 720
 
 # Where --push writes. Deliberately not the site repo: this file changes every
@@ -79,13 +80,30 @@ def build(device: str) -> dict:
 
     samples = thin(history.get("samples", []), MAX_POINTS)
 
+    # Gas channels are read live from /api/latest rather than reconstructed
+    # from the history columns, because Rs and Rs/R0 are not in the ring - the
+    # board carries only millivolts there, to keep the buffer small.
+    gas = {}
+    for name, g in (latest.get("gas") or {}).items():
+        if not g.get("ok"):
+            continue
+        gas[name] = {
+            "mv": g.get("mv"),
+            "rs_ohm": g.get("rs_ohm"),
+            "r0_ohm": g.get("r0_ohm"),
+            "ratio": g.get("ratio"),
+        }
+
     return {
-        "schema": 1,
+        # 2: gained gas + fan, and samples became 7 columns rather than 3.
+        # The page reads sample columns positionally, so they are only ever
+        # appended - an old page against a new file still plots temp and RH.
+        "schema": 2,
         # When the relay read the board, in epoch ms. The page shows staleness
         # against this, not against the sample timestamp: a mirror is only ever
         # as fresh as its last copy, and saying otherwise would be a lie.
         "fetched_at": int(time.time() * 1000),
-        "device": "esp32c3-humidity",
+        "device": "esp32c3-sno2array",
         "synced": bool(latest.get("synced")),
         "latest": {
             "ts": latest["ts"],
@@ -95,6 +113,8 @@ def build(device: str) -> dict:
             "abs_hum_g_m3": latest["abs_hum_g_m3"],
             "count": latest.get("count", 0),
         },
+        "gas": gas,
+        "fan": latest.get("fan") or {},
         "samples": samples,
     }
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lab · Humidity</title>
+<title>Lab · SnO2 array</title>
 <meta name="description" content="Live-ish mirror of an ESP32-C3 temperature and humidity logger.">
 <meta property="og:title" content="Lab · Humidity">
 <meta property="og:description" content="Live-ish mirror of an ESP32-C3 temperature and humidity logger.">
@@ -27,6 +27,14 @@
     --accent: #D71921;
     --success: #4A9E5C;
 
+    /* Categorical series. Colour is allowed here because it encodes identity,
+       not decoration. Validated all-pairs for colour-vision deficiency: worst
+       ΔE 13.0 dark, 18.2 light, against a target of 8. Stepped separately per
+       mode because the two have different lightness bands. */
+    --s1: #955905;
+    --s2: #4aa16d;
+    --s3: #bd2099;
+
     --space-xs: 4px;  --space-sm: 8px;  --space-md: 16px;
     --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px;
     --space-3xl: 64px;
@@ -35,6 +43,9 @@
   }
   @media (prefers-color-scheme: light) {
     :root {
+      --s1: #a88d10;
+      --s2: #29612d;
+      --s3: #cb31a5;
       --black: #F5F5F5;
       --border: #E8E8E8;
       --border-visible: #CCCCCC;
@@ -83,7 +94,7 @@
   /* Primary layer: the one thing seen first. Floats on the background,
      never boxed. Doto is the single pattern break on this screen. */
   .hero { margin-bottom: var(--space-xl); }
-  #rh {
+  #hero {
     font-family: "Doto", "Space Mono", monospace;
     font-weight: 600;
     font-size: clamp(72px, 22vw, 132px);
@@ -92,7 +103,7 @@
     color: var(--text-display);
     font-variant-numeric: tabular-nums;
   }
-  #rh .unit {
+  #hero .unit {
     font-family: "Space Mono", monospace;
     font-size: 16px;
     font-weight: 400;
@@ -154,26 +165,25 @@
 
   /* Planned hardware. Rendered at disabled weight throughout: the design
      system's own way of saying "not yet" without a badge shouting it. */
-  .planned .row { align-items: flex-start; }
-  .planned .part {
+  /* Was scoped to a "planned sensors" block; those sensors are now fitted and
+     reporting, so the same treatment applies to the live gas rows. */
+  .rows .row:has(.part) { align-items: flex-start; }
+  .part {
     font-family: "Space Mono", ui-monospace, monospace;
     font-size: 13px;
     letter-spacing: 0.04em;
     color: var(--text-secondary);
     display: block;
   }
-  .planned .what {
+  .what {
     font-size: 13px;
     color: var(--text-disabled);
     display: block;
     margin-top: var(--space-xs);
   }
-  .planned .pending {
-    font-family: "Space Mono", ui-monospace, monospace;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--text-disabled);
-    white-space: nowrap;
+  .hero .sub {
+    display: block; margin-top: var(--space-xs);
+    color: var(--text-disabled); letter-spacing: 0.06em;
   }
 
   .note {
@@ -205,22 +215,67 @@
     border-color: var(--text-display);
   }
   .links { display: flex; gap: var(--space-md); }
+
+  .legend {
+    display: flex; flex-wrap: wrap; gap: var(--space-md);
+    margin-top: var(--space-md);
+  }
+  .lg { display: flex; align-items: center; gap: var(--space-sm); }
+  .lg i { display: block; width: 16px; height: 0; border-top-width: 2px; }
+  .lg .lv {
+    font-family: "Space Mono", ui-monospace, monospace; font-size: 12px;
+    color: var(--text-primary); font-variant-numeric: tabular-nums;
+  }
 </style>
 </head>
 <body>
 <main>
   <header>
-    <span class="label brand">Lab · Humidity · Sensor 01</span>
+    <span class="label brand">Lab · SnO2 array · Sensor 01</span>
     <span class="label" id="status"><span class="dot">●</span> <span id="statustext">Loading</span></span>
   </header>
 
   <div class="hero">
-    <div id="rh">--.-<span class="unit">%RH</span></div>
-    <span class="label">Relative humidity</span>
+    <div id="hero">----<span class="unit">mV</span></div>
+    <span class="label">MQ-135 · NH3, NOx, benzene, smoke</span>
+    <span class="label sub" id="herors">no baseline</span>
   </div>
 
   <div class="segments" id="segments"></div>
 
+  <div class="charthead"><span class="label">Gas channels</span></div>
+  <div class="rows">
+    <div class="row">
+      <span>
+        <span class="part">MQ-135</span>
+        <span class="what">Air quality — VOCs, NH3, NOx, benzene, smoke</span>
+      </span>
+      <span class="v" id="g_mq135">----<span>mV</span></span>
+    </div>
+    <div class="row">
+      <span>
+        <span class="part">MQ-2</span>
+        <span class="what">Combustible gas — LPG, propane, methane, smoke</span>
+      </span>
+      <span class="v" id="g_mq2">----<span>mV</span></span>
+    </div>
+    <div class="row">
+      <span>
+        <span class="part">MS1100</span>
+        <span class="what">VOCs — formaldehyde, benzene, toluene</span>
+      </span>
+      <span class="v" id="g_ms1100">----<span>mV</span></span>
+    </div>
+    <div class="row">
+      <span>
+        <span class="part">Fan</span>
+        <span class="what">PWM duty and measured speed</span>
+      </span>
+      <span class="v" id="g_fan">--<span>%</span></span>
+    </div>
+  </div>
+
+  <div class="charthead"><span class="label">Reference · for calibration</span></div>
   <div class="rows">
     <div class="row">
       <span class="label">Temperature</span>
@@ -229,6 +284,10 @@
     <div class="row">
       <span class="label">Dew point</span>
       <span class="v" id="dew">--.-<span>°C</span></span>
+    </div>
+    <div class="row">
+      <span class="label">Relative humidity</span>
+      <span class="v" id="rh">--.-<span>%RH</span></span>
     </div>
     <div class="row">
       <span class="label">Absolute humidity</span>
@@ -241,46 +300,22 @@
       <span class="label">History</span>
       <span class="label" id="span">--</span>
     </div>
-    <canvas id="chart" role="img" aria-label="Relative humidity and temperature over time"></canvas>
-  </div>
-
-  <div class="charthead"><span class="label">Planned sensors</span></div>
-  <div class="rows planned">
-    <div class="row">
-      <span>
-        <span class="part">MQ-135</span>
-        <span class="what">Air quality — VOCs, NH3, NOx, benzene, smoke</span>
-      </span>
-      <span class="pending">Pending</span>
-    </div>
-    <div class="row">
-      <span>
-        <span class="part">MQ-2</span>
-        <span class="what">Combustible gas — LPG, propane, methane, smoke</span>
-      </span>
-      <span class="pending">Pending</span>
-    </div>
-    <div class="row">
-      <span>
-        <span class="part">MS1100</span>
-        <span class="what">VOCs — formaldehyde, benzene, toluene</span>
-      </span>
-      <span class="pending">Pending</span>
-    </div>
-    <div class="row">
-      <span>
-        <span class="part">SHT40</span>
-        <span class="what">Temperature and humidity, to sit alongside the AHT10</span>
-      </span>
-      <span class="pending">Pending</span>
-    </div>
+    <canvas id="chart" role="img" aria-label="Three gas channels, temperature and humidity over time"></canvas>
+    <div class="legend" id="legend"></div>
   </div>
 
   <p class="note">
-    An AHT10 read over I2C by an ESP32-C3, sampled every 10 seconds. The board
-    is on a home network and has no public address, so this page is a mirror:
-    a relay copies its readings out on an interval, and the timestamp above
-    says how old that copy is. The board's own page updates live.
+    Three tin-oxide gas sensors read through an ADS1115, with an SHT41 for
+    temperature and humidity, sampled every 10 seconds by an ESP32-C3. The
+    board is on a home network and has no public address, so this page is a
+    mirror: a relay copies its readings out on an interval, and the timestamp
+    above says how old that copy is. The board's own page updates live.
+    <br><br>
+    Values are millivolts at the sensor, and Rs/R0 against a clean-air
+    baseline where one has been captured. Deliberately <em>not</em> ppm: these
+    are broadband elements with no selectivity, and the ppm formulas quoted for
+    them are curve fits to a single-gas calibration chart. The sensors are
+    currently burning in, so the baselines are not yet trustworthy.
   </p>
 
   <footer>
@@ -354,8 +389,38 @@ function render(data, live) {
   const status = $("status"), text = $("statustext");
   const d = data.latest;
 
-  $("rh").innerHTML = d.rh_pct.toFixed(1) + '<span class="unit">%RH</span>';
-  setSegments(d.rh_pct);
+  const gas = data.gas || {};
+  const g135 = gas.mq135;
+
+  // The hero is MQ-135 because it is the channel being watched through
+  // burn-in. Its bar reads as a fraction of the 5 V module supply.
+  if (g135 && g135.mv != null) {
+    $("hero").innerHTML = Math.round(g135.mv) + '<span class="unit">mV</span>';
+    setSegments(g135.mv / 5000 * 100);
+    $("herors").textContent = g135.ratio != null
+      ? `Rs/R0 ${g135.ratio.toFixed(2)} · burning in`
+      : (g135.rs_ohm != null ? `Rs ${Math.round(g135.rs_ohm)} ohm · no baseline`
+                             : "out of range");
+  } else {
+    $("hero").innerHTML = '----<span class="unit">mV</span>';
+    setSegments(0);
+    $("herors").textContent = "not reading";
+  }
+
+  for (const k of ["mq135", "mq2", "ms1100"]) {
+    const el = $("g_" + k), gg = gas[k];
+    if (el) {
+      el.innerHTML = (gg && gg.mv != null ? Math.round(gg.mv) : "----") +
+                     '<span>mV</span>';
+    }
+  }
+  const fan = data.fan || {};
+  if ($("g_fan")) {
+    $("g_fan").innerHTML = (fan.duty_pct != null ? fan.duty_pct : "--") +
+      '<span>%' + (fan.rpm > 0 ? ` · ${fan.rpm} rpm` : "") + '</span>';
+  }
+
+  num($("rh"), d.rh_pct, "%RH");
   num($("temp"), d.temp_c, "°C");
   num($("dew"), d.dew_point_c, "°C");
   num($("abs"), d.abs_hum_g_m3, "g/m³");
@@ -391,6 +456,26 @@ function render(data, live) {
 
 let lastSamples = [];
 
+const SERIES = [
+  { key: "mq135",  col: 3, name: "MQ-135", unit: "mV", tok: "--s1", dash: [],     gas: true },
+  { key: "mq2",    col: 4, name: "MQ-2",   unit: "mV", tok: "--s2", dash: [],     gas: true },
+  { key: "ms1100", col: 5, name: "MS1100", unit: "mV", tok: "--s3", dash: [],     gas: true },
+  { key: "temp",   col: 1, name: "Temp",   unit: "°C", tok: "--text-disabled", dash: [1, 3] },
+  { key: "rh",     col: 2, name: "RH",     unit: "%",  tok: "--text-disabled", dash: [5, 4] },
+];
+
+function buildLegend() {
+  const css = getComputedStyle(document.documentElement);
+  $("legend").innerHTML = SERIES.map(sr => {
+    const c = css.getPropertyValue(sr.tok).trim();
+    const style = sr.dash.length ? (sr.dash[0] === 1 ? "dotted" : "dashed") : "solid";
+    return `<span class="lg"><i style="border-top:2px ${style} ${c}"></i>` +
+           `<span class="label">${sr.name}</span>` +
+           `<span class="lv" id="lg_${sr.key}">--</span></span>`;
+  }).join("");
+}
+buildLegend();
+
 function drawChart(samples) {
   lastSamples = samples;
   const c = $("chart"), dpr = devicePixelRatio || 1;
@@ -410,26 +495,12 @@ function drawChart(samples) {
     return;
   }
 
-  // padR has to clear the longest inline series label ("100.0 RH" at 11px
-  // Space Mono) plus its 6px offset, or the text is cut off at the edge.
-  const padL = 0, padR = 62, padT = 12, padB = 22;
+  // padR has to clear the longest inline series label plus its 6px offset,
+  // or the text is cut off at the edge.
+  const padL = 0, padR = 62, padT = 16, padB = 22;
   const pw = w - padL - padR, ph = h - padT - padB;
-  const ts = samples.map(s => s[0]);
-  const temps = samples.map(s => s[1]);
-  const rhs = samples.map(s => s[2]);
-
-  const bounds = a => {
-    const lo = Math.min(...a), hi = Math.max(...a);
-    if (lo === hi) return [lo - 1, hi + 1];
-    const m = (hi - lo) * 0.15;
-    return [lo - m, hi + m];
-  };
-  const [rhLo, rhHi] = bounds(rhs);
-  const [tLo, tHi] = bounds(temps);
-  const t0 = ts[0], t1 = ts[ts.length - 1];
+  const t0 = samples[0][0], t1 = samples[samples.length - 1][0];
   const x = t => padL + (t1 === t0 ? pw : (t - t0) / (t1 - t0) * pw);
-  const yr = v => padT + ph - (v - rhLo) / (rhHi - rhLo) * ph;
-  const yt = v => padT + ph - (v - tLo) / (tHi - tLo) * ph;
 
   // Horizontal grid only, hairline, decorative weight.
   g.strokeStyle = tok("--border"); g.lineWidth = 1;
@@ -438,33 +509,58 @@ function drawChart(samples) {
     g.beginPath(); g.moveTo(padL, yy); g.lineTo(padL + pw, yy); g.stroke();
   }
 
-  const line = (vals, yf, colour, dash) => {
-    g.strokeStyle = colour; g.lineWidth = 1.5; g.setLineDash(dash);
+  // Fan duty changes as vertical rules: a step here should be followed by a
+  // move in the gas traces, and if it is not, the air is not reaching them.
+  g.font = '10px "Space Mono", monospace';
+  g.textBaseline = "top";
+  for (let i = 1; i < samples.length; i++) {
+    if (samples[i][6] === samples[i - 1][6]) continue;
+    const px = Math.round(x(samples[i][0])) + 0.5;
+    g.strokeStyle = tok("--border-visible"); g.lineWidth = 1;
+    g.setLineDash([2, 3]);
+    g.beginPath(); g.moveTo(px, padT); g.lineTo(px, padT + ph); g.stroke();
+    g.setLineDash([]);
+    g.fillStyle = tok("--text-disabled");
+    g.fillText(samples[i][6] + "%", px + 3, 2);
+  }
+
+  // Each series is scaled to its own range so they share ONE axis. A second
+  // y-scale for humidity and a third for temperature would make the lines'
+  // crossing points an artefact of the scales picked, meaning nothing.
+  const labels = [];
+  SERIES.forEach(sr => {
+    const pts = samples.filter(s => !(sr.gas && s[sr.col] < 0))
+                       .map(s => [s[0], s[sr.col]]);
+    const el = $("lg_" + sr.key);
+    if (pts.length < 2) { if (el) el.textContent = "--"; return; }
+    const vals = pts.map(p => p[1]);
+    let lo = Math.min(...vals), hi = Math.max(...vals);
+    if (lo === hi) { lo -= 1; hi += 1; }
+    const y = v => padT + ph - (v - lo) / (hi - lo) * ph;
+
+    g.strokeStyle = tok(sr.tok);
+    g.lineWidth = sr.gas ? 2 : 1.5;
+    g.setLineDash(sr.dash);
     g.beginPath();
-    vals.forEach((v, i) => {
-      const px = x(ts[i]), py = yf(v);
-      i ? g.lineTo(px, py) : g.moveTo(px, py);
-    });
+    pts.forEach((p, i) => (i ? g.lineTo(x(p[0]), y(p[1])) : g.moveTo(x(p[0]), y(p[1]))));
     g.stroke(); g.setLineDash([]);
-  };
 
-  // Series differentiated by opacity and dash, never colour.
-  line(temps, yt, tok("--text-disabled"), [2, 3]);
-  line(rhs, yr, tok("--text-display"), []);
+    const last = pts[pts.length - 1][1];
+    if (el) el.textContent = (sr.gas ? Math.round(last) : last.toFixed(1)) + " " + sr.unit;
+    if (sr.gas) labels.push({ y: y(last), text: Math.round(last) + " mV", c: tok(sr.tok) });
+  });
 
-  // Lines are labelled directly; no legend box.
-  g.font = '11px "Space Mono", monospace';
+  labels.sort((a, b) => a.y - b.y);
+  for (let i = 1; i < labels.length; i++) {
+    if (labels[i].y - labels[i - 1].y < 12) labels[i].y = labels[i - 1].y + 12;
+  }
   g.textBaseline = "middle";
-  g.fillStyle = tok("--text-display");
-  g.fillText(rhs[rhs.length - 1].toFixed(1) + " RH",
-             padL + pw + 6, yr(rhs[rhs.length - 1]));
-  g.fillStyle = tok("--text-disabled");
-  g.fillText(temps[temps.length - 1].toFixed(1) + " C",
-             padL + pw + 6, yt(temps[temps.length - 1]));
+  g.font = '11px "Space Mono", monospace';
+  labels.forEach(l => { g.fillStyle = l.c; g.fillText(l.text, padL + pw + 6, l.y); });
 
   const mins = Math.round((t1 - t0) / 60000);
   $("span").textContent = mins >= 120 ? `${(mins / 60).toFixed(1)} hours`
-                                      : `${mins} minutes`;
+                                      : `${mins} minute${mins === 1 ? "" : "s"}`;
 }
 
 async function refresh() {
