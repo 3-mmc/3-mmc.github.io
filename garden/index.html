@@ -14,6 +14,14 @@
       #journal-undo {
         display: none !important;
       }
+      /* The clock is drawn from the board's own time, offset against
+         this device's. Here that offset comes from the snapshot, so
+         the clock ticks forward from whenever the relay last ran and
+         reads minutes behind. A clock that is quietly wrong is worse
+         than no clock; the banner already gives the age. */
+      #local-time {
+        display: none !important;
+      }
 
       :root {
         --paper: #f3f1e8;
@@ -821,6 +829,16 @@
       .journal-dock {
         right: 24px;
         top: calc(var(--hud-top) + var(--weather-height, 159px) + 16px);
+        /* Sized to its content, like the readings dock, rather than stretched
+           to the foot of the window. The three panes differ by hundreds of
+           pixels - Care is a few notes, History is a chart and a table - and a
+           fixed box meant the short one sat in a pane mostly of empty glass.
+           The cap is where the stretched version used to end, so the tall
+           panes look exactly as they did and scroll from there. */
+        bottom: auto;
+        max-height: calc(
+          100dvh - var(--hud-top) - var(--weather-height, 159px) - 86px
+        );
         display: flex;
         flex-direction: column;
         overflow: hidden;
