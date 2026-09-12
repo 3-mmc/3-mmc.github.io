@@ -55,7 +55,7 @@ browser is viewing it, so that part really is live.
 `index.html` tries two URLs and uses the first that answers:
 
 1. `raw.githubusercontent.com/3-mmc/olive-data/main/olive.json` — written by
-   the relay on an interval.
+   the relay every 15 minutes. This is the live source.
 2. `data/olive.json` — the snapshot committed alongside the page.
 
 Either way the banner ages the data from `fetched_at`, so the page renders
@@ -77,30 +77,64 @@ It stops at the deadline on its own, and prints the `git rebase -i` line to
 squash the run down afterwards. A few dozen commits is nothing; the permanent
 setup below exists because *thousands* would be.
 
-## Running it indefinitely
+## Where it is running
 
-The relay is **not installed anywhere**. For a standing feed:
+`3-mmc/olive-data` exists and the relay is **installed on the WSL box**, as a
+systemd *user* timer, every 15 minutes:
 
-**1. Create a public repo `3-mmc/olive-data`.** It exists only to hold one
-file. Data churn does not belong in this repo's history — a push every ten
-minutes is ~100 commits a day sitting in front of actual work, and each one
-would trigger a Pages rebuild for no reason.
+```
+~/olive-relay/relay.py
+~/.config/systemd/user/olive-relay.{service,timer}
+```
 
-**2. Create a fine-grained personal access token** scoped to that repo alone,
-with **Contents: read and write**. Scoping matters: the token lives on an
-always-on device, and this one cannot touch the site repo.
+```sh
+systemctl --user list-timers olive-relay.timer
+systemctl --user status olive-relay.service
+journalctl --user -u olive-relay -n 20
+```
 
-**3. On a machine that is always on and on the same network as the board:**
+Fifteen minutes matches the probe's own schedule — the board only takes a soil
+reading that often, so publishing faster just copies the same value twice.
+`raw.githubusercontent.com` caches for five minutes in any case.
+
+### The catch, and how to fix it
+
+Lingering is off, so the user's systemd manager — and with it the timer — stops
+when the last session on that machine ends. It is a relay that runs when
+someone is logged in, which is not the same as a standing feed. One command,
+needing sudo, makes it survive:
+
+```sh
+sudo loginctl enable-linger "$USER"
+```
+
+Even then it only runs while that machine is on and WSL is up. The Pi is the
+better home for this, being always on and already on the board's network; the
+service file below is written for it.
+
+### Tokens
+
+`relay.py` takes `OLIVE_RELAY_TOKEN` from the environment, and falls back to
+whatever `gh` is logged in with. The fallback is why no token had to be minted
+here: this machine is already authenticated for working on these repos, so
+borrowing that adds no exposure that was not already present.
+
+On a box that exists only to run the relay, do not rely on that. Create a
+**fine-grained personal access token** scoped to `3-mmc/olive-data` alone with
+**Contents: read and write**, and set it explicitly. `gh`'s token can reach
+every repo the account can; this needs one.
+
+### Moving it to the Pi
 
 ```sh
 mkdir -p ~/olive-relay && cd ~/olive-relay
 curl -O https://3-mmc.github.io/garden/relay.py
 echo 'OLIVE_RELAY_TOKEN=github_pat_...' > env
 chmod 600 env
-python3 relay.py --push          # test it once
+python3 relay.py --device http://192.168.1.205 --push   # test it once
 ```
 
-**4. Run it on a timer.** `/etc/systemd/system/olive-relay.service`:
+`/etc/systemd/system/olive-relay.service`:
 
 ```ini
 [Unit]
@@ -123,6 +157,7 @@ Description=Publish olive readings every 15 minutes
 [Timer]
 OnBootSec=2min
 OnUnitActiveSec=15min
+Persistent=true
 
 [Install]
 WantedBy=timers.target
@@ -133,9 +168,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now olive-relay.timer
 ```
 
-Fifteen minutes matches the probe's own schedule, and there is nothing to be
-gained by publishing faster than the board measures. `raw.githubusercontent.com`
-caches for five minutes in any case.
+Disable the WSL one afterwards, or both will publish:
+
+```sh
+systemctl --user disable --now olive-relay.timer
+```
 
 `relay.py` uses the GitHub Contents API rather than git, so the host needs no
 clone, no SSH key and no working tree — just the token in the environment.

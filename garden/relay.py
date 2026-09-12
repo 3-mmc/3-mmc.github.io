@@ -26,6 +26,7 @@ import argparse
 import base64
 import json
 import os
+import subprocess
 import sys
 import time
 import urllib.error
@@ -127,6 +128,27 @@ def push(payload: dict, token: str) -> None:
         r.read()
 
 
+def resolve_token() -> str | None:
+    """OLIVE_RELAY_TOKEN, or fall back to whatever `gh` is logged in with.
+
+    The fallback is for a machine where someone already works on this repo: gh
+    is authenticated there anyway, so borrowing its token adds no exposure that
+    was not already present, and it means the relay runs without minting
+    anything. On a box that only exists to run the relay, prefer the env var
+    with a fine-grained token scoped to the data repo alone - gh's token can
+    reach every repo the account can, which is far more than this needs.
+    """
+    token = os.environ.get("OLIVE_RELAY_TOKEN")
+    if token:
+        return token
+    try:
+        out = subprocess.run(["gh", "auth", "token"], capture_output=True,
+                             text=True, timeout=15)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return out.stdout.strip() or None if out.returncode == 0 else None
+
+
 def describe(payload: dict) -> str:
     lt = payload["latest"]
     pct = lt.get("soil_pct")
@@ -160,9 +182,10 @@ def main() -> int:
         print(f"relay: wrote {args.out} ({describe(payload)})")
 
     if args.push:
-        token = os.environ.get("OLIVE_RELAY_TOKEN")
+        token = resolve_token()
         if not token:
-            print("relay: OLIVE_RELAY_TOKEN is not set", file=sys.stderr)
+            print("relay: no token: set OLIVE_RELAY_TOKEN, or log in with "
+                  "`gh auth login`", file=sys.stderr)
             return 2
         try:
             push(payload, token)
