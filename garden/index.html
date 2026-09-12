@@ -1482,7 +1482,6 @@
             <details>
               <summary>About these readings</summary>
               <p id="probe-detail">The soil probe rests between readings.</p>
-              <p id="raw-detail">Raw probe — mV</p>
               <p id="device-detail">Waiting for the monitor.</p>
               <p>
                 The scene's soil shade reflects the calibrated reading. The tree
@@ -1712,8 +1711,6 @@
           " mV · Wet " +
           (d.soil_wet_mv >= 0 ? d.soil_wet_mv : "—") +
           " mV";
-        $("raw-detail").textContent =
-          "Raw probe: " + (d.soil_mv >= 0 ? d.soil_mv + " mV" : "unavailable");
         $("probe-detail").textContent =
           "Soil sampled every " +
           Math.round((d.soil_interval_s || 900) / 60) +
