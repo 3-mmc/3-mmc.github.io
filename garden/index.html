@@ -4,12 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#f3f1e8" />
-    <title>Olive — a windowsill journal</title>
+    <title>Olive Tree Data Nurse</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M2 27C11 25.5 22 20 30 6' fill='none' stroke='%2329372a' stroke-width='2.6' stroke-linecap='round'/><path d='M0 0C5-3.4 13-3.8 20 0C13 3.8 5 3.4 0 0Z' transform='translate(12 20)rotate(-118)scale(.72)' fill='%23526e40'/><path d='M0 0C5-3.4 13-3.8 20 0C13 3.8 5 3.4 0 0Z' transform='translate(19 12)rotate(-38)scale(.78)' fill='%23526e40'/><ellipse cx='8' cy='19' rx='3.9' ry='4.6' transform='rotate(-20 8 19)' fill='%23697261'/></svg>" />
     <style>
       /* read-only mirror: the board is not reachable from here */
       [data-ack],
       [data-cal],
+      #height-form,
       #journal-undo {
         display: none !important;
       }
@@ -360,12 +361,15 @@
       .measurement .eyebrow {
         font-size: 9px;
       }
+      /* Sits above the care notes rather than inside them: always relevant,
+         always actionable, and it should not scroll away with the list. */
       .water-log {
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 10px;
-        padding: 20px 0;
+        padding: 4px 0 18px;
+        border-bottom: 1px solid var(--line);
       }
       .water-log strong {
         display: block;
@@ -393,10 +397,48 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 0 26px;
       }
+      .soil-note {
+        margin: 14px 0 0;
+        padding-top: 12px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.7;
+      }
       .care-item {
         padding: 18px 0;
         border-top: 1px solid var(--line);
         min-width: 0;
+      }
+      .water-log + .care-list .care-item:first-child {
+        border-top: none;
+      }
+      /* Seasonal jobs are monthly at most and rarely the reason anyone opened
+         the page, so they fold away to their heading until asked for. */
+      .care-item.folded summary {
+        cursor: pointer;
+        list-style: none;
+        position: relative;
+        padding-right: 26px;
+      }
+      .care-item.folded summary::-webkit-details-marker {
+        display: none;
+      }
+      .care-item.folded summary::after {
+        content: "+";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--muted);
+        font: 15px var(--sans);
+      }
+      .care-item.folded[open] summary::after {
+        content: "\2212";
+      }
+      .care-item.folded summary:focus-visible {
+        outline: 2px solid var(--leaf);
+        outline-offset: 3px;
       }
       .care-item h3 {
         font: normal 19px/1.3 var(--serif);
@@ -479,6 +521,46 @@
       .notebook p {
         font-size: 12px;
         color: var(--muted);
+      }
+      .height-form input {
+        font: 13px var(--sans);
+        padding: 7px 10px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--surface);
+        color: var(--ink);
+        width: 110px;
+      }
+      .height-log {
+        list-style: none;
+        margin: 10px 0 0;
+        padding: 0;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      /* Measurement and date on one line, the change since the previous one
+         beneath, so a narrow pane does not wrap "42.0 cm" onto two lines. */
+      .height-log li {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 1px 10px;
+        padding: 7px 0;
+        border-top: 1px solid var(--line);
+      }
+      .height-log .h {
+        color: var(--ink);
+        font: 16px var(--serif);
+        white-space: nowrap;
+      }
+      .height-log .d {
+        text-align: right;
+        white-space: nowrap;
+        font-size: 11px;
+      }
+      .height-log .g {
+        grid-column: 1 / -1;
+        font-size: 11px;
+        color: var(--leaf);
       }
       .button-row {
         display: flex;
@@ -827,17 +909,6 @@
       .scene-caption button {
         font-size: 10px;
       }
-      .scene-footer {
-        position: fixed;
-        bottom: 30px;
-        left: 28px;
-        right: 28px;
-        display: flex;
-        justify-content: flex-end;
-        font-size: 9px;
-        color: var(--ink);
-        pointer-events: none;
-      }
       .scene-fallback {
         inset: 40% 32% auto;
         background: #f8f8efdd;
@@ -1000,9 +1071,6 @@
         body:not([data-mobile-view="tree"]) .scene-caption {
           visibility: hidden;
         }
-        .scene-footer {
-          display: none;
-        }
         .scene-fallback {
           inset: 35% 20px auto;
           padding: 20px;
@@ -1086,6 +1154,11 @@
             return json(Object.assign({}, snap.latest, { demo: true }));
           }
           if (url.indexOf("/api/history") === 0) return json(snap.history);
+          // The height log reads from the snapshot; entering one writes to the
+          // board, which cannot be reached from here.
+          if (url.indexOf("/api/height") === 0 && url.indexOf("?") < 0) {
+            return json({ ok: true, entries: snap.heights || [] });
+          }
           return json(
             { ok: false, error: "this is a read-only mirror" },
             403,
@@ -1198,6 +1271,7 @@
               <span id="soil-age">No soil sample yet</span
               ><span id="soil-next">Probe resting between reads</span>
             </div>
+            <p class="soil-note" id="soil-note" hidden></p>
           </div>
           <div class="measurements">
             <div class="measurement">
@@ -1216,13 +1290,6 @@
               <span class="eyebrow muted">Dew point</span>
               <div class="value" id="dew">—<small>°C</small></div>
             </div>
-          </div>
-          <div class="water-log">
-            <div>
-              <span class="eyebrow muted">Last watered</span
-              ><strong id="watered">Not recorded</strong>
-            </div>
-            <button class="primary" data-ack="water">I watered it</button>
           </div>
         </section>
       </aside>
@@ -1265,7 +1332,7 @@
             aria-pressed="false"
             aria-controls="pane-tools"
           >
-            Tools
+            Journal
           </button>
         </nav>
         <div class="pane-content">
@@ -1275,6 +1342,13 @@
               <span class="eyebrow muted" id="care-summary"
                 >Notes from your tree</span
               >
+            </div>
+            <div class="water-log">
+              <div>
+                <span class="eyebrow muted">Last watered</span
+                ><strong id="watered">Not recorded</strong>
+              </div>
+              <button class="primary" data-ack="water">I watered it</button>
             </div>
             <div class="care-list" id="care-list">
               <p class="muted">Care notes appear when the monitor connects.</p>
@@ -1310,12 +1384,12 @@
           <section
             class="notebook"
             id="pane-tools"
-            aria-label="Potting tools"
+            aria-label="Journal"
             hidden
           >
             <div class="section-head">
               <h2>The potting bench.</h2>
-              <span class="eyebrow muted">Tools & notes</span>
+              <span class="eyebrow muted">Journal &amp; tools</span>
             </div>
             <details>
               <summary>Care journal</summary>
@@ -1334,22 +1408,59 @@
             <details>
               <summary>Calibrate the soil probe</summary>
               <p>
-                1. Remove and wipe the probe dry, then save the dry point.<br />2.
-                Water the pot, let it drain for an hour, reinsert the probe,
-                then save the wet point.
+                Leave the probe where it lives, and take both ends in one
+                watering: <strong>just before you water</strong>, save the dry
+                point — whatever it reads then is your zero. Water thoroughly,
+                let it drain half an hour, save the wet point.
               </p>
               <p>
-                Each save powers the probe for a fresh reading. The two points
-                must differ by at least 100 mV.
+                Dry does not mean bone dry. It is the driest you intend to let
+                the pot get, so the tree never has to go short for it. Soil
+                dried right out stops conducting and reads the same as open
+                air, which puts zero where the soil can never reach.
+              </p>
+              <p>
+                Save the air point once, with the probe lifted clear of the
+                soil. It measures the board rather than the soil, and it is
+                what lets a disconnected probe be told from dry soil and
+                readings be corrected for temperature. Clearing keeps it.
               </p>
               <div class="button-row">
                 <button data-cal="dry">Save dry</button
                 ><button data-cal="wet">Save wet</button
+                ><button data-cal="air">Save air</button
                 ><button data-cal="clear">Clear points</button>
               </div>
               <p class="calibration-values" id="calibration-values">
                 No calibration received.
               </p>
+            </details>
+            <details>
+              <summary>Height</summary>
+              <p>
+                Everything else here measures itself. This one is you, a tape
+                measure and the odd afternoon — soil to the highest growing
+                tip. Interesting over months rather than days.
+              </p>
+              <form class="height-form" id="height-form">
+                <label class="eyebrow muted" for="height-input"
+                  >Height in centimetres</label
+                >
+                <div class="button-row">
+                  <input
+                    id="height-input"
+                    type="number"
+                    min="1"
+                    max="300"
+                    step="0.5"
+                    inputmode="decimal"
+                    placeholder="e.g. 42.5"
+                  />
+                  <button type="submit">Save</button>
+                </div>
+              </form>
+              <p id="height-status" role="status"></p>
+              <ul class="height-log" id="height-log"></ul>
             </details>
             <details>
               <summary>About these readings</summary>
@@ -1371,11 +1482,8 @@
         ><button data-pane="readings" aria-pressed="false">Readings</button
         ><button data-pane="care" aria-pressed="false">Care</button
         ><button data-pane="history" aria-pressed="false">History</button
-        ><button data-pane="tools" aria-pressed="false">Tools</button>
+        ><button data-pane="tools" aria-pressed="false">Journal</button>
       </nav>
-      <div class="scene-footer">
-        <span id="footer-status">Connecting</span>
-      </div>
     </main>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script>
@@ -1424,6 +1532,9 @@
         rain: false,
         snow: false,
         weatherKnown: false,
+        // Seconds until the next scheduled soil reading, or null when that is
+        // not known. The scene's indicator LED counts down to it.
+        nextSoilIn: null,
         motion: !matchMedia("(prefers-reduced-motion: reduce)").matches,
       };
       function now() {
@@ -1465,7 +1576,6 @@
       function connection(state, text) {
         $("connection").dataset.state = state;
         $("connection").textContent = text;
-        $("footer-status").textContent = text;
       }
       function updateSoilAge() {
         if (!latest) return;
@@ -1501,6 +1611,10 @@
             : age >= period
               ? "Next read due"
               : "Next in " + Math.ceil((period - age) / 60) + " min";
+        // The scene lights the board's LED as a reading approaches, so it needs
+        // to know how far off one is. Null when there is nothing to count to.
+        window.oliveState.nextSoilIn =
+          valid && age >= 0 ? Math.max(0, period - age) : null;
         if (stale) {
           connection("down", "Readings are stale");
           $("soil-state").textContent = "Reading is stale";
@@ -1603,24 +1717,105 @@
         updateSoilAge();
         tick();
       }
+      // Calendar jobs rather than responses to a reading: due monthly at most,
+      // and never the reason the page was opened. They sort last and arrive
+      // folded. Everything else is something the soil or the air is doing now.
+      const SEASONAL = new Set(["feed", "prune", "repot"]);
+      const RANK = { alarm: 0, warn: 1, task: 2, info: 3, ok: 4 };
+      const weight = (it) => (SEASONAL.has(it.id) ? 100 : RANK[it.level]);
+
+      const nyDate = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+
+      function renderHeights(entries) {
+        const host = $("height-log");
+        host.replaceChildren();
+        if (!entries.length) {
+          host.textContent = "No measurements yet.";
+          return;
+        }
+        // Newest first: the last measurement is the one being compared
+        // against, and the growth shown beside each is since the one before.
+        for (let i = entries.length - 1; i >= 0; i--) {
+          const e = entries[i];
+          const li = document.createElement("li");
+          const h = document.createElement("span");
+          h.className = "h";
+          h.textContent = e.cm.toFixed(1) + " cm";
+          const when = document.createElement("span");
+          when.className = "d";
+          when.textContent = nyDate.format(e.ts * 1000);
+          li.append(h, when);
+          if (i > 0) {
+            const d = e.cm - entries[i - 1].cm;
+            const g = document.createElement("span");
+            g.className = "g";
+            const days = Math.round((e.ts - entries[i - 1].ts) / 86400);
+            g.textContent =
+              (d >= 0 ? "+" : "") +
+              d.toFixed(1) +
+              " cm in " +
+              (days === 1 ? "1 day" : days + " days");
+            li.append(g);
+          }
+          host.append(li);
+        }
+      }
+
+      async function loadHeights() {
+        try {
+          renderHeights((await getJSON("/api/height")).entries || []);
+        } catch (e) {
+          $("height-log").textContent = "Could not read the height log.";
+        }
+      }
+
       function renderCare(items) {
         const host = $("care-list");
         host.replaceChildren();
-        const openCount = items.filter((i) => i.level !== "ok").length;
+
+        // "Current state" describes the reading, so it belongs beside the
+        // reading rather than at the bottom of a list of things to do.
+        const status = items.find((i) => i.id === "status");
+        const note = $("soil-note");
+        note.textContent = status ? status.detail : "";
+        note.hidden = !status;
+
+        const list = items
+          .filter((i) => i.id !== "status")
+          .sort((a, b) => weight(a) - weight(b));
+
+        const openCount = list.filter((i) => i.level !== "ok").length;
         $("care-summary").textContent =
           openCount === 1 ? "1 care note" : openCount + " care notes";
-        for (const it of items) {
-          const el = document.createElement("article");
-          el.className = "care-item";
+
+        for (const it of list) {
+          const fold = SEASONAL.has(it.id);
+          const el = document.createElement(fold ? "details" : "article");
+          el.className = fold ? "care-item folded" : "care-item";
           el.dataset.level = it.level;
           const badge = document.createElement("span");
           badge.className = "badge";
-          badge.textContent = it.badge || it.level;
+          // The board's badge is written for the OLED's twelve columns, where
+          // it is the whole message. Here it sits directly above the title,
+          // and "FEED" over "Feed it" says it twice.
+          badge.textContent = fold ? "Task" : it.badge || it.level;
           const h = document.createElement("h3");
           h.textContent = it.title;
           const p = document.createElement("p");
           p.textContent = it.detail;
-          el.append(badge, h, p);
+
+          if (fold) {
+            const sum = document.createElement("summary");
+            sum.append(badge, h);
+            el.append(sum, p);
+          } else {
+            el.append(badge, h, p);
+          }
           if (it.ackable) {
             const b = document.createElement("button");
             b.textContent = "Mark done";
@@ -1629,8 +1824,8 @@
           }
           host.append(el);
         }
-        if (!items.length)
-          host.textContent = "No care notes reported by the monitor.";
+        if (!list.length)
+          host.textContent = "Nothing needs doing.";
       }
       async function poll() {
         if (polling || document.hidden) return;
@@ -2127,9 +2322,32 @@
           tick();
         }
       });
+      $("height-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const input = $("height-input");
+        const cm = parseFloat(input.value);
+        if (!isFinite(cm) || cm <= 0) {
+          $("height-status").textContent = "Enter a height in centimetres.";
+          return;
+        }
+        const btn = e.target.querySelector("button");
+        btn.disabled = true;
+        try {
+          const d = await getJSON("/api/height?cm=" + encodeURIComponent(cm));
+          renderHeights(d.entries || []);
+          input.value = "";
+          $("height-status").textContent = "Recorded " + cm.toFixed(1) + " cm.";
+        } catch (err) {
+          $("height-status").textContent =
+            "Could not save that: " + err.message;
+        } finally {
+          btn.disabled = false;
+        }
+      });
       tick();
       poll();
       loadHistory();
+      loadHeights();
       loadWeather();
       setInterval(poll, 15000);
       setInterval(loadHistory, 60000);
@@ -2159,6 +2377,7 @@
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
         renderer.toneMappingExposure = 1.2;
+        let ledMat = null;
         const scene = new THREE.Scene(),
           camera = new THREE.PerspectiveCamera(40, 1, 0.1, 60);
         let yaw = 0.1;
@@ -2473,6 +2692,15 @@
         plant.add(board);
         box(0.42, 0.23, 0.025, 0, 0, 0, pcbMat, board);
         box(0.12, 0.12, 0.02, 0.015, 0, 0.025, chipMat, board);
+        // Indicator LED. Dark plastic until it is driven; the emissive channel
+        // is what actually lights, so it reads as lit rather than merely pale.
+        ledMat = new THREE.MeshStandardMaterial({
+          color: "#16241c",
+          roughness: 0.25,
+          emissive: new THREE.Color("#9dffb0"),
+          emissiveIntensity: 0,
+        });
+        box(0.05, 0.05, 0.022, -0.12, 0.028, 0.03, ledMat, board);
         box(0.08, 0.045, 0.04, 0.15, 0.065, 0.025, edge, board);
         for (let i = 0; i < 9; i++)
           for (const y of [-0.09, 0.09])
@@ -2726,6 +2954,33 @@
         resize();
         let lastFrame = 0,
           phaseTime = 0;
+
+        // The board's LED. Idle, it blinks twice about every eight seconds -
+        // enough to say the thing is awake without becoming scenery that
+        // moves. As a scheduled soil reading approaches it quickens, so the
+        // one animation on the page that repeats is tied to something the
+        // board is actually about to do.
+        function updateLed(delta) {
+          if (!ledMat) return;
+          let level;
+          if (!state.motion) {
+            level = 0.5;  // held, not frozen mid-blink
+          } else {
+            const soon = state.nextSoilIn;
+            if (soon !== null && soon <= 15) {
+              const hz = 1.6 + (15 - soon) * 0.34;
+              level =
+                0.7 + 1.8 * Math.max(0, Math.sin(phaseTime * hz * Math.PI));
+            } else {
+              const p = phaseTime % 8;
+              level = p < 0.1 || (p > 0.22 && p < 0.32) ? 2.5 : 0.04;
+            }
+          }
+          // Eased rather than switched, so it reads as a lamp warming rather
+          // than a square changing colour.
+          ledMat.emissiveIntensity +=
+            (level - ledMat.emissiveIntensity) * Math.min(1, delta * 16);
+        }
         function frame(ms) {
           requestAnimationFrame(frame);
           if (!running || document.hidden || ms - lastFrame < 33) return;
@@ -2741,9 +2996,19 @@
             Math.cos(yaw) * distance,
           );
           camera.lookAt(target);
+          // A gust every forty seconds or so, on top of the constant slow
+          // breathing. Sparse enough to be noticed rather than ignored.
+          const gustPhase = (phaseTime % 41) / 41;
+          const gust =
+            gustPhase < 0.16
+              ? Math.sin(gustPhase * 6.25 * Math.PI) *
+                Math.sin(gustPhase * Math.PI / 0.16) *
+                0.013
+              : 0;
           crown.rotation.z = state.motion
-            ? Math.sin(phaseTime * 0.65) * 0.009
+            ? Math.sin(phaseTime * 0.65) * 0.009 + gust
             : 0;
+          updateLed(delta);
           sun.position.x = -4 + 8 * state.sunProgress;
           if (state.motion && rain.visible) updateDrops(delta);
           if (state.motion && snow.visible) {

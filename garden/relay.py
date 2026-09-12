@@ -85,6 +85,12 @@ def thin(samples: list, cap: int) -> list:
 def build(device: str) -> dict:
     latest = get_json(f"{device}/api/latest")
     history = get_json(f"{device}/api/history")
+    # Hand-entered and rarely changing, but the mirror should still be able to
+    # show it. A board too old to have the route is not an error.
+    try:
+        heights = get_json(f"{device}/api/height").get("entries", [])
+    except Exception:
+        heights = []
 
     if not latest.get("ok"):
         raise RuntimeError("device reports no valid reading yet")
@@ -103,6 +109,7 @@ def build(device: str) -> dict:
         # history rows positionally and the board only ever appends columns.
         "latest": latest,
         "history": history,
+        "heights": heights,
     }
 
 
