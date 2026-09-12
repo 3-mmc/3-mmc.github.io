@@ -83,9 +83,12 @@ setup below exists because *thousands* would be.
 systemd *user* timer, every 15 minutes:
 
 ```
-~/olive-relay/relay.py
 ~/.config/systemd/user/olive-relay.{service,timer}
 ```
+
+The unit runs `garden/relay.py` from this repo directly rather than a copy
+under `~`. Two copies drift the moment one is edited, and the edited one is
+never the one running.
 
 ```sh
 systemctl --user list-timers olive-relay.timer
