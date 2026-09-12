@@ -25,6 +25,7 @@ Stdlib only, so a Pi needs nothing installed.
 import argparse
 import base64
 import json
+import math
 import os
 import subprocess
 import sys
@@ -44,6 +45,18 @@ MAX_POINTS = 720
 REPO = "3-mmc/olive-data"
 PATH = "olive.json"
 BRANCH = "main"
+
+# The live snapshot is overwritten every run, so nothing accumulates in it. The
+# archive is the other half: one CSV per UTC day, appended to, kept forever.
+# The board's ring holds 48 hours, which is shorter than a single drydown
+# cycle, so anything that wants to model how this pot actually behaves - how
+# fast it dries, against what vapour pressure deficit - has to read it here.
+#
+# Only rows carrying a fresh soil measurement are archived. The board reads the
+# probe every 15 minutes and holds the value between reads, so archiving every
+# sample would repeat each reading fifteen times and say nothing extra.
+ARCHIVE_DIR = "archive"
+ARCHIVE_COLUMNS = "ts_ms,iso_utc,temp_c,rh_pct,vpd_kpa,soil_mv,soil_pct"
 
 API = "https://api.github.com"
 
@@ -93,39 +106,120 @@ def build(device: str) -> dict:
     }
 
 
-def push(payload: dict, token: str) -> None:
-    body = json.dumps(payload, separators=(",", ":")).encode()
+def vpd_kpa(temp_c, rh_pct):
+    """Vapour pressure deficit, the honest driver of evaporation indoors.
+
+    Computed here rather than read from the board because the history rows do
+    not carry it - only the live reading does - and it is the column any
+    drydown model wants. Magnus over water.
+    """
+    if temp_c is None or rh_pct is None:
+        return None
+    es = 0.6108 * math.exp(17.27 * temp_c / (temp_c + 237.3))
+    return round(es * (1.0 - rh_pct / 100.0), 4)
+
+
+def gh(path: str, token: str, method: str = "GET", body: dict | None = None):
     headers = {
         "Authorization": f"Bearer {token}",
         "Accept": "application/vnd.github+json",
         "User-Agent": "olive-relay",
     }
+    data = None
+    if body is not None:
+        data = json.dumps(body).encode()
+        headers["Content-Type"] = "application/json"
+    req = urllib.request.Request(f"{API}/repos/{REPO}/{path}", data=data,
+                                 headers=headers, method=method)
+    with urllib.request.urlopen(req, timeout=30) as r:
+        raw = r.read()
+    return json.loads(raw) if raw else None
 
-    # The API needs the blob being replaced, or it refuses the write. A missing
-    # file is the first run, not an error.
+
+def get_file(path: str, token: str):
+    """Returns (text, sha), or (None, None) when the file does not exist yet."""
     try:
-        sha = get_json(f"{API}/repos/{REPO}/contents/{PATH}?ref={BRANCH}",
-                       headers=headers).get("sha")
+        meta = gh(f"contents/{path}?ref={BRANCH}", token)
     except urllib.error.HTTPError as e:
-        if e.code != 404:
-            raise
-        sha = None
+        if e.code == 404:
+            return None, None
+        raise
+    return base64.b64decode(meta["content"]).decode(), meta["sha"]
 
-    req_body = {
-        "message": f"olive {time.strftime('%Y-%m-%d %H:%M:%SZ', time.gmtime())}",
-        "content": base64.b64encode(body).decode(),
+
+def put_file(path: str, text: str, sha: str | None, token: str,
+             message: str) -> None:
+    body = {
+        "message": message,
+        "content": base64.b64encode(text.encode()).decode(),
         "branch": BRANCH,
     }
     if sha:
-        req_body["sha"] = sha
+        body["sha"] = sha
+    gh(f"contents/{path}", token, method="PUT", body=body)
 
-    req = urllib.request.Request(
-        f"{API}/repos/{REPO}/contents/{PATH}",
-        data=json.dumps(req_body).encode(),
-        headers={**headers, "Content-Type": "application/json"},
-        method="PUT")
-    with urllib.request.urlopen(req, timeout=30) as r:
-        r.read()
+
+def archive(payload: dict, token: str) -> str:
+    """Append this run's fresh soil readings to the per-day CSVs."""
+    hist = payload["history"]
+    if not hist.get("synced"):
+        # Timestamps are uptime until SNTP lands, so they would file under
+        # 1970 and never line up with the rows around them.
+        return "clock not synced, nothing archived"
+
+    cols = {name: i for i, name in enumerate(hist.get("columns", []))}
+    need = ("ts", "temp_c", "rh_pct", "soil_mv", "soil_pct", "soil_age_s")
+    if any(c not in cols for c in need):
+        return "history is missing columns this expects, nothing archived"
+
+    by_day: dict[str, list[tuple]] = {}
+    for s in hist.get("samples", []):
+        if s[cols["soil_age_s"]] != 0:
+            continue  # a held value, not a measurement
+        ts = s[cols["ts"]]
+        t, rh = s[cols["temp_c"]], s[cols["rh_pct"]]
+        stamp = time.gmtime(ts / 1000)
+        by_day.setdefault(time.strftime("%Y-%m-%d", stamp), []).append((
+            ts,
+            time.strftime("%Y-%m-%dT%H:%M:%SZ", stamp),
+            t, rh, vpd_kpa(t, rh),
+            s[cols["soil_mv"]], s[cols["soil_pct"]],
+        ))
+
+    written = 0
+    for day, rows in sorted(by_day.items()):
+        path = f"{ARCHIVE_DIR}/{day}.csv"
+        text, sha = get_file(path, token)
+
+        # Every run overlaps the last, because the board keeps 48 hours and
+        # this runs every 15 minutes. Timestamps are the join key.
+        last_ts = -1
+        if text:
+            for line in reversed(text.strip().splitlines()):
+                head = line.split(",", 1)[0]
+                if head.isdigit():
+                    last_ts = int(head)
+                    break
+        else:
+            text = ARCHIVE_COLUMNS + "\n"
+
+        fresh = [r for r in sorted(rows) if r[0] > last_ts]
+        if not fresh:
+            continue
+        text += "".join(
+            ",".join("" if v is None else str(v) for v in r) + "\n"
+            for r in fresh)
+        put_file(path, text, sha, token, f"olive archive {day}")
+        written += len(fresh)
+
+    return f"archived {written} readings" if written else "archive already current"
+
+
+def push(payload: dict, token: str) -> None:
+    body = json.dumps(payload, separators=(",", ":"))
+    _, sha = get_file(PATH, token)
+    put_file(PATH, body, sha, token,
+             f"olive {time.strftime('%Y-%m-%d %H:%M:%SZ', time.gmtime())}")
 
 
 def resolve_token() -> str | None:
@@ -163,10 +257,12 @@ def main() -> int:
                     help=f"base URL of the board (default {DEFAULT_DEVICE})")
     ap.add_argument("--out", help="write the snapshot to this path")
     ap.add_argument("--push", action="store_true", help=f"publish to {REPO}/{PATH}")
+    ap.add_argument("--archive", action="store_true",
+                    help=f"append fresh readings to {REPO}/{ARCHIVE_DIR}/")
     args = ap.parse_args()
 
-    if not args.out and not args.push:
-        ap.error("nothing to do: pass --out, --push, or both")
+    if not (args.out or args.push or args.archive):
+        ap.error("nothing to do: pass --out, --push or --archive")
 
     try:
         payload = build(args.device)
@@ -193,6 +289,19 @@ def main() -> int:
             print(f"relay: push failed: {e}", file=sys.stderr)
             return 1
         print(f"relay: pushed {describe(payload)} to {REPO}")
+
+    if args.archive:
+        token = resolve_token()
+        if not token:
+            print("relay: no token for --archive", file=sys.stderr)
+            return 2
+        try:
+            print("relay: " + archive(payload, token))
+        except Exception as e:
+            # The snapshot is the part the page needs; a failed archive is
+            # caught up by the next run, since the board keeps 48 hours.
+            print(f"relay: archive failed: {e}", file=sys.stderr)
+            return 1
 
     return 0
 

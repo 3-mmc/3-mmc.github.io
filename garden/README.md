@@ -50,6 +50,34 @@ and the board's own page remains the real-time one.
 Weather is the exception — the page fetches Open-Meteo directly from whatever
 browser is viewing it, so that part really is live.
 
+## The archive
+
+`olive.json` is overwritten every run, so nothing accumulates in it — it is a
+mirror, not a record. `--archive` is the other half: one CSV per UTC day under
+`archive/` in the data repo, appended to and kept.
+
+```
+ts_ms,iso_utc,temp_c,rh_pct,vpd_kpa,soil_mv,soil_pct
+1789235154431,2026-09-12T17:45:54Z,29.24,47.12,2.1478,1197,
+```
+
+It exists because the board's ring holds 48 hours, which is shorter than a
+single drydown cycle. Anything that wants to model how this pot actually
+behaves — how fast it dries, against what vapour pressure deficit — needs weeks,
+not days, and has to read it here.
+
+Only rows carrying a *fresh* soil measurement are archived. The board reads the
+probe every 15 minutes and holds the value between reads, so archiving every
+sample would repeat each reading fifteen times over and say nothing extra.
+Runs overlap heavily and are deduplicated on `ts_ms`, so re-running is safe and
+a missed run is caught up by the next one.
+
+`vpd_kpa` is computed here rather than read from the board: the history rows do
+not carry it, only the live reading does, and it is the column any drydown
+model wants. `soil_pct` is empty while the probe is uncalibrated — `soil_mv` is
+always present, so percentages can be recomputed offline from a calibration
+taken later.
+
 ## Data sources, in order
 
 `index.html` tries two URLs and uses the first that answers:
@@ -134,7 +162,7 @@ mkdir -p ~/olive-relay && cd ~/olive-relay
 curl -O https://3-mmc.github.io/garden/relay.py
 echo 'OLIVE_RELAY_TOKEN=github_pat_...' > env
 chmod 600 env
-python3 relay.py --device http://192.168.1.205 --push   # test it once
+python3 relay.py --device http://192.168.1.205 --push --archive  # test it once
 ```
 
 `/etc/systemd/system/olive-relay.service`:
@@ -148,7 +176,7 @@ After=network-online.target
 Type=oneshot
 User=strabo
 EnvironmentFile=/home/strabo/olive-relay/env
-ExecStart=/usr/bin/python3 /home/strabo/olive-relay/relay.py --push
+ExecStart=/usr/bin/python3 /home/strabo/olive-relay/relay.py --push --archive
 ```
 
 and `olive-relay.timer`:
