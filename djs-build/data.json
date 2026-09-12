@@ -224,7 +224,7 @@
       "DJ Healthy",
       "Toumba",
       "Shyboi",
-      "LOKA (US)",
+      "LOKA",
       "Memphy b2b FASHION (US)",
       "Schacke",
       "Eamon Harkin",
@@ -5602,7 +5602,7 @@
   {
    "id": "dj-loka",
    "name": "Loka",
-   "times": 2,
+   "times": 3,
    "first": "2025-05-24",
    "last": "2026-08-29",
    "clubs": 1,
@@ -8812,19 +8812,6 @@
    "times": 1,
    "first": "2025-05-25",
    "last": "2025-05-25",
-   "clubs": 1,
-   "recordings": 0,
-   "where": [
-    "Nowadays"
-   ],
-   "rec_links": []
-  },
-  {
-   "id": "dj-loka-us",
-   "name": "LOKA (US)",
-   "times": 1,
-   "first": "2025-08-23",
-   "last": "2025-08-23",
    "clubs": 1,
    "recordings": 0,
    "where": [
