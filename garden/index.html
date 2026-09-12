@@ -405,14 +405,6 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 0 26px;
       }
-      .soil-note {
-        margin: 14px 0 0;
-        padding-top: 12px;
-        border-top: 1px solid var(--line);
-        color: var(--muted);
-        font-size: 12px;
-        line-height: 1.7;
-      }
       .care-item {
         padding: 18px 0;
         border-top: 1px solid var(--line);
@@ -1289,9 +1281,16 @@
               <span id="soil-age">No soil sample yet</span
               ><span id="soil-next">Probe resting between reads</span>
             </div>
-            <p class="soil-note" id="soil-note" hidden></p>
           </div>
           <div class="measurements">
+            <div class="measurement">
+              <span class="eyebrow muted">Resistance</span>
+              <div class="value" id="soil-mv">—<small>mV</small></div>
+            </div>
+            <div class="measurement">
+              <span class="eyebrow muted">History</span>
+              <div class="value" id="history-span">—<small>h</small></div>
+            </div>
             <div class="measurement">
               <span class="eyebrow muted">Room temperature</span>
               <div class="value" id="temp">—<small>°C</small></div>
@@ -1691,6 +1690,11 @@
         $("gauge").style.background =
           `linear-gradient(90deg,#caa06c 0% ${lo}%,#8c9c6c ${lo}% ${hi}%,#729599 ${hi}%)`;
         $("soil-range").textContent = "WATER BELOW " + lo + "%";
+        // The probe's own two numbers, in the same grid as the climate ones:
+        // what it last measured, and how far back the record goes.
+        value("soil-mv", d.soil_mv >= 0 ? d.soil_mv : null, 0, "mV");
+        value("history-span", finite(d.history_s) ? d.history_s / 3600 : null,
+              1, "h");
         value("temp", d.temp_c, 1, "°C");
         value("rh", d.rh_pct, 0, "%");
         value("vpd", d.vpd_kpa, 2, "kPa");
@@ -1796,13 +1800,8 @@
         const host = $("care-list");
         host.replaceChildren();
 
-        // "Current state" describes the reading, so it belongs beside the
-        // reading rather than at the bottom of a list of things to do.
-        const status = items.find((i) => i.id === "status");
-        const note = $("soil-note");
-        note.textContent = status ? status.detail : "";
-        note.hidden = !status;
-
+        // "Current state" restates the readings, which are on the left in
+        // full; it is not a thing to do, so it does not belong in this list.
         const list = items
           .filter((i) => i.id !== "status")
           .sort((a, b) => weight(a) - weight(b));
