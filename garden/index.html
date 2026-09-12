@@ -1,0 +1,2767 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f3f1e8" />
+    <title>Olive — a windowsill journal</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M2 27C11 25.5 22 20 30 6' fill='none' stroke='%2329372a' stroke-width='2.6' stroke-linecap='round'/><path d='M0 0C5-3.4 13-3.8 20 0C13 3.8 5 3.4 0 0Z' transform='translate(12 20)rotate(-118)scale(.72)' fill='%23526e40'/><path d='M0 0C5-3.4 13-3.8 20 0C13 3.8 5 3.4 0 0Z' transform='translate(19 12)rotate(-38)scale(.78)' fill='%23526e40'/><ellipse cx='8' cy='19' rx='3.9' ry='4.6' transform='rotate(-20 8 19)' fill='%23697261'/></svg>" />
+    <style>
+      /* read-only mirror: the board is not reachable from here */
+      [data-ack],
+      [data-cal],
+      #journal-undo {
+        display: none !important;
+      }
+
+      :root {
+        --paper: #f3f1e8;
+        --ink: #29372a;
+        --muted: #697261;
+        --line: #d8dacf;
+        --leaf: #526e40;
+        --rust: #a55535;
+        --blue: #507981;
+        --surface: #faf9f3;
+        --serif: Georgia, "Times New Roman", serif;
+        --sans:
+          system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font: 14px/1.5 var(--sans);
+      }
+      button,
+      a,
+      summary {
+        -webkit-tap-highlight-color: transparent;
+      }
+      button,
+      a {
+        touch-action: manipulation;
+      }
+      button {
+        font: inherit;
+        cursor: pointer;
+        color: inherit;
+      }
+      button:disabled {
+        cursor: wait;
+        opacity: 0.5;
+      }
+      button:focus-visible,
+      a:focus-visible,
+      summary:focus-visible,
+      canvas:focus-visible {
+        outline: 3px solid var(--rust);
+        outline-offset: 5px;
+      }
+      a {
+        color: inherit;
+        text-underline-offset: 4px;
+      }
+      button {
+        border: 1px solid var(--line);
+        border-radius: 25px;
+        background: transparent;
+        padding: 10px 18px;
+        min-height: 44px;
+      }
+      button:hover {
+        background: #e5e8db;
+      }
+      .primary {
+        background: var(--ink);
+        color: #fff;
+        border-color: var(--ink);
+      }
+      .primary:hover {
+        background: var(--leaf);
+      }
+      .eyebrow {
+        font-size: 10px;
+        font-weight: 650;
+        letter-spacing: 0.17em;
+        text-transform: uppercase;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .mono {
+        font-variant-numeric: tabular-nums;
+      }
+      .shell {
+        max-width: 1400px;
+        margin: auto;
+        padding: 0 5%;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 98px;
+        border-bottom: 1px solid var(--line);
+      }
+      .brand {
+        font: italic 38px var(--serif);
+        letter-spacing: -2px;
+        display: flex;
+        align-items: center;
+      }
+      .brandmark {
+        height: 1.15em;
+        width: auto;
+        overflow: visible;
+      }
+      .location {
+        text-align: right;
+      }
+      .location time {
+        display: block;
+        font-size: 20px;
+      }
+      .connection {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .connection:before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--leaf);
+      }
+      .connection[data-state="down"]:before {
+        background: var(--rust);
+      }
+      .intro {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 36px 0 12px;
+        gap: 20px;
+      }
+      h1 {
+        font: normal clamp(42px, 5vw, 70px) / 1.07 var(--serif);
+        letter-spacing: -0.04em;
+        margin: 10px 0;
+      }
+      h1 em {
+        font-weight: normal;
+        color: var(--leaf);
+      }
+      .intro p {
+        margin: 10px 0;
+        color: var(--muted);
+      }
+      .specimen {
+        text-align: right;
+        padding-bottom: 12px;
+      }
+      .specimen span {
+        display: block;
+      }
+      .dashboard {
+        display: grid;
+        grid-template-columns: minmax(0, 1.9fr) minmax(290px, 1fr);
+        gap: 36px;
+        align-items: stretch;
+      }
+      .world {
+        position: relative;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .scene-wrap {
+        position: relative;
+        flex: 1;
+        min-height: 440px;
+        overflow: hidden;
+        border-radius: 45% 45% 8px 8px;
+        background: radial-gradient(
+          ellipse at 50% 45%,
+          #e6e9dd 0%,
+          var(--paper) 70%
+        );
+      }
+      #scene {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+        display: block;
+        touch-action: pan-y;
+        cursor: grab;
+      }
+      #scene:active {
+        cursor: grabbing;
+      }
+      .scene-fallback {
+        position: absolute;
+        inset: 30% 15%;
+        text-align: center;
+        padding: 25px;
+        color: var(--muted);
+      }
+      .scene-fallback strong {
+        display: block;
+        font: 28px var(--serif);
+        color: var(--ink);
+      }
+      .scene-caption {
+        position: absolute;
+        bottom: 14px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        align-items: center;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .scene-caption button {
+        font-size: 10px;
+        padding: 5px 10px;
+        min-height: 34px;
+      }
+      .weather {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-top: 1px solid var(--line);
+        padding: 16px 0;
+      }
+      .weather-now {
+        font: 22px var(--serif);
+      }
+      .weather small {
+        display: block;
+        color: var(--muted);
+        font-size: 10px;
+        margin-top: 4px;
+      }
+      .weather-meta {
+        text-align: right;
+        font-size: 12px;
+      }
+      .plant-state {
+        padding: 18px 0 16px;
+        border-bottom: 1px solid var(--line);
+      }
+      .state-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+      }
+      .pill {
+        font-size: 10px;
+        letter-spacing: 0.06em;
+        padding: 6px 10px;
+        border-radius: 30px;
+        background: #e2e8d8;
+        color: #465d35;
+      }
+      .pill[data-tone="dry"] {
+        background: #f0dfcb;
+        color: #8d4b2e;
+      }
+      .pill[data-tone="wet"] {
+        background: #dce8e8;
+        color: #3b666d;
+      }
+      .pill[data-tone="unknown"] {
+        background: #e5e4dd;
+        color: #666b60;
+      }
+      .soil-value {
+        font: normal 82px/1.2 var(--serif);
+        letter-spacing: -0.06em;
+        margin: 12px 0 0;
+      }
+      .soil-value small {
+        font: 28px var(--serif);
+        letter-spacing: 0;
+        margin-left: 6px;
+      }
+      .plant-state p {
+        color: var(--muted);
+        font-size: 12px;
+        margin: 4px 0 18px;
+      }
+      .gauge {
+        height: 5px;
+        position: relative;
+        background: linear-gradient(
+          90deg,
+          #caa06c 0% 25%,
+          #8c9c6c 25% 75%,
+          #729599 75%
+        );
+        border-radius: 3px;
+      }
+      .gauge i {
+        position: absolute;
+        top: -4px;
+        height: 13px;
+        width: 4px;
+        border-radius: 2px;
+        background: var(--ink);
+        transform: translateX(-2px);
+        transition: left 1s;
+      }
+      .scale {
+        display: flex;
+        justify-content: space-between;
+        font-size: 9px;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+      .freshness {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 17px;
+      }
+      .measurements {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .measurement {
+        padding: 19px 0 15px;
+        border-bottom: 1px solid var(--line);
+      }
+      .measurement:nth-child(even) {
+        padding-left: 24px;
+      }
+      .measurement .value {
+        font: 32px/1.2 var(--serif);
+        margin: 6px 0;
+      }
+      .value small {
+        font: 13px var(--sans);
+        margin-left: 4px;
+      }
+      .measurement .eyebrow {
+        font-size: 9px;
+      }
+      .water-log {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        padding: 20px 0;
+      }
+      .water-log strong {
+        display: block;
+        font: 21px var(--serif);
+        margin-top: 3px;
+      }
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: baseline;
+        margin: 0 0 20px;
+      }
+      .section-head h2 {
+        font: normal 29px var(--serif);
+        margin: 0;
+      }
+      .care {
+        border-top: 1px solid var(--line);
+        margin-top: 32px;
+        padding: 28px 0;
+      }
+      .care-list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0 26px;
+      }
+      .care-item {
+        padding: 18px 0;
+        border-top: 1px solid var(--line);
+        min-width: 0;
+      }
+      .care-item h3 {
+        font: normal 19px/1.3 var(--serif);
+        margin: 10px 0;
+      }
+      .care-item p {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.7;
+        margin: 0 0 12px;
+      }
+      .care-item[data-level="alarm"] h3,
+      .care-item[data-level="warn"] h3 {
+        color: var(--rust);
+      }
+      .care-item button {
+        font-size: 11px;
+      }
+      .badge {
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        color: var(--leaf);
+        text-transform: uppercase;
+      }
+      .care-item[data-level="alarm"] .badge,
+      .care-item[data-level="warn"] .badge {
+        color: var(--rust);
+      }
+      .lower {
+        display: grid;
+        grid-template-columns: minmax(0, 1.9fr) minmax(290px, 1fr);
+        gap: 36px;
+        margin-bottom: 30px;
+      }
+      .history,
+      .notebook {
+        border-top: 1px solid var(--line);
+        padding-top: 24px;
+      }
+      .chart-tabs {
+        display: flex;
+        gap: 4px;
+      }
+      .chart-tabs button {
+        font-size: 10px;
+        min-height: 34px;
+        padding: 6px 11px;
+      }
+      .chart-tabs [aria-pressed="true"] {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      #history-chart {
+        display: block;
+        width: 100%;
+        height: 210px;
+      }
+      .chart-description {
+        font-size: 11px;
+        color: var(--muted);
+        min-height: 18px;
+      }
+      .chart-footer {
+        display: flex;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 10px;
+        gap: 14px;
+        margin-top: 12px;
+      }
+      .notebook details {
+        border-bottom: 1px solid var(--line);
+        padding: 14px 0;
+      }
+      .notebook summary {
+        cursor: pointer;
+        min-height: 30px;
+        font-size: 12px;
+      }
+      .notebook p {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin: 12px 0;
+      }
+      .button-row button {
+        font-size: 11px;
+      }
+      .calibration-values {
+        font-variant-numeric: tabular-nums;
+      }
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 12px 20px;
+        background: var(--ink);
+        color: #fff;
+        border-radius: 8px;
+        z-index: 5;
+        max-width: calc(100% - 24px);
+        box-shadow: 0 8px 35px #29372a22;
+      }
+      .toast:empty {
+        display: none;
+      }
+      .toast button {
+        color: white;
+        margin-left: 16px;
+        min-height: 32px;
+        padding: 3px 12px;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        border-top: 1px solid var(--line);
+        padding: 22px 0 30px;
+        color: var(--muted);
+        font-size: 10px;
+      }
+      .demo-banner {
+        background: #e8d4a6;
+        padding: 8px;
+        text-align: center;
+        font-size: 12px;
+      }
+      .hidden,
+      [hidden] {
+        display: none !important;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        --dock-width: 292px;
+        --hud-top: 96px;
+        background: #d8d5c8;
+      }
+      body:has(#demo-banner:not([hidden])) {
+        --hud-top: 120px;
+      }
+      .demo-banner {
+        position: fixed;
+        inset: 0 0 auto;
+        height: 24px;
+        padding: 4px;
+        z-index: 12;
+        font-size: 10px;
+        background: #e8d4a6ed;
+      }
+      .world,
+      .scene-wrap {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        border-radius: 0;
+        overflow: hidden;
+      }
+      .scene-wrap {
+        background: #d8d5c8;
+      }
+      #scene {
+        touch-action: none;
+      }
+      .glass {
+        background: rgba(248, 248, 239, 0.8);
+        border: 1px solid #ffffffaa;
+        border-radius: 20px;
+        box-shadow:
+          0 12px 45px #313d2c14,
+          inset 0 1px #ffffffa0;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .hud-header {
+        position: fixed;
+        inset: calc(var(--hud-top) - 82px) 28px auto;
+        height: 64px;
+        min-height: 0;
+        border: 0;
+        display: flex;
+        gap: 28px;
+        z-index: 3;
+        pointer-events: none;
+      }
+      .hud-header > * {
+        pointer-events: auto;
+      }
+      .brand {
+        font-size: 42px;
+        flex: 1;
+      }
+      .brandmark {
+        filter: drop-shadow(0 1px 12px #f6f4e5);
+      }
+      .location {
+        text-shadow: 0 1px 12px #fff;
+      }
+      .location time {
+        font: 26px var(--serif);
+      }
+      #panel-toggle {
+        background: #f8f8efbf;
+        border-color: #ffffff88;
+        font-size: 11px;
+      }
+      .scene-title {
+        position: fixed;
+        bottom: 88px;
+        left: calc(var(--dock-width) + 60px);
+        right: calc(var(--dock-width) + 60px);
+        text-align: center;
+        pointer-events: none;
+        z-index: 1;
+        text-shadow: 0 2px 20px #f7f5e2;
+      }
+      .scene-title p {
+        font: italic 25px var(--serif);
+        margin: 0;
+        color: var(--ink);
+      }
+      .dock {
+        position: fixed;
+        top: var(--hud-top);
+        bottom: 70px;
+        width: var(--dock-width);
+        z-index: 3;
+        overflow: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #a5af9b transparent;
+        overscroll-behavior: contain;
+      }
+      .readings-dock {
+        left: 24px;
+        padding: 20px;
+        bottom: auto;
+        max-height: calc(100dvh - var(--hud-top) - 72px);
+      }
+      .dock-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--line);
+      }
+      .dock-heading > .eyebrow {
+        font-size: 9px;
+        flex-shrink: 0;
+      }
+      .connection {
+        font-size: 9px;
+        line-height: 1.3;
+        text-align: right;
+      }
+      .readout {
+        display: block;
+      }
+      .plant-state {
+        padding: 16px 0;
+      }
+      .state-heading {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .state-heading .eyebrow {
+        font-size: 9px;
+      }
+      .pill {
+        font-size: 9px;
+        padding: 5px 8px;
+      }
+      .soil-value {
+        font-size: 72px;
+      }
+      .plant-state p {
+        font-size: 11px;
+      }
+      .freshness {
+        flex-wrap: wrap;
+        font-size: 9px;
+      }
+      .measurement {
+        padding: 15px 0 13px;
+      }
+      .measurement:nth-child(even) {
+        padding-left: 15px;
+      }
+      .measurement .eyebrow {
+        font-size: 8px;
+        letter-spacing: 0.09em;
+      }
+      .measurement .value {
+        font-size: 28px;
+      }
+      .water-log {
+        padding: 18px 0 0;
+        flex-wrap: wrap;
+      }
+      .water-log strong {
+        font-size: 20px;
+      }
+      .water-log button {
+        padding: 9px 13px;
+        font-size: 11px;
+      }
+      .weather-hud {
+        position: fixed;
+        top: var(--hud-top);
+        right: 24px;
+        z-index: 3;
+        width: var(--dock-width);
+        display: block;
+        padding: 18px 20px;
+      }
+      .weather-now {
+        font-size: 23px;
+        margin: 4px 0;
+      }
+      .weather-meta {
+        text-align: left;
+        margin-top: 12px;
+        font-size: 10px;
+      }
+      .weather small {
+        font-size: 9px;
+      }
+      .journal-dock {
+        right: 24px;
+        top: calc(var(--hud-top) + var(--weather-height, 159px) + 16px);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .pane-tabs {
+        display: flex;
+        padding: 10px;
+        gap: 4px;
+        border-bottom: 1px solid var(--line);
+      }
+      .pane-tabs button {
+        flex: 1;
+        padding: 8px;
+        border: 0;
+        font-size: 11px;
+      }
+      [data-pane][aria-pressed="true"] {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .pane-content {
+        overflow: auto;
+        padding: 20px;
+        scrollbar-width: thin;
+        overscroll-behavior: contain;
+      }
+      .care,
+      .history,
+      .notebook {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+      .care-list {
+        display: block;
+      }
+      .care-item {
+        padding: 14px 0;
+      }
+      .care-item h3 {
+        font-size: 20px;
+      }
+      .care-item p {
+        font-size: 11px;
+        line-height: 1.65;
+      }
+      .section-head {
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-bottom: 16px;
+      }
+      .section-head h2 {
+        font-size: 25px;
+      }
+      .section-head > .eyebrow {
+        font-size: 8px;
+      }
+      .chart-footer {
+        flex-direction: column;
+      }
+      #history-chart {
+        height: 210px;
+      }
+      .chart-description {
+        font-size: 10px;
+      }
+      .notebook p {
+        font-size: 11px;
+      }
+      .scene-caption {
+        position: fixed;
+        left: 50%;
+        right: auto;
+        bottom: 24px;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        border: 1px solid #ffffff99;
+        border-radius: 30px;
+        padding: 6px 9px 6px 16px;
+        background: #f8f8efe6;
+        backdrop-filter: blur(16px);
+        z-index: 2;
+        color: var(--ink);
+        font-size: 10px;
+      }
+      .scene-caption button {
+        font-size: 10px;
+      }
+      .scene-footer {
+        position: fixed;
+        bottom: 30px;
+        left: 28px;
+        right: 28px;
+        display: flex;
+        justify-content: flex-end;
+        font-size: 9px;
+        color: var(--ink);
+        pointer-events: none;
+      }
+      .scene-fallback {
+        inset: 40% 32% auto;
+        background: #f8f8efdd;
+        border-radius: 20px;
+        z-index: 1;
+      }
+      .toast {
+        bottom: 90px;
+      }
+      .mobile-nav {
+        display: none;
+      }
+      body[data-clean="true"] .dock,
+      body[data-clean="true"] .weather-hud {
+        display: none;
+      }
+      @media (min-width: 1600px) {
+        body {
+          --dock-width: 320px;
+        }
+      }
+      @media (max-width: 1100px) and (min-width: 761px) {
+        body {
+          --dock-width: 250px;
+        }
+        .readings-dock,
+        .pane-content {
+          padding: 16px;
+        }
+        .scene-title {
+          left: 290px;
+          right: 290px;
+        }
+        .scene-title p {
+          font-size: 23px;
+        }
+      }
+      @media (max-width: 760px) {
+        body {
+          --hud-top: 86px;
+        }
+        body:has(#demo-banner:not([hidden])) {
+          --hud-top: 110px;
+        }
+        .hud-header {
+          inset: calc(var(--hud-top) - 76px) 18px auto;
+          gap: 14px;
+          height: 56px;
+        }
+        .brand {
+          font-size: 36px;
+        }
+        #panel-toggle {
+          display: none;
+        }
+        .location .eyebrow {
+          font-size: 8px;
+        }
+        .location time {
+          font-size: 23px;
+        }
+        .scene-title {
+          left: 18px;
+          right: auto;
+          top: auto;
+          bottom: 138px;
+          text-align: left;
+        }
+        .scene-title p {
+          font-size: 21px;
+        }
+        .weather-hud {
+          top: var(--hud-top);
+          left: 18px;
+          right: auto;
+          width: auto;
+          max-width: calc(100% - 36px);
+          padding: 11px 15px;
+          border-radius: 14px;
+        }
+        .weather-hud .eyebrow,
+        .weather-meta {
+          display: none;
+        }
+        .weather-now {
+          font-size: 17px;
+          margin: 0;
+        }
+        .weather small {
+          font-size: 8px;
+        }
+        .mobile-nav {
+          position: fixed;
+          bottom: max(12px, env(safe-area-inset-bottom));
+          left: 12px;
+          right: 12px;
+          display: flex;
+          justify-content: space-between;
+          padding: 6px;
+          z-index: 5;
+          border-radius: 28px;
+          background: #f8f8eff0;
+        }
+        .mobile-nav button {
+          border: 0;
+          font-size: 11px;
+          padding: 9px 10px;
+          flex: 1;
+          min-height: 44px;
+        }
+        .dock {
+          display: none;
+          left: 12px;
+          right: 12px;
+          top: auto;
+          bottom: 80px;
+          width: auto;
+          max-height: 49dvh;
+          border-radius: 22px;
+          background: #f8f8efe6;
+        }
+        .readings-dock {
+          padding: 20px;
+        }
+        .journal-dock {
+          max-height: 49dvh;
+        }
+        .pane-tabs {
+          display: none;
+        }
+        .pane-content {
+          padding: 22px;
+        }
+        body[data-mobile-view="readings"] .readings-dock {
+          display: block;
+        }
+        body[data-mobile-view="care"] .journal-dock,
+        body[data-mobile-view="history"] .journal-dock,
+        body[data-mobile-view="tools"] .journal-dock {
+          display: flex;
+        }
+        body:not([data-mobile-view="tree"]) .weather-hud {
+          display: none;
+        }
+        .scene-caption {
+          bottom: 83px;
+          padding: 5px 8px;
+          gap: 6px;
+          max-width: calc(100% - 24px);
+          font-size: 9px;
+        }
+        .scene-caption > span:nth-child(3) {
+          display: none;
+        }
+        .scene-caption button {
+          min-height: 32px;
+          padding: 4px 8px;
+          font-size: 9px;
+        }
+        body:not([data-mobile-view="tree"]) .scene-caption {
+          visibility: hidden;
+        }
+        .scene-footer {
+          display: none;
+        }
+        .scene-fallback {
+          inset: 35% 20px auto;
+          padding: 20px;
+        }
+        .toast {
+          bottom: 84px;
+          z-index: 6;
+          font-size: 12px;
+        }
+        .soil-value {
+          font-size: 64px;
+        }
+        .measurements {
+          grid-template-columns: 1fr 1fr;
+        }
+        .measurement .eyebrow {
+          font-size: 9px;
+        }
+        .chart-footer {
+          flex-direction: row;
+        }
+        .pane-content .section-head {
+          align-items: center;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *:before,
+        *:after {
+          transition: none !important;
+        }
+      }
+    </style>
+
+    <script>
+      // ---- read-only mirror shim -------------------------------------------
+      // The board is not reachable from here. Everything the page would ask
+      // the API for is answered from a snapshot instead, and everything that
+      // would write to the board is refused.
+      (function () {
+        const SOURCES = [
+          { url: "https://raw.githubusercontent.com/3-mmc/olive-data/main/olive.json", label: "relay" },
+          { url: "data/olive.json", label: "committed snapshot" },
+        ];
+        let snap = null;
+        let label = null;
+
+        const loaded = (async function () {
+          for (const s of SOURCES) {
+            try {
+              const r = await fetch(s.url, { cache: "no-store" });
+              if (!r.ok) continue;
+              const j = await r.json();
+              if (j && j.latest) {
+                snap = j;
+                label = s.label;
+                return;
+              }
+            } catch (e) {
+              /* try the next one */
+            }
+          }
+        })();
+
+        const json = (body, status) =>
+          new Response(JSON.stringify(body), {
+            status: status || 200,
+            headers: { "Content-Type": "application/json" },
+          });
+
+        const realFetch = window.fetch.bind(window);
+        window.fetch = async function (input, init) {
+          const url = String(typeof input === "string" ? input : input.url);
+          if (url.indexOf("/api/") !== 0) return realFetch(input, init);
+          await loaded;
+          if (!snap) {
+            return json({ ok: false, error: "no snapshot available" }, 503);
+          }
+          if (url.indexOf("/api/latest") === 0) {
+            // demo drives the banner element, which is relabelled below.
+            return json(Object.assign({}, snap.latest, { demo: true }));
+          }
+          if (url.indexOf("/api/history") === 0) return json(snap.history);
+          return json(
+            { ok: false, error: "this is a read-only mirror" },
+            403,
+          );
+        };
+
+        function age(ms) {
+          const s = Math.max(0, Math.round((Date.now() - ms) / 1000));
+          if (s < 90) return s + " seconds old";
+          if (s < 5400) return Math.round(s / 60) + " minutes old";
+          if (s < 172800) return Math.round(s / 3600) + " hours old";
+          return Math.round(s / 86400) + " days old";
+        }
+
+        function banner() {
+          const el = document.getElementById("demo-banner");
+          if (!el) return;
+          if (!snap) {
+            el.textContent =
+              "Mirror \u00b7 no snapshot could be loaded";
+            return;
+          }
+          // Staleness is measured against when the relay read the board, not
+          // against the sample timestamp: a mirror is only ever as fresh as
+          // its last copy, and saying otherwise would be a lie.
+          el.textContent =
+            "Read-only mirror \u00b7 " +
+            age(snap.fetched_at) +
+            " \u00b7 from the " +
+            label +
+            " \u00b7 the live page is on the board";
+        }
+
+        function start() {
+          banner();
+          setInterval(banner, 30000);
+        }
+        loaded.then(function () {
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", start);
+          } else {
+            start();
+          }
+        });
+      })();
+    </script>
+  </head>
+  <body data-mobile-view="tree" data-clean="false">
+    <div class="demo-banner" id="demo-banner" hidden>
+      Preview · simulated sensor readings
+    </div>
+    <main aria-label="Your olive's windowsill">
+      <section class="world" aria-label="Interactive 3D windowsill">
+        <div class="scene-wrap">
+          <canvas
+            id="scene"
+            tabindex="0"
+            aria-label="3D olive sapling on a windowsill. Drag horizontally or use left and right arrow keys to look around."
+          ></canvas>
+          <div class="scene-fallback" id="scene-fallback">
+            <strong>Your little corner of green.</strong>
+            <p id="scene-message">Growing the 3D scene…</p>
+          </div>
+          <div class="scene-caption">
+            <span id="scene-light">New York light</span
+            ><span aria-hidden="true">·</span><span>drag to look around</span
+            ><button id="motion" aria-pressed="false">Pause motion</button
+            ><button id="reset-view" aria-label="Reset 3D view">Reset</button>
+          </div>
+        </div>
+      </section>
+      <header class="hud-header">
+        <div class="brand"><svg class="brandmark" viewBox="0 0 172 50" role="img" aria-label="Olive"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M8 32.5C40 32.5 92 26 146 13.8" stroke-width="2.6"/><path d="M61.9 28.6C61.7 31 61.6 32.5 61.5 33.6" stroke-width="1.7"/><path d="M107 21.7C106.8 24.1 106.7 25.6 106.6 26.7" stroke-width="1.7"/></g><g fill="currentColor"><path d="M0 0C6-5 16-5.6 25 0C16 5.6 6 5 0 0Z" transform="translate(23.7 32.1)rotate(28)scale(1.05)"/><path d="M0 0C6-5 16-5.6 25 0C16 5.6 6 5 0 0Z" transform="translate(41.8 30.8)rotate(-44)scale(1.12)"/><path d="M0 0C6-5 16-5.6 25 0C16 5.6 6 5 0 0Z" transform="translate(61.9 28.6)rotate(26)scale(1.08)"/><path d="M0 0C6-5 16-5.6 25 0C16 5.6 6 5 0 0Z" transform="translate(83.8 25.6)rotate(-45)scale(1.14)"/><path d="M0 0C6-5 16-5.6 25 0C16 5.6 6 5 0 0Z" transform="translate(107.0 21.7)rotate(23)scale(1.0)"/><path d="M0 0C6-5 16-5.6 25 0C16 5.6 6 5 0 0Z" transform="translate(128.1 17.7)rotate(-40)scale(0.92)"/><path d="M0 0C6-5 16-5.6 25 0C16 5.6 6 5 0 0Z" transform="translate(146.0 13.8)rotate(-12)scale(0.82)"/></g><ellipse cx="61.4" cy="37.5" rx="4.2" ry="5.1" fill="var(--leaf)"/><ellipse cx="106.5" cy="30.6" rx="4.0" ry="4.9" fill="var(--leaf)"/></svg></div>
+        <div class="location">
+          <span class="eyebrow">Williamsburg, Brooklyn</span
+          ><time id="local-time">—</time>
+        </div>
+        <button id="panel-toggle" aria-pressed="false">Hide panes</button>
+      </header>
+      <div class="scene-title">
+        <p><em>Olea europaea</em></p>
+      </div>
+      <aside class="dock readings-dock glass" aria-label="Floating sensor pane">
+        <div class="dock-heading">
+          <span class="eyebrow">Your olive</span>
+          <div class="connection" id="connection" data-state="down">
+            Connecting
+          </div>
+        </div>
+        <section class="readout" aria-label="Your tree's sensor readings">
+          <div class="plant-state">
+            <div class="state-heading">
+              <span class="eyebrow">At the roots</span
+              ><span class="pill" id="soil-state" data-tone="unknown"
+                >Waiting for a reading</span
+              >
+            </div>
+            <div class="soil-value" id="soil-value">—<small>%</small></div>
+            <p id="soil-caption">
+              Moisture · of your calibrated dry-to-wet range
+            </p>
+            <div class="gauge" id="gauge">
+              <i id="soil-marker" hidden></i>
+            </div>
+            <div class="scale">
+              <span>DRY</span><span id="soil-range">CALIBRATED RANGE</span
+              ><span>WET</span>
+            </div>
+            <div class="freshness">
+              <span id="soil-age">No soil sample yet</span
+              ><span id="soil-next">Probe resting between reads</span>
+            </div>
+          </div>
+          <div class="measurements">
+            <div class="measurement">
+              <span class="eyebrow muted">Room temperature</span>
+              <div class="value" id="temp">—<small>°C</small></div>
+            </div>
+            <div class="measurement">
+              <span class="eyebrow muted">Room humidity</span>
+              <div class="value" id="rh">—<small>%</small></div>
+            </div>
+            <div class="measurement">
+              <span class="eyebrow muted">Vapour deficit</span>
+              <div class="value" id="vpd">—<small>kPa</small></div>
+            </div>
+            <div class="measurement">
+              <span class="eyebrow muted">Dew point</span>
+              <div class="value" id="dew">—<small>°C</small></div>
+            </div>
+          </div>
+          <div class="water-log">
+            <div>
+              <span class="eyebrow muted">Last watered</span
+              ><strong id="watered">Not recorded</strong>
+            </div>
+            <button class="primary" data-ack="water">I watered it</button>
+          </div>
+        </section>
+      </aside>
+      <section class="weather weather-hud glass" aria-label="Outdoor weather">
+        <div>
+          <span class="eyebrow muted">Outside the window</span>
+          <div class="weather-now" id="weather-now">
+            Checking the Brooklyn sky
+          </div>
+          <small
+            ><a href="https://open-meteo.com/" target="_blank" rel="noreferrer"
+              >Weather by Open-Meteo</a
+            >
+            · <span id="weather-age">waiting for weather</span></small
+          >
+        </div>
+        <div class="weather-meta">
+          <span id="sun-times">Sunrise — · Sunset —</span
+          ><small id="weather-extra"
+            >Outdoor weather, separate from your room</small
+          >
+        </div>
+      </section>
+      <aside class="dock journal-dock glass" aria-label="Floating journal pane">
+        <nav class="pane-tabs" aria-label="Journal panes">
+          <button
+            data-pane="care"
+            aria-pressed="true"
+            aria-controls="pane-care"
+          >
+            Care</button
+          ><button
+            data-pane="history"
+            aria-pressed="false"
+            aria-controls="pane-history"
+          >
+            History</button
+          ><button
+            data-pane="tools"
+            aria-pressed="false"
+            aria-controls="pane-tools"
+          >
+            Tools
+          </button>
+        </nav>
+        <div class="pane-content">
+          <section class="care" id="pane-care" aria-label="Care notes">
+            <div class="section-head">
+              <h2>A little tending.</h2>
+              <span class="eyebrow muted" id="care-summary"
+                >Notes from your tree</span
+              >
+            </div>
+            <div class="care-list" id="care-list">
+              <p class="muted">Care notes appear when the monitor connects.</p>
+            </div>
+          </section>
+          <section
+            class="history"
+            id="pane-history"
+            aria-label="History"
+            hidden
+          >
+            <div class="section-head">
+              <h2>The slow changes.</h2>
+              <div class="chart-tabs" aria-label="History period">
+                <button data-hours="6" aria-pressed="false">6 h</button
+                ><button data-hours="24" aria-pressed="false">24 h</button
+                ><button data-hours="48" aria-pressed="true">48 h</button>
+              </div>
+            </div>
+            <canvas
+              id="history-chart"
+              role="img"
+              aria-label="Sensor history chart"
+            ></canvas>
+            <p class="chart-description" id="chart-description">
+              Waiting for history.
+            </p>
+            <div class="chart-footer">
+              <span>Soil (left axis) · Temperature °C (right axis)</span
+              ><a href="data/olive.json" download>Download snapshot JSON ↓</a>
+            </div>
+          </section>
+          <section
+            class="notebook"
+            id="pane-tools"
+            aria-label="Potting tools"
+            hidden
+          >
+            <div class="section-head">
+              <h2>The potting bench.</h2>
+              <span class="eyebrow muted">Tools & notes</span>
+            </div>
+            <details>
+              <summary>Care journal</summary>
+              <p>
+                Record a job when it is done. These dates stay with the monitor
+                after a restart.
+              </p>
+              <div class="button-row">
+                <button data-ack="feed">Fed</button
+                ><button data-ack="prune">Pruned</button
+                ><button data-ack="repot">Repotted</button>
+              </div>
+              <p id="journal-status" role="status"></p>
+              <div class="button-row" id="journal-undo"></div>
+            </details>
+            <details>
+              <summary>Calibrate the soil probe</summary>
+              <p>
+                1. Remove and wipe the probe dry, then save the dry point.<br />2.
+                Water the pot, let it drain for an hour, reinsert the probe,
+                then save the wet point.
+              </p>
+              <p>
+                Each save powers the probe for a fresh reading. The two points
+                must differ by at least 100 mV.
+              </p>
+              <div class="button-row">
+                <button data-cal="dry">Save dry</button
+                ><button data-cal="wet">Save wet</button
+                ><button data-cal="clear">Clear points</button>
+              </div>
+              <p class="calibration-values" id="calibration-values">
+                No calibration received.
+              </p>
+            </details>
+            <details>
+              <summary>About these readings</summary>
+              <p id="probe-detail">The soil probe rests between readings.</p>
+              <p id="raw-detail">Raw probe — mV</p>
+              <p id="device-detail">Waiting for the monitor.</p>
+              <p>
+                The scene's soil shade reflects the calibrated reading. The tree
+                is an illustration, not a diagnosis. Outdoor weather does not
+                measure the light reaching this indoor tree.
+              </p>
+              <p id="clock-detail">The clock above shows New York time.</p>
+            </details>
+          </section>
+        </div>
+      </aside>
+      <nav class="mobile-nav glass" aria-label="Windowsill panes">
+        <button data-pane="tree" aria-pressed="true">Tree</button
+        ><button data-pane="readings" aria-pressed="false">Readings</button
+        ><button data-pane="care" aria-pressed="false">Care</button
+        ><button data-pane="history" aria-pressed="false">History</button
+        ><button data-pane="tools" aria-pressed="false">Tools</button>
+      </nav>
+      <div class="scene-footer">
+        <span id="footer-status">Connecting</span>
+      </div>
+    </main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script>
+      "use strict";
+      const $ = (id) => document.getElementById(id);
+      const finite = (v) => typeof v === "number" && Number.isFinite(v);
+      // h23 throughout: 24-hour, and zero-padded, so the clock does not change
+      // width as it ticks past 09:59.
+      const nyTime = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York",
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23",
+      });
+      const nyDateTime = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23",
+      });
+      const nyParts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York",
+        hour: "numeric",
+        hourCycle: "h23",
+      });
+      let latest = null,
+        latestAt = 0,
+        clockOffset = 0,
+        monitorReachable = false,
+        historyData = null,
+        hours = 48,
+        weatherData = null,
+        weatherFailed = false,
+        polling = false,
+        chartLoading = false,
+        actionBusy = false,
+        careSignature = "";
+      window.oliveState = {
+        soil: null,
+        tone: "unknown",
+        daylight: 0.7,
+        phase: "day",
+        cloud: null,
+        rain: false,
+        snow: false,
+        weatherKnown: false,
+        motion: !matchMedia("(prefers-reduced-motion: reduce)").matches,
+      };
+      function now() {
+        return Date.now() + clockOffset;
+      }
+      function value(id, v, digits, unit) {
+        $(id).replaceChildren(
+          document.createTextNode(finite(v) ? v.toFixed(digits) : "—"),
+        );
+        const s = document.createElement("small");
+        s.textContent = unit;
+        $(id).append(s);
+      }
+      function ago(seconds) {
+        if (!finite(seconds) || seconds < 0) return "Date unavailable";
+        if (seconds < 86400) return "Today";
+        if (seconds < 172800) return "Yesterday";
+        return Math.floor(seconds / 86400) + " days ago";
+      }
+      async function getJSON(url) {
+        const controller = new AbortController(),
+          timer = setTimeout(() => controller.abort(), 12000);
+        try {
+          const r = await fetch(url, {
+            cache: "no-store",
+            signal: controller.signal,
+          });
+          if (!r.ok) throw Error("Request failed (" + r.status + ")");
+          return await r.json();
+        } finally {
+          clearTimeout(timer);
+        }
+      }
+      function notify(message) {
+        $("toast").textContent = message;
+        clearTimeout(notify.timer);
+        notify.timer = setTimeout(() => ($("toast").textContent = ""), 7000);
+      }
+      function connection(state, text) {
+        $("connection").dataset.state = state;
+        $("connection").textContent = text;
+        $("footer-status").textContent = text;
+      }
+      function updateSoilAge() {
+        if (!latest) return;
+        const elapsed = (performance.now() - latestAt) / 1000;
+        const age = latest.soil_age_s < 0 ? -1 : latest.soil_age_s + elapsed;
+        const period = latest.soil_interval_s || 900;
+        const sampleAge = (latest.now - latest.ts) / 1000 + elapsed;
+        const stale =
+          sampleAge > Math.max(180, (latest.sample_interval_s || 60) * 3);
+        const valid =
+          monitorReachable &&
+          finite(latest.soil_pct) &&
+          age >= 0 &&
+          age < period + Math.max(120, (latest.sample_interval_s || 60) * 2) &&
+          !stale;
+        window.oliveState.soil = valid ? latest.soil_pct : null;
+        window.oliveState.tone = valid
+          ? latest.soil_pct < latest.water_below_pct
+            ? "dry"
+            : latest.soil_pct > latest.soggy_above_pct
+              ? "wet"
+              : "balanced"
+          : "unknown";
+        $("soil-age").textContent =
+          age < 0
+            ? "Soil reading unavailable"
+            : age < 60
+              ? "Soil read just now"
+              : "Soil read " + Math.floor(age / 60) + " min ago";
+        $("soil-next").textContent =
+          age < 0
+            ? "Retries on soil schedule"
+            : age >= period
+              ? "Next read due"
+              : "Next in " + Math.ceil((period - age) / 60) + " min";
+        if (stale) {
+          connection("down", "Readings are stale");
+          $("soil-state").textContent = "Reading is stale";
+          $("soil-state").dataset.tone = "unknown";
+        }
+      }
+      function renderLatest(d) {
+        latest = d;
+        monitorReachable = true;
+        latestAt = performance.now();
+        clockOffset = d.synced && finite(d.now) ? d.now - Date.now() : 0;
+        const sampleAge = (d.now - d.ts) / 1000;
+        connection(
+          sampleAge > Math.max(180, (d.sample_interval_s || 60) * 3)
+            ? "down"
+            : "live",
+          sampleAge > Math.max(180, (d.sample_interval_s || 60) * 3)
+            ? "Readings are stale"
+            : "Connected to your tree",
+        );
+        $("demo-banner").hidden = false;
+        const pct = d.soil_pct,
+          valid = finite(pct) && d.soil_mv >= 0;
+        const tone = !valid
+          ? "unknown"
+          : pct < d.water_below_pct
+            ? "dry"
+            : pct > d.soggy_above_pct
+              ? "wet"
+              : "balanced";
+        value(
+          "soil-value",
+          valid ? pct : d.soil_mv < 0 ? null : d.soil_mv,
+          0,
+          valid ? "%" : "mV",
+        );
+        $("soil-state").dataset.tone = tone;
+        $("soil-state").textContent =
+          d.soil_mv < 0
+            ? "Probe unavailable"
+            : !valid
+              ? "Needs calibration"
+              : tone === "dry"
+                ? "Ready for a drink"
+                : tone === "wet"
+                  ? "Let the soil dry"
+                  : "Comfortably watered";
+        $("soil-caption").textContent = valid
+          ? "Moisture · of your calibrated dry-to-wet range"
+          : "Raw probe reading · calibrate to see moisture";
+        $("soil-marker").hidden = !valid;
+        if (valid)
+          $("soil-marker").style.left = Math.max(0, Math.min(100, pct)) + "%";
+        const lo = d.water_below_pct,
+          hi = d.soggy_above_pct;
+        $("gauge").style.background =
+          `linear-gradient(90deg,#caa06c 0% ${lo}%,#8c9c6c ${lo}% ${hi}%,#729599 ${hi}%)`;
+        $("soil-range").textContent = "WATER BELOW " + lo + "%";
+        value("temp", d.temp_c, 1, "°C");
+        value("rh", d.rh_pct, 0, "%");
+        value("vpd", d.vpd_kpa, 2, "kPa");
+        value("dew", d.dew_point_c, 1, "°C");
+        $("watered").textContent =
+          d.last_water > 0
+            ? d.synced
+              ? ago(d.now / 1000 - d.last_water)
+              : "Waiting for clock"
+            : "Not recorded";
+        $("calibration-values").textContent =
+          (d.calibrated ? "Calibrated" : "Not calibrated") +
+          " · Dry " +
+          (d.soil_dry_mv >= 0 ? d.soil_dry_mv : "—") +
+          " mV · Wet " +
+          (d.soil_wet_mv >= 0 ? d.soil_wet_mv : "—") +
+          " mV";
+        $("raw-detail").textContent =
+          "Raw probe: " + (d.soil_mv >= 0 ? d.soil_mv + " mV" : "unavailable");
+        $("probe-detail").textContent =
+          "Soil sampled every " +
+          Math.round((d.soil_interval_s || 900) / 60) +
+          " minutes. " +
+          (d.soil_switched
+            ? "Power is off between readings."
+            : "Probe supply is always on; slower readings do not reduce electrode exposure.");
+        $("device-detail").textContent =
+          d.count +
+          " history rows · uptime " +
+          Math.floor(d.uptime_s / 3600) +
+          " h · climate every " +
+          (d.sample_interval_s || 60) +
+          " s";
+        $("clock-detail").textContent = d.synced
+          ? "Monitor clock synced. All displayed times use America/New_York."
+          : "Monitor clock not synced. The scene uses your device clock; history shows time relative to the monitor.";
+        const signature = JSON.stringify(d.advice || []);
+        if (signature !== careSignature && !actionBusy) {
+          renderCare(d.advice || []);
+          careSignature = signature;
+        }
+        updateSoilAge();
+        tick();
+      }
+      function renderCare(items) {
+        const host = $("care-list");
+        host.replaceChildren();
+        const openCount = items.filter((i) => i.level !== "ok").length;
+        $("care-summary").textContent =
+          openCount === 1 ? "1 care note" : openCount + " care notes";
+        for (const it of items) {
+          const el = document.createElement("article");
+          el.className = "care-item";
+          el.dataset.level = it.level;
+          const badge = document.createElement("span");
+          badge.className = "badge";
+          badge.textContent = it.badge || it.level;
+          const h = document.createElement("h3");
+          h.textContent = it.title;
+          const p = document.createElement("p");
+          p.textContent = it.detail;
+          el.append(badge, h, p);
+          if (it.ackable) {
+            const b = document.createElement("button");
+            b.textContent = "Mark done";
+            b.dataset.ack = it.id === "empty-saucer" ? "water" : it.id;
+            el.append(b);
+          }
+          host.append(el);
+        }
+        if (!items.length)
+          host.textContent = "No care notes reported by the monitor.";
+      }
+      async function poll() {
+        if (polling || document.hidden) return;
+        polling = true;
+        try {
+          const d = await getJSON("/api/latest");
+          if (d.ok) renderLatest(d);
+          else {
+            monitorReachable = false;
+            connection("down", "Waiting for the first sample");
+            window.oliveState.soil = null;
+            window.oliveState.tone = "unknown";
+          }
+        } catch {
+          monitorReachable = false;
+          connection("down", "Monitor unreachable · retrying");
+          $("soil-state").textContent = "Monitor unreachable";
+          $("soil-state").dataset.tone = "unknown";
+          window.oliveState.soil = null;
+          window.oliveState.tone = "unknown";
+        } finally {
+          polling = false;
+        }
+      }
+      async function act(button, url, message) {
+        if (actionBusy) return;
+        actionBusy = true;
+        button.disabled = true;
+        try {
+          const d = await getJSON(url);
+          if (!d.ok) throw Error(d.error || "The monitor could not save this.");
+          notify(message);
+          return d;
+        } catch (e) {
+          notify(e.message);
+          return null;
+        } finally {
+          button.disabled = false;
+          actionBusy = false;
+          careSignature = "";
+          await poll();
+        }
+      }
+      document.addEventListener("click", async (e) => {
+        const b = e.target.closest("button");
+        if (!b) return;
+        if (b.dataset.ack) {
+          const task = b.dataset.ack,
+            undo = b.dataset.undo === "1";
+          const d = await act(
+            b,
+            "/api/ack?task=" +
+              encodeURIComponent(task) +
+              (undo ? "&undo=1" : ""),
+            undo ? "Journal entry cleared." : "Care recorded. Thank you.",
+          );
+          if (d) {
+            $("journal-status").textContent = undo
+              ? "Entry cleared."
+              : task.charAt(0).toUpperCase() +
+                task.slice(1) +
+                " recorded at " +
+                nyTime.format(now()) +
+                ". Undo remains here until this page is closed.";
+            const old = $("journal-undo").querySelector(
+              '[data-ack="' + task + '"]',
+            );
+            if (old) old.remove();
+            if (!undo) {
+              const u = document.createElement("button");
+              u.dataset.ack = task;
+              u.dataset.undo = "1";
+              u.textContent = "Undo " + task;
+              $("journal-undo").append(u);
+            }
+          }
+        }
+        if (b.dataset.cal) {
+          const point = b.dataset.cal;
+          if (
+            point === "clear" &&
+            !confirm("Clear both stored soil calibration points?")
+          )
+            return;
+          const d = await act(
+            b,
+            "/api/calibrate?point=" + point,
+            point === "clear"
+              ? "Calibration cleared."
+              : "Fresh " + point + " point saved.",
+          );
+          if (d) {
+            $("calibration-values").textContent =
+              (d.calibrated
+                ? "Calibrated"
+                : "Still needs two points at least 100 mV apart") +
+              " · Dry " +
+              d.soil_dry_mv +
+              " mV · Wet " +
+              d.soil_wet_mv +
+              " mV";
+            await loadHistory();
+          }
+        }
+        if (b.dataset.hours) {
+          hours = +b.dataset.hours;
+          document
+            .querySelectorAll("[data-hours]")
+            .forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+          drawChart();
+        }
+      });
+      async function loadHistory() {
+        if (chartLoading || document.hidden) return;
+        chartLoading = true;
+        try {
+          historyData = await getJSON("/api/history");
+          drawChart();
+        } catch {
+          $("chart-description").textContent =
+            "History unavailable. Retrying shortly.";
+        } finally {
+          chartLoading = false;
+        }
+      }
+      function drawChart() {
+        if (!$("history-chart").clientWidth) return;
+        const c = $("history-chart"),
+          ctx = c.getContext("2d");
+        if (!ctx) return;
+        const w = c.clientWidth,
+          h = 210,
+          dpr = Math.min(devicePixelRatio || 1, 2);
+        c.width = w * dpr;
+        c.height = h * dpr;
+        ctx.scale(dpr, dpr);
+        ctx.clearRect(0, 0, w, h);
+        if (!historyData) return;
+        const all = historyData.samples || [],
+          end = historyData.now,
+          start = end - hours * 3600000,
+          rows = all.filter((r) => r[0] >= start);
+        if (!rows.length) {
+          $("chart-description").textContent = "No samples in this period yet.";
+          return;
+        }
+        const calibrated = historyData.calibrated,
+          col = calibrated ? 4 : 3;
+        const soil = rows.filter(
+          (r) => finite(r[col]) && r[col] >= 0 && (r.length < 6 || r[5] === 0),
+        );
+        const temps = rows.filter((r) => finite(r[1]));
+        const minTemp = temps.length
+            ? Math.floor(Math.min(...temps.map((r) => r[1])) - 2)
+            : 0,
+          maxTemp = temps.length
+            ? Math.ceil(Math.max(...temps.map((r) => r[1])) + 2)
+            : 40;
+        const maxSoil = calibrated
+          ? 100
+          : Math.max(3100, ...soil.map((r) => r[col]));
+        const l = 36,
+          r = w - 32,
+          t = 12,
+          b = h - 25;
+        const x = (v) => l + ((v - start) / (end - start)) * (r - l),
+          y = (v, lo, hi) => b - ((v - lo) / (hi - lo)) * (b - t);
+        ctx.font = "10px system-ui";
+        for (let i = 0; i < 5; i++) {
+          const yy = t + ((b - t) * i) / 4;
+          ctx.strokeStyle = "#d8dacf";
+          ctx.lineWidth = 0.7;
+          ctx.beginPath();
+          ctx.moveTo(l, yy);
+          ctx.lineTo(r, yy);
+          ctx.stroke();
+          ctx.fillStyle = "#526e40";
+          ctx.textAlign = "right";
+          ctx.fillText(Math.round(maxSoil * (1 - i / 4)), l - 7, yy + 3);
+          ctx.fillStyle = "#a55535";
+          ctx.textAlign = "left";
+          ctx.fillText(
+            (maxTemp - ((maxTemp - minTemp) * i) / 4).toFixed(0),
+            r + 7,
+            yy + 3,
+          );
+        }
+        function series(col, lo, hi, color, freshOnly, maxGap) {
+          ctx.strokeStyle = color;
+          ctx.fillStyle = color;
+          ctx.lineWidth = 1.7;
+          let prev = null;
+          ctx.beginPath();
+          for (const row of rows) {
+            const v = row[col];
+            if (!finite(v) || (v < 0 && col !== 1)) {
+              prev = null;
+              continue;
+            }
+            if (freshOnly && row.length >= 6 && row[5] !== 0) continue;
+            const xx = x(row[0]),
+              yy = y(v, lo, hi);
+            if (prev && row[0] - prev[0] <= maxGap) ctx.lineTo(xx, yy);
+            else ctx.moveTo(xx, yy);
+            prev = row;
+          }
+          ctx.stroke();
+          for (const row of rows) {
+            if (
+              !finite(row[col]) ||
+              (col !== 1 && row[col] < 0) ||
+              (freshOnly && row.length >= 6 && row[5] !== 0)
+            )
+              continue;
+            ctx.beginPath();
+            ctx.arc(
+              x(row[0]),
+              y(row[col], lo, hi),
+              freshOnly ? 2 : 1,
+              0,
+              Math.PI * 2,
+            );
+            ctx.fill();
+          }
+        }
+        series(
+          col,
+          0,
+          maxSoil,
+          "#526e40",
+          true,
+          (latest?.soil_interval_s || 900) * 1500,
+        );
+        series(
+          1,
+          minTemp,
+          maxTemp,
+          "#a55535",
+          false,
+          (latest?.sample_interval_s || 60) * 2500,
+        );
+        ctx.fillStyle = "#697261";
+        for (let i = 0; i < 3; i++) {
+          const ts = start + ((end - start) * i) / 2;
+          ctx.textAlign = i === 0 ? "left" : i === 2 ? "right" : "center";
+          ctx.fillText(
+            historyData.synced
+              ? (hours >= 24 ? nyDateTime : nyTime).format(ts)
+              : Math.round((ts - end) / 3600000) + " h",
+            x(ts),
+            h - 3,
+          );
+        }
+        $("chart-description").textContent =
+          soil.length +
+          " soil readings · " +
+          (calibrated ? "calibrated %" : "raw mV") +
+          " · " +
+          rows.length +
+          " climate rows. Soil points join scheduled readings; cached values are omitted.";
+        c.setAttribute(
+          "aria-label",
+          $("chart-description").textContent +
+            (soil.length
+              ? " Latest soil " +
+                soil[soil.length - 1][col].toFixed(1) +
+                (calibrated ? " percent." : " millivolts.")
+              : ""),
+        );
+      }
+      // Fetch from the browser, keeping TLS, JSON weather parsing and rendering off the MCU.
+
+      new ResizeObserver((entries) => {
+        const height = entries[0].target.getBoundingClientRect().height;
+        document.body.style.setProperty("--weather-height", height + "px");
+      }).observe(document.querySelector(".weather-hud"));
+      const compactView = matchMedia("(max-width: 760px)");
+      let journalPane = "care";
+      function showPane(name) {
+        document.body.dataset.mobileView = name;
+        if (["care", "history", "tools"].includes(name)) journalPane = name;
+        for (const pane of ["care", "history", "tools"])
+          $("pane-" + pane).hidden = pane !== journalPane;
+        document
+          .querySelectorAll(".pane-tabs [data-pane]")
+          .forEach((b) =>
+            b.setAttribute(
+              "aria-pressed",
+              String(b.dataset.pane === journalPane),
+            ),
+          );
+        document
+          .querySelectorAll(".mobile-nav [data-pane]")
+          .forEach((b) =>
+            b.setAttribute("aria-pressed", String(b.dataset.pane === name)),
+          );
+        if (journalPane === "history") requestAnimationFrame(drawChart);
+      }
+      document
+        .querySelectorAll("[data-pane]")
+        .forEach((b) =>
+          b.addEventListener("click", () => showPane(b.dataset.pane)),
+        );
+      $("panel-toggle").onclick = () => {
+        const clean = document.body.dataset.clean !== "true";
+        document.body.dataset.clean = String(clean);
+        $("panel-toggle").setAttribute("aria-pressed", String(clean));
+        $("panel-toggle").textContent = clean ? "Show panes" : "Hide panes";
+      };
+      compactView.addEventListener("change", () => {
+        document.body.dataset.clean = "false";
+        $("panel-toggle").textContent = "Hide panes";
+        $("panel-toggle").setAttribute("aria-pressed", "false");
+        showPane("tree");
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          showPane("tree");
+          if (compactView.matches)
+            document.querySelector('.mobile-nav [data-pane="tree"]').focus();
+        }
+      });
+      const weatherURL =
+        "https://api.open-meteo.com/v1/forecast?latitude=40.7143&longitude=-73.9614&current=temperature_2m,relative_humidity_2m,weather_code,cloud_cover,precipitation,wind_speed_10m,is_day&daily=sunrise,sunset&timezone=America%2FNew_York&timeformat=unixtime&forecast_days=2";
+      async function loadWeather() {
+        if (document.hidden) return;
+        try {
+          const d = await getJSON(weatherURL);
+          if (
+            !finite(d.current?.time) ||
+            !finite(d.current?.temperature_2m) ||
+            !Array.isArray(d.daily?.sunrise)
+          )
+            throw Error("Missing weather");
+          weatherData = d;
+          weatherFailed = false;
+          try {
+            localStorage.setItem("olive-weather-v1", JSON.stringify(d));
+          } catch {}
+        } catch {
+          weatherFailed = true;
+        }
+        tick();
+      }
+      function weatherName(code) {
+        if (code === 0) return "Clear sky";
+        if (code === 1) return "Mostly clear";
+        if (code === 2) return "Partly cloudy";
+        if (code === 3) return "Overcast";
+        if ([45, 48].includes(code)) return "Fog";
+        if (code >= 95) return "Thunderstorms";
+        if ([71, 73, 75, 77, 85, 86].includes(code)) return "Snow";
+        if (code >= 80) return "Rain showers";
+        if (code >= 61) return "Rain";
+        if (code >= 51) return "Drizzle";
+        return "Conditions unavailable";
+      }
+      function tick() {
+        const stamp = now();
+        $("local-time").textContent = nyTime.format(stamp);
+        $("local-time").dateTime = new Date(stamp).toISOString();
+        const hour = +nyParts.format(stamp);
+        const d = weatherData,
+          c = d?.current,
+          age = c ? stamp / 1000 - c.time : Infinity,
+          known = !!c && age >= -900 && age < 5400;
+        let rise = null,
+          set = null;
+        if (d?.daily) {
+          const today = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "America/New_York",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          }).format(stamp);
+          for (let i = 0; i < d.daily.sunrise.length; i++) {
+            const candidate = d.daily.sunrise[i] * 1000;
+            if (
+              new Intl.DateTimeFormat("en-CA", {
+                timeZone: "America/New_York",
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              }).format(candidate) === today
+            ) {
+              rise = candidate;
+              set = d.daily.sunset[i] * 1000;
+              break;
+            }
+          }
+        }
+        const state = window.oliveState;
+        state.weatherKnown = known;
+        state.cloud = known ? c.cloud_cover / 100 : null;
+        state.snow = known && [71, 73, 75, 77, 85, 86].includes(c.weather_code);
+        state.rain =
+          known && !state.snow && (c.precipitation > 0 || c.weather_code >= 51);
+        let day = hour >= 7 && hour < 19,
+          phase = day ? "day" : "night",
+          amount = day ? 0.85 : 0.08;
+        if (rise && set) {
+          day = stamp >= rise && stamp < set;
+          const edge = Math.min(Math.abs(stamp - rise), Math.abs(stamp - set));
+          if (edge < 3600000) {
+            phase = "golden";
+            amount = 0.45;
+          } else {
+            phase = day ? "day" : "night";
+            amount = day
+              ? Math.max(
+                  0.35,
+                  Math.sin((Math.PI * (stamp - rise)) / (set - rise)),
+                )
+              : 0.08;
+          }
+        }
+        state.daylight = amount;
+        state.phase = phase;
+        state.sunProgress = Math.max(
+          0,
+          Math.min(
+            1,
+            rise && set ? (stamp - rise) / (set - rise) : (hour - 7) / 12,
+          ),
+        );
+        $("scene-light").textContent =
+          (phase === "night"
+            ? "After dark"
+            : phase === "golden"
+              ? "Golden light"
+              : "Daylight") + (rise ? "" : " · approximate");
+        $("sun-times").textContent = rise
+          ? "Sunrise " + nyTime.format(rise) + " · Sunset " + nyTime.format(set)
+          : "Sunrise & sunset unavailable";
+        if (known) {
+          $("weather-now").textContent =
+            Math.round(c.temperature_2m) +
+            "°C · " +
+            weatherName(c.weather_code);
+          $("weather-age").textContent =
+            (weatherFailed ? "Cached · " : "") +
+            Math.max(0, Math.floor(age / 60)) +
+            " min old";
+          $("weather-extra").textContent =
+            c.relative_humidity_2m +
+            "% humidity · " +
+            c.wind_speed_10m +
+            " km/h wind";
+        } else {
+          $("weather-now").textContent = "Weather unavailable";
+          $("weather-age").textContent = c
+            ? "Saved weather is out of date"
+            : "will retry automatically";
+          $("weather-extra").textContent = "Scene follows time only";
+        }
+      }
+      $("motion").setAttribute(
+        "aria-pressed",
+        String(!window.oliveState.motion),
+      );
+      $("motion").textContent = window.oliveState.motion
+        ? "Pause motion"
+        : "Resume motion";
+      $("motion").onclick = () => {
+        window.oliveState.motion = !window.oliveState.motion;
+        $("motion").setAttribute(
+          "aria-pressed",
+          String(!window.oliveState.motion),
+        );
+        $("motion").textContent = window.oliveState.motion
+          ? "Pause motion"
+          : "Resume motion";
+      };
+      matchMedia("(prefers-reduced-motion: reduce)").addEventListener(
+        "change",
+        (e) => {
+          if (e.matches) {
+            window.oliveState.motion = false;
+            $("motion").textContent = "Resume motion";
+            $("motion").setAttribute("aria-pressed", "true");
+          }
+        },
+      );
+      try {
+        const d = JSON.parse(localStorage.getItem("olive-weather-v1"));
+        if (finite(d?.current?.time)) weatherData = d;
+      } catch {}
+      new ResizeObserver(drawChart).observe($("history-chart"));
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) {
+          poll();
+          loadHistory();
+          loadWeather();
+          tick();
+        }
+      });
+      tick();
+      poll();
+      loadHistory();
+      loadWeather();
+      setInterval(poll, 15000);
+      setInterval(loadHistory, 60000);
+      setInterval(loadWeather, 900000);
+      setInterval(() => {
+        if (!document.hidden) {
+          tick();
+          updateSoilAge();
+        }
+      }, 10000);
+    </script>
+    <!-- The entire renderer is served by the ESP32; no runtime CDN required. -->
+    <script type="module">
+      try {
+        const THREE = await import("./three.module.min.js");
+        const canvas = document.getElementById("scene"),
+          state = window.oliveState;
+        const renderer = new THREE.WebGLRenderer({
+          canvas,
+          antialias: true,
+          alpha: true,
+          powerPreference: "low-power",
+        });
+        renderer.setPixelRatio(Math.min(devicePixelRatio, 1.6));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.2;
+        const scene = new THREE.Scene(),
+          camera = new THREE.PerspectiveCamera(40, 1, 0.1, 60);
+        let yaw = 0.1;
+        const target = new THREE.Vector3(0, 2.5, 0);
+        const mat = (color, roughness = 0.9) =>
+          new THREE.MeshStandardMaterial({ color, roughness });
+        const plaster = mat("#e6e4d7"),
+          edge = mat("#c8c7b9"),
+          wood = mat("#eeeadd"),
+          bark = mat("#786548"),
+          dirt = mat("#6e563b");
+        const leafMats = [
+          "#40584c",
+          "#526c5a",
+          "#73877a",
+          "#96a397",
+          "#465d50",
+        ].map((c) => mat(c, 0.65));
+        leafMats.forEach((m) => (m.side = THREE.DoubleSide));
+        function mesh(geo, material, parent = scene) {
+          const m = new THREE.Mesh(geo, material);
+          m.castShadow = true;
+          m.receiveShadow = true;
+          parent.add(m);
+          return m;
+        }
+        function box(w, h, d, x, y, z, material, parent) {
+          const m = mesh(new THREE.BoxGeometry(w, h, d), material, parent);
+          m.position.set(x, y, z);
+          return m;
+        }
+        function rod(a, b, r1, r2, material, parent) {
+          const delta = new THREE.Vector3().subVectors(b, a);
+          const m = mesh(
+            new THREE.CylinderGeometry(r2, r1, delta.length(), 7),
+            material,
+            parent,
+          );
+          m.position.copy(a).add(b).multiplyScalar(0.5);
+          m.quaternion.setFromUnitVectors(
+            new THREE.Vector3(0, 1, 0),
+            delta.normalize(),
+          );
+          return m;
+        }
+        const ambient = new THREE.HemisphereLight("#eef2df", "#c2a98b", 2.2);
+        scene.add(ambient);
+        const sun = new THREE.DirectionalLight("#fff1ca", 3.2);
+        sun.position.set(-3, 7, 3);
+        sun.castShadow = true;
+        sun.shadow.mapSize.set(1024, 1024);
+        sun.shadow.camera.left = -5;
+        sun.shadow.camera.right = 5;
+        sun.shadow.camera.top = 6;
+        sun.shadow.camera.bottom = -4;
+        sun.shadow.bias = -0.001;
+        sun.shadow.normalBias = 0.025;
+        scene.add(sun);
+        const fill = new THREE.DirectionalLight("#dfdfcf", 1);
+        fill.position.set(4, 3, 6);
+        scene.add(fill);
+        // The room extends beyond the viewport; the window and sapling form its center.
+        scene.background = new THREE.Color("#d8d5c8");
+        box(20, 16, 0.3, -12.65, 3, -1.18, plaster);
+        box(20, 16, 0.3, 12.65, 3, -1.18, plaster);
+        box(5.8, 10, 0.3, 0, 9.98, -1.18, plaster);
+        box(5.8, 10, 0.3, 0, -4.1, -1.18, plaster);
+        box(40, 0.2, 35, 0, -0.55, 6, mat("#c4bba5"));
+        // Deep sill, plaster reveals, painted timber sash.
+        box(5.7, 0.25, 2.65, 0, 0.7, 0, plaster);
+        box(5.82, 0.1, 2.75, 0, 0.87, 0.02, wood);
+        box(5.2, 0.55, 0.22, 0, 0.3, -0.85, plaster);
+        box(0.42, 4.7, 0.38, -2.52, 2.6, -1.06, plaster);
+        box(0.42, 4.7, 0.38, 2.52, 2.6, -1.06, plaster);
+        box(5.48, 0.28, 0.4, 0, 4.86, -1.06, plaster);
+        // A deliberately defocused view: broad light and color, with no literal skyline.
+        const skyCanvas = document.createElement("canvas");
+        skyCanvas.width = 512;
+        skyCanvas.height = 512;
+        const skyCtx = skyCanvas.getContext("2d");
+        const skyTex = new THREE.CanvasTexture(skyCanvas);
+        skyTex.colorSpace = THREE.SRGBColorSpace;
+        const skyMat = new THREE.MeshBasicMaterial({ map: skyTex });
+        const sky = mesh(new THREE.PlaneGeometry(4.8, 4.08), skyMat);
+        sky.position.set(0, 2.84, -1.35);
+        sky.castShadow = false;
+        sky.receiveShadow = false;
+        let seed = 17;
+        function random() {
+          seed = (seed * 16807) % 2147483647;
+          return (seed - 1) / 2147483646;
+        }
+        box(0.16, 4.08, 0.17, -2.28, 2.84, -1.08, wood);
+        box(0.16, 4.08, 0.17, 2.28, 2.84, -1.08, wood);
+        box(4.72, 0.16, 0.19, 0, 4.8, -1.06, wood);
+        box(4.72, 0.16, 0.19, 0, 0.97, -1.06, wood);
+        box(0.12, 3.8, 0.16, 1.45, 2.85, -0.98, wood);
+        box(0.16, 0.05, 0.08, 1.58, 1.35, -0.86, edge);
+        // Enlarge the architecture around the tree, keeping the sill at its
+        // original height. The sapling and pot retain their own scale.
+        const windowRoom = new THREE.Group();
+        for (const child of [...scene.children]) {
+          if (child.isMesh) windowRoom.add(child);
+        }
+        windowRoom.scale.set(1.65, 1.28, 1);
+        windowRoom.position.y = 0.94 * (1 - 1.28);
+        scene.add(windowRoom);
+        // Terracotta, a dark soil surface, and a slim young trunk with opposite leaves.
+        const plant = new THREE.Group();
+        scene.add(plant);
+        plant.position.set(0.1, 0.94, 0.35);
+        plant.scale.setScalar(0.92);
+        const nursery = mat("#303831"),
+          paper = mat("#817052");
+        paper.side = THREE.DoubleSide;
+        const pot = mesh(
+          new THREE.CylinderGeometry(0.49, 0.34, 0.8, 40, 1, true),
+          nursery,
+          plant,
+        );
+        pot.position.y = 0.43;
+        const lip = mesh(
+          new THREE.TorusGeometry(0.485, 0.022, 8, 48),
+          nursery,
+          plant,
+        );
+        lip.rotation.x = Math.PI / 2;
+        lip.position.y = 0.83;
+        const soil = mesh(
+          new THREE.CylinderGeometry(0.459, 0.459, 0.035, 40),
+          dirt,
+          plant,
+        );
+        soil.position.y = 0.77;
+        // An irregular, folded kraft-paper sleeve around the nursery pot.
+        const sleeveGeo = new THREE.BufferGeometry(),
+          sleeveVertices = [],
+          sleeveIndices = [];
+        const sleeveSegments = 48;
+        for (let i = 0; i <= sleeveSegments; i++) {
+          const a = (i / sleeveSegments) * Math.PI * 2;
+          const pleat = 0.018 * Math.cos(a * 16) + 0.009 * Math.sin(a * 7);
+          const top =
+            0.88 + 0.13 * Math.sin(a * 5 + 0.3) + 0.05 * Math.cos(a * 9);
+          for (const [radius, y] of [
+            [0.38, 0],
+            [0.48, 0.54],
+            [0.56, top],
+          ])
+            sleeveVertices.push(
+              Math.cos(a) * (radius + pleat),
+              y,
+              Math.sin(a) * (radius + pleat),
+            );
+          if (i < sleeveSegments)
+            for (let row = 0; row < 2; row++) {
+              const n = i * 3 + row;
+              sleeveIndices.push(n, n + 3, n + 1, n + 1, n + 3, n + 4);
+            }
+        }
+        sleeveGeo.setAttribute(
+          "position",
+          new THREE.Float32BufferAttribute(sleeveVertices, 3),
+        );
+        sleeveGeo.setIndex(sleeveIndices);
+        sleeveGeo.computeVertexNormals();
+        mesh(sleeveGeo, paper, plant);
+        for (let i = 0; i < 24; i++) {
+          const fleck = mesh(
+            new THREE.IcosahedronGeometry(0.01 + random() * 0.012, 0),
+            i % 3 ? bark : edge,
+            plant,
+          );
+          const a = random() * Math.PI * 2,
+            r = Math.sqrt(random()) * 0.42;
+          fleck.position.set(Math.cos(a) * r, 0.8, Math.sin(a) * r);
+        }
+        const crown = new THREE.Group();
+        plant.add(crown);
+        crown.position.y = 0.8;
+        // Three flexible stems branch low in the pot, matching the reference's
+        // open, irregular silhouette rather than a miniature mature tree.
+        const V = (x, y, z = 0) => new THREE.Vector3(x, y, z);
+        const stems = [
+          [
+            V(-0.05, 0),
+            V(-0.18, 0.52, 0.04),
+            V(-0.48, 1.05, 0.09),
+            V(-0.75, 1.62, 0.03),
+            V(-0.66, 2.27),
+          ],
+          [
+            V(0.03, 0, -0.02),
+            V(0.12, 0.58, -0.04),
+            V(0.25, 1.2, -0.06),
+            V(0.18, 1.85, -0.03),
+            V(0.27, 2.55),
+          ],
+          [
+            V(0.06, 0, 0.03),
+            V(0.32, 0.44, 0.07),
+            V(0.55, 0.84, 0.03),
+            V(0.89, 1.24, -0.02),
+            V(0.98, 1.93),
+          ],
+        ];
+        // A gently cupped blade with a rounded lance shape and silvery underside.
+        const leafGeo = new THREE.BufferGeometry(),
+          lv = [],
+          li = [];
+        for (let i = 0; i <= 8; i++) {
+          const t = i / 8,
+            w = Math.pow(Math.sin(Math.PI * t), 0.85) * 0.043;
+          lv.push(
+            -w,
+            t * 0.37,
+            Math.sin(Math.PI * t) * 0.014,
+            0,
+            t * 0.37,
+            Math.sin(Math.PI * t) * 0.024,
+            w,
+            t * 0.37,
+            Math.sin(Math.PI * t) * 0.014,
+          );
+          if (i < 8)
+            for (let j = 0; j < 2; j++) {
+              const n = i * 3 + j;
+              li.push(n, n + 3, n + 1, n + 1, n + 3, n + 4);
+            }
+        }
+        leafGeo.setAttribute(
+          "position",
+          new THREE.Float32BufferAttribute(lv, 3),
+        );
+        leafGeo.setIndex(li);
+        leafGeo.computeVertexNormals();
+        function leaf(pos, direction, scale) {
+          const m = mesh(
+            leafGeo,
+            leafMats[Math.floor(random() * leafMats.length)],
+            crown,
+          );
+          m.position.copy(pos);
+          m.quaternion.setFromUnitVectors(
+            V(0, 1),
+            direction.clone().normalize(),
+          );
+          m.rotateY(random() * 1.3 - 0.65);
+          m.scale.setScalar(scale);
+          return m;
+        }
+        function leafPair(at, angle, scale = 1) {
+          leaf(
+            at,
+            V(Math.cos(angle) * 0.75, 0.65, Math.sin(angle) * 0.65),
+            scale,
+          );
+          leaf(
+            at.clone().add(V(0, 0.035)),
+            V(-Math.cos(angle) * 0.75, 0.7, -Math.sin(angle) * 0.65),
+            scale * 0.9,
+          );
+        }
+        stems.forEach((points, stemIndex) => {
+          for (let i = 0; i < points.length - 1; i++) {
+            const a = points[i],
+              b = points[i + 1];
+            rod(a, b, 0.018 - i * 0.0035, 0.014 - i * 0.003, bark, crown);
+            if (i === 0) continue;
+            for (let j = 0; j < 2; j++)
+              leafPair(
+                a.clone().lerp(b, 0.3 + j * 0.5),
+                stemIndex * 2 + i * 1.45,
+                0.75 + random() * 0.25,
+              );
+            const start = a.clone().lerp(b, 0.6),
+              angle = stemIndex * 2.2 + i * 1.75;
+            const tip = start
+              .clone()
+              .add(
+                V(
+                  Math.cos(angle) * (0.34 + random() * 0.16),
+                  0.22 + random() * 0.14,
+                  Math.sin(angle) * 0.25,
+                ),
+              );
+            rod(start, tip, 0.006, 0.002, bark, crown);
+            leafPair(
+              start.clone().lerp(tip, 0.5),
+              angle,
+              0.78 + random() * 0.18,
+            );
+            leafPair(tip, angle + 0.4, 0.8 + random() * 0.2);
+          }
+          leafPair(points[points.length - 1], stemIndex * 2.3, 0.95);
+        });
+        // The small controller and its leads sit on a green stake beside the plant.
+        const stakeMat = mat("#344f41"),
+          pcbMat = mat("#204c3e"),
+          chipMat = mat("#252c29");
+        rod(
+          V(0.34, 0.08, 0.12),
+          V(0.96, 1.6, 0.08),
+          0.013,
+          0.013,
+          stakeMat,
+          plant,
+        );
+        const board = new THREE.Group();
+        board.position.set(0.88, 1.38, 0.11);
+        board.rotation.z = 0.3;
+        plant.add(board);
+        box(0.42, 0.23, 0.025, 0, 0, 0, pcbMat, board);
+        box(0.12, 0.12, 0.02, 0.015, 0, 0.025, chipMat, board);
+        box(0.08, 0.045, 0.04, 0.15, 0.065, 0.025, edge, board);
+        for (let i = 0; i < 9; i++)
+          for (const y of [-0.09, 0.09])
+            box(0.012, 0.012, 0.015, -0.16 + i * 0.038, y, 0.022, edge, board);
+        for (const [color, offset] of [
+          ["#873c35", 0],
+          ["#343c37", 0.045],
+        ]) {
+          const wire = new THREE.CatmullRomCurve3([
+            V(-0.1, 0.78, 0.25),
+            V(0.07, 1.05 + offset, 0.31),
+            V(0.55, 1.03 + offset, 0.22),
+            V(0.82, 1.33 + offset, 0.13),
+          ]);
+          mesh(
+            new THREE.TubeGeometry(wire, 22, 0.007, 5, false),
+            mat(color),
+            plant,
+          );
+        }
+        // Water beads cling to the glass. A few slowly slide and leave a trail;
+        // most remain still, as on a sheltered indoor window during rain.
+        const rain = new THREE.Group();
+        windowRoom.add(rain);
+        const dropCount = 150;
+        const dropMaterial = new THREE.MeshPhysicalMaterial({
+          color: "#d8e5e6",
+          roughness: 0.08,
+          metalness: 0,
+          transmission: 0.75,
+          thickness: 0.035,
+          ior: 1.33,
+          transparent: true,
+          opacity: 0.8,
+          clearcoat: 1,
+          clearcoatRoughness: 0.06,
+        });
+        const drops = new THREE.InstancedMesh(
+          new THREE.SphereGeometry(1, 12, 8),
+          dropMaterial,
+          dropCount,
+        );
+        drops.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+        rain.add(drops);
+        const dropData = [];
+        const dummy = new THREE.Object3D();
+        const trailPositions = new Float32Array(18 * 6);
+        const trailGeo = new THREE.BufferGeometry();
+        trailGeo.setAttribute(
+          "position",
+          new THREE.BufferAttribute(trailPositions, 3),
+        );
+        const trails = new THREE.LineSegments(
+          trailGeo,
+          new THREE.LineBasicMaterial({
+            color: "#e1eff0",
+            transparent: true,
+            opacity: 0.22,
+          }),
+        );
+        rain.add(trails);
+        for (let i = 0; i < dropCount; i++) {
+          dropData.push({
+            x: random() * 4.3 - 2.15,
+            y: random() * 3.65 + 1.05,
+            size: 0.012 + random() * 0.018,
+            speed: i < 18 ? 0.035 + random() * 0.045 : 0,
+            trail: 0.12 + random() * 0.35,
+          });
+        }
+        function updateDrops(delta) {
+          for (let i = 0; i < dropCount; i++) {
+            const d = dropData[i];
+            d.y -= delta * d.speed;
+            if (d.y < 1.07) d.y = 4.69;
+            dummy.position.set(d.x, d.y, -1.11);
+            dummy.scale.set(
+              d.size,
+              d.size * (d.speed ? 1.8 : 1.2),
+              d.size * 0.48,
+            );
+            dummy.updateMatrix();
+            drops.setMatrixAt(i, dummy.matrix);
+            if (i < 18)
+              trailPositions.set(
+                [d.x, d.y, -1.115, d.x, Math.min(4.7, d.y + d.trail), -1.115],
+                i * 6,
+              );
+          }
+          drops.instanceMatrix.needsUpdate = true;
+          trailGeo.attributes.position.needsUpdate = true;
+        }
+        updateDrops(0);
+        const snowGeo = new THREE.BufferGeometry();
+        const snowPositions = new Float32Array(80 * 3);
+        for (let i = 0; i < 80; i++)
+          snowPositions.set(
+            [random() * 4.3 - 2.15, random() * 3.6 + 1.1, -1.18],
+            i * 3,
+          );
+        snowGeo.setAttribute(
+          "position",
+          new THREE.BufferAttribute(snowPositions, 3),
+        );
+        const snow = new THREE.Points(
+          snowGeo,
+          new THREE.PointsMaterial({ color: "#ffffff", size: 0.026 }),
+        );
+        windowRoom.add(snow);
+        let lastBackdrop = "";
+        function atmosphere() {
+          const phase = state.phase,
+            cover = state.cloud ?? 0.3;
+          const progress = Math.round((state.sunProgress ?? 0.5) * 24) / 24;
+          const key = [
+            phase,
+            cover,
+            state.rain,
+            state.snow,
+            state.weatherKnown,
+            progress,
+          ].join(":");
+          if (key !== lastBackdrop) {
+            lastBackdrop = key;
+            const night = phase === "night",
+              gold = phase === "golden";
+            const top = new THREE.Color(
+              night ? "#172b43" : gold ? "#8f91b1" : "#79b5cb",
+            );
+            const middle = new THREE.Color(
+              night ? "#36485c" : gold ? "#edb6a0" : "#c8dcd0",
+            );
+            const bottom = new THREE.Color(
+              night ? "#747c78" : gold ? "#e9cb9d" : "#b4bf9d",
+            );
+            const grey = new THREE.Color(
+              night
+                ? "#374653"
+                : state.rain
+                  ? "#8babae"
+                  : state.snow
+                    ? "#d9e3e3"
+                    : "#bac7c7",
+            );
+            top.lerp(grey, cover * 0.7);
+            middle.lerp(grey, cover * 0.55);
+            bottom.lerp(grey, cover * 0.7);
+            const g = skyCtx.createLinearGradient(0, 0, 0, 512);
+            g.addColorStop(0, top.getStyle());
+            g.addColorStop(0.53, middle.getStyle());
+            g.addColorStop(1, bottom.getStyle());
+            skyCtx.fillStyle = g;
+            skyCtx.fillRect(0, 0, 512, 512);
+            // Low-frequency radial glows emulate a lens focused on the plant,
+            // with the exterior far beyond its depth of field.
+            function glow(x, y, r, color, opacity) {
+              const g = skyCtx.createRadialGradient(x, y, 0, x, y, r);
+              g.addColorStop(0, color);
+              g.addColorStop(1, "rgba(255,255,255,0)");
+              skyCtx.globalAlpha = opacity;
+              skyCtx.fillStyle = g;
+              skyCtx.fillRect(0, 0, 512, 512);
+              skyCtx.globalAlpha = 1;
+            }
+            glow(
+              90 + progress * 330,
+              100,
+              260,
+              night ? "#b8c4e3" : gold ? "#ffddb3" : "#fff4cf",
+              night ? 0.17 : (1 - cover * 0.7) * 0.65,
+            );
+            glow(60, 420, 220, night ? "#50665f" : "#9ebfa0", 0.25);
+            glow(
+              445,
+              290,
+              230,
+              state.rain ? "#7b9ca9" : night ? "#566b93" : "#d7dfd8",
+              0.3,
+            );
+            skyTex.needsUpdate = true;
+          }
+          rain.visible = state.rain;
+          snow.visible = state.snow;
+          sun.intensity = (0.3 + state.daylight * 2.8) * (1 - cover * 0.65);
+          sun.color.set(
+            phase === "golden"
+              ? "#ffbd74"
+              : phase === "night"
+                ? "#aabdd9"
+                : "#fff1d1",
+          );
+          ambient.intensity = phase === "night" ? 1.1 : 2.1;
+          fill.intensity = phase === "night" ? 0.65 : 1;
+          dirt.color.set(
+            state.soil === null
+              ? "#77634b"
+              : state.soil < 25
+                ? "#ab8255"
+                : state.soil > 75
+                  ? "#403a2c"
+                  : "#6a5138",
+          );
+        }
+        function resize() {
+          const w = canvas.clientWidth,
+            h = canvas.clientHeight;
+          renderer.setSize(w, h, false);
+          camera.aspect = w / h;
+          camera.updateProjectionMatrix();
+        }
+        new ResizeObserver(resize).observe(canvas);
+        let drag = null;
+        canvas.addEventListener("pointerdown", (e) => {
+          drag = { x: e.clientX, yaw };
+          canvas.setPointerCapture(e.pointerId);
+        });
+        canvas.addEventListener("pointermove", (e) => {
+          if (drag)
+            yaw = Math.max(
+              -0.48,
+              Math.min(0.48, drag.yaw + (e.clientX - drag.x) * 0.003),
+            );
+        });
+        canvas.addEventListener("pointerup", () => (drag = null));
+        canvas.addEventListener("pointercancel", () => (drag = null));
+        canvas.addEventListener("keydown", (e) => {
+          if (["ArrowLeft", "ArrowRight", "Home"].includes(e.key)) {
+            e.preventDefault();
+            yaw =
+              e.key === "Home"
+                ? 0.1
+                : Math.max(
+                    -0.48,
+                    Math.min(
+                      0.48,
+                      yaw + (e.key === "ArrowLeft" ? -0.07 : 0.07),
+                    ),
+                  );
+          }
+        });
+        document.getElementById("reset-view").onclick = () => (yaw = 0.1);
+        let running = true;
+        canvas.addEventListener("webglcontextlost", (e) => {
+          e.preventDefault();
+          running = false;
+          document.getElementById("scene-fallback").hidden = false;
+          document.getElementById("scene-message").textContent =
+            "The 3D view paused. Reload to restore it; readings are still available.";
+        });
+        document.getElementById("scene-fallback").hidden = true;
+        resize();
+        let lastFrame = 0,
+          phaseTime = 0;
+        function frame(ms) {
+          requestAnimationFrame(frame);
+          if (!running || document.hidden || ms - lastFrame < 33) return;
+          const delta = Math.min((ms - lastFrame) / 1000, 0.1);
+          lastFrame = ms;
+          if (state.motion) phaseTime += delta;
+          atmosphere();
+          const portrait = camera.aspect < 1;
+          const distance = portrait ? 8.5 : 8.4;
+          camera.position.set(
+            Math.sin(yaw) * distance,
+            portrait ? 4.0 : 3.8,
+            Math.cos(yaw) * distance,
+          );
+          camera.lookAt(target);
+          crown.rotation.z = state.motion
+            ? Math.sin(phaseTime * 0.65) * 0.009
+            : 0;
+          sun.position.x = -4 + 8 * state.sunProgress;
+          if (state.motion && rain.visible) updateDrops(delta);
+          if (state.motion && snow.visible) {
+            for (let i = 0; i < 80; i++) {
+              snowPositions[i * 3 + 1] -= delta * 0.25;
+              if (snowPositions[i * 3 + 1] < 1.05)
+                snowPositions[i * 3 + 1] = 4.7;
+            }
+            snowGeo.attributes.position.needsUpdate = true;
+          }
+          renderer.render(scene, camera);
+        }
+        requestAnimationFrame(frame);
+      } catch (e) {
+        document.getElementById("scene-message").textContent =
+          "The 3D view needs WebGL. Your readings, care notes and history are still available.";
+        console.warn("Olive scene unavailable:", e);
+      }
+    </script>
+  </body>
+</html>
