@@ -3,7 +3,7 @@
   {
    "venue": "Nowadays",
    "city": "New York",
-   "count": 20,
+   "count": 23,
    "nights": [
     {
      "date": "2024-10-10",
@@ -312,6 +312,45 @@
       "Carlos Souffront b2b Patrick Russell",
       "Justin Carter",
       "Bridge"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-08-21",
+     "dow": "Fri",
+     "event": "Residency Night: Matas invites",
+     "lineup": [
+      "Connor Wrong",
+      "DINA",
+      "LDS (live)",
+      "Liv K"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-08-23",
+     "dow": "Sun",
+     "event": "Mister Sunday",
+     "lineup": [
+      "DJ Nobu (House Set)",
+      "Eamon Harkin"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-08-29",
+     "dow": "Sat",
+     "event": "Nonstop",
+     "lineup": [
+      "Solofan",
+      "LOKA",
+      "MCMLXXXV",
+      "Ne/Re/A",
+      "Leeon",
+      "Voices From The Lake (live)"
      ],
      "unknown": "",
      "recordings": []
@@ -770,6 +809,97 @@
    ]
   },
   {
+   "venue": "Mansions",
+   "city": "New York",
+   "count": 7,
+   "nights": [
+    {
+     "date": "2023-11-10",
+     "dow": "Fri",
+     "event": "Facets All Night Long",
+     "lineup": [
+      "Kool Kat",
+      "Facets"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-05-01",
+     "dow": "Fri",
+     "event": "Anthony Parasole All Night Long",
+     "lineup": [
+      "ANICHE",
+      "Anthony Parasole"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-07-17",
+     "dow": "Fri",
+     "event": "DJ G All Night Long",
+     "lineup": [
+      "DJ K2",
+      "DJ G"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-07-18",
+     "dow": "Sat",
+     "event": "Manny & Sergio Dimoff / Daniel Dutts",
+     "lineup": [
+      "Manny",
+      "Sergio Dimoff",
+      "Daniel Dutts"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-07-19",
+     "dow": "Sun",
+     "event": "Burlington Electronic Department",
+     "lineup": [
+      "Music Lovers Anonymous",
+      "Crackhead Barney",
+      "Mole",
+      "Roost.World"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-08-08",
+     "dow": "Sat",
+     "event": "como se DJ, Sam Wise & 320 / Barousse All Night Long",
+     "lineup": [
+      "como se DJ",
+      "Sam Wise",
+      "320",
+      "Barousse"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-08-23",
+     "dow": "Sun",
+     "event": "Battygyal & Shyboi / Donofrio & Love Letters",
+     "lineup": [
+      "Battygyal",
+      "Shyboi",
+      "Donofrio",
+      "Love Letters"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
    "venue": "FOLD",
    "city": "London",
    "count": 6,
@@ -1058,71 +1188,6 @@
       "Layzie",
       "Odopt",
       "Schwabe"
-     ],
-     "unknown": "",
-     "recordings": []
-    }
-   ]
-  },
-  {
-   "venue": "Mansions",
-   "city": "New York",
-   "count": 5,
-   "nights": [
-    {
-     "date": "2023-11-10",
-     "dow": "Fri",
-     "event": "Facets All Night Long",
-     "lineup": [
-      "Kool Kat",
-      "Facets"
-     ],
-     "unknown": "",
-     "recordings": []
-    },
-    {
-     "date": "2026-05-01",
-     "dow": "Fri",
-     "event": "Anthony Parasole All Night Long",
-     "lineup": [
-      "ANICHE",
-      "Anthony Parasole"
-     ],
-     "unknown": "",
-     "recordings": []
-    },
-    {
-     "date": "2026-07-17",
-     "dow": "Fri",
-     "event": "DJ G All Night Long",
-     "lineup": [
-      "DJ K2",
-      "DJ G"
-     ],
-     "unknown": "",
-     "recordings": []
-    },
-    {
-     "date": "2026-07-18",
-     "dow": "Sat",
-     "event": "Manny & Sergio Dimoff / Daniel Dutts",
-     "lineup": [
-      "Manny",
-      "Sergio Dimoff",
-      "Daniel Dutts"
-     ],
-     "unknown": "",
-     "recordings": []
-    },
-    {
-     "date": "2026-07-19",
-     "dow": "Sun",
-     "event": "Burlington Electronic Department",
-     "lineup": [
-      "Music Lovers Anonymous",
-      "Crackhead Barney",
-      "Mole",
-      "Roost.World"
      ],
      "unknown": "",
      "recordings": []
@@ -1851,6 +1916,25 @@
       "DRKNGHTS",
       "Foday",
       "Romens Dawn"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Green Room NYC",
+   "city": "New York",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2026-08-08",
+     "dow": "Sat",
+     "event": "DIVERSION",
+     "lineup": [
+      "Amor Satyr",
+      "Beatrice",
+      "RAEZA"
      ],
      "unknown": "",
      "recordings": []
@@ -2866,12 +2950,13 @@
   {
    "id": "dj-beatrice",
    "name": "Beatrice",
-   "times": 1,
+   "times": 2,
    "first": "2023-05-12",
-   "last": "2023-05-12",
-   "clubs": 1,
+   "last": "2026-08-08",
+   "clubs": 2,
    "recordings": 0,
    "where": [
+    "Green Room NYC",
     "Radion"
    ],
    "rec_links": []
@@ -3985,9 +4070,9 @@
   {
    "id": "dj-eamon-harkin",
    "name": "Eamon Harkin",
-   "times": 4,
+   "times": 5,
    "first": "2025-05-11",
-   "last": "2026-07-19",
+   "last": "2026-08-23",
    "clubs": 1,
    "recordings": 0,
    "where": [
@@ -5437,9 +5522,9 @@
   {
    "id": "dj-leeon",
    "name": "Leeon",
-   "times": 1,
+   "times": 2,
    "first": "2025-08-23",
-   "last": "2025-08-23",
+   "last": "2026-08-29",
    "clubs": 1,
    "recordings": 0,
    "where": [
@@ -5517,9 +5602,9 @@
   {
    "id": "dj-loka",
    "name": "Loka",
-   "times": 1,
+   "times": 2,
    "first": "2025-05-24",
-   "last": "2025-05-24",
+   "last": "2026-08-29",
    "clubs": 1,
    "recordings": 0,
    "where": [
@@ -5681,14 +5766,15 @@
   {
    "id": "dj-mcmlxxxv",
    "name": "MCMLXXXV",
-   "times": 2,
+   "times": 3,
    "first": "2023-03-11",
-   "last": "2026-07-11",
-   "clubs": 3,
+   "last": "2026-08-29",
+   "clubs": 4,
    "recordings": 0,
    "where": [
     "Basement",
     "Basement / Knockdown Center",
+    "Nowadays",
     "Radion"
    ],
    "rec_links": []
@@ -7451,10 +7537,11 @@
    "name": "Shyboi",
    "times": 4,
    "first": "2025-05-11",
-   "last": "2025-08-23",
-   "clubs": 1,
+   "last": "2026-08-23",
+   "clubs": 2,
    "recordings": 0,
    "where": [
+    "Mansions",
     "Nowadays"
    ],
    "rec_links": []
@@ -8761,9 +8848,9 @@
   {
    "id": "dj-connor-wrong",
    "name": "Connor Wrong",
-   "times": 1,
+   "times": 2,
    "first": "2025-09-14",
-   "last": "2025-09-14",
+   "last": "2026-08-21",
    "clubs": 1,
    "recordings": 0,
    "where": [
@@ -9121,6 +9208,214 @@
     "Brighton Music Hall"
    ],
    "rec_links": []
+  },
+  {
+   "id": "dj-como-se-dj",
+   "name": "como se DJ",
+   "times": 1,
+   "first": "2026-08-08",
+   "last": "2026-08-08",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-sam-wise",
+   "name": "Sam Wise",
+   "times": 1,
+   "first": "2026-08-08",
+   "last": "2026-08-08",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-320",
+   "name": "320",
+   "times": 1,
+   "first": "2026-08-08",
+   "last": "2026-08-08",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-barousse",
+   "name": "Barousse",
+   "times": 1,
+   "first": "2026-08-08",
+   "last": "2026-08-08",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-amor-satyr",
+   "name": "Amor Satyr",
+   "times": 1,
+   "first": "2026-08-08",
+   "last": "2026-08-08",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Green Room NYC"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-raeza",
+   "name": "RAEZA",
+   "times": 1,
+   "first": "2026-08-08",
+   "last": "2026-08-08",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Green Room NYC"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dina",
+   "name": "DINA",
+   "times": 1,
+   "first": "2026-08-21",
+   "last": "2026-08-21",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lds-live",
+   "name": "LDS (live)",
+   "times": 1,
+   "first": "2026-08-21",
+   "last": "2026-08-21",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-liv-k",
+   "name": "Liv K",
+   "times": 1,
+   "first": "2026-08-21",
+   "last": "2026-08-21",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-nobu-house-set",
+   "name": "DJ Nobu (House Set)",
+   "times": 1,
+   "first": "2026-08-23",
+   "last": "2026-08-23",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-battygyal",
+   "name": "Battygyal",
+   "times": 1,
+   "first": "2026-08-23",
+   "last": "2026-08-23",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-donofrio",
+   "name": "Donofrio",
+   "times": 1,
+   "first": "2026-08-23",
+   "last": "2026-08-23",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-love-letters",
+   "name": "Love Letters",
+   "times": 1,
+   "first": "2026-08-23",
+   "last": "2026-08-23",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-solofan",
+   "name": "Solofan",
+   "times": 1,
+   "first": "2026-08-29",
+   "last": "2026-08-29",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ne-re-a",
+   "name": "Ne/Re/A",
+   "times": 1,
+   "first": "2026-08-29",
+   "last": "2026-08-29",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-voices-from-the-lake-live",
+   "name": "Voices From The Lake (live)",
+   "times": 1,
+   "first": "2026-08-29",
+   "last": "2026-08-29",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
   }
  ],
  "longest_sessions": [
@@ -9164,7 +9459,7 @@
   {
    "venue": "Nowadays",
    "city": "New York",
-   "nights": "20 nights"
+   "nights": "23 nights"
   },
   {
    "venue": "Basement / Knockdown Center",
@@ -9177,14 +9472,14 @@
    "nights": "10 nights"
   },
   {
+   "venue": "Mansions",
+   "city": "New York",
+   "nights": "7 nights"
+  },
+  {
    "venue": "FOLD",
    "city": "London",
    "nights": "6 nights"
-  },
-  {
-   "venue": "Drugstore",
-   "city": "Belgrade",
-   "nights": "5 nights"
   }
  ]
 }
