@@ -3,7 +3,7 @@
   {
    "venue": "Nowadays",
    "city": "New York",
-   "count": 23,
+   "count": 24,
    "nights": [
     {
      "date": "2024-10-10",
@@ -351,6 +351,21 @@
       "Ne/Re/A",
       "Leeon",
       "Voices From The Lake (live)"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-09-13",
+     "dow": "Sun",
+     "event": "Nonstop → Mister Sunday — Theo Parrish Takeover",
+     "lineup": [
+      "Analog Soul",
+      "Chee Shimizu",
+      "John Talabot",
+      "Kim Anh",
+      "O.BEE",
+      "Theo Parrish"
      ],
      "unknown": "",
      "recordings": []
@@ -5074,14 +5089,15 @@
   {
    "id": "dj-kim-anh",
    "name": "Kim Anh",
-   "times": 2,
+   "times": 3,
    "first": "2025-03-22",
-   "last": "2025-05-23",
-   "clubs": 3,
+   "last": "2026-09-13",
+   "clubs": 4,
    "recordings": 0,
    "where": [
     "Basement",
     "Basement / Knockdown Center",
+    "Nowadays",
     "Xanadu Roller Arts"
    ],
    "rec_links": []
@@ -7959,9 +7975,9 @@
   {
    "id": "dj-theo-parrish",
    "name": "Theo Parrish",
-   "times": 2,
+   "times": 3,
    "first": "2025-04-11",
-   "last": "2026-04-17",
+   "last": "2026-09-13",
    "clubs": 1,
    "recordings": 0,
    "where": [
@@ -9403,6 +9419,58 @@
     "Nowadays"
    ],
    "rec_links": []
+  },
+  {
+   "id": "dj-analog-soul",
+   "name": "Analog Soul",
+   "times": 1,
+   "first": "2026-09-13",
+   "last": "2026-09-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-chee-shimizu",
+   "name": "Chee Shimizu",
+   "times": 1,
+   "first": "2026-09-13",
+   "last": "2026-09-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-john-talabot",
+   "name": "John Talabot",
+   "times": 1,
+   "first": "2026-09-13",
+   "last": "2026-09-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-o-bee",
+   "name": "O.BEE",
+   "times": 1,
+   "first": "2026-09-13",
+   "last": "2026-09-13",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
   }
  ],
  "longest_sessions": [
@@ -9446,7 +9514,7 @@
   {
    "venue": "Nowadays",
    "city": "New York",
-   "nights": "23 nights"
+   "nights": "24 nights"
   },
   {
    "venue": "Basement / Knockdown Center",
