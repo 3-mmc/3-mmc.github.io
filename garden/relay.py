@@ -56,7 +56,14 @@ BRANCH = "main"
 # probe every 15 minutes and holds the value between reads, so archiving every
 # sample would repeat each reading fifteen times and say nothing extra.
 ARCHIVE_DIR = "archive"
-ARCHIVE_COLUMNS = "ts_ms,iso_utc,temp_c,rh_pct,vpd_kpa,soil_mv,soil_pct"
+#
+# Columns are only ever appended. soil_temp_c is the temperature the probe
+# reading was taken at: soil_pct is already corrected for it, but corrected
+# against whatever calibration the board held at the time, so millivolts and
+# this are the pair that still mean something after a recalibration.
+ARCHIVE_COLUMNS = ("ts_ms,iso_utc,temp_c,rh_pct,vpd_kpa,soil_mv,soil_pct,"
+                   "soil_temp_c")
+
 
 API = "https://api.github.com"
 
@@ -166,6 +173,30 @@ def put_file(path: str, text: str, sha: str | None, token: str,
     gh(f"contents/{path}", token, method="PUT", body=body)
 
 
+def migrate(text: str) -> str:
+    """Bring a day file written by an older version up to the current columns.
+
+    Only runs on a file about to be appended to, which is the case that would
+    otherwise go ragged - old rows with seven fields, new ones with eight.
+    A finished day keeps whatever header it was written with; each file is
+    self-describing, so a reader that goes by the header is unaffected.
+
+    Columns are only ever appended, so an older header is a prefix of this one
+    and the fields it lacks are genuinely missing: pad with empty values.
+    """
+    lines = text.strip().splitlines()
+    if not lines:
+        return ARCHIVE_COLUMNS + "\n"
+    want = ARCHIVE_COLUMNS.split(",")
+    have = lines[0].split(",")
+    if have == want:
+        return "\n".join(lines) + "\n"
+    if have != want[:len(have)]:
+        raise ValueError(f"unexpected archive header: {lines[0]!r}")
+    pad = "," * (len(want) - len(have))
+    return "\n".join([ARCHIVE_COLUMNS] + [ln + pad for ln in lines[1:]]) + "\n"
+
+
 def archive(payload: dict, token: str) -> str:
     """Append this run's fresh soil readings to the per-day CSVs."""
     hist = payload["history"]
@@ -178,6 +209,9 @@ def archive(payload: dict, token: str) -> str:
     need = ("ts", "temp_c", "rh_pct", "soil_mv", "soil_pct", "soil_age_s")
     if any(c not in cols for c in need):
         return "history is missing columns this expects, nothing archived"
+    # Optional: this relay and the firmware are updated separately, and a run
+    # that lands between the two should still archive what it can.
+    soil_t = cols.get("soil_temp_c")
 
     by_day: dict[str, list[tuple]] = {}
     for s in hist.get("samples", []):
@@ -191,6 +225,7 @@ def archive(payload: dict, token: str) -> str:
             time.strftime("%Y-%m-%dT%H:%M:%SZ", stamp),
             t, rh, vpd_kpa(t, rh),
             s[cols["soil_mv"]], s[cols["soil_pct"]],
+            s[soil_t] if soil_t is not None else None,
         ))
 
     written = 0
@@ -207,6 +242,7 @@ def archive(payload: dict, token: str) -> str:
                 if head.isdigit():
                     last_ts = int(head)
                     break
+            text = migrate(text)
         else:
             text = ARCHIVE_COLUMNS + "\n"
 

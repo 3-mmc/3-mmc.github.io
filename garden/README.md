@@ -57,8 +57,8 @@ mirror, not a record. `--archive` is the other half: one CSV per UTC day under
 `archive/` in the data repo, appended to and kept.
 
 ```
-ts_ms,iso_utc,temp_c,rh_pct,vpd_kpa,soil_mv,soil_pct
-1789235154431,2026-09-12T17:45:54Z,29.24,47.12,2.1478,1197,
+ts_ms,iso_utc,temp_c,rh_pct,vpd_kpa,soil_mv,soil_pct,soil_temp_c
+1789492286581,2026-09-15T17:11:26Z,26.08,44.19,1.8849,1570,39.44,26.1
 ```
 
 It exists because the board's ring holds 48 hours, which is shorter than a
@@ -77,6 +77,18 @@ not carry it, only the live reading does, and it is the column any drydown
 model wants. `soil_pct` is empty while the probe is uncalibrated — `soil_mv` is
 always present, so percentages can be recomputed offline from a calibration
 taken later.
+
+That recomputation needs `soil_temp_c`, which is why it is here. The board
+corrects for soil conductivity rising with temperature, and it stores the
+temperature alongside each calibration point for the same reason; a millivolt
+figure on its own cannot be re-normalised against a calibration taken on a
+different day. It is empty for rows archived before the column existed, and for
+rows the board recorded without a temperature.
+
+Columns are only ever appended. A day file being written to is brought up to
+the current columns first, padding its older rows, so no file is left ragged; a
+finished day keeps the header it was written with, and each file is
+self-describing.
 
 ## Data sources, in order
 
