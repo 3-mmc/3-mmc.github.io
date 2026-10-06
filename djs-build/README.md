@@ -86,7 +86,7 @@ either resurfaces under its real name, generalise it again.
 
 The extractor that first built `data.json` out of the private archive is not in
 this repo and should stay out of it: its rename table names those two addresses.
-It lives with the source material in `/mnt/e/ClaudeWIP/DJs/site/`.
+It lives with the source material in `/mnt/e/Projekte/DJs/site/`.
 
 ## Files
 
