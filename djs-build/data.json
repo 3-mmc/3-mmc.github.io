@@ -3,7 +3,7 @@
   {
    "venue": "Nowadays",
    "city": "New York",
-   "count": 24,
+   "count": 25,
    "nights": [
     {
      "date": "2024-10-10",
@@ -366,6 +366,21 @@
       "Kim Anh",
       "O.BEE",
       "Theo Parrish"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-09-19",
+     "dow": "Sat",
+     "event": "Nonstop",
+     "lineup": [
+      "Batu",
+      "DJ Masda",
+      "JASSS b2b MORENXXX",
+      "Mariposa",
+      "Roza Terenzi",
+      "Vlada b2b Vaahzer"
      ],
      "unknown": "",
      "recordings": []
@@ -1735,9 +1750,14 @@
     {
      "date": "2022-12-03",
      "dow": "Sat",
-     "event": "",
-     "lineup": [],
-     "unknown": "Lineup not recovered",
+     "event": "Horoom Nights x Spielraum",
+     "lineup": [
+      "Ki/Ki",
+      "Afra b2b Mary Lake",
+      "Polly F",
+      "ISAbella"
+     ],
+     "unknown": "",
      "recordings": []
     }
    ]
@@ -2445,12 +2465,13 @@
   {
    "id": "dj-afra",
    "name": "Afra",
-   "times": 1,
-   "first": "2023-06-24",
+   "times": 2,
+   "first": "2022-12-03",
    "last": "2023-06-24",
-   "clubs": 1,
+   "clubs": 2,
    "recordings": 0,
    "where": [
+    "Bassiani",
     "De School"
    ],
    "rec_links": []
@@ -2937,9 +2958,9 @@
   {
    "id": "dj-batu",
    "name": "Batu",
-   "times": 2,
+   "times": 3,
    "first": "2023-03-25",
-   "last": "2025-02-15",
+   "last": "2026-09-19",
    "clubs": 2,
    "recordings": 0,
    "where": [
@@ -4643,13 +4664,14 @@
   {
    "id": "dj-isabella",
    "name": "ISAbella",
-   "times": 2,
-   "first": "2025-05-11",
+   "times": 3,
+   "first": "2022-12-03",
    "last": "2025-09-12",
-   "clubs": 2,
+   "clubs": 3,
    "recordings": 0,
    "where": [
     "Basement",
+    "Bassiani",
     "Nowadays"
    ],
    "rec_links": []
@@ -4806,9 +4828,9 @@
   {
    "id": "dj-jasss",
    "name": "JASSS",
-   "times": 1,
+   "times": 2,
    "first": "2025-08-09",
-   "last": "2025-08-09",
+   "last": "2026-09-19",
    "clubs": 1,
    "recordings": 0,
    "where": [
@@ -5812,9 +5834,9 @@
   {
    "id": "dj-morenxxx",
    "name": "MORENXXX",
-   "times": 3,
+   "times": 4,
    "first": "2025-02-16",
-   "last": "2025-07-26",
+   "last": "2026-09-19",
    "clubs": 1,
    "recordings": 0,
    "where": [
@@ -6944,15 +6966,16 @@
   {
    "id": "dj-roza-terenzi",
    "name": "Roza Terenzi",
-   "times": 2,
+   "times": 3,
    "first": "2023-03-18",
-   "last": "2024-09-08",
-   "clubs": 3,
+   "last": "2026-09-19",
+   "clubs": 4,
    "recordings": 1,
    "where": [
     "Basement",
     "Basement / Knockdown Center",
-    "De School"
+    "De School",
+    "Nowadays"
    ],
    "rec_links": [
     "https://hetarchief.deschoolamsterdam.nl/sets/18-03-2023_saturday_club-night_roza-terenzi_het-muzieklokaal/"
@@ -9471,6 +9494,97 @@
     "Nowadays"
    ],
    "rec_links": []
+  },
+  {
+   "id": "dj-dj-masda",
+   "name": "DJ Masda",
+   "times": 1,
+   "first": "2026-09-19",
+   "last": "2026-09-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mariposa",
+   "name": "Mariposa",
+   "times": 1,
+   "first": "2026-09-19",
+   "last": "2026-09-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-vlada",
+   "name": "Vlada",
+   "times": 1,
+   "first": "2026-09-19",
+   "last": "2026-09-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-vaahzer",
+   "name": "Vaahzer",
+   "times": 1,
+   "first": "2026-09-19",
+   "last": "2026-09-19",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ki-ki",
+   "name": "Ki/Ki",
+   "times": 1,
+   "first": "2022-12-03",
+   "last": "2022-12-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Bassiani"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mary-lake",
+   "name": "Mary Lake",
+   "times": 1,
+   "first": "2022-12-03",
+   "last": "2022-12-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Bassiani"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-polly-f",
+   "name": "Polly F",
+   "times": 1,
+   "first": "2022-12-03",
+   "last": "2022-12-03",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Bassiani"
+   ],
+   "rec_links": []
   }
  ],
  "longest_sessions": [
@@ -9514,7 +9628,7 @@
   {
    "venue": "Nowadays",
    "city": "New York",
-   "nights": "24 nights"
+   "nights": "25 nights"
   },
   {
    "venue": "Basement / Knockdown Center",
