@@ -3,7 +3,7 @@
   {
    "venue": "Nowadays",
    "city": "New York",
-   "count": 25,
+   "count": 26,
    "nights": [
     {
      "date": "2024-10-10",
@@ -381,6 +381,16 @@
       "Mariposa",
       "Roza Terenzi",
       "Vlada b2b Vaahzer"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-10-17",
+     "dow": "Sat",
+     "event": "Nonstop",
+     "lineup": [
+      "Peach"
      ],
      "unknown": "",
      "recordings": []
@@ -9585,6 +9595,19 @@
     "Bassiani"
    ],
    "rec_links": []
+  },
+  {
+   "id": "dj-peach",
+   "name": "Peach",
+   "times": 1,
+   "first": "2026-10-17",
+   "last": "2026-10-17",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
   }
  ],
  "longest_sessions": [
@@ -9628,7 +9651,7 @@
   {
    "venue": "Nowadays",
    "city": "New York",
-   "nights": "25 nights"
+   "nights": "26 nights"
   },
   {
    "venue": "Basement / Knockdown Center",
