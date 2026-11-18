@@ -3,7 +3,7 @@
   {
    "venue": "Nowadays",
    "city": "New York",
-   "count": 26,
+   "count": 31,
    "nights": [
     {
      "date": "2024-10-10",
@@ -391,6 +391,83 @@
      "event": "Nonstop",
      "lineup": [
       "Peach"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-10-24",
+     "dow": "Sat",
+     "event": "Nonstop",
+     "lineup": [
+      "Arthur",
+      "Tasha",
+      "The Untouchables",
+      "BEARCAT",
+      "Baby Leo",
+      "Ayesha",
+      "Mor Elian",
+      "Pearson Sound"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-10-25",
+     "dow": "Sun",
+     "event": "Mister Sunday",
+     "lineup": [
+      "Floating Points",
+      "Justin Carter"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-10-31",
+     "dow": "Sat",
+     "event": "Halloween Nonstop",
+     "lineup": [
+      "IMOGEN",
+      "DJ Stingray",
+      "Juliana Huxtable",
+      "PHILIPPA PACHO",
+      "Rene Wise",
+      "LYDO",
+      "ābnamā",
+      "DJ G",
+      "RHR",
+      "DJ Koolt",
+      "Vladimir Ivkovic"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-11-01",
+     "dow": "Sun",
+     "event": "Mister Halloween Sunday — season closer",
+     "lineup": [
+      "Eamon Harkin",
+      "Justin Carter"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-11-07",
+     "dow": "Sat",
+     "event": "TraTraTrax Nonstop",
+     "lineup": [
+      "Verraco b2b Pariah",
+      "PLO Man",
+      "BADSISTA",
+      "Gabrielle Kwarteng",
+      "Nick León",
+      "Colombian Drone Mafia",
+      "Doctor Jeep",
+      "Ma Sha",
+      "Brenda"
      ],
      "unknown": "",
      "recordings": []
@@ -851,7 +928,7 @@
   {
    "venue": "Mansions",
    "city": "New York",
-   "count": 7,
+   "count": 9,
    "nights": [
     {
      "date": "2023-11-10",
@@ -933,6 +1010,26 @@
       "Shyboi",
       "Donofrio",
       "Love Letters"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-10-25",
+     "dow": "Sun",
+     "event": "",
+     "lineup": [
+      "Ayesha b2b Mor Elian"
+     ],
+     "unknown": "",
+     "recordings": []
+    },
+    {
+     "date": "2026-11-07",
+     "dow": "Sat",
+     "event": "",
+     "lineup": [
+      "Jek"
      ],
      "unknown": "",
      "recordings": []
@@ -1844,6 +1941,21 @@
    ]
   },
   {
+   "venue": "DIY spot (Brooklyn)",
+   "city": "New York",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2026-11-14",
+     "dow": "Sat",
+     "event": "loop002",
+     "lineup": [],
+     "unknown": "Lineup not recovered",
+     "recordings": []
+    }
+   ]
+  },
+  {
    "venue": "E1",
    "city": "London",
    "count": 1,
@@ -2101,6 +2213,28 @@
       "ROD",
       "Thanos Hana",
       "Quelza"
+     ],
+     "unknown": "",
+     "recordings": []
+    }
+   ]
+  },
+  {
+   "venue": "Signal",
+   "city": "New York",
+   "count": 1,
+   "nights": [
+    {
+     "date": "2026-11-05",
+     "dow": "Thu",
+     "event": "Program Audio",
+     "lineup": [
+      "Primo",
+      "S4M23",
+      "erika",
+      "sfcowboy",
+      "Lexicon",
+      "moth"
      ],
      "unknown": "",
      "recordings": []
@@ -2849,12 +2983,13 @@
   {
    "id": "dj-ayesha",
    "name": "Ayesha",
-   "times": 3,
+   "times": 5,
    "first": "2025-02-15",
-   "last": "2026-07-31",
-   "clubs": 1,
+   "last": "2026-10-25",
+   "clubs": 2,
    "recordings": 0,
    "where": [
+    "Mansions",
     "Nowadays"
    ],
    "rec_links": []
@@ -2875,13 +3010,14 @@
   {
    "id": "dj-badsista",
    "name": "BADSISTA",
-   "times": 1,
+   "times": 2,
    "first": "2023-07-14",
-   "last": "2023-07-14",
-   "clubs": 1,
+   "last": "2026-11-07",
+   "clubs": 2,
    "recordings": 0,
    "where": [
-    "De School"
+    "De School",
+    "Nowadays"
    ],
    "rec_links": []
   },
@@ -3632,9 +3768,9 @@
   {
    "id": "dj-dj-g",
    "name": "DJ G",
-   "times": 2,
+   "times": 3,
    "first": "2025-05-18",
-   "last": "2026-07-17",
+   "last": "2026-10-31",
    "clubs": 2,
    "recordings": 0,
    "where": [
@@ -4116,9 +4252,9 @@
   {
    "id": "dj-eamon-harkin",
    "name": "Eamon Harkin",
-   "times": 5,
+   "times": 6,
    "first": "2025-05-11",
-   "last": "2026-08-23",
+   "last": "2026-11-01",
    "clubs": 1,
    "recordings": 0,
    "where": [
@@ -4440,13 +4576,14 @@
   {
    "id": "dj-gabrielle-kwarteng",
    "name": "Gabrielle Kwarteng",
-   "times": 1,
+   "times": 2,
    "first": "2025-09-12",
-   "last": "2025-09-12",
-   "clubs": 1,
+   "last": "2026-11-07",
+   "clubs": 2,
    "recordings": 0,
    "where": [
-    "Basement"
+    "Basement",
+    "Nowadays"
    ],
    "rec_links": []
   },
@@ -4957,9 +5094,9 @@
   {
    "id": "dj-juliana-huxtable",
    "name": "Juliana Huxtable",
-   "times": 1,
+   "times": 2,
    "first": "2025-02-16",
-   "last": "2025-02-16",
+   "last": "2026-10-31",
    "clubs": 1,
    "recordings": 0,
    "where": [
@@ -4997,9 +5134,9 @@
   {
    "id": "dj-justin-carter",
    "name": "Justin Carter",
-   "times": 5,
+   "times": 7,
    "first": "2025-05-11",
-   "last": "2026-08-02",
+   "last": "2026-11-01",
    "clubs": 1,
    "recordings": 0,
    "where": [
@@ -5051,14 +5188,15 @@
   {
    "id": "dj-philippa-pacho",
    "name": "PHILIPPA PACHO",
-   "times": 1,
+   "times": 2,
    "first": "2024-04-28",
-   "last": "2024-04-28",
-   "clubs": 2,
+   "last": "2026-10-31",
+   "clubs": 3,
    "recordings": 0,
    "where": [
     "Basement",
-    "Basement / Knockdown Center"
+    "Basement / Knockdown Center",
+    "Nowadays"
    ],
    "rec_links": []
   },
@@ -5516,14 +5654,15 @@
   {
    "id": "dj-lydo",
    "name": "LYDO",
-   "times": 2,
+   "times": 3,
    "first": "2023-09-30",
-   "last": "2024-09-08",
-   "clubs": 2,
+   "last": "2026-10-31",
+   "clubs": 3,
    "recordings": 0,
    "where": [
     "Basement",
-    "Basement / Knockdown Center"
+    "Basement / Knockdown Center",
+    "Nowadays"
    ],
    "rec_links": []
   },
@@ -7326,13 +7465,14 @@
   {
    "id": "dj-s4m23",
    "name": "S4M23",
-   "times": 1,
+   "times": 2,
    "first": "2025-08-08",
-   "last": "2025-08-08",
-   "clubs": 1,
+   "last": "2026-11-05",
+   "clubs": 2,
    "recordings": 0,
    "where": [
-    "Nowadays"
+    "Nowadays",
+    "Signal"
    ],
    "rec_links": []
   },
@@ -7928,13 +8068,14 @@
   {
    "id": "dj-tasha",
    "name": "Tasha",
-   "times": 1,
+   "times": 2,
    "first": "2026-05-24",
-   "last": "2026-05-24",
-   "clubs": 1,
+   "last": "2026-10-24",
+   "clubs": 2,
    "recordings": 0,
    "where": [
-    "FOLD"
+    "FOLD",
+    "Nowadays"
    ],
    "rec_links": []
   },
@@ -8658,14 +8799,15 @@
   {
    "id": "dj-sfcowboy",
    "name": "sfcowboy",
-   "times": 1,
+   "times": 2,
    "first": "2024-05-31",
-   "last": "2024-05-31",
-   "clubs": 2,
+   "last": "2026-11-05",
+   "clubs": 3,
    "recordings": 0,
    "where": [
     "Secret warehouse",
-    "Secret warehouse (LA)"
+    "Secret warehouse (LA)",
+    "Signal"
    ],
    "rec_links": []
   },
@@ -8806,9 +8948,9 @@
   {
    "id": "dj-pariah",
    "name": "Pariah",
-   "times": 1,
+   "times": 2,
    "first": "2025-05-11",
-   "last": "2025-05-11",
+   "last": "2026-11-07",
    "clubs": 1,
    "recordings": 0,
    "where": [
@@ -9014,22 +9156,23 @@
   {
    "id": "dj-primo",
    "name": "Primo",
-   "times": 1,
+   "times": 2,
    "first": "2026-07-19",
-   "last": "2026-07-19",
-   "clubs": 1,
+   "last": "2026-11-05",
+   "clubs": 2,
    "recordings": 0,
    "where": [
-    "Nowadays"
+    "Nowadays",
+    "Signal"
    ],
    "rec_links": []
   },
   {
    "id": "dj-baby-leo",
    "name": "Baby Leo",
-   "times": 1,
+   "times": 2,
    "first": "2026-07-19",
-   "last": "2026-07-19",
+   "last": "2026-10-24",
    "clubs": 1,
    "recordings": 0,
    "where": [
@@ -9608,6 +9751,319 @@
     "Nowadays"
    ],
    "rec_links": []
+  },
+  {
+   "id": "dj-arthur",
+   "name": "Arthur",
+   "times": 1,
+   "first": "2026-10-24",
+   "last": "2026-10-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-the-untouchables",
+   "name": "The Untouchables",
+   "times": 1,
+   "first": "2026-10-24",
+   "last": "2026-10-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-bearcat",
+   "name": "BEARCAT",
+   "times": 1,
+   "first": "2026-10-24",
+   "last": "2026-10-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-mor-elian",
+   "name": "Mor Elian",
+   "times": 2,
+   "first": "2026-10-24",
+   "last": "2026-10-25",
+   "clubs": 2,
+   "recordings": 0,
+   "where": [
+    "Mansions",
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-pearson-sound",
+   "name": "Pearson Sound",
+   "times": 1,
+   "first": "2026-10-24",
+   "last": "2026-10-24",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-floating-points",
+   "name": "Floating Points",
+   "times": 1,
+   "first": "2026-10-25",
+   "last": "2026-10-25",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-imogen",
+   "name": "IMOGEN",
+   "times": 1,
+   "first": "2026-10-31",
+   "last": "2026-10-31",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-stingray",
+   "name": "DJ Stingray",
+   "times": 1,
+   "first": "2026-10-31",
+   "last": "2026-10-31",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-rene-wise",
+   "name": "Rene Wise",
+   "times": 1,
+   "first": "2026-10-31",
+   "last": "2026-10-31",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-bnam",
+   "name": "ābnamā",
+   "times": 1,
+   "first": "2026-10-31",
+   "last": "2026-10-31",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-rhr",
+   "name": "RHR",
+   "times": 1,
+   "first": "2026-10-31",
+   "last": "2026-10-31",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-dj-koolt",
+   "name": "DJ Koolt",
+   "times": 1,
+   "first": "2026-10-31",
+   "last": "2026-10-31",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-vladimir-ivkovic",
+   "name": "Vladimir Ivkovic",
+   "times": 1,
+   "first": "2026-10-31",
+   "last": "2026-10-31",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-erika",
+   "name": "erika",
+   "times": 1,
+   "first": "2026-11-05",
+   "last": "2026-11-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Signal"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-lexicon",
+   "name": "Lexicon",
+   "times": 1,
+   "first": "2026-11-05",
+   "last": "2026-11-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Signal"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-moth",
+   "name": "moth",
+   "times": 1,
+   "first": "2026-11-05",
+   "last": "2026-11-05",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Signal"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-jek",
+   "name": "Jek",
+   "times": 1,
+   "first": "2026-11-07",
+   "last": "2026-11-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Mansions"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-verraco",
+   "name": "Verraco",
+   "times": 1,
+   "first": "2026-11-07",
+   "last": "2026-11-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-plo-man",
+   "name": "PLO Man",
+   "times": 1,
+   "first": "2026-11-07",
+   "last": "2026-11-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-nick-le-n",
+   "name": "Nick León",
+   "times": 1,
+   "first": "2026-11-07",
+   "last": "2026-11-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-colombian-drone-mafia",
+   "name": "Colombian Drone Mafia",
+   "times": 1,
+   "first": "2026-11-07",
+   "last": "2026-11-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-doctor-jeep",
+   "name": "Doctor Jeep",
+   "times": 1,
+   "first": "2026-11-07",
+   "last": "2026-11-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-ma-sha",
+   "name": "Ma Sha",
+   "times": 1,
+   "first": "2026-11-07",
+   "last": "2026-11-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
+  },
+  {
+   "id": "dj-brenda",
+   "name": "Brenda",
+   "times": 1,
+   "first": "2026-11-07",
+   "last": "2026-11-07",
+   "clubs": 1,
+   "recordings": 0,
+   "where": [
+    "Nowadays"
+   ],
+   "rec_links": []
   }
  ],
  "longest_sessions": [
@@ -9651,7 +10107,7 @@
   {
    "venue": "Nowadays",
    "city": "New York",
-   "nights": "26 nights"
+   "nights": "31 nights"
   },
   {
    "venue": "Basement / Knockdown Center",
@@ -9666,7 +10122,7 @@
   {
    "venue": "Mansions",
    "city": "New York",
-   "nights": "7 nights"
+   "nights": "9 nights"
   },
   {
    "venue": "FOLD",
