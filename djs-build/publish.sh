@@ -33,7 +33,7 @@ if git diff --quiet -- djs djs-build && git diff --quiet --cached -- djs djs-bui
 fi
 
 git add djs djs-build
-git -c user.name="Aaron van Blerkom" -c user.email="aaronvanblerkom@gmail.com" \
+git -c user.name="Aaron van Blerkom" -c user.email="3mmc@email.cz" \
     commit -m "Update the club archive ($(date +%F))"
 git push origin main
 echo
